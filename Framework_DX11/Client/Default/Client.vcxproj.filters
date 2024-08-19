@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="99.Defines">
+      <UniqueIdentifier>{fb79177f-6af2-42b8-a50b-bbc3b63e3f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.MainApp">
+      <UniqueIdentifier>{36ddfabb-8bb7-40c9-a17f-c7b97483a7fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels">
+      <UniqueIdentifier>{f44a7a5e-dc7a-460e-9e7e-389f947c35ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\Logo">
+      <UniqueIdentifier>{bfceb82a-607f-4756-925e-dbf78b769e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\GamePlay">
+      <UniqueIdentifier>{496bfdc0-36c4-4ae4-a032-6e701acb2b32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\Loading">
+      <UniqueIdentifier>{5826f108-d734-4b34-a4f6-11a528a309a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\Loading\Loader">
+      <UniqueIdentifier>{91d96f38-b5f2-4ed1-a4ee-a6224c0c3cf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects">
+      <UniqueIdentifier>{bd09e51d-766a-4343-ad6c-b0e50d2d43cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\00.BackGround">
+      <UniqueIdentifier>{21287f1c-586b-4a97-90d2-9e630f240bae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Default">
+      <UniqueIdentifier>{4d9edaa0-3df0-42f3-8df9-280f1ae7af4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.ShaderFiles">
+      <UniqueIdentifier>{d67a0dbc-f9dd-4c82-9afc-67f9a0ca9a91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\01.Terrain">
+      <UniqueIdentifier>{2ab5ffc4-f04e-4245-a69c-f43b79706f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\99.Camera">
+      <UniqueIdentifier>{98707949-c62a-4e9f-ab5a-f72b9ef89a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\NonAnimModel">
+      <UniqueIdentifier>{f07725b1-7c8d-4e74-b346-a23ed786e8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\AnimModel">
+      <UniqueIdentifier>{c1db762a-68d0-4517-b168-df23579cb577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State">
+      <UniqueIdentifier>{928459ee-b954-4696-8ab4-3516ab1edb38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\99.Camera\FreeCamera">
+      <UniqueIdentifier>{05a171e3-c008-41b2-9277-5ad0af5ee2e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\99.Camera\PlayerCamera">
+      <UniqueIdentifier>{aa9c3c7d-7c7d-45e4-a686-4417fcf97d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link">
+      <UniqueIdentifier>{47a6bbd7-3f5e-4178-b37d-60aa8af72194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Idle">
+      <UniqueIdentifier>{54d4723b-0f37-4a32-9076-220eac8da655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Walk">
+      <UniqueIdentifier>{897149a0-9597-4080-a88f-2654c7190523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\ItemA">
+      <UniqueIdentifier>{24ca2bd4-3b83-4009-b88f-beb714d04917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\ItemB">
+      <UniqueIdentifier>{2b7f80c3-d46d-40b1-b63f-2bc1114f5f2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Jump">
+      <UniqueIdentifier>{1b435d19-5392-4673-a8c0-be20b31196c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Slash">
+      <UniqueIdentifier>{a84b48bd-185a-477a-a4b4-b2a091f9e07c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\02.Player">
+      <UniqueIdentifier>{b20e7400-e886-4504-874d-70b03d49620a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\02.Player\Link">
+      <UniqueIdentifier>{10e8a24e-fa9c-4ddd-870b-b4bbeeea14bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Item">
+      <UniqueIdentifier>{d7c79efa-1893-4c6e-af1b-b766d09e0649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\04.Land">
+      <UniqueIdentifier>{63240ddd-2e22-4926-a00d-714b4825a65a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Item\00.HousePot">
+      <UniqueIdentifier>{b9c818b2-440e-418b-b623-45ac139c5247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Item\01.Bed">
+      <UniqueIdentifier>{847cea1b-3ead-4601-b3b9-62e6fbed1b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\GamePlay\00.MarinHouse">
+      <UniqueIdentifier>{9583df09-6512-475b-99f6-6f7b2783be37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\GamePlay\01.Field">
+      <UniqueIdentifier>{9e630c1c-91ff-48ce-96aa-0807999cd827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster">
+      <UniqueIdentifier>{c4065c8d-2859-4f11-9c85-22c03481c687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\00.Octorok">
+      <UniqueIdentifier>{d9042b05-1782-4105-b0f4-79b05a23f27a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\01.SeaUrchin">
+      <UniqueIdentifier>{4cc5d732-8df6-4d40-a708-8650c6537f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster">
+      <UniqueIdentifier>{3ca3c890-755f-4967-a7b2-2cad70bf3a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\01.SeaUrchin_State">
+      <UniqueIdentifier>{8f892f11-689a-4f34-94cd-6f2a0803e103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\01.SeaUrchin_State\Idle">
+      <UniqueIdentifier>{6084f9a0-f48e-40ad-8c70-cb28ee25d1ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Shield">
+      <UniqueIdentifier>{db8021ba-39f8-4ba3-8a7b-403cdb62a36d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Shield\ShieldWalk">
+      <UniqueIdentifier>{4516b322-7675-4519-8ac2-4af95609cae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\01.SeaUrchin_State\Pushed">
+      <UniqueIdentifier>{8f6bccc3-cbf7-4e1f-be1b-bebb21251f34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\01.SeaUrchin_State\Dead">
+      <UniqueIdentifier>{977e56d4-5d6b-4e5a-bafb-0ff634536bd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\00.Octorok_State">
+      <UniqueIdentifier>{19475523-4ad0-4958-833d-433b440616d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\00.Octorok_State\Walk">
+      <UniqueIdentifier>{19d16379-743e-4c18-b4ae-7201feb6f79b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\00.Octorok_State\Idle">
+      <UniqueIdentifier>{e53dc9b6-d755-4323-9826-ae82a9863942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\00.Octorok_State\Attack">
+      <UniqueIdentifier>{4c2b838e-d825-4264-8dd6-21a23d1d8856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\00.Octorok_State\Dead">
+      <UniqueIdentifier>{a0bb4080-4e08-43dd-bc3f-392ade5186b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\00.Octorok\OctorokRock">
+      <UniqueIdentifier>{77f3c874-8fc7-4c3c-a488-f45e5b760d7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\12.Rola">
+      <UniqueIdentifier>{a25a541b-64b7-49b3-a457-b670b381ec35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\13.Rola_State">
+      <UniqueIdentifier>{91583637-321b-449d-9029-796f17d8b884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\13.Rola_State\Idle">
+      <UniqueIdentifier>{fed7e87d-4028-41d9-9467-199eb245f99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\13.Rola_State\Jump">
+      <UniqueIdentifier>{def9a34d-4f97-4171-bc8e-c94d3657fb29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\13.Rola_State\Push">
+      <UniqueIdentifier>{a55d1743-afd1-47f0-baad-5c229e238a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\13.Rola_State\Demage">
+      <UniqueIdentifier>{6544d60b-7ca3-409f-aa07-fa3f91b031ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\13.Rola_State\Dead">
+      <UniqueIdentifier>{22189fa5-5dee-4de2-8122-da6038b05567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\02.Spark">
+      <UniqueIdentifier>{f341006b-c803-4d6a-83dd-7fd6e397a3a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\02.Spark_State">
+      <UniqueIdentifier>{e5728f72-c9da-4b77-8bda-0221cffe64db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\02.Spark_State\Idle">
+      <UniqueIdentifier>{19eefed1-6bae-4909-ac44-383c71ef6a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\03.Pawn_State">
+      <UniqueIdentifier>{e0976747-d517-4993-84e6-21267778b04b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\03.Pawn_State\Idle">
+      <UniqueIdentifier>{b477b8b6-7797-4bf0-a4e2-879c4bdffc26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\03.Pawn_State\Walk">
+      <UniqueIdentifier>{ef79f7c1-ed08-4f5c-a2af-fbb76b70b7ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\03.Pawn_State\Damage">
+      <UniqueIdentifier>{c3fe723e-046b-4c39-8206-8d294be5cc6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\03.Pawn_State\Dead_Fall">
+      <UniqueIdentifier>{226754ee-adcd-47a2-88a4-750051d6958a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\03.Pawn">
+      <UniqueIdentifier>{1505e1a1-b62c-4cee-a35a-16fce82114d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\03.Pawn_State\Jump">
+      <UniqueIdentifier>{2db1b02d-83c1-4054-8fcd-23bff420e32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\04.Togezo">
+      <UniqueIdentifier>{2585b032-24b8-48f5-bbc2-62b946d16240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\04.Togezo_State">
+      <UniqueIdentifier>{b0288739-3ee0-4499-ad0c-dfab9b8aaeba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\04.Togezo_State\Idle">
+      <UniqueIdentifier>{4a07a8cd-1887-4e85-85ea-2e32927493f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\04.Togezo_State\Run">
+      <UniqueIdentifier>{a3669238-2891-4a46-a2d3-333d103d01d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\04.Togezo_State\Rebound">
+      <UniqueIdentifier>{97dfda09-c48f-4c9c-bc38-92e1e68f5106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\04.Togezo_State\Discover">
+      <UniqueIdentifier>{53cd9b0a-b53f-4a41-b779-48106636a11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\04.Togezo_State\Damage">
+      <UniqueIdentifier>{c8c6f176-af2c-4207-904d-6d5aedd528ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Stair_Up">
+      <UniqueIdentifier>{045549e6-ea47-4d41-8eef-624664a0eee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Stair_Down">
+      <UniqueIdentifier>{385aacde-b69a-413d-b8f7-414086bd88ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\05.Kuribo _State">
+      <UniqueIdentifier>{6922e06b-9cb7-4092-9069-8b7e299bb8f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\05.Kuribo _State\Idle">
+      <UniqueIdentifier>{d6889c00-1db8-46cb-9068-fb4f8aefae85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\05.Kuribo _State\Walk">
+      <UniqueIdentifier>{cafab7dc-7e9f-4432-a6ae-0686120b9f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\05.Kuribo _State\Dead">
+      <UniqueIdentifier>{5ec877ad-fe7e-496e-ad6c-a21cdecca8fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\05.Kuribo">
+      <UniqueIdentifier>{ed745339-4e6c-49d1-9613-da16873a5fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\05.Kuribo _State\Walk_Shake">
+      <UniqueIdentifier>{8330fc3f-33f0-4d0f-b298-af4b8a88cbbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\06.Vegas">
+      <UniqueIdentifier>{a7a52e04-4001-4b8e-9c93-b45425fb4f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State">
+      <UniqueIdentifier>{7498add9-5aee-4ba9-b498-05514555b41d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Idle">
+      <UniqueIdentifier>{53964727-0b3b-43f3-b1dc-31f94fb081b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>98.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>98.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>98.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>98.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MainApp.h">
+      <Filter>00.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Client_Defines.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_Logo.h">
+      <Filter>01.Levels\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_Loading.h">
+      <Filter>01.Levels\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Loader.h">
+      <Filter>01.Levels\Loading\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\BackGround.h">
+      <Filter>02.GameObjects\00.BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Terrain.h">
+      <Filter>02.GameObjects\01.Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\NonAnimModel.h">
+      <Filter>02.GameObjects\NonAnimModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\AnimModel.h">
+      <Filter>02.GameObjects\AnimModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Player.h">
+      <Filter>02.GameObjects\02.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\FreeCamera.h">
+      <Filter>02.GameObjects\99.Camera\FreeCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\PlayerCamera.h">
+      <Filter>02.GameObjects\99.Camera\PlayerCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Link.h">
+      <Filter>02.GameObjects\02.Player\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Idle.h">
+      <Filter>05.State\Link\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Walk.h">
+      <Filter>05.State\Link\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_ItemA.h">
+      <Filter>05.State\Link\ItemA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_ItemB.h">
+      <Filter>05.State\Link\ItemB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Jump.h">
+      <Filter>05.State\Link\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Land.h">
+      <Filter>02.GameObjects\04.Land</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Item.h">
+      <Filter>02.GameObjects\03.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\HousePot.h">
+      <Filter>02.GameObjects\03.Item\00.HousePot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Bed.h">
+      <Filter>02.GameObjects\03.Item\01.Bed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Slash.h">
+      <Filter>05.State\Link\Slash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Shield.h">
+      <Filter>05.State\Link\Shield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Shield_Walk.h">
+      <Filter>05.State\Link\Shield\ShieldWalk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_MarinHouse.h">
+      <Filter>01.Levels\GamePlay\00.MarinHouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_Field.h">
+      <Filter>01.Levels\GamePlay\01.Field</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Monster.h">
+      <Filter>02.GameObjects\05.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SeaUrchin.h">
+      <Filter>02.GameObjects\05.Monster\01.SeaUrchin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_SeaUrchin_Idle.h">
+      <Filter>05.State\Monster\01.SeaUrchin_State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_SeaUrchin_Pushed.h">
+      <Filter>05.State\Monster\01.SeaUrchin_State\Pushed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_SeaUrchin_Dead.h">
+      <Filter>05.State\Monster\01.SeaUrchin_State\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Octorok.h">
+      <Filter>02.GameObjects\05.Monster\00.Octorok</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Octorok_Idle.h">
+      <Filter>05.State\Monster\00.Octorok_State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Octorok_Attack.h">
+      <Filter>05.State\Monster\00.Octorok_State\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Octorok_Dead.h">
+      <Filter>05.State\Monster\00.Octorok_State\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Octorok_Walk.h">
+      <Filter>05.State\Monster\00.Octorok_State\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\OctorokRock.h">
+      <Filter>02.GameObjects\05.Monster\00.Octorok\OctorokRock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rola.h">
+      <Filter>02.GameObjects\05.Monster\12.Rola</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Rola_Idle.h">
+      <Filter>05.State\Monster\13.Rola_State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Rola_Jump.h">
+      <Filter>05.State\Monster\13.Rola_State\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Rola_Push.h">
+      <Filter>05.State\Monster\13.Rola_State\Push</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Rola_Demage.h">
+      <Filter>05.State\Monster\13.Rola_State\Demage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Rola_Dead.h">
+      <Filter>05.State\Monster\13.Rola_State\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Spark_Idle.h">
+      <Filter>05.State\Monster\02.Spark_State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Spark.h">
+      <Filter>02.GameObjects\05.Monster\02.Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Pawn_Idle.h">
+      <Filter>05.State\Monster\03.Pawn_State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Pawn_Damage.h">
+      <Filter>05.State\Monster\03.Pawn_State\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Pawn_DeadFall.h">
+      <Filter>05.State\Monster\03.Pawn_State\Dead_Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Pawn_Walk.h">
+      <Filter>05.State\Monster\03.Pawn_State\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Pawn.h">
+      <Filter>02.GameObjects\05.Monster\03.Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Pawn_Jump.h">
+      <Filter>05.State\Monster\03.Pawn_State\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Togezo.h">
+      <Filter>02.GameObjects\05.Monster\04.Togezo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Togezo_Damage.h">
+      <Filter>05.State\Monster\04.Togezo_State\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Togezo_Discover.h">
+      <Filter>05.State\Monster\04.Togezo_State\Discover</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Togezo_Idle.h">
+      <Filter>05.State\Monster\04.Togezo_State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Togezo_Rebound.h">
+      <Filter>05.State\Monster\04.Togezo_State\Rebound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Togezo_Run.h">
+      <Filter>05.State\Monster\04.Togezo_State\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Stair_Down.h">
+      <Filter>05.State\Link\Stair_Down</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Stair_Up.h">
+      <Filter>05.State\Link\Stair_Up</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Kuribo_Idle.h">
+      <Filter>05.State\Monster\05.Kuribo _State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Kuribo_Dead.h">
+      <Filter>05.State\Monster\05.Kuribo _State\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Kuribo_Walk.h">
+      <Filter>05.State\Monster\05.Kuribo _State\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Kuribo.h">
+      <Filter>02.GameObjects\05.Monster\05.Kuribo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Kuribo_Walk_Shake.h">
+      <Filter>05.State\Monster\05.Kuribo _State\Walk_Shake</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Vegas.h">
+      <Filter>02.GameObjects\05.Monster\06.Vegas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Idle.h">
+      <Filter>05.State\Monster\06.Vegas_State\Idle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>98.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>98.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MainApp.cpp">
+      <Filter>00.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Logo.cpp">
+      <Filter>01.Levels\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Loading.cpp">
+      <Filter>01.Levels\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Loader.cpp">
+      <Filter>01.Levels\Loading\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\BackGround.cpp">
+      <Filter>02.GameObjects\00.BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Terrain.cpp">
+      <Filter>02.GameObjects\01.Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\NonAnimModel.cpp">
+      <Filter>02.GameObjects\NonAnimModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\AnimModel.cpp">
+      <Filter>02.GameObjects\AnimModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\FreeCamera.cpp">
+      <Filter>02.GameObjects\99.Camera\FreeCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\PlayerCamera.cpp">
+      <Filter>02.GameObjects\99.Camera\PlayerCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Link.cpp">
+      <Filter>02.GameObjects\02.Player\Link</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Idle.cpp">
+      <Filter>05.State\Link\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Walk.cpp">
+      <Filter>05.State\Link\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player.cpp">
+      <Filter>02.GameObjects\02.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_ItemA.cpp">
+      <Filter>05.State\Link\ItemA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_ItemB.cpp">
+      <Filter>05.State\Link\ItemB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Jump.cpp">
+      <Filter>05.State\Link\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Land.cpp">
+      <Filter>02.GameObjects\04.Land</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Item.cpp">
+      <Filter>02.GameObjects\03.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\HousePot.cpp">
+      <Filter>02.GameObjects\03.Item\00.HousePot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bed.cpp">
+      <Filter>02.GameObjects\03.Item\01.Bed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Slash.cpp">
+      <Filter>05.State\Link\Slash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Shield.cpp">
+      <Filter>05.State\Link\Shield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Shield_Walk.cpp">
+      <Filter>05.State\Link\Shield\ShieldWalk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_MarinHouse.cpp">
+      <Filter>01.Levels\GamePlay\00.MarinHouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Field.cpp">
+      <Filter>01.Levels\GamePlay\01.Field</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Monster.cpp">
+      <Filter>02.GameObjects\05.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SeaUrchin.cpp">
+      <Filter>02.GameObjects\05.Monster\01.SeaUrchin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_SeaUrchin_Idle.cpp">
+      <Filter>05.State\Monster\01.SeaUrchin_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_SeaUrchin_Pushed.cpp">
+      <Filter>05.State\Monster\01.SeaUrchin_State\Pushed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_SeaUrchin_Dead.cpp">
+      <Filter>05.State\Monster\01.SeaUrchin_State\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Octorok.cpp">
+      <Filter>02.GameObjects\05.Monster\00.Octorok</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Octorok_Idle.cpp">
+      <Filter>05.State\Monster\00.Octorok_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Octorok_Attack.cpp">
+      <Filter>05.State\Monster\00.Octorok_State\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Octorok_Dead.cpp">
+      <Filter>05.State\Monster\00.Octorok_State\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Octorok_Walk.cpp">
+      <Filter>05.State\Monster\00.Octorok_State\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\OctorokRock.cpp">
+      <Filter>02.GameObjects\05.Monster\00.Octorok\OctorokRock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rola.cpp">
+      <Filter>02.GameObjects\05.Monster\12.Rola</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Rola_Idle.cpp">
+      <Filter>05.State\Monster\13.Rola_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Rola_Jump.cpp">
+      <Filter>05.State\Monster\13.Rola_State\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Rola_Push.cpp">
+      <Filter>05.State\Monster\13.Rola_State\Push</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Rola_Dead.cpp">
+      <Filter>05.State\Monster\13.Rola_State\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Spark_Idle.cpp">
+      <Filter>05.State\Monster\02.Spark_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Spark.cpp">
+      <Filter>02.GameObjects\05.Monster\02.Spark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Pawn_Idle.cpp">
+      <Filter>05.State\Monster\03.Pawn_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Pawn_Damage.cpp">
+      <Filter>05.State\Monster\03.Pawn_State\Damage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Pawn_DeadFall.cpp">
+      <Filter>05.State\Monster\03.Pawn_State\Dead_Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Pawn_Walk.cpp">
+      <Filter>05.State\Monster\03.Pawn_State\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Rola_Demage.cpp">
+      <Filter>05.State\Monster\13.Rola_State\Demage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Pawn.cpp">
+      <Filter>02.GameObjects\05.Monster\03.Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Pawn_Jump.cpp">
+      <Filter>05.State\Monster\03.Pawn_State\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Togezo.cpp">
+      <Filter>02.GameObjects\05.Monster\04.Togezo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Togezo_Damage.cpp">
+      <Filter>05.State\Monster\04.Togezo_State\Damage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Togezo_Discover.cpp">
+      <Filter>05.State\Monster\04.Togezo_State\Discover</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Togezo_Idle.cpp">
+      <Filter>05.State\Monster\04.Togezo_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Togezo_Rebound.cpp">
+      <Filter>05.State\Monster\04.Togezo_State\Rebound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Togezo_Run.cpp">
+      <Filter>05.State\Monster\04.Togezo_State\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Stair_Down.cpp">
+      <Filter>05.State\Link\Stair_Down</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Stair_Up.cpp">
+      <Filter>05.State\Link\Stair_Up</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Kuribo_Idle.cpp">
+      <Filter>05.State\Monster\05.Kuribo _State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Kuribo_Dead.cpp">
+      <Filter>05.State\Monster\05.Kuribo _State\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Kuribo_Walk.cpp">
+      <Filter>05.State\Monster\05.Kuribo _State\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Kuribo.cpp">
+      <Filter>02.GameObjects\05.Monster\05.Kuribo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Kuribo_Walk_Shake.cpp">
+      <Filter>05.State\Monster\05.Kuribo _State\Walk_Shake</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Vegas.cpp">
+      <Filter>02.GameObjects\05.Monster\06.Vegas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Idle.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Idle</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Client.ico">
+      <Filter>98.Default</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>98.Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>98.Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>98.Default</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxPosTex.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxNorTex.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxModel.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxAnimModel.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

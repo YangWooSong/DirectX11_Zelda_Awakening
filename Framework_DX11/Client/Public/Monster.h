@@ -1,0 +1,76 @@
+#pragma once
+
+#include "Client_Defines.h"
+#include "GameObject.h"
+
+BEGIN(Engine)
+class CShader;
+class CModel;
+class CFsm;
+END
+
+BEGIN(Client)
+
+class CMonster :
+    public CGameObject
+{
+public:
+	enum MONSTER_DIR { FRONT, BACK, LEFT, RIGHT, MONSTER_DIR_END};
+protected:
+	CMonster(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+	CMonster(const CMonster& Prototype);
+	virtual ~CMonster() = default;
+
+public:
+	virtual HRESULT Initialize_Prototype() override;
+	virtual HRESULT Initialize(void* pArg) override;
+	virtual void Priority_Update(_float fTimeDelta) override;
+	virtual void Update(_float fTimeDelta) override;
+	virtual void Late_Update(_float fTimeDelta) override;
+	virtual HRESULT Render() override;
+
+public:
+	class CModel* Get_Model() { return m_pModelCom; }
+
+public:
+	void		Go_Straight(_float fTimeDelta, _float fSpeed);
+	void		Change_State(const _uint iState);
+	void		SetUp_NextAnimation(_uint iNextAnimationIndex, _float fChangeDuration = 0.2f, _bool _bLoop = false, _uint iStartFrame = 0);
+	void		Set_AnimationSpeed(_uint _AnimationIndex, _double _dAnimSpeed);
+	_bool       Get_IsEnd_CurrentAnimation();
+
+	_float					Get_MoveSpeed() { return m_fMoveSpeed; }
+	void					Set_MoveSpeed(_float fSpeed) { m_fMoveSpeed = fSpeed; }
+
+	_uint		Get_Monster_Dir() { return m_iDir; }
+	void		Set_Monster_Dir(_uint _iDir) { m_iDir = _iDir; }
+	
+	void		Set_NewRandom_Dir();
+	_float3     Get_Pos() 
+	{
+		_float3 pos = {};
+		XMStoreFloat3(&pos, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+		 return pos;
+	}
+
+	_float	Get_Distance(_vector _Pos1, _vector _Pos2);
+	_vector Get_Pos_vector();
+protected:
+	HRESULT Ready_Components();
+
+protected:
+	class CModel* m_pModelCom = { nullptr };
+	class CShader* m_pShaderCom = { nullptr };
+	class CFsm* m_pFsmCom = { nullptr };
+
+protected:
+	_float				m_fMoveSpeed = { 3.f };
+	_uint				m_iDir = { BACK };		
+public:
+	static CMonster* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+	virtual CGameObject* Clone(void* pArg);
+	virtual void Free() override;
+
+};
+
+END

@@ -1,0 +1,130 @@
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxAnimModel.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModel.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxNorTex.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPosTex.cso
+  stdafx.cpp
+  AnimModel.cpp
+  BackGround.cpp
+  Bed.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Bed.cpp(72,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Bed.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Bed.cpp(78,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Bed.cpp'을(를) 컴파일하는 중)
+  
+  FreeCamera.cpp
+  HousePot.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\HousePot.cpp(69,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/HousePot.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\HousePot.cpp(75,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/HousePot.cpp'을(를) 컴파일하는 중)
+  
+  Item.cpp
+  Kuribo.cpp
+  Land.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Land.cpp(71,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Land.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Land.cpp(77,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Land.cpp'을(를) 컴파일하는 중)
+  
+  Level_Field.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(208,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
+  
+  Level_MarinHouse.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_MarinHouse.cpp(201,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_MarinHouse.cpp'을(를) 컴파일하는 중)
+  
+  Level_Loading.cpp
+  Level_Logo.cpp
+  Link.cpp
+  Loader.cpp
+  MainApp.cpp
+  Monster.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Monster.cpp(87,16): warning C4244: '초기화 중': 'Engine::_float'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Monster.cpp'을(를) 컴파일하는 중)
+  
+  NonAnimModel.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\NonAnimModel.cpp(64,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/NonAnimModel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\NonAnimModel.cpp(72,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/NonAnimModel.cpp'을(를) 컴파일하는 중)
+  
+  Octorok.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Octorok.cpp(41,38): warning C4244: '=': 'Engine::_float'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Octorok.cpp'을(를) 컴파일하는 중)
+  
+  OctorokRock.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\OctorokRock.cpp(91,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/OctorokRock.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\OctorokRock.cpp(97,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/OctorokRock.cpp'을(를) 컴파일하는 중)
+  
+  Pawn.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  Player.cpp
+  PlayerCamera.cpp
+  Rola.cpp
+  SeaUrchin.cpp
+  Spark.cpp
+  State_Kuribo_Dead.cpp
+  State_Kuribo_Idle.cpp
+  State_Kuribo_Walk.cpp
+  State_Kuribo_Walk_Shake.cpp
+  State_Link_Idle.cpp
+  State_Link_ItemA.cpp
+  State_Link_ItemB.cpp
+  State_Link_Jump.cpp
+  State_Link_Shield.cpp
+  State_Link_Shield_Walk.cpp
+  State_Link_Slash.cpp
+  State_Link_Stair_Down.cpp
+  State_Link_Stair_Up.cpp
+  State_Link_Walk.cpp
+  State_Octorok_Attack.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  State_Octorok_Dead.cpp
+  State_Octorok_Idle.cpp
+  State_Octorok_Walk.cpp
+  State_Pawn_Damage.cpp
+  State_Pawn_DeadFall.cpp
+  State_Pawn_Idle.cpp
+  State_Pawn_Jump.cpp
+  State_Pawn_Walk.cpp
+  State_Rola_Dead.cpp
+  State_Rola_Demage.cpp
+  State_Rola_Idle.cpp
+  State_Rola_Jump.cpp
+  State_Rola_Push.cpp
+  State_SeaUrchin_Dead.cpp
+  State_SeaUrchin_Idle.cpp
+  State_SeaUrchin_Pushed.cpp
+  State_Spark_Idle.cpp
+  State_Togezo_Damage.cpp
+  State_Togezo_Discover.cpp
+  State_Togezo_Idle.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  State_Togezo_Rebound.cpp
+  State_Togezo_Run.cpp
+  State_Vegas_Idle.cpp
+  Terrain.cpp
+  Togezo.cpp
+  Vegas.cpp
+  Client.cpp
+  코드를 생성하고 있습니다...
+  Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
