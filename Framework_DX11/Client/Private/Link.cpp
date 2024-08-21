@@ -49,7 +49,7 @@ HRESULT CLink::Initialize(void* pArg)
 
 	m_ePlayer_Dir = FRONT;
 
-	m_pGameInstance->SetUp_Player(this);
+	//m_pGameInstance->SetUp_Player(this);
 
 	return S_OK;
 }

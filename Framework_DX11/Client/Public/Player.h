@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Client_Defines.h"
-#include "GameObject.h"
+#include "ContainerObject.h"
 
 BEGIN(Engine)
 class CShader;
@@ -11,9 +11,10 @@ END
 
 BEGIN(Client)
 
-class CPlayer : public CGameObject
+class CPlayer : public CContainerObject
 {
 public:
+	enum PARTID { PART_BODY, PART_WEAPON, PART_END };
 	enum PLAYER_DIR{FRONT, LEFT,LEFTUFRONT, LEFTBACK, BACK, RIGHT,RIGHTFRONT,RIGHTBACK, PLAYER_DIR_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
@@ -41,6 +42,8 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	HRESULT		Ready_PartObjects();
+
 	void		Move_Dir(_fvector vDir, _float fSpeed, _float fTimeDelta);
 	void		Go_Straight(_float fTimeDelta, _float fSpeed);
 	void		Go_Backward(_float fTimeDelta, _float fSpeed);

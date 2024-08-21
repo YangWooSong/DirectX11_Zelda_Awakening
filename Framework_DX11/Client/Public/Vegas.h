@@ -14,7 +14,7 @@ class CVegas :
 	public CMonster
 {
 public:
-	enum VEGAS_STATE { IDLE, STATE_END };
+	enum VEGAS_STATE { IDLE, WALK_F, WALK_B, WALK_L, WALK_R, DAMAGE, DEAD, STATE_END };
 private:
 	CVegas(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CVegas(const CVegas& Prototype);
@@ -32,9 +32,8 @@ private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
 
-	class CModel* m_pModelComs[4] = {};
-
-	_uint			m_iModelIndex = { 0 };
+	_uint	m_iTextureNum = { 0 };
+	_float m_fTimer = { 0.f };
 public:
 	static CVegas* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

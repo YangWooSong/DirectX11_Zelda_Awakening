@@ -32,6 +32,8 @@ public:
 	class CGameObject*	Find_Player(_uint iLevelIndex = 0);
 	class CGameObject*	Find_Camera(_uint iLevelIndex = 0);
 
+	class CGameObject* Clone_GameObject(const _wstring& strPrototypeTag, void* pArg = nullptr);
+
 private:
 
 	/* 원형객체들을 보관한다. */

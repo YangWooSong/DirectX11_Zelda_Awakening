@@ -149,8 +149,8 @@ void CTransform::Go_World_Up(_float fTimeDelta, _float fSpeed)
 	_vector		vPosition = Get_State(STATE_POSITION);
 	_float3     vDir = { 0.f, 1.0f,0.0f };
 
-	if (fSpeed <= 0.f)
-		fSpeed = m_fSpeedPerSec;
+	//if (fSpeed <= 0.f)
+	//	fSpeed = m_fSpeedPerSec;
 
 	vPosition += XMLoadFloat3(&vDir) * fSpeed * fTimeDelta;
 

@@ -79,6 +79,42 @@ HRESULT CTexture::Bind_ShadeResource(CShader* pShader, const _char* pConstantNam
 	return pShader->Bind_SRV(pConstantName, m_SRVs[iTextureIndex]);
 }
 
+HRESULT CTexture::Add_Texture(const _tchar* pTextureFilePath)
+{
+	m_iNumTextures++;
+
+	_tchar			szFullPath[MAX_PATH] = TEXT("");
+	_tchar			szExt[MAX_PATH] = TEXT("");
+
+	_wsplitpath_s(pTextureFilePath, nullptr, 0, nullptr, 0, nullptr, 0, szExt, MAX_PATH);
+
+
+	wsprintf(szFullPath, pTextureFilePath, 0);
+
+	ID3D11ShaderResourceView* pSRV = { nullptr };
+
+	HRESULT		hr = { 0 };
+
+	if (false == lstrcmp(TEXT(".dds"), szExt))
+	{
+		hr = CreateDDSTextureFromFile(m_pDevice, szFullPath, nullptr, &pSRV);
+	}
+	else if (false == lstrcmp(TEXT(".tga"), szExt))
+		return E_FAIL;
+
+	else
+	{
+		hr = CreateWICTextureFromFile(m_pDevice, szFullPath, nullptr, &pSRV);
+	}
+
+	if (FAILED(hr))
+		return E_FAIL;
+
+	m_SRVs.emplace_back(pSRV);
+	
+	return S_OK;
+}
+
 CTexture* CTexture::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const _tchar* pTextureFilePath, _uint iNumTextures)
 {
 	CTexture* pInstance = new CTexture(pDevice, pContext);

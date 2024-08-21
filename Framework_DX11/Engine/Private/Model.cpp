@@ -184,7 +184,7 @@ void CModel::Play_Animation(_float fTimeDelta)
 				KEYFRAME	tCurrentAnimKeyFrame = CurrentChannels[i]->Get_CurrentKeyFrame();
 				KEYFRAME	tNextAnimKeyFrame = NextChannels[i]->Get_KeyFrame(m_tChangeDesc.iStartFrame);
 
-				if (tNextAnimKeyFrame.TrackPosition != 0.0)
+				if (tNextAnimKeyFrame.TrackPosition != 0.0 && m_ChangeTrackPosition < tNextAnimKeyFrame.TrackPosition)
 					m_ChangeTrackPosition = tNextAnimKeyFrame.TrackPosition;
 
 				_vector		vSourScale = XMLoadFloat3(&tCurrentAnimKeyFrame.vScale);
@@ -237,12 +237,12 @@ void CModel::Set_AnimationSpeed(_uint _AnimationIndex, _double _dAnimSpeed)
 	m_Animations[_AnimationIndex]->Set_Speed(_dAnimSpeed);
 }
 
-HRESULT CModel::Bind_Material(CShader* pShader, _char* pConstantName, TEXTURE_TYPE eMaterialType, _uint iMeshIndex)
+HRESULT CModel::Bind_Material(CShader* pShader, _char* pConstantName, TEXTURE_TYPE eMaterialType, _uint iMeshIndex, _uint iTextureNum)
 {
 	_uint iMaterialIndex = m_Meshes[iMeshIndex]->Get_MaterialIndex();
 
 	if (m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType] != nullptr)
-		return m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType]->Bind_ShadeResource(pShader, pConstantName, 0);
+		return m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType]->Bind_ShadeResource(pShader, pConstantName, iTextureNum);
 
 	return S_OK;
 }
@@ -250,6 +250,16 @@ HRESULT CModel::Bind_Material(CShader* pShader, _char* pConstantName, TEXTURE_TY
 HRESULT CModel::Bind_MeshBoneMatrices(CShader* pShader, const _char* pConstantName, _uint iMeshIndex)
 {
 	m_Meshes[iMeshIndex]->Bind_BoneMatrices(this, pShader, pConstantName);
+
+	return S_OK;
+}
+
+HRESULT CModel::Add_Texture_to_Material(const _tchar* pTextureFilePath, TEXTURE_TYPE eMaterialType, _uint iMeshIndex)
+{
+	_uint iMaterialIndex = m_Meshes[iMeshIndex]->Get_MaterialIndex();
+
+	if (m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType] != nullptr)
+		return m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType]->Add_Texture(pTextureFilePath);
 
 	return S_OK;
 }

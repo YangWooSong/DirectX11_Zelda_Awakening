@@ -25,7 +25,7 @@ public:
 
 public:
 	HRESULT Bind_ShadeResource(class CShader* pShader, const _char* pConstantName, _uint iTextureIndex);
-
+	HRESULT Add_Texture(const _tchar* pTextureFilePath);
 
 
 private:

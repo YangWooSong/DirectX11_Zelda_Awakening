@@ -4,12 +4,12 @@
 #include "GameInstance.h"
 
 CPlayer::CPlayer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
-	: CGameObject{ pDevice, pContext }
+	: CContainerObject{ pDevice, pContext }
 {
 }
 
 CPlayer::CPlayer(const CPlayer& Prototype)
-	: CGameObject{ Prototype }
+	: CContainerObject{ Prototype }
 {
 }
 
@@ -58,6 +58,28 @@ void CPlayer::Late_Update(_float fTimeDelta)
 
 HRESULT CPlayer::Render()
 {
+	return S_OK;
+}
+
+HRESULT CPlayer::Ready_PartObjects()
+{
+	/* 실제 추가하고 싶은 파트오브젝트의 갯수만큼 밸류를 셋팅해놓자. */
+	/*m_Parts.resize(PART_END);
+
+	CBody_Player::BODY_DESC		BodyDesc{};
+	BodyDesc.pParentState = &m_iState;
+	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	if (FAILED(__super::Add_PartObject(PART_BODY, TEXT("Prototype_GameObject_Body_Player"), &BodyDesc)))
+		return E_FAIL;
+
+	CWeapon::WEAPON_DESC		WeaponDesc{};
+	WeaponDesc.pParentState = &m_iState;
+	WeaponDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	WeaponDesc.pSocketBoneMatrix = dynamic_cast<CBody_Player*>(m_Parts[PART_BODY])->Get_BoneMatrix_Ptr("SWORD");
+
+	if (FAILED(__super::Add_PartObject(PART_WEAPON, TEXT("Prototype_GameObject_Weapon"), &WeaponDesc)))
+		return E_FAIL;*/
+
 	return S_OK;
 }
 

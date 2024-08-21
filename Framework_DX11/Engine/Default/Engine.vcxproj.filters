@@ -124,6 +124,12 @@
     <Filter Include="01.Utility\03.Components\Model\Animation\Channel">
       <UniqueIdentifier>{363f778d-eb48-410b-9344-3b12dba2ad1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\02.GameObjects\04.ContainerObject">
+      <UniqueIdentifier>{e34b64a8-e3ab-468c-a45f-7dfa48744ec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\02.GameObjects\04.ContainerObject\PartObject">
+      <UniqueIdentifier>{4d13f2f3-e2bb-4aa5-b08e-02b997cffd38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -239,6 +245,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Channel.cpp">
       <Filter>01.Utility\03.Components\Model\Animation\Channel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ContainerObject.cpp">
+      <Filter>01.Utility\02.GameObjects\04.ContainerObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\PartObject.cpp">
+      <Filter>01.Utility\02.GameObjects\04.ContainerObject\PartObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,6 +383,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\Channel.h">
       <Filter>01.Utility\03.Components\Model\Animation\Channel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ContainerObject.h">
+      <Filter>01.Utility\02.GameObjects\04.ContainerObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\PartObject.h">
+      <Filter>01.Utility\02.GameObjects\04.ContainerObject\PartObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -52,6 +52,7 @@ public:
 #pragma region OBJECT_MANAGER
 	HRESULT Add_Prototype(const _wstring& strPrototypeTag, class CGameObject* pPrototype);
 	HRESULT Add_CloneObject_ToLayer(_uint iLevelIndex, const _wstring& strLayerTag, const _wstring& strPrototypeTag, void* pArg = nullptr);
+
 	class CComponent* Find_Component(_uint iLevelIndex, const _wstring& strLayerTag, const _wstring& strComponentTag, _uint iIndex = 0);
 	class CLayer* Find_Layer(_uint iLevelIndex, const _wstring& strLayerTag);
 	class CGameObject* Find_Object(_uint iLevelIndex, const _wstring& strLayerTag, _uint iIndex);
@@ -59,6 +60,8 @@ public:
 
 	class CGameObject* Find_Player(_uint iLevelIndex);
 	class CGameObject* Find_Camera(_uint iLevelIndex = 0);
+
+	class CGameObject* Clone_GameObject(const _wstring& strPrototypeTag, void* pArg = nullptr);
 #pragma endregion
 
 

@@ -27,7 +27,7 @@ HRESULT CLevel_Field::Initialize()
 	if (FAILED(Ready_Layer_Effect()))
 		return E_FAIL;
 
-	//Read();
+	Read();
 
 	return S_OK;
 }
@@ -114,43 +114,11 @@ HRESULT CLevel_Field::Ready_LandObjects()
 {
 
 	CPlayer::PLAYER_DESC PlayerDesc;
-	PlayerDesc.vPosition = _float3(0.f, 0.f, 10.f);
+	PlayerDesc.vPosition = _float3(5.f, 10.f, 5.f);
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 
-	CGameObject::GAMEOBJECT_DESC GameObj_Desc{};
-
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_SeaUrchin"), TEXT("Prototype_GameObject_SeaUrchin"), &GameObj_Desc)))
-		return E_FAIL;
-
-	GameObj_Desc.vPosition = _float3(5.f, 0.f, 0.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Octorok"), TEXT("Prototype_GameObject_Octorok"), &GameObj_Desc)))
-		return E_FAIL;
-
-	GameObj_Desc.vPosition = _float3(-5.f, 0.f, 0.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Rola"), TEXT("Prototype_GameObject_Rola"), &GameObj_Desc)))
-		return E_FAIL;
-
-	GameObj_Desc.vPosition = _float3(-5.f, 0.f, 5.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Spark"), TEXT("Prototype_GameObject_Spark"), &GameObj_Desc)))
-		return E_FAIL;
-
-	GameObj_Desc.vPosition = _float3(10.f, 0.f, 5.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Pawn"), TEXT("Prototype_GameObject_Pawn"), &GameObj_Desc)))
-		return E_FAIL;
-
-	GameObj_Desc.vPosition = _float3(5.f, 0.f, 5.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Togezo"), TEXT("Prototype_GameObject_Togezo"), &GameObj_Desc)))
-		return E_FAIL;
-
-	GameObj_Desc.vPosition = _float3(5.f, 0.f, 10.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Kuribo"), TEXT("Prototype_GameObject_Kuribo"), &GameObj_Desc)))
-		return E_FAIL;
-
-	//GameObj_Desc.vPosition = _float3(-5.f, 0.f, 10.f);
-	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Vegas"), TEXT("Prototype_GameObject_Vegas"), &GameObj_Desc)))
-	//	return E_FAIL;
-
+	
 	return S_OK;
 }
 
@@ -250,7 +218,7 @@ HRESULT CLevel_Field::Read_LandObjects(_int _type, _uint _index, _float3 _fPos, 
 	pDesc.vPosition = _fPos;
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Land"), TEXT("Prototype_GameObject_Land"), &pDesc)))
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Land"), TEXT("Prototype_GameObject_Land"), &pDesc)))
 		return E_FAIL;
 
 	return S_OK;

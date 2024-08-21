@@ -253,6 +253,24 @@
     <Filter Include="05.State\Monster\06.Vegas_State\Idle">
       <UniqueIdentifier>{53964727-0b3b-43f3-b1dc-31f94fb081b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Dead">
+      <UniqueIdentifier>{94fb9925-e0c5-4ce4-80b5-22ea2214094f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Damage">
+      <UniqueIdentifier>{ccbc294a-30da-4365-97d3-c8edc9484e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Walk_f">
+      <UniqueIdentifier>{2e380197-fa87-4868-ab2b-2f414b94ce36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Walk_b">
+      <UniqueIdentifier>{f0107e0b-3393-48a0-a8bb-5b263151df96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Walk_l">
+      <UniqueIdentifier>{d573eafe-8c70-4aeb-834c-fcb7e227ee8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\06.Vegas_State\Walk_r">
+      <UniqueIdentifier>{f8621d0f-3e88-4189-97ca-2d4ddf1c752a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -468,6 +486,24 @@
     <ClInclude Include="..\Public\State_Vegas_Idle.h">
       <Filter>05.State\Monster\06.Vegas_State\Idle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Damage.h">
+      <Filter>05.State\Monster\06.Vegas_State\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Dead.h">
+      <Filter>05.State\Monster\06.Vegas_State\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Walk_f.h">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_f</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Walk_r.h">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_r</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Walk_l.h">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_l</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Vegas_Walk_b.h">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_b</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -673,6 +709,24 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Vegas_Idle.cpp">
       <Filter>05.State\Monster\06.Vegas_State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Damage.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Damage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Dead.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Walk_f.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Walk_r.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_r</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Walk_l.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_l</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Vegas_Walk_b.cpp">
+      <Filter>05.State\Monster\06.Vegas_State\Walk_b</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

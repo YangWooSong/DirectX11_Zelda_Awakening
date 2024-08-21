@@ -4,6 +4,12 @@
 #include "Shader.h"
 #include "Model.h"
 #include "State_Vegas_Idle.h"
+#include "State_Vegas_Walk_f.h"
+#include "State_Vegas_Walk_b.h"
+#include "State_Vegas_Walk_l.h"
+#include "State_Vegas_Walk_r.h"
+#include "State_Vegas_Damage.h"
+#include "State_Vegas_Dead.h"
 
 CVegas::CVegas(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
@@ -38,9 +44,13 @@ HRESULT CVegas::Initialize(void* pArg)
 	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
 	//m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
 	//m_vRot = pDesc->vRotation;
-
 	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
+	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Monster/Vegas/MI_body_alb.1.dds"), TEXTURE_TYPE::DIFFUSE, 0);
+	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Monster/Vegas/MI_body_alb.2.dds"), TEXTURE_TYPE::DIFFUSE, 0);
+	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Monster/Vegas/MI_body_alb.3.dds"), TEXTURE_TYPE::DIFFUSE, 0);
+
+	m_iTextureNum = 0;
 
 	return S_OK;
 }
@@ -52,8 +62,16 @@ void CVegas::Priority_Update(_float fTimeDelta)
 
 void CVegas::Update(_float fTimeDelta)
 {
-	m_pFsmCom->Update(fTimeDelta);
+	m_fTimer += fTimeDelta;
 
+	if (m_pFsmCom->Get_CurrentState() != DEAD && m_fTimer > 0.7f)
+	{
+		m_iTextureNum++;
+		m_fTimer = 0;
+		if (m_iTextureNum >= 4)
+			m_iTextureNum = 0;
+	}
+	m_pFsmCom->Update(fTimeDelta);
 	m_pModelCom->Play_Animation(fTimeDelta);
 }
 
@@ -75,29 +93,14 @@ HRESULT CVegas::Render()
 	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &m_isDead, sizeof(_bool))))
 		return E_FAIL;
 
-	/*_uint		iNumMeshes = m_pModelComs[m_iModelIndex]->Get_NumMeshes();
-
-	for (size_t i = 0; i < iNumMeshes; i++)
-	{
-		m_pModelComs[m_iModelIndex]->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
-
-		if (FAILED(m_pModelComs[m_iModelIndex]->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
-			return E_FAIL;
-
-		if (FAILED(m_pShaderCom->Begin(0)))
-			return E_FAIL;
-
-		if (FAILED(m_pModelComs[m_iModelIndex]->Render((_uint)i)))
-			return E_FAIL;
-	}*/
-
 	_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
 	for (size_t i = 0; i < iNumMeshes; i++)
 	{
 		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
 
-		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+		//요기에 인덱스 넣자
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i, m_iTextureNum)))
 			return E_FAIL;
 
 		if (FAILED(m_pShaderCom->Begin(0)))
@@ -121,24 +124,10 @@ HRESULT CVegas::Ready_Components()
 	__super::Ready_Components();
 
 	/* FOR.Com_Model */
-	//if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas0"),
-	//	TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelComs[0]))))
-	//	return E_FAIL;
-
-	/* FOR.Com_Model */
-	if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas1"),
+	if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas0"),
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
 		return E_FAIL;
 
-	///* FOR.Com_Model */
-	//if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas2"),
-	//	TEXT("Com_Model2"), reinterpret_cast<CComponent**>(&m_pModelComs[2]))))
-	//	return E_FAIL;
-
-	///* FOR.Com_Model */
-	//if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas3"),
-	//	TEXT("Com_Model3"), reinterpret_cast<CComponent**>(&m_pModelComs[3]))))
-	//	return E_FAIL;
 
 	return S_OK;
 }
@@ -151,6 +140,12 @@ HRESULT CVegas::Ready_State()
 		return E_FAIL;
 
 	m_pFsmCom->Add_State(CState_Vegas_Idle::Create(m_pFsmCom, this, IDLE));
+	m_pFsmCom->Add_State(CState_Vegas_Walk_f::Create(m_pFsmCom, this, WALK_F));
+	m_pFsmCom->Add_State(CState_Vegas_Walk_b::Create(m_pFsmCom, this, WALK_B));
+	m_pFsmCom->Add_State(CState_Vegas_Walk_l::Create(m_pFsmCom, this, WALK_L));
+	m_pFsmCom->Add_State(CState_Vegas_Walk_r::Create(m_pFsmCom, this, WALK_R));
+	m_pFsmCom->Add_State(CState_Vegas_Damage::Create(m_pFsmCom, this, DAMAGE));
+	m_pFsmCom->Add_State(CState_Vegas_Dead::Create(m_pFsmCom, this, DEAD));
 	return S_OK;
 }
 

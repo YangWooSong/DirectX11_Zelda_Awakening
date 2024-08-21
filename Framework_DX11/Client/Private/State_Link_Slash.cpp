@@ -20,7 +20,7 @@ HRESULT CState_Link_Slash::Initialize(_uint iStateNum)
 HRESULT CState_Link_Slash::Start_State()
 {
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
-	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
+	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
 
 	return S_OK;
 }

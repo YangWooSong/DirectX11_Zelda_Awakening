@@ -1,4 +1,18 @@
-﻿  Fsm.cpp
-  Model.cpp
+﻿  Camera.cpp
+  Component.cpp
+  ContainerObject.cpp
+  Event_Manager.cpp
+  GameInstance.cpp
+  GameObject.cpp
+  Level.cpp
+  Level_Manager.cpp
+  Mesh.cpp
+  Object_Manager.cpp
+  Picking_Manager.cpp
+  State.cpp
+  UIObject.cpp
+  UI_Manager.cpp
+  VIBuffer_Terrain.cpp
   코드를 생성하고 있습니다...
-  Engine.vcxproj -> C:\Users\olivi\GitHub\DX_Frameworks\Framework_DX11\Engine\Bin\Engine.dll
+     ..\Bin\Engine.lib 라이브러리 및 ..\Bin\Engine.exp 개체를 생성하고 있습니다.
+  Engine.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Engine.dll

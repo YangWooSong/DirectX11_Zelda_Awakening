@@ -25,6 +25,9 @@ private:
     class CMonster* m_pOwner = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
+    _float              m_fTimer = { 0.f };
+    _uint               m_iOwnerDir = { 0 };
+    _float              m_fSpeed = { -0.008f };
 public:
     static CState_Vegas_Idle* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\olivi\GitHub\DX_Frameworks\Framework_DX11\Engine\Bin\Engine.dll</FullPath>
+      <FullPath>C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Engine.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

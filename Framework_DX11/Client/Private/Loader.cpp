@@ -1,9 +1,13 @@
 #include "stdafx.h"
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #include "..\Public\Loader.h"
 
 #include "Terrain.h"
 #include "BackGround.h"
 #include "GameInstance.h"
+
+#include <locale>
+#include <codecvt>
 
 #include "NonAnimModel.h"
 #include "AnimModel.h"
@@ -289,6 +293,8 @@ HRESULT CLoader::Ready_Models_For_Field()
 
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 
+
+#pragma region MONSTER
 	/* For. Prototype_Component_Model_SeaUrchin*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_SeaUrchin"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/SeaUrchin/SeaUrchin.dat"))))
@@ -333,71 +339,80 @@ HRESULT CLoader::Ready_Models_For_Field()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas0"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas0.dat"))))
 		return E_FAIL;
+#pragma endregion
 
-	/* For. Prototype_Component_Model_Vegas1*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas1"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas1.dat"))))
-		return E_FAIL;
+#pragma region LAND
+	for (int i = 14; i < 84; i++)
+	{
+		_wstring sPath = TEXT("../Bin/ModelData/NonAnim/Level/Field/Field_");
+		_wstring sFBX = TEXT(".dat");
+		_wstring finalPath = sPath + m_FieldList[i] + sFBX;
+	
+		_wstring sTag = TEXT("Prototype_Component_Level_Field_");
+		_wstring finalTag = sTag + m_FieldList[i];
 
-	/* For. Prototype_Component_Model_Vegas2*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas2"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas2.dat"))))
-		return E_FAIL;
+		std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+		std::string str = converter.to_bytes(finalPath);
 
-	/* For. Prototype_Component_Model_Vegas3*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas3"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas3.dat"))))
-		return E_FAIL;
-
+		if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, finalTag,
+			CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, str.c_str()))))
+			return E_FAIL;
+	}
+#pragma endregion
 	return S_OK;
 }
 
 HRESULT CLoader::Ready_Prototype_For_Field()
 {
-	/* For. Prototype_GameObject_SeaUrchin*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SeaUrchin"),
-		CSeaUrchin::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_SeaUrchin*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SeaUrchin"),
+	//	CSeaUrchin::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Octorok*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Octorok"),
-		COctorok::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Octorok*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Octorok"),
+	//	COctorok::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_OctorokRock*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
-		COctorokRock::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_OctorokRock*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
+	//	COctorokRock::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
-		CRola::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Rola*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
+	//	CRola::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
-		CSpark::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Rola*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
+	//	CSpark::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Pawn*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
-		CPawn::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Pawn*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
+	//	CPawn::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Togezo*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
-		CTogezo::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Togezo*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
+	//	CTogezo::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Kuribo*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Kuribo"),
-		CKuribo::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Kuribo*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Kuribo"),
+	//	CKuribo::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	/* For. Prototype_GameObject_Vegas*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
-		CVegas::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	///* For. Prototype_GameObject_Vegas*/
+	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
+	//	CVegas::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
+
+	/* For. Prototype_GameObject_Land*/
+	/*if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Land"),
+		CLand::Create(m_pDevice, m_pContext))))
+		return E_FAIL;*/
 
 	return S_OK;
 }

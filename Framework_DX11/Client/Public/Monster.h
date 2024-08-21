@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Client_Defines.h"
-#include "GameObject.h"
+#include "ContainerObject.h"
 
 BEGIN(Engine)
 class CShader;
@@ -12,9 +12,10 @@ END
 BEGIN(Client)
 
 class CMonster :
-    public CGameObject
+    public CContainerObject
 {
 public:
+	enum PARTID { PART_EFFECT, PART_END };
 	enum MONSTER_DIR { FRONT, BACK, LEFT, RIGHT, MONSTER_DIR_END};
 protected:
 	CMonster(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

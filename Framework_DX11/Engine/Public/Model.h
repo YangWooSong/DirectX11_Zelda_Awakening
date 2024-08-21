@@ -39,9 +39,9 @@ public:
 	void Set_AnimationSpeed(_uint _AnimationIndex,_double _dAnimSpeed); //Anim재생 속도 변경
 	void Reset_Animation(_uint iAnimationIndex);
 public:
-	HRESULT Bind_Material(class CShader* pShader, _char* pConstantName, TEXTURE_TYPE eMaterialType, _uint iMeshIndex);
+	HRESULT Bind_Material(class CShader* pShader, _char* pConstantName, TEXTURE_TYPE eMaterialType, _uint iMeshIndex, _uint iTextureNum = 0);
 	HRESULT Bind_MeshBoneMatrices(class CShader* pShader, const _char* pConstantName, _uint iMeshIndex);
-
+	HRESULT Add_Texture_to_Material(const _tchar* pTextureFilePath, TEXTURE_TYPE eMaterialType, _uint iMeshIndex);
 private:
 	TYPE							m_eType = { TYPE_END };
 

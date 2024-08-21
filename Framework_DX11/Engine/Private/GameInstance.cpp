@@ -246,6 +246,11 @@ CGameObject* CGameInstance::Find_Camera(_uint iLevelIndex)
 	return m_pObject_Manager->Find_Camera(iLevelIndex);
 }
 
+CGameObject* CGameInstance::Clone_GameObject(const _wstring& strPrototypeTag, void* pArg)
+{
+	return m_pObject_Manager->Clone_GameObject(strPrototypeTag, pArg);
+}
+
 #pragma endregion
 
 #pragma region COMPONENT_MANAGER

@@ -34,7 +34,7 @@ HRESULT CLand::Initialize(void* pArg)
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
 
-    m_pGameInstance->AddScene_ColMesh(this, TEXT("Land"));
+   // m_pGameInstance->AddScene_ColMesh(this, TEXT("Land"));
 
     return S_OK;
 }
@@ -125,7 +125,7 @@ HRESULT CLand::Add_Component_Field()
     _wstring finalName = sPath + m_FieldList[m_iListIndex];
 
     /* FOR.Com_Model */
-    if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, finalName,
+    if (FAILED(__super::Add_Component(LEVEL_FIELD, finalName,
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
 

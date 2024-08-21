@@ -165,6 +165,19 @@ CGameObject* CObject_Manager::Find_Camera(_uint iLevelIndex)
 	return pCamera;
 }
 
+CGameObject* CObject_Manager::Clone_GameObject(const _wstring& strPrototypeTag, void* pArg)
+{
+	CGameObject* pPrototype = Find_Prototype(strPrototypeTag);
+	if (nullptr == pPrototype)
+		return nullptr;
+
+	CGameObject* pGameObject = pPrototype->Clone(pArg);
+	if (nullptr == pGameObject)
+		return nullptr;
+
+	return pGameObject;
+}
+
 CObject_Manager * CObject_Manager::Create(_uint iNumLevels)
 {
 	CObject_Manager*		pInstance = new CObject_Manager();

@@ -216,7 +216,13 @@
     <ClInclude Include="..\Public\State_Togezo_Idle.h" />
     <ClInclude Include="..\Public\State_Togezo_Rebound.h" />
     <ClInclude Include="..\Public\State_Togezo_Run.h" />
+    <ClInclude Include="..\Public\State_Vegas_Damage.h" />
+    <ClInclude Include="..\Public\State_Vegas_Dead.h" />
     <ClInclude Include="..\Public\State_Vegas_Idle.h" />
+    <ClInclude Include="..\Public\State_Vegas_Walk_b.h" />
+    <ClInclude Include="..\Public\State_Vegas_Walk_f.h" />
+    <ClInclude Include="..\Public\State_Vegas_Walk_l.h" />
+    <ClInclude Include="..\Public\State_Vegas_Walk_r.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Togezo.h" />
     <ClInclude Include="..\Public\Vegas.h" />
@@ -288,7 +294,13 @@
     <ClCompile Include="..\Private\State_Togezo_Idle.cpp" />
     <ClCompile Include="..\Private\State_Togezo_Rebound.cpp" />
     <ClCompile Include="..\Private\State_Togezo_Run.cpp" />
+    <ClCompile Include="..\Private\State_Vegas_Damage.cpp" />
+    <ClCompile Include="..\Private\State_Vegas_Dead.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Idle.cpp" />
+    <ClCompile Include="..\Private\State_Vegas_Walk_b.cpp" />
+    <ClCompile Include="..\Private\State_Vegas_Walk_f.cpp" />
+    <ClCompile Include="..\Private\State_Vegas_Walk_l.cpp" />
+    <ClCompile Include="..\Private\State_Vegas_Walk_r.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Togezo.cpp" />
     <ClCompile Include="..\Private\Vegas.cpp" />
