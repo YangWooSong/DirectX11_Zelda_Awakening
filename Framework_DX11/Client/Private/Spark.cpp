@@ -46,6 +46,7 @@ HRESULT CSpark::Initialize(void* pArg)
 
 void CSpark::Priority_Update(_float fTimeDelta)
 {
+	__super::Priority_Update(fTimeDelta);
 }
 
 void CSpark::Update(_float fTimeDelta)
@@ -53,10 +54,14 @@ void CSpark::Update(_float fTimeDelta)
 	m_pFsmCom->Update(fTimeDelta);
 
 	m_pModelCom->Play_Animation(fTimeDelta);
+
+	__super::Update(fTimeDelta);
 }
 
 void CSpark::Late_Update(_float fTimeDelta)
 {
+	__super::Late_Update(fTimeDelta);
+
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 

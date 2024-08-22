@@ -339,25 +339,37 @@ HRESULT CLoader::Ready_Models_For_Field()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas0"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas0.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_StalfosGreen*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_StalfosGreen"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/StalfosGreen/StalfosGreen.dat"))))
+		return E_FAIL;
+
+
+	/* For. Prototype_Component_Model_ZolRed*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_ZolRed"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/ZolRed/ZolRed.dat"))))
+		return E_FAIL;
+
 #pragma endregion
 
 #pragma region LAND
-	for (int i = 14; i < 84; i++)
-	{
-		_wstring sPath = TEXT("../Bin/ModelData/NonAnim/Level/Field/Field_");
-		_wstring sFBX = TEXT(".dat");
-		_wstring finalPath = sPath + m_FieldList[i] + sFBX;
-	
-		_wstring sTag = TEXT("Prototype_Component_Level_Field_");
-		_wstring finalTag = sTag + m_FieldList[i];
+	//for (int i = 14; i < 84; i++)
+	//{
+	//	_wstring sPath = TEXT("../Bin/ModelData/NonAnim/Level/Field/Field_");
+	//	_wstring sFBX = TEXT(".dat");
+	//	_wstring finalPath = sPath + m_FieldList[i] + sFBX;
+	//
+	//	_wstring sTag = TEXT("Prototype_Component_Level_Field_");
+	//	_wstring finalTag = sTag + m_FieldList[i];
 
-		std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-		std::string str = converter.to_bytes(finalPath);
+	//	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+	//	std::string str = converter.to_bytes(finalPath);
 
-		if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, finalTag,
-			CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, str.c_str()))))
-			return E_FAIL;
-	}
+	//	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, finalTag,
+	//		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, str.c_str()))))
+	//		return E_FAIL;
+	//}
 #pragma endregion
 	return S_OK;
 }
@@ -413,6 +425,7 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 	/*if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Land"),
 		CLand::Create(m_pDevice, m_pContext))))
 		return E_FAIL;*/
+
 
 	return S_OK;
 }

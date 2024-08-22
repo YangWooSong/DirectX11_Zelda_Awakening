@@ -42,8 +42,9 @@ HRESULT CRola::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CRola::Priority_Update(_float )
+void CRola::Priority_Update(_float fTimeDelta)
 {
+	__super::Priority_Update(fTimeDelta);
 }
 
 void CRola::Update(_float fTimeDelta)
@@ -86,10 +87,13 @@ void CRola::Update(_float fTimeDelta)
 		}
 	}
 
+	__super::Update(fTimeDelta);
 }
 
 void CRola::Late_Update(_float fTimeDelta)
 {
+	__super::Late_Update(fTimeDelta);
+
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 

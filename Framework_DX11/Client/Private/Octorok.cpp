@@ -45,7 +45,7 @@ HRESULT COctorok::Initialize(void* pArg)
 
 void COctorok::Priority_Update(_float fTimeDelta)
 {
-
+	__super::Priority_Update(fTimeDelta);
 }
 
 void COctorok::Update(_float fTimeDelta)
@@ -53,10 +53,14 @@ void COctorok::Update(_float fTimeDelta)
 	m_pFsmCom->Update(fTimeDelta);
 
 	m_pModelCom->Play_Animation(fTimeDelta);
+
+	__super::Update(fTimeDelta);
 }
 
 void COctorok::Late_Update(_float fTimeDelta)
 {
+	__super::Late_Update(fTimeDelta);
+
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 

@@ -55,6 +55,7 @@ HRESULT CSeaUrchin::Initialize(void* pArg)
 
 void CSeaUrchin::Priority_Update(_float fTimeDelta)
 {
+	__super::Priority_Update(fTimeDelta);
 }
 
 void CSeaUrchin::Update(_float fTimeDelta)
@@ -67,10 +68,14 @@ void CSeaUrchin::Update(_float fTimeDelta)
 		Shrink(fTimeDelta);
 	else
 		m_pTransformCom->Set_Scaled(m_fOrginScale.x, m_fOrginScale.y, m_fOrginScale.z);
+
+	__super::Update(fTimeDelta);
 }
 
 void CSeaUrchin::Late_Update(_float fTimeDelta)
 {
+	__super::Late_Update(fTimeDelta);
+
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 

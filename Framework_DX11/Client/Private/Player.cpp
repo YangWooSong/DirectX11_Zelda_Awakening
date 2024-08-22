@@ -187,6 +187,11 @@ _uint CPlayer::Get_Player_State()
 	return m_pFsmCom->Get_CurrentState();
 }
 
+const _float4x4* CPlayer::Get_BoneMatrix_Ptr(const _char* pBoneName) const
+{
+	return m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr(pBoneName);
+}
+
 HRESULT CPlayer::Ready_Components()
 {
 	/* FOR.Com_Shader */

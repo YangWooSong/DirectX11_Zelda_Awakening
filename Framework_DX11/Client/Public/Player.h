@@ -14,7 +14,7 @@ BEGIN(Client)
 class CPlayer : public CContainerObject
 {
 public:
-	enum PARTID { PART_BODY, PART_WEAPON, PART_END };
+	enum PARTID { PART_EFFEXT, PART_END };
 	enum PLAYER_DIR{FRONT, LEFT,LEFTUFRONT, LEFTBACK, BACK, RIGHT,RIGHTFRONT,RIGHTBACK, PLAYER_DIR_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
@@ -71,6 +71,9 @@ public:
 	_uint		Get_LevelIndex() { return m_iLevelIndex; }
 
 	_uint		Get_Player_State();
+
+	const _float4x4*    Get_BoneMatrix_Ptr(const _char* pBoneName) const;
+
 protected:
 	class CModel*		m_pModelCom = { nullptr };
 	class CShader*		m_pShaderCom = { nullptr };

@@ -26,7 +26,7 @@ public:
 	_float4x4	Get_World4x4() const { return m_WorldMatrix; }	//ÀúÀå¿ë
 
 	_matrix		Get_WorldMatrix_Inverse() const { return XMMatrixInverse(nullptr, Get_WorldMatrix()); }
-
+	const _float4x4* Get_WorldMatrix_Ptr() const {	return &m_WorldMatrix;}
 
 public:
 	virtual HRESULT Initialize_Prototype();
@@ -55,6 +55,7 @@ public:
 	void		Turn_Lerp(_fvector vLook, _float fTurnSpeed, _float fTimeDelta);
 	void		Turn_Lerp_Angle(_float3 _Origin, _float3 _Target, _float fTimeDelta);
 	void		Rotation(const _vector& vAxis, _float fRadian);
+	void		Rotation(_float fX, _float fY, _float fZ);
 
 	void		LookAt(_fvector vAt);
 

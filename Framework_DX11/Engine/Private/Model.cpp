@@ -164,6 +164,9 @@ void CModel::Play_Animation(_float fTimeDelta)
 			fCurrentTrackPosition = (_float)CurrentChannels[i]->Get_CurrentKeyFrame().TrackPosition;
 
 			CurrentChannels[i]->Update_TransformationMatrix(m_Bones, &m_KeyFrameIndices[m_iCurrentAnimIndex][i], fCurrentTrackPosition + fTimeDelta);
+		
+			if (NextChannels.size() <= i)
+				continue;
 			NextChannels[i]->Update_TransformationMatrix(m_Bones, &m_KeyFrameIndices[m_tChangeDesc.iNextAnimIndex][i], m_ChangeTrackPosition);
 
 			_vector vScale, vRotation, vTranslation;

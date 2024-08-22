@@ -58,6 +58,7 @@ HRESULT CVegas::Initialize(void* pArg)
 
 void CVegas::Priority_Update(_float fTimeDelta)
 {
+	__super::Priority_Update(fTimeDelta);
 }
 
 void CVegas::Update(_float fTimeDelta)
@@ -73,10 +74,14 @@ void CVegas::Update(_float fTimeDelta)
 	}
 	m_pFsmCom->Update(fTimeDelta);
 	m_pModelCom->Play_Animation(fTimeDelta);
+
+	__super::Update(fTimeDelta);
 }
 
 void CVegas::Late_Update(_float fTimeDelta)
 {
+	__super::Late_Update(fTimeDelta);
+
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 

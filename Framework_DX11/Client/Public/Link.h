@@ -38,6 +38,9 @@ private:
 
 	class CItem* m_pItemA = { nullptr };
 	class CItem* m_pItemB = { nullptr };
+
+	_bool m_bActiveSheild = { false };
+	_bool m_bActiveSword = { false };
 public:
 	static CLink* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

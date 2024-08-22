@@ -24,6 +24,7 @@ public:
 
 	_uint					Get_BoneIndex(const _char* pBoneName) const;
 	_matrix					Get_BoneCombindTransformationMatrix(_uint iBoneIndex) const { return m_Bones[iBoneIndex]->Get_CombinedTransformationMatrix(); }
+	const _float4x4* Get_BoneCombindTransformationMatrix_Ptr(const _char* pBoneName) const {	return m_Bones[Get_BoneIndex(pBoneName)]->Get_CombinedTransformationMatrix_Ptr();}
 
 	_uint					Get_AnimationIndex(const _char* pAnimationmName) const;
 	_char*					Get_CurrentAnimationName();

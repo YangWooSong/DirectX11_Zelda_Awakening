@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Monster.h"
 #include "GameInstance.h"
+#include "PartObject.h"
 
 CMonster::CMonster(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CContainerObject{ pDevice, pContext }
@@ -37,19 +38,22 @@ HRESULT CMonster::Initialize(void* pArg)
 
 void CMonster::Priority_Update(_float fTimeDelta)
 {
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Priority_Update(fTimeDelta);
 }
 
 void CMonster::Update(_float fTimeDelta)
 {
-	m_pModelCom->Play_Animation(fTimeDelta);
+
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Update(fTimeDelta);
 }
 
 void CMonster::Late_Update(_float fTimeDelta)
 {
 	/* 직교투영을 위한 월드행렬까지 셋팅하게 된다. */
-	__super::Late_Update(fTimeDelta);
-
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Late_Update(fTimeDelta);
 }
 
 HRESULT CMonster::Render()

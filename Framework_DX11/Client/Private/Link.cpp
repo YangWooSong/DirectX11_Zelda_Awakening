@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Shader.h"
 #include "Model.h"
+#include "PartObject.h"
 
 #include "State_Link_Idle.h"
 #include "State_Link_Walk.h"
@@ -56,6 +57,8 @@ HRESULT CLink::Initialize(void* pArg)
 
 void CLink::Priority_Update(_float fTimeDelta)
 {
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Priority_Update(fTimeDelta);
 }
 
 void CLink::Update(_float fTimeDelta)
@@ -63,10 +66,16 @@ void CLink::Update(_float fTimeDelta)
 	m_pFsmCom->Update(fTimeDelta);
 
 	m_pModelCom->Play_Animation(fTimeDelta);
+
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Update(fTimeDelta);
 }
 
 void CLink::Late_Update(_float fTimeDelta)
 {
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Late_Update(fTimeDelta);
+
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 
@@ -84,6 +93,21 @@ HRESULT CLink::Render()
 
 	for (size_t i = 0; i < iNumMeshes; i++)
 	{
+		if (i == 0 ||  i == 4 || i == 10 || i == 12 ||  i == 17 || i == 1 || i == 6 || i == 7)
+			continue;
+
+		if(m_bActiveSheild == false)
+		{
+			if (i == 2 || i == 18)
+				continue;
+		}
+
+		if (m_bActiveSword == false)
+		{
+			if (i == 13 || i == 16)
+				continue;
+		}
+
 		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
 
 		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
