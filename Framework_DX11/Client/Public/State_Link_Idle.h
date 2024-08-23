@@ -25,6 +25,7 @@ private:
     class CPlayer* m_pPlayer = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
+    _float              m_fPressTime = { 0.f };
 
 public:
     static CState_Link_Idle* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);

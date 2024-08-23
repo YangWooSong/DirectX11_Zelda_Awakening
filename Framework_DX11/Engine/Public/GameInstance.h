@@ -142,6 +142,7 @@ private:
 	class CPhysX_Manager*			m_pPhysX_Manager = { nullptr };
 	class CEvent_Manager*			m_pEvent_Manager = { nullptr };
 
+
 public:	
 	void Release_Engine();
 	virtual void Free() override;

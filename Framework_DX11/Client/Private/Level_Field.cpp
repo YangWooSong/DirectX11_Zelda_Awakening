@@ -27,7 +27,7 @@ HRESULT CLevel_Field::Initialize()
 	if (FAILED(Ready_Layer_Effect()))
 		return E_FAIL;
 
-	//Read();
+	Read();
 
 	return S_OK;
 }
@@ -116,12 +116,6 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	CPlayer::PLAYER_DESC PlayerDesc;
 	PlayerDesc.vPosition = _float3(5.f, 10.f, 5.f);
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
-		return E_FAIL;
-
-
-	CGameObject::GAMEOBJECT_DESC objDesc;
-	objDesc.vPosition = _float3(5.f, 0.f, 0.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_StalfosGreen"), TEXT("Prototype_GameObject_StalfosGreen"), &objDesc)))
 		return E_FAIL;
 	
 	return S_OK;

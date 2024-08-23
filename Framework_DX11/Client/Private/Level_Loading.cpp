@@ -5,6 +5,7 @@
 #include "Level_Logo.h"
 #include "Level_MarinHouse.h"
 #include "Level_Field.h"
+#include "Level_Test.h"
 
 #include "BackGround.h"
 #include "GameInstance.h"
@@ -26,14 +27,13 @@ HRESULT CLevel_Loading::Initialize(LEVELID eNextLevelID)
 	if (FAILED(Ready_Layer_BackGround()))
 		return E_FAIL;
 
-	//m_eNextLevelID = LEVEL_MARINHOUSE;
-
 	return S_OK;
 }
 
 void CLevel_Loading::Update(_float fTimeDelta)
 {
 	
+
 	if (true == m_pLoader->isFinished())
 	{
 		CLevel*			pNewLevel = { nullptr };
@@ -48,6 +48,9 @@ void CLevel_Loading::Update(_float fTimeDelta)
 			break;
 		case LEVEL_FIELD:
 			pNewLevel = CLevel_Field::Create(m_pDevice, m_pContext);
+			break;
+		case LEVEL_TEST:
+			pNewLevel = CLevel_Test::Create(m_pDevice, m_pContext);
 			break;
 		}
 

@@ -14,7 +14,7 @@ class CLink :
     public CPlayer
 {
 public:
-	enum LINKSTATE{IDLE, WALK, ITEMA, ITEMB, SLASH, JUMP, SHIELD, SHIELD_WALK, STAIR_UP, STAIR_DOWN, LINK_STATE_END};
+	enum LINKSTATE{IDLE, WALK, ITEMA, ITEMB, SLASH, SLASH_HOLD, JUMP, SHIELD, SHIELD_WALK, STAIR_UP, STAIR_DOWN, LINK_STATE_END};
 private:
 	CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CLink(const CLink& Prototype);
@@ -39,8 +39,8 @@ private:
 	class CItem* m_pItemA = { nullptr };
 	class CItem* m_pItemB = { nullptr };
 
-	_bool m_bActiveSheild = { false };
-	_bool m_bActiveSword = { false };
+	_bool m_bActiveSheild = { true };
+	_bool m_bActiveSword = { true };
 public:
 	static CLink* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

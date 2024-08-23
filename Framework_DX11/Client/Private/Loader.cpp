@@ -86,6 +86,9 @@ HRESULT CLoader::Loading()
 	case LEVEL_MARINHOUSE:
 		hr = Ready_Resources_For_MarinHouse();
 		break;
+	case LEVEL_TEST:
+		hr = Ready_Resources_For_Test();
+		break;
 	case LEVEL_FIELD:
 		hr = Ready_Resources_For_Field();
 		break;
@@ -109,12 +112,12 @@ HRESULT CLoader::Ready_Resources_For_Loading()
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Loading */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_LOADING, TEXT("Prototype_Component_Texture_Loading"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Loading"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/LoadingScreen.dds"), 1))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_LoadingIcon */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_LOADING, TEXT("Prototype_Component_Texture_LoadingIcon"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_LoadingIcon"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Player_01^q.png"), 1))))
 		return E_FAIL;
 
@@ -158,10 +161,6 @@ HRESULT CLoader::Ready_Resources_For_LogoLevel()
 HRESULT CLoader::Ready_Resources_For_MarinHouse()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
-	///* For. Prototype_Component_Texture_Terrain*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Texture_Terrain"),
-	//	CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Terrain/Grass_%d.dds"), 2))))
-	//	return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
@@ -173,15 +172,6 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
-	/* For. Prototype_GameObject_Terrain */
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Terrain"),
-		CTerrain::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
-	///* For. Prototype_GameObject_Monster */
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_AnimModel"),
-	//	CAnimModel::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
 
 	/* For. Prototype_GameObject_FreeCamera */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FreeCamera"),
@@ -203,7 +193,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CLand::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_Land*/
+	/* For. Prototype_GameObject_HousePot*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_HousePot"),
 		CHousePot::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
@@ -217,6 +207,34 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_NonAnim"),
 	//	CNonAnimModel::Create(m_pDevice, m_pContext))))
 	//	return E_FAIL;
+
+	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Resources_For_Test()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
+
+	Ready_Models_For_Test();
+
+	/* For. Prototype_GameObject_Terrain */
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Terrain"),
+		CTerrain::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
+
+	Ready_Prototype_For_Test();
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -293,139 +311,161 @@ HRESULT CLoader::Ready_Models_For_Field()
 
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 
+#pragma region LAND
+	for (int i = 14; i < 84; i++)
+	{
+		_wstring sPath = TEXT("../Bin/ModelData/NonAnim/Level/Field/Field_");
+		_wstring sFBX = TEXT(".dat");
+		_wstring finalPath = sPath + m_FieldList[i] + sFBX;
+	
+		_wstring sTag = TEXT("Prototype_Component_Level_Field_");
+		_wstring finalTag = sTag + m_FieldList[i];
 
+		std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+		std::string str = converter.to_bytes(finalPath);
+
+		if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, finalTag,
+			CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, str.c_str()))))
+			return E_FAIL;
+	}
+#pragma endregion
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Models_For_Test()
+{
+	_matrix		PreTransformMatrix = XMMatrixIdentity();
+
+	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 #pragma region MONSTER
 	/* For. Prototype_Component_Model_SeaUrchin*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_SeaUrchin"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_SeaUrchin"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/SeaUrchin/SeaUrchin.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Octorok*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Octorok"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Octorok"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Octorok/Octorok.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_OctorokRock*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_OctorokRock"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_OctorokRock"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Monster/OctorokRock/OctorokRock.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Rola"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Rola"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Pawn*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Pawn"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Pawn"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Pawn/Pawn.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Spark*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Spark"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Spark"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Spark/Spark.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Togezo*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Togezo"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Togezo"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Togezo/Togezo.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Kuribo*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Kuribo"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Kuribo"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Kuribo/Kuribo.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Vegas0*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Vegas0"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Vegas0"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas0.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_StalfosGreen*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_StalfosGreen"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_StalfosGreen"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/StalfosGreen/StalfosGreen.dat"))))
 		return E_FAIL;
 
 
 	/* For. Prototype_Component_Model_ZolRed*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_ZolRed"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_ZolRed"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/ZolRed/ZolRed.dat"))))
 		return E_FAIL;
 
-#pragma endregion
-
-#pragma region LAND
-	//for (int i = 14; i < 84; i++)
-	//{
-	//	_wstring sPath = TEXT("../Bin/ModelData/NonAnim/Level/Field/Field_");
-	//	_wstring sFBX = TEXT(".dat");
-	//	_wstring finalPath = sPath + m_FieldList[i] + sFBX;
-	//
-	//	_wstring sTag = TEXT("Prototype_Component_Level_Field_");
-	//	_wstring finalTag = sTag + m_FieldList[i];
-
-	//	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-	//	std::string str = converter.to_bytes(finalPath);
-
-	//	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, finalTag,
-	//		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, str.c_str()))))
-	//		return E_FAIL;
-	//}
 #pragma endregion
 	return S_OK;
 }
 
 HRESULT CLoader::Ready_Prototype_For_Field()
 {
-	///* For. Prototype_GameObject_SeaUrchin*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SeaUrchin"),
-	//	CSeaUrchin::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Octorok*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Octorok"),
-	//	COctorok::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_OctorokRock*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
-	//	COctorokRock::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Rola*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
-	//	CRola::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Rola*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
-	//	CSpark::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Pawn*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
-	//	CPawn::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Togezo*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
-	//	CTogezo::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Kuribo*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Kuribo"),
-	//	CKuribo::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	///* For. Prototype_GameObject_Vegas*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
-	//	CVegas::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
 	/* For. Prototype_GameObject_Land*/
-	/*if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Land"),
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Land"),
 		CLand::Create(m_pDevice, m_pContext))))
-		return E_FAIL;*/
+		return E_FAIL;
 
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Prototype_For_Test()
+{
+#pragma region MONSTER
+	/* For. Prototype_GameObject_SeaUrchin*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SeaUrchin"),
+		CSeaUrchin::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Octorok*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Octorok"),
+		COctorok::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
+		COctorokRock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Rola*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
+		CRola::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Rola*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
+		CSpark::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Pawn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
+		CPawn::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Togezo*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
+		CTogezo::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Kuribo*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Kuribo"),
+		CKuribo::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Vegas*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
+		CVegas::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+#pragma endregion
+
+	/* For. Prototype_GameObject_FreeCamera */
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FreeCamera"),
+		CFreeCamera::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_PLayer_Link */
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_Link"),
+		CLink::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 
 	return S_OK;
 }

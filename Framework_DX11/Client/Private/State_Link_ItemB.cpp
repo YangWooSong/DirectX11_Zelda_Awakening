@@ -26,8 +26,19 @@ HRESULT CState_Link_ItemB::Start_State()
 
 void CState_Link_ItemB::Update(_float fTimeDelta)
 {
+	if (KEY_AWAY(KEY::P))
+	{
+		m_pPlayer->Change_State(CLink::SLASH);
+		return;
+	}
+
+	if (KEY_HOLD(KEY::P))
+	{
+		m_pPlayer->Change_State(CLink::SLASH_HOLD);
+		return;
+	}
 	if (m_pPlayer_ItemB == nullptr)
-			m_pPlayer->Change_State(CLink::SLASH);
+		m_pPlayer->Change_State(CLink::SLASH);
 
 }
 

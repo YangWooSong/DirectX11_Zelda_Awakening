@@ -271,6 +271,12 @@
     <Filter Include="05.State\Monster\06.Vegas_State\Walk_r">
       <UniqueIdentifier>{f8621d0f-3e88-4189-97ca-2d4ddf1c752a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Link\Slash_Hold">
+      <UniqueIdentifier>{894cccf3-a37c-481b-a037-2125ddee93d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\GamePlay\Test">
+      <UniqueIdentifier>{eeed427c-1f77-4e3b-abf9-ae8b9f3c37de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -504,6 +510,12 @@
     <ClInclude Include="..\Public\State_Vegas_Walk_b.h">
       <Filter>05.State\Monster\06.Vegas_State\Walk_b</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Slash_Hold.h">
+      <Filter>05.State\Link\Slash_Hold</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_Test.h">
+      <Filter>01.Levels\GamePlay\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -727,6 +739,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Vegas_Walk_b.cpp">
       <Filter>05.State\Monster\06.Vegas_State\Walk_b</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Slash_Hold.cpp">
+      <Filter>05.State\Link\Slash_Hold</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Test.cpp">
+      <Filter>01.Levels\GamePlay\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

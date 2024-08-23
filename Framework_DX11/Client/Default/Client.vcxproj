@@ -157,6 +157,7 @@
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
+    <ClInclude Include="..\Public\Level_Test.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\Rola.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="..\Public\State_Kuribo_Idle.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk_Shake.h" />
+    <ClInclude Include="..\Public\State_Link_Slash_Hold.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Down.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Up.h" />
     <ClInclude Include="..\Public\State_Pawn_Damage.h" />
@@ -244,6 +246,7 @@
     <ClCompile Include="..\Private\Level_MarinHouse.cpp" />
     <ClCompile Include="..\Private\Level_Loading.cpp" />
     <ClCompile Include="..\Private\Level_Logo.cpp" />
+    <ClCompile Include="..\Private\Level_Test.cpp" />
     <ClCompile Include="..\Private\Link.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
@@ -268,6 +271,7 @@
     <ClCompile Include="..\Private\State_Link_Shield.cpp" />
     <ClCompile Include="..\Private\State_Link_Shield_Walk.cpp" />
     <ClCompile Include="..\Private\State_Link_Slash.cpp" />
+    <ClCompile Include="..\Private\State_Link_Slash_Hold.cpp" />
     <ClCompile Include="..\Private\State_Link_Stair_Down.cpp" />
     <ClCompile Include="..\Private\State_Link_Stair_Up.cpp" />
     <ClCompile Include="..\Private\State_Link_Walk.cpp" />

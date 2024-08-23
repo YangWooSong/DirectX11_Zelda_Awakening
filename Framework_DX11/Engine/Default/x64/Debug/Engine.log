@@ -1,18 +1,2 @@
-﻿  BlendObject.cpp
-  Camera.cpp
-  ContainerObject.cpp
-  Event_Manager.cpp
-  Fsm.cpp
-  GameObject.cpp
-  Layer.cpp
-  Object_Manager.cpp
-  PartObject.cpp
-  PhysX_Manager.cpp
-  Renderer.cpp
-  State.cpp
-  Transform.cpp
-  UI_Manager.cpp
-  UIObject.cpp
-  코드를 생성하고 있습니다...
-     ..\Bin\Engine.lib 라이브러리 및 ..\Bin\Engine.exp 개체를 생성하고 있습니다.
+﻿  GameInstance.cpp
   Engine.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Engine.dll

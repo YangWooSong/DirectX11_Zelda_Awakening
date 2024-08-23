@@ -11,6 +11,7 @@
 #include "State_Link_ItemB.h"
 #include "State_Link_Jump.h"
 #include "State_Link_Slash.h"
+#include "State_Link_Slash_Hold.h"
 #include "State_Link_Shield.h"
 #include "State_Link_Shield_Walk.h"
 #include "State_Link_Stair_Up.h"
@@ -148,6 +149,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_ItemB::Create(m_pFsmCom, this, ITEMB));
 	m_pFsmCom->Add_State(CState_Link_Jump::Create(m_pFsmCom, this, JUMP));
 	m_pFsmCom->Add_State(CState_Link_Slash::Create(m_pFsmCom, this, SLASH));
+	m_pFsmCom->Add_State(CState_Link_Slash_Hold::Create(m_pFsmCom, this, SLASH_HOLD));
 	m_pFsmCom->Add_State(CState_Link_Shield::Create(m_pFsmCom, this, SHIELD));
 	m_pFsmCom->Add_State(CState_Link_Shield_Walk::Create(m_pFsmCom, this, SHIELD_WALK));
 	m_pFsmCom->Add_State(CState_Link_Stair_Up::Create(m_pFsmCom, this, STAIR_UP));

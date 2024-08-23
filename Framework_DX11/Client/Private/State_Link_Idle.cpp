@@ -32,20 +32,29 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 		return;
 	}
 
-	if (KEY_HOLD(KEY :: O))
+	if (KEY_HOLD(KEY::O))
 	{
 		m_pPlayer->Change_State(CLink::ITEMA);
 	}
 
-	if (KEY_HOLD(KEY::P))
+
+	if (KEY_AWAY(KEY::P))
 	{
 		m_pPlayer->Change_State(CLink::ITEMB);
+	}
+	else if (KEY_HOLD(KEY::P))
+	{
+		m_fPressTime += fTimeDelta;
+		if(m_fPressTime > 0.2f)
+			m_pPlayer->Change_State(CLink::SLASH_HOLD);
 	}
 
 	if (KEY_HOLD(KEY::LSHIFT))
 	{
 		m_pPlayer->Change_State(CLink::SHIELD);
 	}
+
+	
 
 }
 

@@ -27,6 +27,8 @@ public:
 	HRESULT Add_Prototype(_uint iLevelIndex, const _wstring& strPrototypeTag, class CComponent* pPrototype);
 	class CComponent* Clone_Component(_uint iLevelIndex, const _wstring& strPrototypeTag, void* pArg);
 
+	void Clear(_uint iLevelindex);
+
 private:
 	map<const _wstring, class CComponent*>*		m_pPrototypes = { nullptr };
 	_uint										m_iNumLevels = { 0 };

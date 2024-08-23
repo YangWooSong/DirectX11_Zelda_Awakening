@@ -50,6 +50,14 @@ CComponent * CComponent_Manager::Find_Prototype(_uint iLevelIndex, const _wstrin
 	return iter->second;
 }
 
+void CComponent_Manager::Clear(_uint iLevelindex)
+{
+	for (auto& Pair : m_pPrototypes[iLevelindex])
+		Safe_Release(Pair.second);
+
+	m_pPrototypes[iLevelindex].clear();
+}
+
 CComponent_Manager * CComponent_Manager::Create(_uint iNumLevels)
 {
 	CComponent_Manager*		pInstance = new CComponent_Manager();
