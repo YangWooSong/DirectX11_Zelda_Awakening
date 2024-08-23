@@ -2,6 +2,10 @@
 /* float2 float3 float4 == vector */
 
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
+
+vector g_vLightDiffuse = vector(1.f, 1.f, 1.f, 1.f);
+vector g_vLightDir = vector(1.f, -1.f, 1.f, 0.f);
+
 texture2D g_DiffuseTexture;
 
 RasterizerState rsWireframe
@@ -27,6 +31,7 @@ struct VS_IN
 struct VS_OUT
 {
     float4 vPosition : SV_POSITION;
+    float4 vNormal : NORMAL;
     float2 vTexcoord : TEXCOORD0;
 };
 
@@ -40,6 +45,7 @@ VS_OUT VS_MAIN( /*정점*/VS_IN In)
     vPosition = mul(vPosition, g_ProjMatrix);
 
     Out.vPosition = vPosition;
+    Out.vNormal = mul(vector(In.vNormal, 0.f), g_WorldMatrix);
     Out.vTexcoord = In.vTexcoord;
 
     return Out;
@@ -48,6 +54,7 @@ VS_OUT VS_MAIN( /*정점*/VS_IN In)
 struct PS_IN
 {
     float4 vPosition : SV_POSITION;
+    float4 vNormal : NORMAL;
     float2 vTexcoord : TEXCOORD0;
 };
 
@@ -61,11 +68,10 @@ PS_OUT PS_MAIN(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
 	
-    Out.vColor = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.f);
+	
+    Out.vColor = g_vLightDiffuse * g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord) * fShade;
 
-    if (0.1 >= Out.vColor.a)
-        discard;
-    
     return Out;
 }
 
