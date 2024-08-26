@@ -19,6 +19,7 @@ private:
 public:
 	virtual HRESULT Initialize_Prototype(const _wstring& strNavigationDataFile);
 	virtual HRESULT Initialize(void* pArg) override;
+	void CNavigation::SetUp_OnCell(class CTransform* pTransform, _float fOffset);
 
 public:
 	void Update(_fmatrix TerrainWorldMatrix);

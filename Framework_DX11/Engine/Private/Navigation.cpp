@@ -7,6 +7,8 @@
 #include<fstream>
 #include <locale>
 #include <codecvt>
+#include "Transform.h"
+#include "Cell.h"
 
 _float4x4 CNavigation::m_WorldMatrix = {};
 
@@ -154,6 +156,39 @@ _bool CNavigation::isMove(_fvector vPosition)
 			return false;
 	}
 }
+
+void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset)
+{
+	if (m_iCurrentCellIndex < 0 || m_iCurrentCellIndex >= m_Cells.size() || m_Cells[m_iCurrentCellIndex]->Get_CellType() == CCell::CELL_JUMP)
+		return;
+
+	_vector      vLocalPos = XMVector3TransformCoord(pTransform->Get_State(CTransform::STATE_POSITION), XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_WorldMatrix)));
+
+	_vector vPointA = m_Cells[m_iCurrentCellIndex]->Get_Point(CCell::POINT_A);
+	_vector vPointB = m_Cells[m_iCurrentCellIndex]->Get_Point(CCell::POINT_B);
+	_vector vPointC = m_Cells[m_iCurrentCellIndex]->Get_Point(CCell::POINT_C);
+
+	// 각각 거리를 구함
+	_float fDistanceA = XMVectorGetX(XMVector3Length(vPointA - vLocalPos));
+	_float fDistanceB = XMVectorGetX(XMVector3Length(vPointB - vLocalPos));
+	_float fDistanceC = XMVectorGetX(XMVector3Length(vPointC - vLocalPos));
+
+	// 총 거리의 합
+	_float fTotalDistance = fDistanceA + fDistanceB + fDistanceC;
+
+	_float fYA = XMVectorGetY(vPointA);
+	_float fYB = XMVectorGetY(vPointB);
+	_float fYC = XMVectorGetY(vPointC);
+
+	_float fNewY = (fDistanceA * fYA + fDistanceB * fYB + fDistanceC * fYC) / fTotalDistance;
+
+	vLocalPos = XMVectorSetY(vLocalPos, fNewY + fOffset);
+
+	_vector vWorldPos = XMVector3TransformCoord(vLocalPos, XMLoadFloat4x4(&m_WorldMatrix));
+
+	pTransform->Set_State(CTransform::STATE_POSITION, vWorldPos);
+}
+
 
 #ifdef _DEBUG
 
