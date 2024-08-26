@@ -158,6 +158,7 @@
     <ClInclude Include="..\Public\Bed.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
+    <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\Rola.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
+    <ClCompile Include="..\Private\NavDataObj.cpp" />
     <ClCompile Include="..\Private\NonAnimModel.cpp" />
     <ClCompile Include="..\Private\Octorok.cpp" />
     <ClCompile Include="..\Private\OctorokRock.cpp" />

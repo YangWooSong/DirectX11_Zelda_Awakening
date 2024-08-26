@@ -2,6 +2,7 @@
 
 #include "VIBuffer_Rect.h"
 #include "VIBuffer_Terrain.h"
+#include "VIBuffer_Cell.h"
 //#include "VIBuffer_Cube.h"
 #include "Model.h"
 //#include "Transform.h"
@@ -9,6 +10,7 @@
 #include "Shader.h"
 #include "Fsm.h"
 #include "Component.h"
+#include "Navigation.h"
 
 
 /* 컴포넌트의 원형을 레벨별로 보관한다. */

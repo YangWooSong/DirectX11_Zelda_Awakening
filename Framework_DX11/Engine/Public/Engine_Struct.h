@@ -36,6 +36,14 @@ namespace Engine
 		_double			TrackPosition;
 	}KEYFRAME;
 
+	typedef struct ENGINE_DLL
+	{
+		XMFLOAT3		vPosition;
+
+		static const unsigned int	iNumElements = 1;
+		static const D3D11_INPUT_ELEMENT_DESC	Elements[iNumElements];
+	}VTXPOS;
+
 	typedef struct
 	{
 		_uint	iNextAnimIndex;

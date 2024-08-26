@@ -7,6 +7,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CFsm;
+class CNavigation;
 END
 
 BEGIN(Client)
@@ -24,6 +25,7 @@ public:
 
 public:
 	class CModel*			Get_Model() { return m_pModelCom; }
+	class CNavigation*			Get_Navigation() { return m_pNavigationCom; }
 
 	_float					Get_MoveSpeed() { return m_fMoveSpeed; }
 	void					Set_MoveSpeed(_float fSpeed) { m_fMoveSpeed = fSpeed; }
@@ -45,15 +47,15 @@ public:
 	HRESULT		Ready_PartObjects();
 
 	void		Move_Dir(_fvector vDir, _float fSpeed, _float fTimeDelta);
-	void		Go_Straight(_float fTimeDelta, _float fSpeed);
+	void		Go_Straight(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation = nullptr);
 	void		Go_Backward(_float fTimeDelta, _float fSpeed);
 	void		Go_Right(_float fTimeDelta, _float fSpeed);
 	void		Go_Left(_float fTimeDelta, _float fSpeed);
 
-	void		Go_World_Straight(_float fTimeDelta, _float fSpeed = 0.f);
-	void		Go_World_Backward(_float fTimeDelta, _float fSpeed = 0.f);
-	void		Go_World_Right(_float fTimeDelta, _float fSpeed = 0.f);
-	void		Go_World_Left(_float fTimeDelta, _float fSpeed = 0.f);
+	void		Go_World_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
+	void		Go_World_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
+	void		Go_World_Right(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
+	void		Go_World_Left(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 
 	void		Go_Stair_Down(_float fTimeDelta, _float fSpeed = 0.f);
 	void		Go_Stair_Up(_float fTimeDelta, _float fSpeed = 0.f);
@@ -78,6 +80,7 @@ protected:
 	class CModel*		m_pModelCom = { nullptr };
 	class CShader*		m_pShaderCom = { nullptr };
 	class CFsm*			m_pFsmCom = { nullptr };
+	class CNavigation* m_pNavigationCom = { nullptr };
 
 protected:
 	_float				m_fMoveSpeed = { 3.f};

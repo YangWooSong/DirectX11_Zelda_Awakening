@@ -50,7 +50,7 @@ HRESULT CLink::Initialize(void* pArg)
 	m_pFsmCom->Set_State(IDLE);
 
 	m_ePlayer_Dir = FRONT;
-
+	m_iLevelIndex = pDesc->LevelIndex;
 	//m_pGameInstance->SetUp_Player(this);
 
 	return S_OK;
@@ -128,6 +128,19 @@ HRESULT CLink::Render()
 HRESULT CLink::Ready_Components()
 {
 	__super::Ready_Components();
+
+	if(m_iLevelIndex == LEVEL_MARINHOUSE)
+
+	{
+		/* For.Com_Navigation */
+		CNavigation::NAVIGATION_DESC			NaviDesc{};
+
+		NaviDesc.iCurrentIndex = 0;
+
+		if (FAILED(__super::Add_Component(m_iLevelIndex, TEXT("Prototype_Component_Navigation"),
+			TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
+			return E_FAIL;
+	}
 
 	/* FOR.Com_Model */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_Link"),

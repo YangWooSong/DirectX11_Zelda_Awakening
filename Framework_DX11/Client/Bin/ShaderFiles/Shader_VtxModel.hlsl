@@ -45,7 +45,10 @@ VS_OUT VS_MAIN( /*정점*/VS_IN In)
     vPosition = mul(vPosition, g_ProjMatrix);
 
     Out.vPosition = vPosition;
+    
+    //법선벡터를 월드 좌표로 옮겨 빛 벡터랑 비교할 수 있게 함
     Out.vNormal = mul(vector(In.vNormal, 0.f), g_WorldMatrix);
+    
     Out.vTexcoord = In.vTexcoord;
 
     return Out;
@@ -68,7 +71,10 @@ PS_OUT PS_MAIN(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
 	
-    float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.f);
+    //빛의 방향벡터를 역으로 만들어 픽셀의 법선벡터와 비교 -> 코싸인 그래프와 같은 모양이 나옴
+	//음영은 0~1의 값이라 음수는 0으로 만든다.
+
+    float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.5f);
 	
     Out.vColor = g_vLightDiffuse * g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord) * fShade;
 

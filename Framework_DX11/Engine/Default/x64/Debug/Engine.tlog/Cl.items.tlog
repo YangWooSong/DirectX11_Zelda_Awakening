@@ -3,6 +3,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Ba
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\BlendObject.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\BlendObject.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Bone.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Bone.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Camera.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Camera.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Cell.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Cell.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Channel.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Channel.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Component.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Component.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Component_Manager.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Component_Manager.obj
@@ -20,6 +21,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Le
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Level_Manager.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Level_Manager.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Mesh.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Mesh.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Model.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Model.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Navigation.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Navigation.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Object_Manager.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\Object_Manager.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\PartObject.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\PartObject.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\PhysX_Manager.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\PhysX_Manager.obj
@@ -36,5 +38,6 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Tr
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\private\UIObject.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\UIObject.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\UI_Manager.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\UI_Manager.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\VIBuffer.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\VIBuffer.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\VIBuffer_Cell.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\VIBuffer_Cell.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\VIBuffer_Rect.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\VIBuffer_Rect.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\VIBuffer_Terrain.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Default\x64\Debug\VIBuffer_Terrain.obj

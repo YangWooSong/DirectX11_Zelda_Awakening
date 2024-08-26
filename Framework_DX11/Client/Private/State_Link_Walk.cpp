@@ -89,7 +89,7 @@ void CState_Link_Walk::Update(_float fTimeDelta)
         m_pPlayer->Set_Player_Dir(CPlayer::LEFT);
     }
 
-    m_pPlayer->Go_Straight(fTimeDelta, m_fPlayerSpeed);
+    m_pPlayer->Go_Straight(fTimeDelta, m_fPlayerSpeed, m_pPlayer->Get_Navigation());
 
     //방향 전환
     if (KEY_HOLD(KEY::W) && KEY_HOLD(KEY::A))

@@ -277,6 +277,9 @@
     <Filter Include="01.Levels\GamePlay\Test">
       <UniqueIdentifier>{eeed427c-1f77-4e3b-abf9-ae8b9f3c37de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\04.Land\NavDataObj">
+      <UniqueIdentifier>{039b980a-7102-4bea-ae55-511de30993ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -516,6 +519,9 @@
     <ClInclude Include="..\Public\Level_Test.h">
       <Filter>01.Levels\GamePlay\Test</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\NavDataObj.h">
+      <Filter>02.GameObjects\04.Land\NavDataObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -745,6 +751,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Level_Test.cpp">
       <Filter>01.Levels\GamePlay\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\NavDataObj.cpp">
+      <Filter>02.GameObjects\04.Land\NavDataObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,8 @@
 #include "NonAnimModel.h"
 #include "AnimModel.h"
 
+#include"NavDataObj.h"
+
 #include "Link.h"
 #include "FreeCamera.h"
 #include "PlayerCamera.h"
@@ -167,6 +169,19 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	Ready_Models_For_MarinHouse();
 	
 	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
+
+	/* For.Prototype_Component_Navigation */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Navigation"),
+		CNavigation::Create(m_pDevice, m_pContext, TEXT("../Bin/Nav_Data/MarinHouse_Nav_Data.dat")))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_NavDataObj*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_NavDataObj"),
+		CNavDataObj::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
 

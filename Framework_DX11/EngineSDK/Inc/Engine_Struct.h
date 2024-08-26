@@ -12,6 +12,19 @@ namespace Engine
 
 	typedef struct
 	{
+		enum TYPE { TYPE_DIRECTIONAL, TYPE_POINT, TYPE_END };
+
+		TYPE		eType;				//종류
+		XMFLOAT4	vDirection;			//빛의 방향
+		XMFLOAT4	vPosition;			//빛의 위치
+		float		fRange;				//빛의 범위
+
+		XMFLOAT4	vDiffuse;			//빛의 색상 값
+	}LIGHT_DESC;
+
+
+	typedef struct
+	{
 		class CTexture* pMaterialTextures[21];
 	}MESH_MATERIAL;
 
@@ -22,6 +35,14 @@ namespace Engine
 		XMFLOAT3		vTranslation;
 		_double			TrackPosition;
 	}KEYFRAME;
+
+	typedef struct ENGINE_DLL
+	{
+		XMFLOAT3		vPosition;
+
+		static const unsigned int	iNumElements = 1;
+		static const D3D11_INPUT_ELEMENT_DESC	Elements[iNumElements];
+	}VTXPOS;
 
 	typedef struct
 	{

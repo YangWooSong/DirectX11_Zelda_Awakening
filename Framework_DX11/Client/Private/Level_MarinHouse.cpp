@@ -6,6 +6,7 @@
 #include "PlayerCamera.h"
 #include "AnimModel.h"
 #include "Link.h"
+#include "NavDataObj.h"
 #include <fstream>
 CLevel_MarinHouse::CLevel_MarinHouse(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -25,7 +26,7 @@ HRESULT CLevel_MarinHouse::Initialize()
 		return E_FAIL;
 	if (FAILED(Ready_Layer_Effect()))
 		return E_FAIL;
-	
+
 	Read();
 	
 	return S_OK;
@@ -144,6 +145,12 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 
+	CNavDataObj::NAVOBJ_DESC NavDes;
+	NavDes.iLevelNum = LEVEL_MARINHOUSE; 
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
+		return E_FAIL;
+
+
 	return S_OK;
 }
 
@@ -229,6 +236,52 @@ HRESULT CLevel_MarinHouse::Read()
 	}
 
 	fin.close();
+	//MSG_BOX(TEXT("파일 읽기를 성공했습니다.."));
+
+	return S_OK;
+}
+
+HRESULT CLevel_MarinHouse::Read_Nav()
+{
+
+	//const char cFile[20] = "../Bin/Nav_Data.dat";
+	//ifstream fin(cFile, ios::in | ios::binary);
+
+	////	fin.open("../Bin/Map_Data.txt");
+	//if (!fin.is_open())    // 파일 열었다면
+	//{
+	//	MSG_BOX(TEXT("Nav 파일 읽기를 실패했어요.."));
+	//	return;
+	//}
+
+	//_uint iCellCout = { 0 };
+	////getline(fin, line);
+	////LayerCout = std::stoi(line);
+	//fin.read(reinterpret_cast<char*>(&iCellCout), sizeof(iCellCout));
+
+	//_float3 vPos = {};
+
+	//for (int i = 0; i < iCellCout; ++i)
+	//{
+	//	_uint iCellType = { };
+	//	fin.read(reinterpret_cast<char*>(&iCellType), sizeof(iCellType));
+	//	m_pNavigationController->Set_CellType(iCellType);
+
+	//	_uint iRoomNum = { };
+	//	fin.read(reinterpret_cast<char*>(&iRoomNum), sizeof(iRoomNum));
+	//	m_pNavigationController->Set_CellType(iRoomNum);
+
+	//	for (int j = 0; j < 3; ++j)
+	//	{
+	//		fin.read(reinterpret_cast<char*>(&vPos.x), sizeof(_float));
+	//		fin.read(reinterpret_cast<char*>(&vPos.y), sizeof(_float));
+	//		fin.read(reinterpret_cast<char*>(&vPos.z), sizeof(_float));
+
+	//		m_pNavigationController->Add_Point(XMLoadFloat3(&vPos));
+	//	}
+	//}
+
+	//fin.close();
 	//MSG_BOX(TEXT("파일 읽기를 성공했습니다.."));
 
 	return S_OK;
