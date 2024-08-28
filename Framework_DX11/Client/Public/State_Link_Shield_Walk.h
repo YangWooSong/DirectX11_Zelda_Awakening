@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class CFsm;
+class CNavigation;
 END
 
 BEGIN(Client)
@@ -30,6 +31,8 @@ private:
     _uint               m_iBackAnimIndex = {};
 
     _float              m_fPlayerSpeed = { 0.f };
+
+    class CNavigation* m_pPlayer_Navigation = { nullptr };
 
 public:
     static CState_Link_Shield_Walk* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);

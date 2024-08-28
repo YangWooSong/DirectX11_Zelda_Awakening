@@ -7,6 +7,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CFsm;
+class CNavigation;
 END
 
 BEGIN(Client)
@@ -14,6 +15,11 @@ BEGIN(Client)
 class CMonster :
     public CContainerObject
 {
+public:
+	typedef struct : public CGameObject::GAMEOBJECT_DESC
+	{
+		_uint LevelIndex;
+	}MONSTER_DESC;
 public:
 	enum PARTID { PART_EFFECT, PART_END };
 	enum MONSTER_DIR { FRONT, BACK, LEFT, RIGHT, MONSTER_DIR_END};
@@ -34,7 +40,7 @@ public:
 	class CModel* Get_Model() { return m_pModelCom; }
 
 public:
-	void		Go_Straight(_float fTimeDelta, _float fSpeed);
+	void		Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr);
 	void		Change_State(const _uint iState);
 	void		SetUp_NextAnimation(_uint iNextAnimationIndex, _float fChangeDuration = 0.2f, _bool _bLoop = false, _uint iStartFrame = 0);
 	void		Set_AnimationSpeed(_uint _AnimationIndex, _double _dAnimSpeed);
@@ -56,6 +62,8 @@ public:
 
 	_float	Get_Distance(_vector _Pos1, _vector _Pos2);
 	_vector Get_Pos_vector();
+	CNavigation* Get_NavigationCom() { return m_pNavigationCom; }
+	_int Get_CellNum() { return m_iCellNum; }
 protected:
 	HRESULT Ready_Components();
 
@@ -63,10 +71,12 @@ protected:
 	class CModel* m_pModelCom = { nullptr };
 	class CShader* m_pShaderCom = { nullptr };
 	class CFsm* m_pFsmCom = { nullptr };
+	class CNavigation* m_pNavigationCom = { nullptr };
 
 protected:
 	_float				m_fMoveSpeed = { 3.f };
-	_uint				m_iDir = { BACK };		
+	_uint				m_iDir = { BACK };	
+	_uint				m_iLevelIndex = { LEVEL_END };
 public:
 	static CMonster* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class CFsm;
+class CNavigation;
 END
 
 BEGIN(Client)
@@ -38,6 +39,9 @@ private:
     class CItem* m_pPlayer_ItemA = { nullptr };
     class CItem* m_pPlayer_ItemB = { nullptr };
 
+    class CNavigation* m_pPlayer_Navigation = { nullptr };
+
+private:
     void Jump();
 public:
     static CState_Link_Jump* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);

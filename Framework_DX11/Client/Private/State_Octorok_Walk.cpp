@@ -15,6 +15,7 @@ HRESULT CState_Octorok_Walk::Initialize(_uint iStateNum)
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("walk");
     m_iStateNum = iStateNum;
     m_fSpeed = m_pOwner->Get_MoveSpeed();
+    m_pNavigation = m_pOwner->Get_NavigationCom();
     return S_OK;
 }
 
@@ -29,8 +30,6 @@ HRESULT CState_Octorok_Walk::Start_State()
 
 void CState_Octorok_Walk::Update(_float fTimeDelta)
 {
- 
-
     //방향 전환
     switch (m_iOwnerDir)
     {
@@ -60,7 +59,7 @@ void CState_Octorok_Walk::Update(_float fTimeDelta)
     if(m_pOwner->Get_Transform()->Get_IsTurning() == false)
     {
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
-        m_pOwner->Go_Straight(fTimeDelta, m_fSpeed);
+        m_pOwner->Go_Straight(fTimeDelta, m_fSpeed, m_pNavigation);
 
         m_fTimer += fTimeDelta;
 

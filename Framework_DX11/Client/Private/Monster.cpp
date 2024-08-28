@@ -21,7 +21,9 @@ HRESULT CMonster::Initialize_Prototype()
 
 HRESULT CMonster::Initialize(void* pArg)
 {
-	GAMEOBJECT_DESC* pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
+	MONSTER_DESC* pDesc = static_cast<MONSTER_DESC*>(pArg);
+
+	m_iLevelIndex = pDesc->LevelIndex;
 
 	/* 직교투영을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(&pDesc)))
@@ -30,14 +32,17 @@ HRESULT CMonster::Initialize(void* pArg)
 	if (FAILED(Ready_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
+	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
+	m_iCellNum = pDesc->iCellNum;
 
 	return S_OK;
 }
 
 void CMonster::Priority_Update(_float fTimeDelta)
 {
+
+
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Priority_Update(fTimeDelta);
 }
@@ -61,9 +66,9 @@ HRESULT CMonster::Render()
     return S_OK;
 }
 
-void CMonster::Go_Straight(_float fTimeDelta, _float fSpeed)
+void CMonster::Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation)
 {
-	m_pTransformCom->Go_Straight(fTimeDelta, fSpeed);
+	m_pTransformCom->Go_Straight(fTimeDelta, fSpeed, pNavigation);
 }
 
 void CMonster::Change_State(const _uint iState)
@@ -88,7 +93,7 @@ _bool CMonster::Get_IsEnd_CurrentAnimation()
 
 void CMonster::Set_NewRandom_Dir()
 {
-	_uint new_dir = m_pGameInstance->Get_Random(0, 4);
+	_uint new_dir = (_uint)m_pGameInstance->Get_Random(0, 4);
 	if (m_iDir != new_dir)
 	{
 		m_iDir = new_dir;
@@ -122,6 +127,7 @@ HRESULT CMonster::Ready_Components()
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxAnimModel"),
 		TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
 		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -158,5 +164,6 @@ void CMonster::Free()
 
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);
+	Safe_Release(m_pNavigationCom);
 }
 

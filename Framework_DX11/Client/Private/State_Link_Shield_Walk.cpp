@@ -19,7 +19,7 @@ HRESULT CState_Link_Shield_Walk::Initialize(_uint iStateNum)
     m_iStateNum = iStateNum;
 
     m_fPlayerSpeed = m_pPlayer->Get_MoveSpeed() / 2;
-
+    m_pPlayer_Navigation = m_pPlayer->Get_Navigation();
     return S_OK;
 }
 HRESULT CState_Link_Shield_Walk::Start_State()
@@ -53,22 +53,22 @@ void CState_Link_Shield_Walk::Update(_float fTimeDelta)
     if (KEY_HOLD(KEY::W))
     {
         m_pPlayer->Set_Player_Dir(CPlayer::FRONT);
-        m_pPlayer->Go_World_Straight(fTimeDelta, m_fPlayerSpeed);
+        m_pPlayer->Go_World_Straight(fTimeDelta, m_fPlayerSpeed, m_pPlayer_Navigation);
     }
     if (KEY_HOLD(KEY::S))
     {
         m_pPlayer->Set_Player_Dir(CPlayer::BACK);
-        m_pPlayer->Go_World_Backward(fTimeDelta, m_fPlayerSpeed);
+        m_pPlayer->Go_World_Backward(fTimeDelta, m_fPlayerSpeed, m_pPlayer_Navigation);
     }
     if (KEY_HOLD(KEY::D))
     {
         m_pPlayer->Set_Player_Dir(CPlayer::RIGHT);
-        m_pPlayer->Go_World_Right(fTimeDelta, m_fPlayerSpeed);
+        m_pPlayer->Go_World_Right(fTimeDelta, m_fPlayerSpeed, m_pPlayer_Navigation);
     }
     if (KEY_HOLD(KEY::A))
     {
         m_pPlayer->Set_Player_Dir(CPlayer::LEFT);
-        m_pPlayer->Go_World_Left(fTimeDelta, m_fPlayerSpeed);
+        m_pPlayer->Go_World_Left(fTimeDelta, m_fPlayerSpeed, m_pPlayer_Navigation);
     }
 
     if (KEY_TAP(KEY::O))

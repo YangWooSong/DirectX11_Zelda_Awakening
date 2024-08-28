@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class CFsm;
+class CNavigation;
 END
 
 
@@ -31,6 +32,8 @@ private:
     _float              m_fSpeed = { 0.f };
     _float              m_fTimer = { 0.f };
     _float3             m_fTargetRot = {};
+
+    class CNavigation* m_pNavigation = { nullptr };
 public:
     static CState_Octorok_Walk* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

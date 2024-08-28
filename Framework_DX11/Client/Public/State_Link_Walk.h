@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class CFsm;
+class CNavigation;
 END
 
 BEGIN(Client)
@@ -30,6 +31,8 @@ private:
     class CItem* m_pPlayer_ItemB = { nullptr };
 
     _uint   m_iPlayerDir = { 0 };
+
+    class CNavigation* m_pPlayer_Navigation = { nullptr };
 
 public:
     static CState_Link_Walk* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);

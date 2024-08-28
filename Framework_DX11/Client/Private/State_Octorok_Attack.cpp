@@ -71,7 +71,7 @@ void CState_Octorok_Attack::Shoot()
         COctorokRock::OCTOROKROCK_DESC RockDesc = {};
         XMStoreFloat3(&RockDesc.vPosition, m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION));
         RockDesc.iDir = m_pOwner->Get_Monster_Dir();
-
+        RockDesc.iCellNum = m_pOwner->Get_CellNum();
         m_pGameInstance->Event_CreateObject(LEVEL_FIELD, TEXT("Layer_OctorokRock"), TEXT("Prototype_GameObject_OctorokRock"), sizeof(RockDesc), &RockDesc);
     }
     m_iShootCount++;

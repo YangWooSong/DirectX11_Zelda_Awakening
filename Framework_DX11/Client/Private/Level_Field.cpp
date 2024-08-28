@@ -8,6 +8,7 @@
 #include "Link.h"
 #include <fstream>
 #include "NavDataObj.h"
+#include "Monster.h"
 
 CLevel_Field::CLevel_Field(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -115,7 +116,7 @@ HRESULT CLevel_Field::Ready_LandObjects()
 {
 
 	CPlayer::PLAYER_DESC PlayerDesc;
-	PlayerDesc.vPosition = _float3(3.f, 0.f, 2.f);
+	PlayerDesc.vPosition = _float3(3.f, 0.f, 3.f);
 	PlayerDesc.LevelIndex = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
@@ -124,8 +125,7 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	NavDes.iLevelNum = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
-
-
+	
 	return S_OK;
 }
 
@@ -173,6 +173,8 @@ HRESULT CLevel_Field::Read()
 	_float3 fPos = {};
 	_float3 fScaled = {};
 	_float3 fRot = {};
+	_int iCellNum = {};
+
 	while (i < LayerCout)
 	{
 		fin.read(reinterpret_cast<char*>(&iStrSize), sizeof(iStrSize));
@@ -198,14 +200,16 @@ HRESULT CLevel_Field::Read()
 			fin.read(reinterpret_cast<char*>(&fRot.y), sizeof(_float));
 			fin.read(reinterpret_cast<char*>(&fRot.z), sizeof(_float));
 
+			fin.read(reinterpret_cast<char*>(&iCellNum), sizeof(_int));
+
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
 			else if (iObjectType == CGameObject::ANIM_MONSTER)
-				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
+				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);
 			else if (iObjectType == CGameObject::NONANIM_OBJ)
 				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 			else if (iObjectType == CGameObject::ANIM_OBJ)
-				Read_AnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
+				Read_AnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);
 		}
 
 		++i;
@@ -232,15 +236,17 @@ HRESULT CLevel_Field::Read_LandObjects(_int _type, _uint _index, _float3 _fPos, 
 	return S_OK;
 }
 
-HRESULT CLevel_Field::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
+HRESULT CLevel_Field::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum)
 {
-	CGameObject::GAMEOBJECT_DESC pDesc = { };
-	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
-	pDesc.listIndex = _index;
+	CMonster::MONSTER_DESC pDesc = { };
+	//pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
+	//pDesc.listIndex = _index;
 
 	pDesc.vPosition = _fPos;
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
+	pDesc.LevelIndex = LEVEL_FIELD;
+	pDesc.iCellNum = _iCellNum;
 
 	if (_strLyaerTag == "Layer_SeaUrchin")
 	{
@@ -255,7 +261,7 @@ HRESULT CLevel_Field::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, 
 	return S_OK;
 }
 
-HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
+HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum)
 {
 	CGameObject::GAMEOBJECT_DESC pDesc = { };
 	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
@@ -264,6 +270,7 @@ HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _flo
 	pDesc.vPosition = _fPos;
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
+	pDesc.iCellNum = _iCellNum;
 
 	if (_strLyaerTag == "Layer_Weathercock")
 	{

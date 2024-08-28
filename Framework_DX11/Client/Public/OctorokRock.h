@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CShader;
 class CModel;
+class CNavigation;
 END
 
 BEGIN(Client)
@@ -15,7 +16,6 @@ public:
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
 		_uint iDir;
-
 	} OCTOROKROCK_DESC;
 
 public:
@@ -36,10 +36,12 @@ public:
 public:
 	class CShader* m_pShaderCom = { nullptr };
 	class CModel* m_pModelCom = { nullptr };
-
+	class CNavigation* m_pNavigationCom = { nullptr };
 private:
 	HRESULT Ready_Components();
+	void Set_CellNum(_int iNum) { m_iCellNum = iNum; }
 
+private:
 	_float m_fSpeed = {  };
 	_uint	m_iRockDir = { OCTOROKROCK_DIR_END };
 

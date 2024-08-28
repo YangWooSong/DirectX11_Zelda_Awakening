@@ -498,6 +498,10 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 		COctorok::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
+		COctorokRock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 

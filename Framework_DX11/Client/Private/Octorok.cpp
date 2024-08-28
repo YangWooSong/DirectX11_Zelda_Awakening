@@ -38,7 +38,7 @@ HRESULT COctorok::Initialize(void* pArg)
 	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 	
-	m_iDir = m_pGameInstance->Get_Random(0, 4);
+	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
 	return S_OK;
 }
@@ -50,6 +50,9 @@ void COctorok::Priority_Update(_float fTimeDelta)
 
 void COctorok::Update(_float fTimeDelta)
 {
+	if (m_pNavigationCom != nullptr)
+		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
+
 	m_pFsmCom->Update(fTimeDelta);
 
 	m_pModelCom->Play_Animation(fTimeDelta);
@@ -112,6 +115,16 @@ HRESULT COctorok::Ready_Components()
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
 		return E_FAIL;
 
+
+	/* For.Com_Navigation */
+	CNavigation::NAVIGATION_DESC			NaviDesc{};
+
+	NaviDesc.iCurrentIndex = m_iCellNum;
+
+	if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
+		TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
+		return E_FAIL;
+	
 	return S_OK;
 }
 

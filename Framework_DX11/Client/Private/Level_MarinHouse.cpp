@@ -198,6 +198,7 @@ HRESULT CLevel_MarinHouse::Read()
 	_float3 fPos = {};
 	_float3 fScaled = {};
 	_float3 fRot = {};
+	_int iCellNum = {};
 	while (i < LayerCout)
 	{
 		fin.read(reinterpret_cast<char*>(&iStrSize), sizeof(iStrSize));
@@ -222,6 +223,9 @@ HRESULT CLevel_MarinHouse::Read()
 			fin.read(reinterpret_cast<char*>(&fRot.x), sizeof(_float));
 			fin.read(reinterpret_cast<char*>(&fRot.y), sizeof(_float));
 			fin.read(reinterpret_cast<char*>(&fRot.z), sizeof(_float));
+
+			//fin.read(reinterpret_cast<char*>(&iCellNum), sizeof(_int));
+
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);

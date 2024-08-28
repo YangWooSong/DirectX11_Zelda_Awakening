@@ -3,6 +3,7 @@
 
 BEGIN(Engine)
 class CFsm;
+class CNavigation;
 END
 
 
@@ -34,6 +35,8 @@ private:
 
     _float              m_fPlayerSpeed = { 0.f };
     _uint               m_iPlayerDir = {};
+
+    class CNavigation* m_pPlayer_Navigation = { nullptr };
 public:
     static CState_Link_Slash_Hold* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);
     virtual void Free() override;

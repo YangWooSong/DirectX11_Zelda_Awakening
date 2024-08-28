@@ -34,7 +34,7 @@ HRESULT COctorokRock::Initialize(void* pArg)
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
     m_pTransformCom->Set_Scaled(0.8f, 0.8f,0.8f);
     m_iRockDir = pDesc->iDir;
-
+    m_iCellNum = pDesc->iCellNum;
     
     m_fSpeed = 7.f;
 
@@ -50,16 +50,16 @@ void COctorokRock::Update(_float fTimeDelta)
     switch (m_iRockDir)
     {
     case FRONT:
-        m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed);
+        m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed,m_pNavigationCom);
         break;
     case BACK:
-        m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed);
+        m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed, m_pNavigationCom);
         break;
     case LEFT:
-        m_pTransformCom->Go_World_Left(fTimeDelta, m_fSpeed);
+        m_pTransformCom->Go_World_Left(fTimeDelta, m_fSpeed, m_pNavigationCom);
         break;
     case RIGHT:
-        m_pTransformCom->Go_World_Right(fTimeDelta, m_fSpeed);
+        m_pTransformCom->Go_World_Right(fTimeDelta, m_fSpeed, m_pNavigationCom);
         break;
     default:
         break;
@@ -113,6 +113,15 @@ HRESULT COctorokRock::Ready_Components()
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
 
+    /* For.Com_Navigation */
+    CNavigation::NAVIGATION_DESC			NaviDesc{};
+
+    NaviDesc.iCurrentIndex = m_iCellNum;
+
+    if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
+        TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -147,4 +156,5 @@ void COctorokRock::Free()
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
+    Safe_Release(m_pNavigationCom);
 }

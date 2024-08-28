@@ -18,6 +18,7 @@ public:
 		_float3		vPosition = _float3(0.f, 0.f, 0.f);
 		_float3		vScale = _float3(1.f, 1.f, 1.f);
 		_float3		vRotation = _float3(0.f, 0.f, 0.f);
+		_int		iCellNum = -1;
 	} GAMEOBJECT_DESC;
 
 protected:
@@ -72,6 +73,7 @@ protected:
 	OBJ_TYPE					m_eObjType = { TYPE_END };
 	_uint						m_iListIndex = { 0 };
 	_float3						m_vRot = {};
+	_int						m_iCellNum = {};
 protected:
 	HRESULT Add_Component(_uint iLevelIndex, const _wstring& strPrototypeTag, const _wstring& strComponentTag, CComponent** ppOut, void* pArg = nullptr);
 
