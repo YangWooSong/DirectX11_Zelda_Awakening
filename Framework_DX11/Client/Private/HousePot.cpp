@@ -21,7 +21,7 @@ HRESULT CHousePot::Initialize(void* pArg)
     GAMEOBJECT_DESC* pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
 
     /* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
-    if (FAILED(__super::Initialize(pArg)))
+    if (FAILED(__super::Initialize(pDesc)))
         return E_FAIL;
 
     if (FAILED(Ready_Components()))
@@ -31,8 +31,6 @@ HRESULT CHousePot::Initialize(void* pArg)
     m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
-
-    m_pGameInstance->AddScene_ColMesh(this, TEXT("HousePot"));
 
     return S_OK;
 }

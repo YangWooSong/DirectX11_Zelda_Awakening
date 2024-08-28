@@ -146,7 +146,7 @@ _bool CNavigation::isMove(_fvector vPosition)
 					break;
 			}
 
-
+			m_iPreCellIndex = m_iCurrentCellIndex;
 			m_iCurrentCellIndex = iNeighborIndex;
 			return true;
 		}
@@ -157,7 +157,7 @@ _bool CNavigation::isMove(_fvector vPosition)
 	}
 }
 
-void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset)
+void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fTimeDelta)
 {
 	if (m_iCurrentCellIndex < 0 || m_iCurrentCellIndex >= m_Cells.size() || m_Cells[m_iCurrentCellIndex]->Get_CellType() == CCell::CELL_JUMP)
 		return;
@@ -182,7 +182,8 @@ void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset)
 
 	_float fNewY = (fDistanceA * fYA + fDistanceB * fYB + fDistanceC * fYC) / fTotalDistance;
 
-	vLocalPos = XMVectorSetY(vLocalPos, fNewY + fOffset);
+	_vector vNewLocalPos = XMVectorSetY(vLocalPos, fNewY + fOffset);
+	vLocalPos = XMVectorLerp(vLocalPos, vNewLocalPos, 5.f * fTimeDelta);
 
 	_vector vWorldPos = XMVector3TransformCoord(vLocalPos, XMLoadFloat4x4(&m_WorldMatrix));
 
@@ -291,6 +292,7 @@ void CNavigation::Free()
 
 	for (auto& pCell : m_Cells)
 		Safe_Release(pCell);
+	
 
 	m_Cells.clear();
 

@@ -15,7 +15,6 @@ HRESULT CState_Link_Walk::Initialize(_uint iStateNum)
     m_iCurrentAnimIndex = m_pPlayer->Get_Model()->Get_AnimationIndex("run");
     m_iStateNum = iStateNum;
     m_fPlayerSpeed = m_pPlayer->Get_MoveSpeed();
-
     return S_OK;
 }
 

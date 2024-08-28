@@ -7,6 +7,7 @@
 #include "AnimModel.h"
 #include "Link.h"
 #include <fstream>
+#include "NavDataObj.h"
 
 CLevel_Field::CLevel_Field(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -57,7 +58,7 @@ HRESULT CLevel_Field::Ready_Layer_Camera()
 	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
 	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
 	Desc.fFovy = XMConvertToRadians(60.0f);
-	Desc.fAspect = g_iWinSizeX / g_iWinSizeY;
+	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
 	Desc.fNear = 0.1f;
 	Desc.fFar = 1000.f;
 	Desc.fSpeedPerSec = 30.f;
@@ -114,10 +115,17 @@ HRESULT CLevel_Field::Ready_LandObjects()
 {
 
 	CPlayer::PLAYER_DESC PlayerDesc;
-	PlayerDesc.vPosition = _float3(5.f, 10.f, 5.f);
+	PlayerDesc.vPosition = _float3(3.f, 0.f, 2.f);
+	PlayerDesc.LevelIndex = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 	
+	CNavDataObj::NAVOBJ_DESC NavDes;
+	NavDes.iLevelNum = LEVEL_FIELD;
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
+		return E_FAIL;
+
+
 	return S_OK;
 }
 
@@ -192,11 +200,12 @@ HRESULT CLevel_Field::Read()
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
+			else if (iObjectType == CGameObject::ANIM_MONSTER)
+				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 			else if (iObjectType == CGameObject::NONANIM_OBJ)
 				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 			else if (iObjectType == CGameObject::ANIM_OBJ)
 				Read_AnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
-
 		}
 
 		++i;
@@ -223,6 +232,29 @@ HRESULT CLevel_Field::Read_LandObjects(_int _type, _uint _index, _float3 _fPos, 
 	return S_OK;
 }
 
+HRESULT CLevel_Field::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
+{
+	CGameObject::GAMEOBJECT_DESC pDesc = { };
+	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
+	pDesc.listIndex = _index;
+
+	pDesc.vPosition = _fPos;
+	pDesc.vScale = _fScaled;
+	pDesc.vRotation = _fRot;
+
+	if (_strLyaerTag == "Layer_SeaUrchin")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_SeaUrchin"), TEXT("Prototype_GameObject_SeaUrchin"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_Octorok")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Octorok"), TEXT("Prototype_GameObject_Octorok"), &pDesc)))
+			return E_FAIL;
+	}
+	return S_OK;
+}
+
 HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
 {
 	CGameObject::GAMEOBJECT_DESC pDesc = { };
@@ -233,12 +265,16 @@ HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _flo
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
 
-	if (_strLyaerTag == "Layer_Bed")
+	if (_strLyaerTag == "Layer_Weathercock")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Bed"), TEXT("Prototype_GameObject_Bed"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Weathercock"), TEXT("Prototype_GameObject_Weathercock"), &pDesc)))
 			return E_FAIL;
 	}
-
+	else if (_strLyaerTag == "Layer_Tree")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Tree"), TEXT("Prototype_GameObject_Tree"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -252,12 +288,16 @@ HRESULT CLevel_Field::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
 
-	if (_strLyaerTag == "Layer_HousePot")
+	if (_strLyaerTag == "Layer_Lawn")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_HousePot"), TEXT("Prototype_GameObject_HousePot"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Lawn"), TEXT("Prototype_GameObject_Lawn"), &pDesc)))
 			return E_FAIL;
 	}
-
+	else if (_strLyaerTag == "Layer_Grass")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Grass"), TEXT("Prototype_GameObject_Grass"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 

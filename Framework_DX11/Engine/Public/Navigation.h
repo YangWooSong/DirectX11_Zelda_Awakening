@@ -19,7 +19,9 @@ private:
 public:
 	virtual HRESULT Initialize_Prototype(const _wstring& strNavigationDataFile);
 	virtual HRESULT Initialize(void* pArg) override;
-	void CNavigation::SetUp_OnCell(class CTransform* pTransform, _float fOffset);
+	void CNavigation::SetUp_OnCell(class CTransform* pTransform, _float fOffset, _float fTimeDelta);
+
+	_int Get_PreCellIndex() { return m_iPreCellIndex; }
 
 public:
 	void Update(_fmatrix TerrainWorldMatrix);
@@ -33,6 +35,7 @@ public:
 private:
 	vector<class CCell*>				m_Cells;
 	_int								m_iCurrentCellIndex = { -1 };
+	_int								m_iPreCellIndex = { -1 };
 	static _float4x4					m_WorldMatrix;
 
 #ifdef _DEBUG

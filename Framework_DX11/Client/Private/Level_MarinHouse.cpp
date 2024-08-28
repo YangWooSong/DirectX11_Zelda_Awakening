@@ -97,7 +97,7 @@ HRESULT CLevel_MarinHouse::Ready_Layer_Camera()
 	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
 	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
 	Desc.fFovy = XMConvertToRadians(50.0f);
-	Desc.fAspect = g_iWinSizeX / g_iWinSizeY;
+	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
 	Desc.fNear = 0.1f;
 	Desc.fFar = 1000.f;
 	Desc.fSpeedPerSec = 30.f;

@@ -69,8 +69,10 @@ void CLink::Update(_float fTimeDelta)
 	m_pModelCom->Play_Animation(fTimeDelta);
 
 	//점프일때는 자동으로 땅 타지 않도록
-	if(m_pFsmCom->Get_CurrentState() != JUMP)
-		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f );
+	if(m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr)
+		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
+
+//	int a = m_pNavigationCom->Get_PreCellIndex();
 
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Update(fTimeDelta);
@@ -133,7 +135,7 @@ HRESULT CLink::Ready_Components()
 {
 	__super::Ready_Components();
 
-	if(m_iLevelIndex == LEVEL_MARINHOUSE)
+	if(m_iLevelIndex != LEVEL_TEST )
 
 	{
 		/* For.Com_Navigation */

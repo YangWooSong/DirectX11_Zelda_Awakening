@@ -64,7 +64,7 @@ HRESULT CLevel_Test::Ready_Layer_Camera()
 	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
 	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
 	Desc.fFovy = XMConvertToRadians(60.0f);
-	Desc.fAspect = g_iWinSizeX / g_iWinSizeY;
+	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
 	Desc.fNear = 0.1f;
 	Desc.fFar = 1000.f;
 	Desc.fSpeedPerSec = 30.f;
@@ -122,6 +122,7 @@ HRESULT CLevel_Test::Ready_LandObjects()
 
 	CPlayer::PLAYER_DESC PlayerDesc;
 	PlayerDesc.vPosition = _float3(0.f, 0.f, 0.f);
+	PlayerDesc.LevelIndex = LEVEL_TEST;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 

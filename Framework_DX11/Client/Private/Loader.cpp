@@ -22,10 +22,14 @@
 #include "HousePot.h"
 #include "Bed.h"
 
-
+#include "Lawn.h"
+#include "Grass.h"
+#include "Tree.h"
+#include "Weathercock.h"
 #include "SeaUrchin.h"
 #include "Octorok.h"
 #include "OctorokRock.h"
+
 #include "Rola.h"
 #include "Spark.h"
 #include "Pawn.h"
@@ -262,7 +266,7 @@ HRESULT CLoader::Ready_Resources_For_Test()
 	Ready_Prototype_For_Test();
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
-
+	
 	m_isFinished = true;
 
 	return S_OK;
@@ -279,6 +283,13 @@ HRESULT CLoader::Ready_Resources_For_Field()
 	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
 
 	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
+
+	/* For.Prototype_Component_Navigation */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
+		CNavigation::Create(m_pDevice, m_pContext, TEXT("../Bin/Nav_Data/Field_Nav_Data.dat")))))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
 	
@@ -312,10 +323,10 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/MarinHouse/MarinHouse.dat"))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_Obj_Apple*/
- 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_Apple"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/AppleRed/AppleRed.dat"))))
-		return E_FAIL;
+	///* For. Prototype_Component_Model_Obj_Apple*/
+ //	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_Apple"),
+	//	CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/AppleRed/AppleRed.dat"))))
+	//	return E_FAIL;
 
 	/* For. Prototype_Component_Model_Obj_HousePot*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_HousePot"),
@@ -354,6 +365,46 @@ HRESULT CLoader::Ready_Models_For_Field()
 			return E_FAIL;
 	}
 #pragma endregion
+
+#pragma region OBJECT
+	/* For. Prototype_Component_Model_Lawn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Lawn"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Lawn/Lawn.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Grass*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Grass"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Grass/Grass.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Tree*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Tree"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Tree/Tree.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Weathercock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Weathercock"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Weathercock/Weathercock.dat"))))
+		return E_FAIL;
+
+#pragma endregion
+
+#pragma region MONSTER
+	/* For. Prototype_Component_Model_SeaUrchin*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_SeaUrchin"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/SeaUrchin/SeaUrchin.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Octorok*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Octorok"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Octorok/Octorok.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_OctorokRock"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Monster/OctorokRock/OctorokRock.dat"))))
+		return E_FAIL;
+#pragma endregion
 	return S_OK;
 }
 
@@ -363,20 +414,9 @@ HRESULT CLoader::Ready_Models_For_Test()
 
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 #pragma region MONSTER
-	/* For. Prototype_Component_Model_SeaUrchin*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_SeaUrchin"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/SeaUrchin/SeaUrchin.dat"))))
-		return E_FAIL;
 
-	/* For. Prototype_Component_Model_Octorok*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Octorok"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Octorok/Octorok.dat", PreTransformMatrix))))
-		return E_FAIL;
 
-	/* For. Prototype_Component_Model_OctorokRock*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_OctorokRock"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Monster/OctorokRock/OctorokRock.dat"))))
-		return E_FAIL;
+
 
 	/* For. Prototype_Component_Model_Rola*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Rola"),
@@ -425,16 +465,28 @@ HRESULT CLoader::Ready_Models_For_Test()
 
 HRESULT CLoader::Ready_Prototype_For_Field()
 {
+#pragma region OBJECT
 	/* For. Prototype_GameObject_Land*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Land"),
-		CLand::Create(m_pDevice, m_pContext))))
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Lawn"),
+		CLawn::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	return S_OK;
-}
+	/* For. Prototype_GameObject_Grass*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Grass"),
+		CGrass::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 
-HRESULT CLoader::Ready_Prototype_For_Test()
-{
+	/* For. Prototype_GameObject_Tree*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Tree"),
+		CTree::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Weathercock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Weathercock"),
+		CWeathercock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+#pragma endregion
+
 #pragma region MONSTER
 	/* For. Prototype_GameObject_SeaUrchin*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SeaUrchin"),
@@ -446,11 +498,14 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		COctorok::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_OctorokRock*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
-		COctorokRock::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+#pragma endregion
+	return S_OK;
 
+}
+
+HRESULT CLoader::Ready_Prototype_For_Test()
+{
+#pragma region MONSTER
 	/* For. Prototype_GameObject_Rola*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
 		CRola::Create(m_pDevice, m_pContext))))
@@ -481,17 +536,6 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		CVegas::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
-
-	/* For. Prototype_GameObject_FreeCamera */
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FreeCamera"),
-		CFreeCamera::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
-	/* For. Prototype_GameObject_PLayer_Link */
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_Link"),
-		CLink::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
 	return S_OK;
 }
 

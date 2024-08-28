@@ -134,6 +134,7 @@ HRESULT CGameInstance::Clear(_uint iLevelIndex)
 		return S_OK;
 
 	/* 특정 레벨을 위해 존재하는 자원들은 해당 레벨이 끝나면 삭제하자. */
+
 	m_pObject_Manager->Clear(iLevelIndex);
 
 	/* 컴포넌트 원형들도 레벨별로 관리했었다. */

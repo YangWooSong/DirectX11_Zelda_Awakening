@@ -82,17 +82,8 @@
     <Filter Include="02.GameObjects\02.Player\Link">
       <UniqueIdentifier>{10e8a24e-fa9c-4ddd-870b-b4bbeeea14bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Item">
-      <UniqueIdentifier>{d7c79efa-1893-4c6e-af1b-b766d09e0649}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\04.Land">
       <UniqueIdentifier>{63240ddd-2e22-4926-a00d-714b4825a65a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\03.Item\00.HousePot">
-      <UniqueIdentifier>{b9c818b2-440e-418b-b623-45ac139c5247}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\03.Item\01.Bed">
-      <UniqueIdentifier>{847cea1b-3ead-4601-b3b9-62e6fbed1b93}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Levels\GamePlay\00.MarinHouse">
       <UniqueIdentifier>{9583df09-6512-475b-99f6-6f7b2783be37}</UniqueIdentifier>
@@ -280,6 +271,33 @@
     <Filter Include="02.GameObjects\04.Land\NavDataObj">
       <UniqueIdentifier>{039b980a-7102-4bea-ae55-511de30993ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects">
+      <UniqueIdentifier>{d7c79efa-1893-4c6e-af1b-b766d09e0649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\MarinHouse">
+      <UniqueIdentifier>{49df0f6d-bec7-4ccf-91fd-6c80d9b42fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\MarinHouse\01.Bed">
+      <UniqueIdentifier>{847cea1b-3ead-4601-b3b9-62e6fbed1b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\MarinHouse\00.HousePot">
+      <UniqueIdentifier>{b9c818b2-440e-418b-b623-45ac139c5247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field">
+      <UniqueIdentifier>{09fdc50f-8ed5-4206-8d93-50561117bbca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\00.Grass">
+      <UniqueIdentifier>{41d6c7ff-d07a-4239-bc30-a4d777bd442f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\01.Lawn">
+      <UniqueIdentifier>{1b7d0c4d-f3ec-45f1-b69f-2c5a43be382c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\02.Tree">
+      <UniqueIdentifier>{bf06a8ce-380e-40b0-9575-e67fc98f44ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\03.Weathercock">
+      <UniqueIdentifier>{2501543f-0e85-4e41-8398-c3ec077e54c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -352,13 +370,13 @@
       <Filter>02.GameObjects\04.Land</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Item.h">
-      <Filter>02.GameObjects\03.Item</Filter>
+      <Filter>02.GameObjects\03.Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\HousePot.h">
-      <Filter>02.GameObjects\03.Item\00.HousePot</Filter>
+      <Filter>02.GameObjects\03.Objects\MarinHouse\00.HousePot</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Bed.h">
-      <Filter>02.GameObjects\03.Item\01.Bed</Filter>
+      <Filter>02.GameObjects\03.Objects\MarinHouse\01.Bed</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State_Link_Slash.h">
       <Filter>05.State\Link\Slash</Filter>
@@ -522,6 +540,18 @@
     <ClInclude Include="..\Public\NavDataObj.h">
       <Filter>02.GameObjects\04.Land\NavDataObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Lawn.h">
+      <Filter>02.GameObjects\03.Objects\Field\01.Lawn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Grass.h">
+      <Filter>02.GameObjects\03.Objects\Field\00.Grass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Tree.h">
+      <Filter>02.GameObjects\03.Objects\Field\02.Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Weathercock.h">
+      <Filter>02.GameObjects\03.Objects\Field\03.Weathercock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -585,13 +615,13 @@
       <Filter>02.GameObjects\04.Land</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Item.cpp">
-      <Filter>02.GameObjects\03.Item</Filter>
+      <Filter>02.GameObjects\03.Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\HousePot.cpp">
-      <Filter>02.GameObjects\03.Item\00.HousePot</Filter>
+      <Filter>02.GameObjects\03.Objects\MarinHouse\00.HousePot</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Bed.cpp">
-      <Filter>02.GameObjects\03.Item\01.Bed</Filter>
+      <Filter>02.GameObjects\03.Objects\MarinHouse\01.Bed</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Slash.cpp">
       <Filter>05.State\Link\Slash</Filter>
@@ -754,6 +784,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\NavDataObj.cpp">
       <Filter>02.GameObjects\04.Land\NavDataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Lawn.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\01.Lawn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Grass.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\00.Grass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Tree.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\02.Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Weathercock.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\03.Weathercock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
