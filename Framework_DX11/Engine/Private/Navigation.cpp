@@ -168,48 +168,73 @@ void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fT
 	_vector vPointB = m_Cells[m_iCurrentCellIndex]->Get_Point(CCell::POINT_B);
 	_vector vPointC = m_Cells[m_iCurrentCellIndex]->Get_Point(CCell::POINT_C);
 
-	_float fYA = XMVectorGetY(vPointA);
-	_float fYB = XMVectorGetY(vPointB);
-	_float fYC = XMVectorGetY(vPointC);
+	// 각각 거리를 구함
+	_float fDistanceA = XMVectorGetX(XMVector3Length(vPointA - vLocalPos));
+	_float fDistanceB = XMVectorGetX(XMVector3Length(vPointB - vLocalPos));
+	_float fDistanceC = XMVectorGetX(XMVector3Length(vPointC - vLocalPos));
 
-	_float fMax = max(max(fYA, fYB), fYC);
-	_float fMin = min(min(fYA, fYB), fYC);
+	_float fMaxDistance = max(max(fDistanceA, fDistanceB), fDistanceC);
+    _float fMinDistance = min(min(fDistanceA, fDistanceB), fDistanceC);
+	_float fMidDistance = 0.f;
 
-	_vector vMaxYPoint{};
-	_vector vMinYPoint{};
+	_float fMaxFarY = 0.f;
+	_float fMidFarY = 0.f;
+	_float fMinFarY = 0.f;
 
-	if (fMax == fYA)
-		vMaxYPoint = vPointA;
-	else if(fMax == fYB)
-		vMaxYPoint = vPointB;
-	else if(fMax == fYC)
-		vMaxYPoint = vPointC;
+	if (fMaxDistance != fDistanceA && fMinDistance != fDistanceA)
+	{
+		fMidDistance = fDistanceA;
+		fMidFarY = XMVectorGetY(vPointA);
+	}
+	else if (fMaxDistance != fDistanceB && fMinDistance != fDistanceB)
+	{
+		fMidDistance = fDistanceB;
+		fMidFarY = XMVectorGetY(vPointB);
+	}
+	else if (fMaxDistance != fDistanceC && fMinDistance != fDistanceC)
+	{
+		fMidDistance = fDistanceC;
+		fMidFarY = XMVectorGetY(vPointC);
+	}
 
-	if (fMin == fYA)
-		vMinYPoint = vPointA;
-	else if (fMin == fYB)
-		vMinYPoint = vPointB;
-	else if (fMin == fYC)
-		vMinYPoint = vPointC;
+	if (fMaxDistance == fDistanceA)
+	{
+		fMaxFarY = XMVectorGetY(vPointA);
+	}
+	else if (fMaxDistance == fDistanceB)
+	{
+		fMaxFarY = XMVectorGetY(vPointB);
+	}
+	else if (fMaxDistance == fDistanceC)
+	{
+		fMaxFarY = XMVectorGetY(vPointC);
+	}
 
-	//_float fDistanceMax = XMVectorGetX(XMVector3Length(vMinYPoint - vLocalPos));
-	//_float fDistanceMin = XMVectorGetX(XMVector3Length(vMinYPoint - vLocalPos));
+	if (fMinDistance == fDistanceA)
+	{
+		fMinFarY = XMVectorGetY(vPointA);
+	}
+	else if (fMinDistance == fDistanceB)
+	{
+		fMinFarY = XMVectorGetY(vPointB);
+	}
+	else if (fMinDistance == fDistanceC)
+	{
+		fMinFarY = XMVectorGetY(vPointC);
+	}
 
 	// 총 거리의 합
-	_float fDistanceMaxY = fabs(XMVectorGetZ(vMaxYPoint) - XMVectorGetZ(vLocalPos));
-	_float fDistanceMinY = fabs(XMVectorGetZ(vMinYPoint) - XMVectorGetZ(vLocalPos));
-	_float fDistanceMaxX = fabs(XMVectorGetX(vMaxYPoint) - XMVectorGetX(vLocalPos));
-	_float fDistanceMixX = fabs(XMVectorGetX(vMinYPoint) - XMVectorGetX(vLocalPos));
-	_float fTotalDistance = fDistanceMaxY + fDistanceMinY + fDistanceMaxX + fDistanceMixX;
-	
-	_float fNewY = ((fDistanceMinY + fDistanceMaxX) * fMax + (fDistanceMaxY+ fDistanceMixX) * fMin) / fTotalDistance;
+	_float fTotalDistance = fMaxDistance + fMinDistance + fMidDistance;
+
+	_float fNewY = (fMaxDistance * fMinFarY + fMidDistance * fMidFarY + fMinDistance * fMaxFarY) / fTotalDistance;
 
 	_vector vNewLocalPos = XMVectorSetY(vLocalPos, fNewY + fOffset);
-	vLocalPos = XMVectorLerp(vLocalPos, vNewLocalPos, 7.f * fTimeDelta);
+	vLocalPos = XMVectorLerp(vLocalPos, vNewLocalPos, 8.f * fTimeDelta);
 
 	_vector vWorldPos = XMVector3TransformCoord(vLocalPos, XMLoadFloat4x4(&m_WorldMatrix));
 
 	pTransform->Set_State(CTransform::STATE_POSITION, vWorldPos);
+
 }
 
 
