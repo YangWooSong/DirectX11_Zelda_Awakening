@@ -22,7 +22,7 @@ public:
 	void CNavigation::SetUp_OnCell(class CTransform* pTransform, _float fOffset, _float fTimeDelta);
 
 	_int Get_PreCellIndex() { return m_iPreCellIndex; }
-
+	_int Get_CurrentCellIndex() { return m_iCurrentCellIndex; }
 public:
 	void Update(_fmatrix TerrainWorldMatrix);
 	_bool isMove(_fvector vPosition);

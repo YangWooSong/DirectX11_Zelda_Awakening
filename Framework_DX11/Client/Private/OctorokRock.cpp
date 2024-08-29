@@ -26,15 +26,17 @@ HRESULT COctorokRock::Initialize(void* pArg)
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
-    if (FAILED(Ready_Components()))
-        return E_FAIL;
-
     m_fOffset = { 0.f, 0.5f, 0.f };
     pDesc->vPosition.y += m_fOffset.y;
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-    m_pTransformCom->Set_Scaled(0.8f, 0.8f,0.8f);
+    m_pTransformCom->Set_Scaled(0.8f, 0.8f, 0.8f);
     m_iRockDir = pDesc->iDir;
     m_iCellNum = pDesc->iCellNum;
+
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
+
+  
     
     m_fSpeed = 7.f;
 

@@ -63,7 +63,7 @@ public:
 	_float	Get_Distance(_vector _Pos1, _vector _Pos2);
 	_vector Get_Pos_vector();
 	CNavigation* Get_NavigationCom() { return m_pNavigationCom; }
-	_int Get_CellNum() { return m_iCellNum; }
+	_int Get_CurrentCellNum(); 
 protected:
 	HRESULT Ready_Components();
 

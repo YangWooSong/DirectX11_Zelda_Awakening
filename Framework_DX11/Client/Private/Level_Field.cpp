@@ -204,8 +204,8 @@ HRESULT CLevel_Field::Read()
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
-			else if (iObjectType == CGameObject::ANIM_MONSTER)
-				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);
+			/*else if (iObjectType == CGameObject::ANIM_MONSTER)
+				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);*/
 			else if (iObjectType == CGameObject::NONANIM_OBJ)
 				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 			else if (iObjectType == CGameObject::ANIM_OBJ)

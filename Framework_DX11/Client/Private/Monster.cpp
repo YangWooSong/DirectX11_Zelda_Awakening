@@ -121,6 +121,14 @@ _vector CMonster::Get_Pos_vector()
 	return m_pTransformCom->Get_State(CTransform::STATE_POSITION);
 }
 
+_int CMonster::Get_CurrentCellNum()
+{
+	if (m_pNavigationCom == nullptr)
+		return -1;
+
+	return m_pNavigationCom->Get_CurrentCellIndex();
+}
+
 HRESULT CMonster::Ready_Components()
 {
 	/* FOR.Com_Shader */
