@@ -56,7 +56,7 @@ _bool CCell::Compare_Points(_fvector vSour, _fvector vDest)
 	return false;
 }
 
-_bool CCell::isIn(_fvector vPosition, _int* pNeighborIndex)
+_bool CCell::isIn(_fvector vPosition, _int* pNeighborIndex, _vector* vOutLine)
 {
 	for (size_t i = 0; i < LINE_END; i++)
 	{
@@ -69,6 +69,7 @@ _bool CCell::isIn(_fvector vPosition, _int* pNeighborIndex)
 
 		if (0 < XMVectorGetX(XMVector3Dot(vSour, vDest)))
 		{
+			*vOutLine = vLine;
 			*pNeighborIndex = m_iNeighborIndices[i];
 			return false;
 		}
@@ -76,6 +77,30 @@ _bool CCell::isIn(_fvector vPosition, _int* pNeighborIndex)
 	}
 
 	return true;
+}
+
+_float CCell::Culculate_InputAngle(_fvector vLook, _fvector vOutLine)
+{
+	_vector vLine = vOutLine;
+
+	_vector vLookInverse = XMVectorNegate(vLook);
+
+	_float fRadianAngle = XMVectorGetX(XMVector3AngleBetweenNormals(XMVector3Normalize(vLine), XMVector3Normalize(vLookInverse)));
+	_float fDegreeAngle = XMConvertToDegrees(fRadianAngle);
+
+	return fDegreeAngle;
+}
+
+_vector CCell::Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDelta, _fvector vOutLine)
+{
+	_vector vSour = XMVector3Normalize(vLook) * fSpeed * fTimeDelta;
+	_vector vLine = vOutLine;
+	_vector vDest = XMVector3Normalize(-XMVectorSet(XMVectorGetZ(vLine), XMVectorGetY(vLine), XMVectorGetX(vLine), 0.f));
+	_float dotProduct = XMVectorGetX(XMVector3Dot(vSour, vDest));
+	_vector vProjection = XMVectorScale(vDest, dotProduct) * -1;
+	_vector vNew = vProjection + vSour;
+
+	return vNew;
 }
 
 void CCell::CompareAndChange(_float3 _comparePos, _float3 _changePos)

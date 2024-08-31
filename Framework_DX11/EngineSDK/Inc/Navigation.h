@@ -11,6 +11,7 @@ public:
 	{
 		_int			iCurrentIndex = { -1 };
 	}NAVIGATION_DESC;
+	enum SLIDETYPE{SLIDE_FORWARD, SLIDE_BACKWARD, SLIDE_END};
 private:
 	CNavigation(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CNavigation(const CNavigation& Prototype);
@@ -21,12 +22,17 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 	void CNavigation::SetUp_OnCell(class CTransform* pTransform, _float fOffset, _float fTimeDelta);
 
+	void Update(_fmatrix TerrainWorldMatrix);
+
+public:
+	_bool isMove(_fvector vPosition);
+	_uint isSlide(_fvector vLook);
+	_bool isInTotalCell(_fvector vPosition);
+	_vector Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDelta);
+public:
 	_int Get_PreCellIndex() { return m_iPreCellIndex; }
 	_int Get_CurrentCellIndex() { return m_iCurrentCellIndex; }
-public:
-	void Update(_fmatrix TerrainWorldMatrix);
-	_bool isMove(_fvector vPosition);
-
+	_vector Get_OutLIne() { return m_vOutLine; }
 #ifdef _DEBUG
 public:
 	HRESULT Render();
@@ -34,10 +40,10 @@ public:
 
 private:
 	vector<class CCell*>				m_Cells;
-	_int								m_iCurrentCellIndex = { -1 };
-	_int								m_iPreCellIndex = { -1 };
+	_int								m_iCurrentCellIndex = { -1 };	//현재 셀 번호
+	_int								m_iPreCellIndex = { -1 };	//이전 셀 번호
 	static _float4x4					m_WorldMatrix;
-
+	_vector								m_vOutLine{};				//셀의 어떤 면으로 나갔는지 저장
 #ifdef _DEBUG
 private:
 	class CShader* m_pShader = { nullptr };

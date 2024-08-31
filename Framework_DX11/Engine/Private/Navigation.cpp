@@ -126,7 +126,7 @@ _bool CNavigation::isMove(_fvector vPosition)
 	_int			iNeighborIndex = { -1 };
 
 	/* 원래 있던 삼각형 안에서 움직인거야. */
-	if (true == m_Cells[m_iCurrentCellIndex]->isIn(vLocalPos, &iNeighborIndex))
+	if (true == m_Cells[m_iCurrentCellIndex]->isIn(vLocalPos, &iNeighborIndex,&m_vOutLine))
 	{
 		return true;
 	}
@@ -142,7 +142,7 @@ _bool CNavigation::isMove(_fvector vPosition)
 				if (-1 == iNeighborIndex)
 					return false;
 
-				if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex))
+				if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
 					break;
 			}
 
@@ -155,6 +155,38 @@ _bool CNavigation::isMove(_fvector vPosition)
 		else
 			return false;
 	}
+}
+
+_uint CNavigation::isSlide(_fvector vLook)
+{
+	_float fAngle = m_Cells[m_iCurrentCellIndex]->Culculate_InputAngle(vLook, m_vOutLine);
+
+	if ((fAngle >= 0.f && fAngle < 20.f))
+	{
+		return SLIDE_FORWARD;
+	}
+	else if ((fAngle > 160.f && fAngle <= 180.f))
+		return SLIDE_BACKWARD;
+	return SLIDE_END;
+}
+
+_bool CNavigation::isInTotalCell(_fvector vPosition)
+{
+	_vector		vLocalPos = XMVector3TransformCoord(vPosition, XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_WorldMatrix)));
+	_int			iNeighborIndex = { -1 };
+
+	for (size_t i = 0; i < m_Cells.size(); ++i)
+	{
+		if (true == m_Cells[i]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
+			return true;
+	}
+	return false;
+}
+
+
+_vector CNavigation::Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDelta)
+{
+	return  m_Cells[m_iCurrentCellIndex]->Culculate_SlidePos(vLook, fSpeed, fTimeDelta, m_vOutLine);
 }
 
 void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fTimeDelta)
