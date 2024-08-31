@@ -143,7 +143,7 @@ _bool CNavigation::isMove(_fvector vPosition)
 				if (-1 == iNeighborIndex)
 					return false;
 
-				if(m_iOwnerType != PLAYER && m_Cells[iNeighborIndex]->Get_CellType() != CCell::CELL_FLOOR)
+				if(m_iOwnerType == NONPLAYER && m_Cells[iNeighborIndex]->Get_CellType() != CCell::CELL_FLOOR)
 					return false;
 				else
 					if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))

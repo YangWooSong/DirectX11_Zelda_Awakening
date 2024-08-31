@@ -14,7 +14,7 @@ HRESULT CState_Octorok_Walk::Initialize(_uint iStateNum)
 {
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("walk");
     m_iStateNum = iStateNum;
-    m_fSpeed = m_pOwner->Get_MoveSpeed();
+    m_fSpeed = 2.f;
     m_pNavigation = m_pOwner->Get_NavigationCom();
     return S_OK;
 }
@@ -63,7 +63,7 @@ void CState_Octorok_Walk::Update(_float fTimeDelta)
 
         m_fTimer += fTimeDelta;
 
-        if (m_fTimer > 1.5f)
+        if (m_fTimer > 2.f)
         {
             m_fTimer = 0.f;
             m_pOwner->Change_State(COctorok::IDLE);
