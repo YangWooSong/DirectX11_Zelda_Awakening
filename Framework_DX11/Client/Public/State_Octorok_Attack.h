@@ -3,6 +3,8 @@
 
 BEGIN(Engine)
 class CFsm;
+class CGameObject;
+class CPartObject;
 END
 
 
@@ -24,7 +26,8 @@ public:
 private:
     void    Shoot();
 private:
-    class CMonster* m_pOwner = { nullptr };
+     CMonster* m_pOwner = { nullptr };
+     CPartObject* m_pRock = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iAttackStartIndex = { 0 };

@@ -25,9 +25,7 @@ HRESULT CState_Octorok_Attack::Start_State()
     m_iCurrentAnimIndex = m_iAttackStartIndex;
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 80.f);
-
-    //Shoot();
-
+    m_pRock = m_pOwner->Get_PartObject(COctorok::PART_BULLET);
     return S_OK;
 }
 
@@ -68,11 +66,7 @@ void CState_Octorok_Attack::Shoot()
 {
     if(m_iShootCount == 0)
     {
-        COctorokRock::OCTOROKROCK_DESC RockDesc = {};
-        XMStoreFloat3(&RockDesc.vPosition, m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION));
-        RockDesc.iDir = m_pOwner->Get_Monster_Dir();
-        RockDesc.iCellNum = m_pOwner->Get_CurrentCellNum();
-        m_pGameInstance->Event_CreateObject(LEVEL_FIELD, TEXT("Layer_OctorokRock"), TEXT("Prototype_GameObject_OctorokRock"), sizeof(RockDesc), &RockDesc);
+       static_cast<COctorokRock*>( m_pRock)->Shoot();
     }
     m_iShootCount++;
 }

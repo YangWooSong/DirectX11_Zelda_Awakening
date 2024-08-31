@@ -41,8 +41,6 @@ HRESULT CMonster::Initialize(void* pArg)
 
 void CMonster::Priority_Update(_float fTimeDelta)
 {
-
-
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Priority_Update(fTimeDelta);
 }

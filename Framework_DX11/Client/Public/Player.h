@@ -52,10 +52,10 @@ public:
 	void		Go_Right(_float fTimeDelta, _float fSpeed);
 	void		Go_Left(_float fTimeDelta, _float fSpeed);
 
-	void		Go_World_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
-	void		Go_World_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
-	void		Go_World_Right(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
-	void		Go_World_Left(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
+	void		Go_World_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr,  _bool* pIsMove = nullptr);
+	void		Go_World_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool * pIsMove = nullptr);
+	void		Go_World_Right(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool * pIsMove = nullptr);
+	void		Go_World_Left(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool * pIsMove = nullptr);
 
 	void		Go_Stair_Down(_float fTimeDelta, _float fSpeed = 0.f);
 	void		Go_Stair_Up(_float fTimeDelta, _float fSpeed = 0.f);

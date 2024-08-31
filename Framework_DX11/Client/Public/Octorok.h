@@ -14,6 +14,7 @@ class COctorok :
 	public CMonster
 {
 public:
+	enum PARTID { PART_BULLET, PART_END };
 	enum OCTOROK_STATE { IDLE, WALK, ATTACK, DEAD, STATE_END };
 private:
 	COctorok(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -30,6 +31,7 @@ public:
 
 private:
 	HRESULT Ready_Components();
+	HRESULT Ready_PartObjects();
 	HRESULT Ready_State();
 
 public:

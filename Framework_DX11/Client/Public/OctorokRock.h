@@ -1,6 +1,6 @@
 #pragma once
 #include "Client_Defines.h"
-#include "GameObject.h"
+#include "PartObject.h"
 
 BEGIN(Engine)
 class CShader;
@@ -10,12 +10,14 @@ END
 
 BEGIN(Client)
 class COctorokRock :
-	public CGameObject
+	public CPartObject
 {
 public:
-	typedef struct : public CGameObject::GAMEOBJECT_DESC
+	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
+		_int iCellNum;
 		_uint iDir;
+		class CMonster* pParent;
 	} OCTOROKROCK_DESC;
 
 public:
@@ -34,18 +36,26 @@ public:
 	virtual HRESULT Render() override;
 
 public:
-	class CShader* m_pShaderCom = { nullptr };
-	class CModel* m_pModelCom = { nullptr };
-	class CNavigation* m_pNavigationCom = { nullptr };
+	 CShader* m_pShaderCom = { nullptr };
+	 CModel* m_pModelCom = { nullptr };
+	 CNavigation* m_pNavigationCom = { nullptr };
 private:
 	HRESULT Ready_Components();
 	void Set_CellNum(_int iNum) { m_iCellNum = iNum; }
-
+public:
+	void Shoot() { m_bShoot = true; }
+	void Set_Parent(CGameObject* pParent);
 private:
 	_float m_fSpeed = {  };
 	_uint	m_iRockDir = { OCTOROKROCK_DIR_END };
-
+	_bool m_bShoot = { false };
+	_bool	m_bIsMove = { false };		//벽에 부딪혔는지
+	_bool	m_bFollowParent = { true };	//문어 따라가기
 	_float3 m_fOffset = {};
+	class CMonster* m_pParent = { nullptr };
+
+private:
+	void Set_StartState();
 public:
 	static COctorokRock* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

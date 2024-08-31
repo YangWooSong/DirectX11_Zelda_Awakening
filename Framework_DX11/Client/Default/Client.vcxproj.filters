@@ -82,12 +82,6 @@
     <Filter Include="02.GameObjects\04.Land">
       <UniqueIdentifier>{63240ddd-2e22-4926-a00d-714b4825a65a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\GamePlay\00.MarinHouse">
-      <UniqueIdentifier>{9583df09-6512-475b-99f6-6f7b2783be37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Levels\GamePlay\01.Field">
-      <UniqueIdentifier>{9e630c1c-91ff-48ce-96aa-0807999cd827}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\05.Monster">
       <UniqueIdentifier>{c4065c8d-2859-4f11-9c85-22c03481c687}</UniqueIdentifier>
     </Filter>
@@ -295,8 +289,14 @@
     <Filter Include="02.GameObjects\03.Objects\Field\03.Weathercock">
       <UniqueIdentifier>{2501543f-0e85-4e41-8398-c3ec077e54c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\GamePlay\01.Field\Logo">
+    <Filter Include="01.Levels\GamePlay\00.Logo">
       <UniqueIdentifier>{bfceb82a-607f-4756-925e-dbf78b769e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\GamePlay\01.MarinHouse">
+      <UniqueIdentifier>{9583df09-6512-475b-99f6-6f7b2783be37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\GamePlay\02.Field">
+      <UniqueIdentifier>{9e630c1c-91ff-48ce-96aa-0807999cd827}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -319,7 +319,7 @@
       <Filter>99.Defines</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Logo.h">
-      <Filter>01.Levels\GamePlay\01.Field\Logo</Filter>
+      <Filter>01.Levels\GamePlay\00.Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Loading.h">
       <Filter>01.Levels\Loading</Filter>
@@ -388,10 +388,10 @@
       <Filter>05.State\Link\Shield\ShieldWalk</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_MarinHouse.h">
-      <Filter>01.Levels\GamePlay\00.MarinHouse</Filter>
+      <Filter>01.Levels\GamePlay\01.MarinHouse</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Field.h">
-      <Filter>01.Levels\GamePlay\01.Field</Filter>
+      <Filter>01.Levels\GamePlay\02.Field</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Monster.h">
       <Filter>02.GameObjects\05.Monster</Filter>
@@ -564,7 +564,7 @@
       <Filter>00.MainApp</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_Logo.cpp">
-      <Filter>01.Levels\GamePlay\01.Field\Logo</Filter>
+      <Filter>01.Levels\GamePlay\00.Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_Loading.cpp">
       <Filter>01.Levels\Loading</Filter>
@@ -633,10 +633,10 @@
       <Filter>05.State\Link\Shield\ShieldWalk</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_MarinHouse.cpp">
-      <Filter>01.Levels\GamePlay\00.MarinHouse</Filter>
+      <Filter>01.Levels\GamePlay\01.MarinHouse</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_Field.cpp">
-      <Filter>01.Levels\GamePlay\01.Field</Filter>
+      <Filter>01.Levels\GamePlay\02.Field</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Monster.cpp">
       <Filter>02.GameObjects\05.Monster</Filter>

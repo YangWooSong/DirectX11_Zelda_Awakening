@@ -21,7 +21,6 @@ public:
 		_uint LevelIndex;
 	}MONSTER_DESC;
 public:
-	enum PARTID { PART_EFFECT, PART_END };
 	enum MONSTER_DIR { FRONT, BACK, LEFT, RIGHT, MONSTER_DIR_END};
 protected:
 	CMonster(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

@@ -123,24 +123,24 @@ void CPlayer::Go_Left(_float fTimeDelta, _float fSpeed)
 	m_pTransformCom->Go_Left(fTimeDelta, fSpeed);
 }
 
-void CPlayer::Go_World_Straight(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation)
+void CPlayer::Go_World_Straight(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation, _bool* pIsMove)
 {
-	m_pTransformCom->Go_World_Straight(fTimeDelta, fSpeed, pNavigation);
+	m_pTransformCom->Go_World_Straight(fTimeDelta, fSpeed, pNavigation, pIsMove);
 }
 
-void CPlayer::Go_World_Backward(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation)
+void CPlayer::Go_World_Backward(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation, _bool* pIsMove)
 {
-	m_pTransformCom->Go_World_Backward(fTimeDelta, fSpeed, pNavigation);
+	m_pTransformCom->Go_World_Backward(fTimeDelta, fSpeed, pNavigation, pIsMove);
 }
 
-void CPlayer::Go_World_Right(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation)
+void CPlayer::Go_World_Right(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation, _bool* pIsMove)
 {
-	m_pTransformCom->Go_World_Right(fTimeDelta, fSpeed, pNavigation);
+	m_pTransformCom->Go_World_Right(fTimeDelta, fSpeed, pNavigation, pIsMove);
 }
 
-void CPlayer::Go_World_Left(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation)
+void CPlayer::Go_World_Left(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation, _bool* pIsMove)
 {
-	m_pTransformCom->Go_World_Left(fTimeDelta, fSpeed, pNavigation);
+	m_pTransformCom->Go_World_Left(fTimeDelta, fSpeed, pNavigation, pIsMove);
 }
 
 void CPlayer::Go_Stair_Down(_float fTimeDelta, _float fSpeed)

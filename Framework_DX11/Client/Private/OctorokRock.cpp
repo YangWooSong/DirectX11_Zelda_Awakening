@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "OctorokRock.h"
 #include "GameInstance.h"
-
+#include "Monster.h"
 
 COctorokRock::COctorokRock(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
-    :CGameObject(pDevice, pContext)
+    :CPartObject(pDevice, pContext)
 {
 }
 
 COctorokRock::COctorokRock(const COctorokRock& Prototype)
-    :CGameObject(Prototype)
+    :CPartObject(Prototype)
 {
 }
 
@@ -27,78 +27,106 @@ HRESULT COctorokRock::Initialize(void* pArg)
         return E_FAIL;
 
     m_fOffset = { 0.f, 0.5f, 0.f };
-    pDesc->vPosition.y += m_fOffset.y;
-    m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
     m_pTransformCom->Set_Scaled(0.8f, 0.8f, 0.8f);
     m_iRockDir = pDesc->iDir;
     m_iCellNum = pDesc->iCellNum;
+    m_pParent = pDesc->pParent;
 
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-  
-    
     m_fSpeed = 7.f;
-
+  //  m_isDead = true;
     return S_OK;
 }
 
 void COctorokRock::Priority_Update(_float fTimeDelta)
 {
+ 
 }
 
 void COctorokRock::Update(_float fTimeDelta)
 {
-    switch (m_iRockDir)
+    if (m_bShoot)
     {
-    case FRONT:
-        m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed,m_pNavigationCom);
-        break;
-    case BACK:
-        m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed, m_pNavigationCom);
-        break;
-    case LEFT:
-        m_pTransformCom->Go_World_Left(fTimeDelta, m_fSpeed, m_pNavigationCom);
-        break;
-    case RIGHT:
-        m_pTransformCom->Go_World_Right(fTimeDelta, m_fSpeed, m_pNavigationCom);
-        break;
-    default:
-        break;
+        //시작 설정
+        Set_StartState();
+        m_bShoot = false;
+        m_bFollowParent = false;
+    }
+
+    if (m_pNavigationCom != nullptr)
+        m_pNavigationCom->SetUp_OnCell(m_pTransformCom, m_fOffset.y, fTimeDelta);
+
+    if(m_bFollowParent == true)
+    {
+        _vector vPosition = m_pParent->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+        XMVectorSetY(vPosition, XMVectorGetY(vPosition) + m_fOffset.y);
+        m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPosition);
+    }
+    else
+    {
+        switch (m_iRockDir)
+        {
+        case FRONT:
+            m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            break;
+        case BACK:
+            m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            break;
+        case LEFT:
+            m_pTransformCom->Go_World_Left(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            break;
+        case RIGHT:
+            m_pTransformCom->Go_World_Right(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            break;
+        default:
+            break;
+        }
     }
   
+    if (m_bIsMove == false )
+    {
+        m_bFollowParent = true;
+        m_bIsMove = true;
+    }
 }
 
 void COctorokRock::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
 }
 
 HRESULT COctorokRock::Render()
 {
-    if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-        return E_FAIL;
+  if(m_bFollowParent == false)
+  {
+      if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
+          return E_FAIL;
 
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-        return E_FAIL;
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-        return E_FAIL;
+      if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+          return E_FAIL;
+      if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+          return E_FAIL;
 
 
-    _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+      _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
-    for (size_t i = 0; i < iNumMeshes; i++)
-    {
-        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
-            return E_FAIL;
+      for (size_t i = 0; i < iNumMeshes; i++)
+      {
+          if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+              return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(0)))
-            return E_FAIL;
+          if (FAILED(m_pShaderCom->Begin(0)))
+              return E_FAIL;
 
-        if (FAILED(m_pModelCom->Render(i)))
-            return E_FAIL;
-    }
+          if (FAILED(m_pModelCom->Render(i)))
+              return E_FAIL;
+      }
+
+  }
 
     return S_OK;
 }
@@ -125,6 +153,17 @@ HRESULT COctorokRock::Ready_Components()
         return E_FAIL;
 
     return S_OK;
+}
+
+void COctorokRock::Set_Parent(CGameObject* pParent)
+{
+    m_pParent = static_cast<CMonster*>(pParent);
+}
+
+void COctorokRock::Set_StartState()
+{
+    m_iRockDir = m_pParent->Get_Monster_Dir();
+    m_iCellNum = m_pParent->Get_CurrentCellNum();
 }
 
 COctorokRock* COctorokRock::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

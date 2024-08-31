@@ -7,6 +7,7 @@
 #include "State_Octorok_Dead.h"
 #include "State_Octorok_Attack.h"
 #include "State_Octorok_Walk.h"
+#include "OctorokRock.h"
 
 COctorok::COctorok(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
@@ -31,6 +32,9 @@ HRESULT COctorok::Initialize(void* pArg)
 
 	if (FAILED(Ready_Components()))
 		return E_FAIL;
+	
+	if (FAILED(Ready_PartObjects()))
+		return E_FAIL;
 
 	if (FAILED(Ready_State()))
 		return E_FAIL;
@@ -40,6 +44,7 @@ HRESULT COctorok::Initialize(void* pArg)
 	
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
+
 	return S_OK;
 }
 
@@ -54,7 +59,6 @@ void COctorok::Update(_float fTimeDelta)
 		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
 
 	m_pFsmCom->Update(fTimeDelta);
-
 	m_pModelCom->Play_Animation(fTimeDelta);
 
 	__super::Update(fTimeDelta);
@@ -125,6 +129,23 @@ HRESULT COctorok::Ready_Components()
 		TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
 		return E_FAIL;
 	
+	return S_OK;
+}
+
+HRESULT COctorok::Ready_PartObjects()
+{
+	/* 실제 추가하고 싶은 파트오브젝트의 갯수만큼 밸류를 셋팅해놓자. */
+	m_Parts.resize(PART_END);
+
+	COctorokRock::OCTOROKROCK_DESC		RockDesc{};
+	RockDesc.iDir = m_iDir;
+	RockDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	RockDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	RockDesc.pParent = this;
+
+	if (FAILED(__super::Add_PartObject(PART_BULLET, TEXT("Prototype_GameObject_OctorokRock"), &RockDesc)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
