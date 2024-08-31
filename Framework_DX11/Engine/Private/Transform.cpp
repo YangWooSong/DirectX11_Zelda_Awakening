@@ -560,6 +560,16 @@ _vector CTransform::Get_Dir(_vector _pos1, _vector _pos2)
 	return vDir;
 }
 
+void CTransform::ChangePosToPreCellMiddle( CNavigation* pNavigation)
+{
+	_int iTargetCellIndex = pNavigation->Get_PreCellIndex();
+	if (iTargetCellIndex == -1)
+		return;
+
+	_float3 vNew = pNavigation->Get_MiddlePosOfPreCell();
+	Set_State(STATE_POSITION, XMLoadFloat3(&vNew));
+}
+
 HRESULT CTransform::Bind_ShaderResource(CShader* pShader, const _char* pConstantName)
 {
 	return pShader->Bind_Matrix(pConstantName, &m_WorldMatrix);

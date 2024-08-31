@@ -13,7 +13,7 @@ public:
 	}TRANSFORM_DESC;
 
 	enum STATE { STATE_RIGHT, STATE_UP, STATE_LOOK, STATE_POSITION, STATE_END };
-
+	
 private:
 	CTransform(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual ~CTransform() = default;
@@ -66,6 +66,8 @@ public:
 	_bool		Get_IsTurning() { return m_bIsTurning; }
 	_float3		Get_Rot() { return m_fRot; }
 	_vector		Get_Dir(_vector _pos1, _vector _pos2);
+
+	void		ChangePosToPreCellMiddle(CNavigation* pNavigation);
 public:
 	HRESULT Bind_ShaderResource(class CShader* pShader, const _char* pConstantName);
 
@@ -76,6 +78,7 @@ private:
 	_float4x4		m_WorldMatrix{};
 	_bool			m_bIsTurning = { false };
 	_float3			m_fRot = { };
+
 public:
 	static CTransform* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg);
 	virtual CComponent* Clone(void* pArg) { return nullptr; }

@@ -9,9 +9,11 @@ class ENGINE_DLL CNavigation final : public CComponent
 public:
 	typedef struct
 	{
+		_uint			iOwnerType = { TYPEEND };
 		_int			iCurrentIndex = { -1 };
 	}NAVIGATION_DESC;
 	enum SLIDETYPE{SLIDE_FORWARD, SLIDE_BACKWARD, SLIDE_END};
+	enum OWNERTYPE{PLAYER, NONPLAYER, TYPEEND};
 private:
 	CNavigation(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CNavigation(const CNavigation& Prototype);
@@ -33,6 +35,8 @@ public:
 	_int Get_PreCellIndex() { return m_iPreCellIndex; }
 	_int Get_CurrentCellIndex() { return m_iCurrentCellIndex; }
 	_vector Get_OutLIne() { return m_vOutLine; }
+	_uint Get_CurrentCellType() { return m_iCurrentCelltype; }
+	_float3 Get_MiddlePosOfPreCell();
 #ifdef _DEBUG
 public:
 	HRESULT Render();
@@ -44,6 +48,8 @@ private:
 	_int								m_iPreCellIndex = { -1 };	//이전 셀 번호
 	static _float4x4					m_WorldMatrix;
 	_vector								m_vOutLine{};				//셀의 어떤 면으로 나갔는지 저장
+	_uint								m_iOwnerType = { TYPEEND };
+	_uint								m_iCurrentCelltype = { 0 };
 #ifdef _DEBUG
 private:
 	class CShader* m_pShader = { nullptr };

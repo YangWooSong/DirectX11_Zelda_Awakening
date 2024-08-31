@@ -37,6 +37,7 @@ public:
 	void Set_RoomNum(_uint _iNum) { m_iRoomNum = _iNum; }
 	_uint Get_RoomNum() { return m_iRoomNum; }
 
+	_float3 Get_Cell_MiddlePos();
 public:
 	HRESULT Initialize(const _float3* pPoints, _int iIndex);
 	_bool Compare_Points(_fvector vSour, _fvector vDest);

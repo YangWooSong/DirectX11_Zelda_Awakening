@@ -109,6 +109,7 @@ HRESULT CNavigation::Initialize(void* pArg)
 	NAVIGATION_DESC* pDesc = static_cast<NAVIGATION_DESC*>(pArg);
 
 	m_iCurrentCellIndex = pDesc->iCurrentIndex;
+	m_iOwnerType = pDesc->iOwnerType;
 
 	return S_OK;
 }
@@ -142,12 +143,16 @@ _bool CNavigation::isMove(_fvector vPosition)
 				if (-1 == iNeighborIndex)
 					return false;
 
-				if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
-					break;
+				if(m_iOwnerType != PLAYER && m_Cells[iNeighborIndex]->Get_CellType() != CCell::CELL_FLOOR)
+					return false;
+				else
+					if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
+						break;
 			}
 
 			m_iPreCellIndex = m_iCurrentCellIndex;
 			m_iCurrentCellIndex = iNeighborIndex;
+			m_iCurrentCelltype = m_Cells[iNeighborIndex]->Get_CellType();
 			return true;
 		}
 
@@ -271,6 +276,13 @@ void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fT
 
 
 #ifdef _DEBUG
+
+_float3 CNavigation::Get_MiddlePosOfPreCell()
+{
+	m_iCurrentCellIndex = m_iPreCellIndex;
+	m_iCurrentCelltype = CCell::CELL_FLOOR;
+	return m_Cells[m_iPreCellIndex]->Get_Cell_MiddlePos();
+}
 
 HRESULT CNavigation::Render()
 {

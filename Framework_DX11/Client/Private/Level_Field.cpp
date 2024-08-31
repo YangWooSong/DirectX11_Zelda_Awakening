@@ -125,14 +125,6 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	NavDes.iLevelNum = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
-	
-	CMonster::MONSTER_DESC MonDes;
-	MonDes.vPosition = _float3(3.f, 0.f, 3.f);
-	MonDes.iCellNum = 0;
-	MonDes.LevelIndex - LEVEL_FIELD;
-	
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_mon"), TEXT("Prototype_GameObject_Octorok"), &MonDes)))
-		return E_FAIL;
 
 	return S_OK;
 }
@@ -212,8 +204,8 @@ HRESULT CLevel_Field::Read()
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
-		/*	else if (iObjectType == CGameObject::ANIM_MONSTER)
-				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);*/
+			else if (iObjectType == CGameObject::ANIM_MONSTER)
+				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);
 			else if (iObjectType == CGameObject::NONANIM_OBJ)
 				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 			else if (iObjectType == CGameObject::ANIM_OBJ)

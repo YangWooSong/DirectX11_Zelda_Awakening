@@ -63,7 +63,7 @@ void CState_Octorok_Walk::Update(_float fTimeDelta)
 
         m_fTimer += fTimeDelta;
 
-        if (m_fTimer > 1.f)
+        if (m_fTimer > 1.5f)
         {
             m_fTimer = 0.f;
             m_pOwner->Change_State(COctorok::IDLE);

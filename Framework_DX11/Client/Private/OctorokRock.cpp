@@ -147,6 +147,7 @@ HRESULT COctorokRock::Ready_Components()
     CNavigation::NAVIGATION_DESC			NaviDesc{};
 
     NaviDesc.iCurrentIndex = m_iCellNum;
+    NaviDesc.iOwnerType = CNavigation::NONPLAYER;
 
     if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
         TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))

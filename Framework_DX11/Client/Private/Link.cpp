@@ -16,7 +16,9 @@
 #include "State_Link_Shield_Walk.h"
 #include "State_Link_Stair_Up.h"
 #include "State_Link_Stair_Down.h"
+#include "State_Link_Fall.h"
 
+#include "Cell.h"
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
 {
@@ -69,13 +71,20 @@ void CLink::Update(_float fTimeDelta)
 	m_pModelCom->Play_Animation(fTimeDelta);
 
 	//점프일때는 자동으로 땅 타지 않도록
-	if(m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr)
+	if(m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr && m_bFall == false)
 		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
 
 //	int a = m_pNavigationCom->Get_PreCellIndex();
 
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Update(fTimeDelta);
+
+	//떨어지기
+	if (m_pNavigationCom != nullptr && m_pNavigationCom->Get_CurrentCellType() == CCell::CELL_CLIFF && m_pFsmCom->Get_CurrentState() != JUMP)
+	{
+		if(m_pFsmCom->Get_CurrentState() != FALL)
+			m_pFsmCom->Change_State(FALL);
+	}
 }
 
 void CLink::Late_Update(_float fTimeDelta)
@@ -142,6 +151,7 @@ HRESULT CLink::Ready_Components()
 		CNavigation::NAVIGATION_DESC			NaviDesc{};
 
 		NaviDesc.iCurrentIndex = 0;
+		NaviDesc.iOwnerType = CNavigation::PLAYER;
 
 		if (FAILED(__super::Add_Component(m_iLevelIndex, TEXT("Prototype_Component_Navigation"),
 			TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
@@ -173,6 +183,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Shield_Walk::Create(m_pFsmCom, this, SHIELD_WALK));
 	m_pFsmCom->Add_State(CState_Link_Stair_Up::Create(m_pFsmCom, this, STAIR_UP));
 	m_pFsmCom->Add_State(CState_Link_Stair_Down::Create(m_pFsmCom, this, STAIR_DOWN));
+	m_pFsmCom->Add_State(CState_Link_Fall::Create(m_pFsmCom, this, FALL));
 
 	return S_OK;
 }

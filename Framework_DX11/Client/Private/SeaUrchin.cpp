@@ -129,8 +129,9 @@ HRESULT CSeaUrchin::Ready_Components()
 
 	/* For.Com_Navigation */
 	CNavigation::NAVIGATION_DESC			NaviDesc{};
-
+	NaviDesc.iOwnerType = CNavigation::NONPLAYER;
 	NaviDesc.iCurrentIndex = m_iCellNum;
+
 	if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
 		TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
 		return E_FAIL;

@@ -75,7 +75,7 @@ public:
 	_uint		Get_Player_State();
 
 	const _float4x4*    Get_BoneMatrix_Ptr(const _char* pBoneName) const;
-
+	void Set_Fall(_bool bFall) { m_bFall = bFall; }
 protected:
 	class CModel*		m_pModelCom = { nullptr };
 	class CShader*		m_pShaderCom = { nullptr };
@@ -85,6 +85,8 @@ protected:
 protected:
 	_float				m_fMoveSpeed = { 3.f};
 	_float				m_vTargetPos = {};
+
+	_bool m_bFall = { false };
 
 	_uint				m_ePlayer_Dir = { PLAYER_DIR_END };
 	_uint				m_iLevelIndex = { LEVEL_END };

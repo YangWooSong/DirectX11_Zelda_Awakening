@@ -12,6 +12,12 @@ CCell::CCell(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	Safe_AddRef(m_pContext);
 }
 
+_float3 CCell::Get_Cell_MiddlePos()
+{
+	_float3 vNew = { (m_vPoints[POINT_A].x + m_vPoints[POINT_B].x + m_vPoints[POINT_C].x) / 3.f, (m_vPoints[POINT_A].y + m_vPoints[POINT_B].y + m_vPoints[POINT_C].y) / 3.f, (m_vPoints[POINT_A].z + m_vPoints[POINT_B].z + m_vPoints[POINT_C].z) / 3.f };
+	return vNew;
+}
+
 HRESULT CCell::Initialize(const _float3* pPoints, _int iIndex)
 {
 	memcpy(m_vPoints, pPoints, sizeof(_float3) * POINT_END);
