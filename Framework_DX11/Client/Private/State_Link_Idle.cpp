@@ -60,6 +60,7 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 
 void CState_Link_Idle::End_State()
 {
+	m_fPressTime = 0.f;
 }
 
 CState_Link_Idle* CState_Link_Idle::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

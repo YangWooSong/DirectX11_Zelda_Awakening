@@ -8,6 +8,7 @@ class CShader;
 class CModel;
 class CFsm;
 class CNavigation;
+class CCollider;
 END
 
 BEGIN(Client)
@@ -15,7 +16,7 @@ BEGIN(Client)
 class CPlayer : public CContainerObject
 {
 public:
-	enum PARTID { PART_EFFEXT, PART_END };
+	enum PARTID { PART_SWORD, PART_SHIELD, PART_END };
 	enum PLAYER_DIR{FRONT, LEFT,LEFTUFRONT, LEFTBACK, BACK, RIGHT,RIGHTFRONT,RIGHTBACK, PLAYER_DIR_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
@@ -77,10 +78,11 @@ public:
 	const _float4x4*    Get_BoneMatrix_Ptr(const _char* pBoneName) const;
 	void Set_Fall(_bool bFall) { m_bFall = bFall; }
 protected:
-	class CModel*		m_pModelCom = { nullptr };
-	class CShader*		m_pShaderCom = { nullptr };
-	class CFsm*			m_pFsmCom = { nullptr };
-	class CNavigation* m_pNavigationCom = { nullptr };
+	CModel*		m_pModelCom = { nullptr };
+	CShader*		m_pShaderCom = { nullptr };
+	CFsm*			m_pFsmCom = { nullptr };
+	CNavigation* m_pNavigationCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
 
 protected:
 	_float				m_fMoveSpeed = { 3.f};

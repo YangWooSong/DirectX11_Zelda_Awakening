@@ -41,6 +41,7 @@ void CHousePot::Priority_Update(_float fTimeDelta)
 
 void CHousePot::Update(_float fTimeDelta)
 {
+    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
 void CHousePot::Late_Update(_float fTimeDelta)
@@ -74,6 +75,10 @@ HRESULT CHousePot::Render()
             return E_FAIL;
     }
 
+#ifdef _DEBUG
+    m_pColliderCom->Render();
+#endif
+
     return S_OK;
 }
 
@@ -88,6 +93,15 @@ HRESULT CHousePot::Ready_Components()
     /* FOR.Com_Model */
     if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_HousePot"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+        return E_FAIL;
+
+    /* For.Com_Collider */
+    CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+    ColliderDesc.vExtents = _float3(0.6f, 0.6f, 0.6f);
+    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+        TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
 
     return S_OK;
@@ -127,5 +141,6 @@ void CHousePot::Free()
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
+    Safe_Release(m_pColliderCom);
 }
 

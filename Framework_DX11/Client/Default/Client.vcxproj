@@ -159,11 +159,13 @@
     <ClInclude Include="..\Public\Grass.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
     <ClInclude Include="..\Public\Lawn.h" />
+    <ClInclude Include="..\Public\Level_Dungeon.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\Rola.h" />
+    <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\Spark.h" />
     <ClInclude Include="..\Public\State_Kuribo_Dead.h" />
     <ClInclude Include="..\Public\State_Kuribo_Idle.h" />
@@ -229,6 +231,7 @@
     <ClInclude Include="..\Public\State_Vegas_Walk_f.h" />
     <ClInclude Include="..\Public\State_Vegas_Walk_l.h" />
     <ClInclude Include="..\Public\State_Vegas_Walk_r.h" />
+    <ClInclude Include="..\Public\Sword.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Togezo.h" />
     <ClInclude Include="..\Public\Tree.h" />
@@ -250,6 +253,7 @@
     <ClCompile Include="..\Private\Kuribo.cpp" />
     <ClCompile Include="..\Private\Land.cpp" />
     <ClCompile Include="..\Private\Lawn.cpp" />
+    <ClCompile Include="..\Private\Level_Dungeon.cpp" />
     <ClCompile Include="..\Private\Level_Field.cpp" />
     <ClCompile Include="..\Private\Level_MarinHouse.cpp" />
     <ClCompile Include="..\Private\Level_Loading.cpp" />
@@ -268,6 +272,7 @@
     <ClCompile Include="..\Private\PlayerCamera.cpp" />
     <ClCompile Include="..\Private\Rola.cpp" />
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
+    <ClCompile Include="..\Private\Shield.cpp" />
     <ClCompile Include="..\Private\Spark.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Dead.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Idle.cpp" />
@@ -315,6 +320,7 @@
     <ClCompile Include="..\Private\State_Vegas_Walk_f.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Walk_l.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Walk_r.cpp" />
+    <ClCompile Include="..\Private\Sword.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Togezo.cpp" />
     <ClCompile Include="..\Private\Tree.cpp" />

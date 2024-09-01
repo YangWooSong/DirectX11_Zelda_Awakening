@@ -301,6 +301,15 @@
     <Filter Include="05.State\Link\Fall">
       <UniqueIdentifier>{ff7ffbb0-4df7-452e-9d7b-98ab95c0c6e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Levels\GamePlay\03.Dungeon">
+      <UniqueIdentifier>{64249e8b-c1df-425d-90e9-168251657790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\02.Player\Sword">
+      <UniqueIdentifier>{2b12d0fe-1ddf-4eb7-9752-3cb213ba4f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\02.Player\Shield">
+      <UniqueIdentifier>{a0df74c1-0a87-4437-b7df-b907bec9fff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -558,6 +567,15 @@
     <ClInclude Include="..\Public\State_Link_Fall.h">
       <Filter>05.State\Link\Fall</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Level_Dungeon.h">
+      <Filter>01.Levels\GamePlay\03.Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Sword.h">
+      <Filter>02.GameObjects\02.Player\Sword</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Shield.h">
+      <Filter>02.GameObjects\02.Player\Shield</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -805,6 +823,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Fall.cpp">
       <Filter>05.State\Link\Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Dungeon.cpp">
+      <Filter>01.Levels\GamePlay\03.Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Sword.cpp">
+      <Filter>02.GameObjects\02.Player\Sword</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Shield.cpp">
+      <Filter>02.GameObjects\02.Player\Shield</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

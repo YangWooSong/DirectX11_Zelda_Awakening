@@ -45,6 +45,7 @@ void CGrass::Priority_Update(_float fTimeDelta)
 
 void CGrass::Update(_float fTimeDelta)
 {
+    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
 void CGrass::Late_Update(_float fTimeDelta)
@@ -78,6 +79,10 @@ HRESULT CGrass::Render()
             return E_FAIL;
     }
 
+#ifdef _DEBUG
+    m_pColliderCom->Render();
+#endif
+
     return S_OK;
 }
 
@@ -91,6 +96,15 @@ HRESULT CGrass::Ready_Components()
     /* FOR.Com_Model */
     if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Grass"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+        return E_FAIL;
+
+    /* For.Com_Collider */
+    CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+    ColliderDesc.vExtents = _float3(0.5f, 0.5f, 0.5f);
+    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+        TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
 
     return S_OK;
@@ -128,4 +142,5 @@ void CGrass::Free()
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
+    Safe_Release(m_pColliderCom);
 }

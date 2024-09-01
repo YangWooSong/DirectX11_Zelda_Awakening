@@ -34,6 +34,7 @@ public:
 
 private:
 	HRESULT Ready_Components();
+	HRESULT Ready_PartObjects();
 	HRESULT Ready_State();
 
 	class CItem* m_pItemA = { nullptr };

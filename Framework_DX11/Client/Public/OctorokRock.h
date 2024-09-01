@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CNavigation;
+class CCollider;
 END
 
 BEGIN(Client)
@@ -39,6 +40,7 @@ public:
 	 CShader* m_pShaderCom = { nullptr };
 	 CModel* m_pModelCom = { nullptr };
 	 CNavigation* m_pNavigationCom = { nullptr };
+	 CCollider* m_pColliderCom = { nullptr };
 private:
 	HRESULT Ready_Components();
 	void Set_CellNum(_int iNum) { m_iCellNum = iNum; }

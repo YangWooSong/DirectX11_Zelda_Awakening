@@ -8,6 +8,7 @@ class CShader;
 class CModel;
 class CFsm;
 class CNavigation;
+class CCollider;
 END
 
 BEGIN(Client)
@@ -71,6 +72,7 @@ protected:
 	class CShader* m_pShaderCom = { nullptr };
 	class CFsm* m_pFsmCom = { nullptr };
 	class CNavigation* m_pNavigationCom = { nullptr };
+	class CCollider* m_pColliderCom = { nullptr };
 
 protected:
 	_float				m_fMoveSpeed = { 3.f };

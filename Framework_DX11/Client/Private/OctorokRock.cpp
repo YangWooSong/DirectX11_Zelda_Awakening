@@ -90,8 +90,9 @@ void COctorokRock::Update(_float fTimeDelta)
         m_bFollowParent = true;
         m_bIsMove = true;
     }
-}
 
+    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+}
 void COctorokRock::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
@@ -127,7 +128,9 @@ HRESULT COctorokRock::Render()
       }
 
   }
-
+#ifdef _DEBUG
+  m_pColliderCom->Render();
+#endif
     return S_OK;
 }
 
@@ -151,6 +154,15 @@ HRESULT COctorokRock::Ready_Components()
 
     if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
         TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
+        return E_FAIL;
+
+    /* For.Com_Collider */
+    CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+    ColliderDesc.vExtents = _float3(0.2f, 0.2f, 0.2f);
+    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+        TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
 
     return S_OK;
@@ -199,4 +211,5 @@ void COctorokRock::Free()
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pNavigationCom);
+    Safe_Release(m_pColliderCom);
 }

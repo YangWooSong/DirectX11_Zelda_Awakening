@@ -95,6 +95,20 @@ HRESULT CMainApp::Ready_Prototype_Component_Static()
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxNorTex.hlsl"), VTXNORTEX::Elements, VTXNORTEX::iNumElements))))
 		return E_FAIL;
 
+	/* For.Prototype_Component_Collider_AABB */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+		CCollider::Create(m_pDevice, m_pContext, CCollider::TYPE_AABB))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Collider_OBB */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Collider_OBB"),
+		CCollider::Create(m_pDevice, m_pContext, CCollider::TYPE_OBB))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Collider_Sphere */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Collider_Sphere"),
+		CCollider::Create(m_pDevice, m_pContext, CCollider::TYPE_SPHERE))))
+		return E_FAIL;
 	return S_OK;
 }
 

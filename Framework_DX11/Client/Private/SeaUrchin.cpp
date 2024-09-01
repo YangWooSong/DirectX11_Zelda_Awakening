@@ -70,6 +70,8 @@ void CSeaUrchin::Update(_float fTimeDelta)
 		m_pTransformCom->Set_Scaled(m_fOrginScale.x, m_fOrginScale.y, m_fOrginScale.z);
 
 	__super::Update(fTimeDelta);
+
+	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
 void CSeaUrchin::Late_Update(_float fTimeDelta)
@@ -114,6 +116,12 @@ HRESULT CSeaUrchin::Render()
 	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
 		return E_FAIL;
 
+
+
+#ifdef _DEBUG
+	m_pColliderCom->Render();
+#endif
+
 	return S_OK;
 }
 
@@ -134,6 +142,15 @@ HRESULT CSeaUrchin::Ready_Components()
 
 	if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Navigation"),
 		TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
+		return E_FAIL;
+
+	/* For.Com_Collider */
+	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+	ColliderDesc.vExtents = _float3(0.6f, 0.6f, 0.6f);
+	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 
 	return S_OK;

@@ -11,6 +11,7 @@
 #include "Fsm.h"
 #include "Component.h"
 #include "Navigation.h"
+#include "Collider.h"
 
 
 /* 컴포넌트의 원형을 레벨별로 보관한다. */

@@ -62,6 +62,8 @@ void COctorok::Update(_float fTimeDelta)
 	m_pModelCom->Play_Animation(fTimeDelta);
 
 	__super::Update(fTimeDelta);
+
+	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
 void COctorok::Late_Update(_float fTimeDelta)
@@ -106,6 +108,10 @@ HRESULT COctorok::Render()
 	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
 		return E_FAIL;
 
+#ifdef _DEBUG
+	m_pColliderCom->Render();
+#endif
+
 	return S_OK;
 }
 
@@ -130,6 +136,15 @@ HRESULT COctorok::Ready_Components()
 		TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
 		return E_FAIL;
 	
+	/* For.Com_Collider */
+	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+	ColliderDesc.vExtents = _float3(0.6f, 0.7f, 0.6f);
+	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
+		return E_FAIL;
+
 	return S_OK;
 }
 

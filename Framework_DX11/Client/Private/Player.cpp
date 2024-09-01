@@ -71,14 +71,9 @@ HRESULT CPlayer::Ready_PartObjects()
 	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	if (FAILED(__super::Add_PartObject(PART_BODY, TEXT("Prototype_GameObject_Body_Player"), &BodyDesc)))
 		return E_FAIL;
+		*/
 
-	CWeapon::WEAPON_DESC		WeaponDesc{};
-	WeaponDesc.pParentState = &m_iState;
-	WeaponDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-	WeaponDesc.pSocketBoneMatrix = dynamic_cast<CBody_Player*>(m_Parts[PART_BODY])->Get_BoneMatrix_Ptr("SWORD");
 
-	if (FAILED(__super::Add_PartObject(PART_WEAPON, TEXT("Prototype_GameObject_Weapon"), &WeaponDesc)))
-		return E_FAIL;*/
 
 	return S_OK;
 }
@@ -200,6 +195,8 @@ HRESULT CPlayer::Ready_Components()
 		return E_FAIL;
 	return S_OK;
 
+
+
 }
 
 CPlayer* CPlayer::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -237,4 +234,5 @@ void CPlayer::Free()
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);
 	Safe_Release(m_pNavigationCom);
+	Safe_Release(m_pColliderCom);
 }

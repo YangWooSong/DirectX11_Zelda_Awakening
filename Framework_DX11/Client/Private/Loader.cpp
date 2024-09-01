@@ -21,6 +21,8 @@
 
 #include "HousePot.h"
 #include "Bed.h"
+#include "Sword.h"
+#include "Shield.h"
 
 #include "Lawn.h"
 #include "Grass.h"
@@ -220,6 +222,17 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	/* For. Prototype_GameObject_Bed*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Bed"),
 		CBed::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Sword*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Sword"),
+		CSword::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+
+	/* For. Prototype_GameObject_Shield*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Shield"),
+		CShield::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	///* For. Prototype_GameObject_NonAnim*/

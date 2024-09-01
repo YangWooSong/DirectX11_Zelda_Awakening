@@ -19,6 +19,9 @@
 #include "State_Link_Fall.h"
 
 #include "Cell.h"
+#include "Sword.h"
+#include "Shield.h"
+
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
 {
@@ -48,6 +51,9 @@ HRESULT CLink::Initialize(void* pArg)
 	if (FAILED(Ready_State()))
 		return E_FAIL;
 
+	if (FAILED(Ready_PartObjects()))
+		return E_FAIL;
+
 	m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 
@@ -66,13 +72,13 @@ void CLink::Priority_Update(_float fTimeDelta)
 
 void CLink::Update(_float fTimeDelta)
 {
-	m_pFsmCom->Update(fTimeDelta);
-
-	m_pModelCom->Play_Animation(fTimeDelta);
-
 	//점프일때는 자동으로 땅 타지 않도록
-	if(m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr && m_bFall == false)
+	if (m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr && m_bFall == false)
 		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
+
+	m_pFsmCom->Update(fTimeDelta);
+	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+	m_pModelCom->Play_Animation(fTimeDelta);
 
 //	int a = m_pNavigationCom->Get_PreCellIndex();
 
@@ -137,6 +143,10 @@ HRESULT CLink::Render()
 			return E_FAIL;
 	}
 
+#ifdef _DEBUG
+	m_pColliderCom->Render();
+#endif
+
 	return S_OK;
 }
 
@@ -161,6 +171,40 @@ HRESULT CLink::Ready_Components()
 	/* FOR.Com_Model */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_Link"),
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+		return E_FAIL;
+
+	/* For.Com_Collider */
+	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+	ColliderDesc.vExtents = _float3(0.5f, 0.8f, 0.5f);
+	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+HRESULT CLink::Ready_PartObjects()
+{
+	/* 실제 추가하고 싶은 파트오브젝트의 갯수만큼 밸류를 셋팅해놓자. */
+	m_Parts.resize(PART_END);
+
+	CSword::SWORD_DESC		SwordDesc{};
+	SwordDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	SwordDesc.pSocketBoneMatrix =m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
+	SwordDesc.pPlayerFsm = m_pFsmCom;
+
+	if (FAILED(__super::Add_PartObject(CPlayer::PART_SWORD, TEXT("Prototype_GameObject_Sword"), &SwordDesc)))
+		return E_FAIL;
+	
+
+	CShield::SHIELD_DESC		ShieldDesc{};
+	ShieldDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	ShieldDesc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_R");
+	ShieldDesc.pPlayerFsm = m_pFsmCom;
+
+	if (FAILED(__super::Add_PartObject(CPlayer::PART_SHIELD, TEXT("Prototype_GameObject_Shield"), &ShieldDesc)))
 		return E_FAIL;
 
 	return S_OK;

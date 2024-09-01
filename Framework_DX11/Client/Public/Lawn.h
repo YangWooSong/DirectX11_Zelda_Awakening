@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CShader;
 class CModel;
+class CCollider;
 END
 
 
@@ -28,6 +29,7 @@ public:
 public:
 	class CShader* m_pShaderCom = { nullptr };
 	class CModel* m_pModelCom = { nullptr };
+	class CCollider* m_pColliderCom = { nullptr };
 
 private:
 	HRESULT Ready_Components();

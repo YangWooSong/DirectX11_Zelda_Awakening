@@ -19,6 +19,14 @@
 #include <d3dcompiler.h>
 using namespace DirectX;
 
+
+#include "DirectXTK\PrimitiveBatch.h"
+#include "DirectXTK\VertexTypes.h"
+#include "DirectXTK\Effects.h" //PrimitiveBatch로 만든걸 그려주는 용도
+
+#include "DirectXTK\SpriteBatch.h"
+#include "DirectXTK\SpriteFont.h"
+
 /* d3dx11에 포함되어있었지만 너무 무겁다. */
 /* 기존 d3dx11포함되어있었던 다양한 기능을 제공하는 헤더 + 라이브러리 파일을 선택적으로 추가한다. */
 //#include <d3dx11.h>
