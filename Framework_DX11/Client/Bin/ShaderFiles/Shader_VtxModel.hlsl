@@ -77,7 +77,9 @@ PS_OUT PS_MAIN(PS_IN In)
     float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.5f);
 	
     Out.vColor = g_vLightDiffuse * g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord) * fShade;
-
+    if (Out.vColor.a < 0.2f)
+        discard;
+    
     return Out;
 }
 

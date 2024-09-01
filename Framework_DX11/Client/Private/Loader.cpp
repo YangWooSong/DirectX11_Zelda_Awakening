@@ -460,6 +460,14 @@ HRESULT CLoader::Ready_Models_For_Test()
 		return E_FAIL;
 
 #pragma endregion
+
+#pragma region LAND
+	/* For. Prototype_Component_Model_Rola*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Level_Lv01TailCave_03G"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/Dungeon/Lv01TailCave_03G.dat"))))
+		return E_FAIL;
+
+#pragma endregion
 	return S_OK;
 }
 

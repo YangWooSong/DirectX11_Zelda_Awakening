@@ -102,6 +102,14 @@ HRESULT CLevel_Test::Ready_Layer_BackGround()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Terrain"), TEXT("Prototype_GameObject_Terrain"))))
 		return E_FAIL;
 
+	CGameObject::GAMEOBJECT_DESC pDesc = { };
+	pDesc.eType = CGameObject::NONANIM_LEVEL_DUNGEON;
+	pDesc.listIndex = 4;
+	pDesc.vPosition = _float3(0.f,0.f,0.f);
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Land"), TEXT("Prototype_GameObject_Land"), &pDesc)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
