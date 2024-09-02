@@ -18,7 +18,7 @@ HRESULT CState_Link_Shield_Walk::Initialize(_uint iStateNum)
 
     m_iStateNum = iStateNum;
 
-    m_fPlayerSpeed = m_pPlayer->Get_MoveSpeed() / 2;
+    m_fPlayerSpeed = m_pPlayer->Get_MoveSpeed() -2.f;
     m_pPlayer_Navigation = m_pPlayer->Get_Navigation();
     return S_OK;
 }
@@ -26,13 +26,18 @@ HRESULT CState_Link_Shield_Walk::Start_State()
 {
     m_iCurrentAnimIndex = m_iFrontAnimIndex;
     m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 45.f);
+    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 35.f);
 
     return S_OK;
 }
 
 void CState_Link_Shield_Walk::Update(_float fTimeDelta)
 {
+    if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
+        m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep_Slow.wav"), SOUND_PLAYER, 0.3f);
+    else
+        m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep_Slow.wav"), SOUND_PLAYER, 0.7f);
+
     if (!(GetAsyncKeyState(0x57) & 0x8000) && !(GetAsyncKeyState(0x41) & 0x8000) && !(GetAsyncKeyState(0x53) & 0x8000) && !(GetAsyncKeyState(0x44) & 0x8000)&& !(GetAsyncKeyState(0xA0) & 0x8000))
     {
         m_pPlayer->Change_State(CLink::IDLE);

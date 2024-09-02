@@ -21,7 +21,8 @@ HRESULT CState_Link_Slash::Start_State()
 {
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
 	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
-
+	m_pGameInstance->Play_Sound(TEXT("1_Link_Sword_Slash.wav"), SOUND_PLAYER, 1.f);
+	m_pGameInstance->Play_Sound(TEXT("1_Sword_Swing.wav"), SOUND_PLAYER_EFFECT, 1.f);
 	return S_OK;
 }
 

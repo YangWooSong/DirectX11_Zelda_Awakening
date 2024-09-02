@@ -34,6 +34,10 @@ private:
     _uint               m_iSlash_Hold_ed_AnimIndex = {};
 
     _float              m_fPlayerSpeed = { 0.f };
+    _float              m_fTimer = { 0.f };
+
+    _bool               m_bChargeEnd = { false };
+
     _uint               m_iPlayerDir = {};
 
     class CNavigation* m_pPlayer_Navigation = { nullptr };

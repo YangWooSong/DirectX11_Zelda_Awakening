@@ -23,7 +23,8 @@ HRESULT CState_Link_Shield::Start_State()
 {
     m_iCurrentAnimIndex = m_iStartAnimIndex;
     m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
-  
+    if(m_pPlayer->Get_Fsm()->Get_PrevState() != CLink::SHIELD_WALK)
+        m_pGameInstance->Play_Sound(TEXT("1_Link_Shield_On.wav"),SOUND_PLAYER_EFFECT, 1.f);
     return S_OK;
 }
 
@@ -38,6 +39,7 @@ void CState_Link_Shield::Update(_float fTimeDelta)
 
     if (strcmp(m_pPlayer->Get_Model()->Get_CurrentAnimationName(), "shield_ed") == 0 && m_pPlayer->Get_IsEnd_CurrentAnimation())
     {
+        m_pGameInstance->Play_Sound(TEXT("1_Link_Shield_Off.wav"), SOUND_PLAYER_EFFECT, 1.f);
         m_pPlayer->Change_State(CLink::IDLE);
     }
 

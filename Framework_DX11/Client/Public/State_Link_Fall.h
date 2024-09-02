@@ -23,6 +23,7 @@ public:
 private:
     class CPlayer* m_pPlayer = { nullptr };
 
+    _bool               m_bPlaySound = { false };
     _uint               m_iCurrentAnimIndex = {};
     _float              m_fTimer = { 0.f };
 public:

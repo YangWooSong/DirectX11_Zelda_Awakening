@@ -25,8 +25,9 @@ public:
 	
 
 public:
-	class CModel*			Get_Model() { return m_pModelCom; }
-	class CNavigation*			Get_Navigation() { return m_pNavigationCom; }
+	CModel*			Get_Model() { return m_pModelCom; }
+	CNavigation*	Get_Navigation() { return m_pNavigationCom; }
+	CFsm*			Get_Fsm() { return m_pFsmCom; }
 
 	_float					Get_MoveSpeed() { return m_fMoveSpeed; }
 	void					Set_MoveSpeed(_float fSpeed) { m_fMoveSpeed = fSpeed; }
@@ -85,7 +86,7 @@ protected:
 	CCollider* m_pColliderCom = { nullptr };
 
 protected:
-	_float				m_fMoveSpeed = { 3.f};
+	_float				m_fMoveSpeed = { 4.f};
 	_float				m_vTargetPos = {};
 
 	_bool m_bFall = { false };

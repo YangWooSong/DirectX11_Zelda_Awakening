@@ -22,7 +22,7 @@ HRESULT CState_Link_Walk::Initialize(_uint iStateNum)
 HRESULT CState_Link_Walk::Start_State()
 {
     m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex,0.1f,true);
-    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
 
     m_pPlayer_ItemA = static_cast<CLink*>(m_pPlayer)->Get_ItemA();
     m_pPlayer_ItemB = static_cast<CLink*>(m_pPlayer)->Get_ItemB();
@@ -33,6 +33,11 @@ HRESULT CState_Link_Walk::Start_State()
 
 void CState_Link_Walk::Update(_float fTimeDelta)
 {
+    if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
+        m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep.wav"), SOUND_PLAYER, 0.3f);
+    else
+        m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep.wav"), SOUND_PLAYER, 0.7f);
+
     m_iPlayerDir = m_pPlayer->Get_Player_Dir();
     switch (m_iPlayerDir)
     {
