@@ -77,26 +77,27 @@ HRESULT CLevel_MarinHouse::Ready_Lights()
 
 HRESULT CLevel_MarinHouse::Ready_Layer_Camera()
 {
-	//CFreeCamera::CAMERA_FREE_DESC		Desc{};
+	/*
+	CFreeCamera::CAMERA_FREE_DESC		Desc{};
 
-	//Desc.fSensor = 0.2f;
-	//Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
-	//Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
-	//Desc.fFovy = XMConvertToRadians(60.0f);
-	//Desc.fAspect = g_iWinSizeX / g_iWinSizeY;
-	//Desc.fNear = 0.1f;
-	//Desc.fFar = 1000.f;
-	//Desc.fSpeedPerSec = 30.f;
-	//Desc.fRotationPerSec = XMConvertToRadians(90.0f);
+	Desc.fSensor = 0.2f;
+	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
+	Desc.vAt = _float4(0.f, 10.f, 0.f, 1.f);
+	Desc.fFovy = XMConvertToRadians(60.0f);
+	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
+	Desc.fNear = 0.1f;
+	Desc.fFar = 1000.f;
+	Desc.fSpeedPerSec = 30.f;
+	Desc.fRotationPerSec = XMConvertToRadians(90.0f);
 
-	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
-	//	return E_FAIL;
-	
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
+		return E_FAIL;*/
+
 	CPlayerCamera::CAMERA_PLAYER_DESC	Desc{};
 
-	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
-	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
-	Desc.fFovy = XMConvertToRadians(50.0f);
+	Desc.vEye = _float4(0.f, 15.f, -14.f, 1.f);
+	Desc.vAt = _float4(0.f, 0.f, -8.f, 1.f);
+	Desc.fFovy = XMConvertToRadians(30.f);
 	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
 	Desc.fNear = 0.1f;
 	Desc.fFar = 1000.f;
@@ -105,6 +106,7 @@ HRESULT CLevel_MarinHouse::Ready_Layer_Camera()
 
 	Desc.fSpeed = 4.f;
 	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_MARINHOUSE));
+	Desc.bFollowPlayer = false;
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
 		return E_FAIL;

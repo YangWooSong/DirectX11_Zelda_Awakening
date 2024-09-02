@@ -11,6 +11,7 @@ public:
 	typedef struct : public CCamera::CAMERA_DESC {
 		class CPlayer*	pPlayer = { nullptr };
 		_float			fSpeed = {};
+		_bool			bFollowPlayer = {};
 	}CAMERA_PLAYER_DESC;
 private:
 	CPlayerCamera(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

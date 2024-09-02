@@ -25,13 +25,21 @@ HRESULT CPlayerCamera::Initialize(void* pArg)
 	CAMERA_PLAYER_DESC* pDesc = static_cast<CAMERA_PLAYER_DESC*>(pArg);
 	m_pPlayer = pDesc->pPlayer;
 	m_fSpeed = pDesc->fSpeed;
-
+	m_bFollowPlayer = pDesc->bFollowPlayer;
+	_float3 vTarget = {};
+	vTarget.x = pDesc->vEye.x;
+	vTarget.y = pDesc->vEye.y;
+	vTarget.z = pDesc->vEye.z;
+	m_vTargetPos = XMLoadFloat3(&vTarget);
 	if (FAILED(__super::Initialize(pDesc)))
 		return E_FAIL;
 
-	//초기 위치 설정 (Player Pos + offset)
-	_vector vInitPos = m_pPlayer->Get_Transform()->Get_State(CTransform::STATE::STATE_POSITION) + XMVectorSet(m_vOffset.x, m_vOffset.y, m_vOffset.z, 0.f);
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, vInitPos);
+	if(m_bFollowPlayer)
+	{
+		//초기 위치 설정 (Player Pos + offset)
+		_vector vInitPos = m_pPlayer->Get_Transform()->Get_State(CTransform::STATE::STATE_POSITION) + XMVectorSet(m_vOffset.x, m_vOffset.y, m_vOffset.z, 0.f);
+		m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, vInitPos);
+	}
 
 	_vector vDir = m_pTransformCom->Get_State(CTransform::STATE_POSITION) - m_pPlayer->Get_Transform()->Get_State(CTransform::STATE_POSITION);
 	vDir = XMVector3Normalize(vDir);
@@ -93,7 +101,7 @@ void CPlayerCamera::Update(_float fTimeDelta)
 		m_vTargetPos = m_pPlayer->Get_Position() + XMLoadFloat3(&m_vOffset);
 	
 	_float fLerpSpeed = min(1.0f, 3.f * fTimeDelta);
-	_vector finalPos = XMVectorLerp(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_vTargetPos, fLerpSpeed);
+ 	_vector finalPos = XMVectorLerp(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_vTargetPos, fLerpSpeed);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, finalPos);
 }
 
