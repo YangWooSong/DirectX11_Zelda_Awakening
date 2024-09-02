@@ -310,6 +310,12 @@
     <Filter Include="02.GameObjects\02.Player\Shield">
       <UniqueIdentifier>{a0df74c1-0a87-4437-b7df-b907bec9fff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\04.TailLockStatue">
+      <UniqueIdentifier>{d75bc0b1-df6f-4e18-92e0-7f56ee48c226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\05.TailCaveShutter">
+      <UniqueIdentifier>{44b07006-ae19-42ed-b4c8-a69b16f54d42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -576,6 +582,12 @@
     <ClInclude Include="..\Public\Shield.h">
       <Filter>02.GameObjects\02.Player\Shield</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\TailLockStatue.h">
+      <Filter>02.GameObjects\03.Objects\Field\04.TailLockStatue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\TailCaveShutter.h">
+      <Filter>02.GameObjects\03.Objects\Field\05.TailCaveShutter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -832,6 +844,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Shield.cpp">
       <Filter>02.GameObjects\02.Player\Shield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TailLockStatue.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\04.TailLockStatue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TailCaveShutter.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\05.TailCaveShutter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -282,6 +282,18 @@ HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _flo
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Tree"), TEXT("Prototype_GameObject_Tree"), &pDesc)))
 			return E_FAIL;
 	}
+
+	else if (_strLyaerTag == "Layer_TailLockStatue")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_TailLockStatue"), TEXT("Prototype_GameObject_TailLockStatue"), &pDesc)))
+			return E_FAIL;
+	}
+
+	else if (_strLyaerTag == "Layer_TailCaveShutter")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_TailCaveShutter"), TEXT("Prototype_GameObject_TailCaveShutter"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
