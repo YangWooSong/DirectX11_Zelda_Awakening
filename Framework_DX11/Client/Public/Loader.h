@@ -33,14 +33,17 @@ private:
 	HRESULT Ready_Resources_For_MarinHouse();
 	HRESULT Ready_Resources_For_Test();
 	HRESULT Ready_Resources_For_Field();
+	HRESULT Ready_Resources_For_Dungeon();
 
 	HRESULT Ready_Models_For_MarinHouse();
 	HRESULT Ready_Models_For_Field();
 	HRESULT Ready_Models_For_Test();
+	HRESULT Ready_Models_For_Dungeon();
 
 
 	HRESULT Ready_Prototype_For_Field();
 	HRESULT Ready_Prototype_For_Test();
+	HRESULT Ready_Prototype_For_Dungeon();
 
 private:
 	ID3D11Device* m_pDevice = { nullptr };
@@ -53,6 +56,11 @@ private:
 	CRITICAL_SECTION			m_CriticalSection = {};
 	_bool						m_isFinished = { false };
 	_tchar						m_szLoadingText[MAX_PATH] = {};
+
+	_wstring m_DungeonList[29] = {
+	TEXT("01F"),TEXT("01G"), TEXT("02F"), TEXT("02G"), TEXT("03G"), TEXT("04B"), TEXT("04C"), TEXT("04D"), TEXT("04G"), TEXT("05A"),
+	TEXT("05C"), TEXT("05D"), TEXT("05E"), TEXT("05F"), TEXT("05G"), TEXT("06A"), TEXT("06B"), TEXT("06C"), TEXT("06D"), TEXT("06E"),
+	TEXT("06F"), TEXT("06G"), TEXT("07A"), TEXT("07C"), TEXT("07D"), TEXT("07E"), TEXT("08B"), TEXT("08C"),  TEXT("08D") };
 
 	_wstring m_FieldList[84] = {
 		TEXT("05A"), TEXT("05B"), TEXT("05C"),TEXT("05D"), TEXT("05E"), TEXT("05F"), TEXT("05G"), TEXT("06A"), TEXT("06B"), TEXT("06C"),

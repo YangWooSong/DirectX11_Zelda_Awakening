@@ -162,6 +162,49 @@ _bool CNavigation::isMove(_fvector vPosition)
 	}
 }
 
+_bool CNavigation::isMove_in_Room(_fvector vPosition, _int iRoomNum)
+{
+	//네비게이션으로 이동하는 오브젝트의 좌표를 비교하려는 모델의 로컬로 변환
+	_vector		vLocalPos = XMVector3TransformCoord(vPosition, XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_WorldMatrix)));
+
+	_int			iNeighborIndex = { -1 };
+
+	/* 원래 있던 삼각형 안에서 움직인거야. */
+	if (true == m_Cells[m_iCurrentCellIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
+	{
+		return true;
+	}
+
+	/* 원래 있던 삼각형을 벗어난거야. */
+	else
+	{
+		/* 나간쪽에 이웃이 있다라면. */
+		if (-1 != iNeighborIndex)
+		{
+			while (true)
+			{
+				if (-1 == iNeighborIndex)
+					return false;
+
+				//다음 셀이 방 번호가 같으면 진행
+				if (m_Cells[iNeighborIndex]->Get_RoomNum() == iRoomNum)
+					break;
+				else//번호가 다르면 이동할 수 없음
+					return false;
+			}
+
+			m_iPreCellIndex = m_iCurrentCellIndex;
+			m_iCurrentCellIndex = iNeighborIndex;
+			m_iCurrentCelltype = m_Cells[iNeighborIndex]->Get_CellType();
+			return true;
+		}
+
+		/* 나간쪽에 이웃이 없다라면. */
+		else
+			return false;
+	}
+}
+
 _uint CNavigation::isSlide(_fvector vLook)
 {
 	_float fAngle = m_Cells[m_iCurrentCellIndex]->Culculate_InputAngle(vLook, m_vOutLine);
@@ -277,6 +320,11 @@ void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fT
 
 #ifdef _DEBUG
 
+_int CNavigation::Get_CurrentCell_RoomNum()
+{
+	return m_Cells[m_iCurrentCellIndex]->Get_RoomNum();
+}
+
 _float3 CNavigation::Get_MiddlePosOfPreCell()
 {
 	m_iCurrentCellIndex = m_iPreCellIndex;
@@ -295,8 +343,8 @@ HRESULT CNavigation::Render()
 	_float4		vColor = -1 == m_iCurrentCellIndex ? _float4(0.f, 1.f, 0.f, 1.f) : _float4(1.f, 0.f, 0.f, 1.f);
 	_float4x4	WorldMatrix = m_WorldMatrix;
 
-	if (-1 != m_iCurrentCellIndex)
-		WorldMatrix._42 += 0.1f;
+
+	WorldMatrix._42 += 0.1f;
 
 	if (FAILED(m_pShader->Bind_Matrix("g_WorldMatrix", &WorldMatrix)))
 		return E_FAIL;

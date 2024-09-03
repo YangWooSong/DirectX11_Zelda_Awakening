@@ -27,7 +27,7 @@ HRESULT CLevel_Dungeon::Initialize()
     if (FAILED(Ready_Layer_Effect()))
         return E_FAIL;
 
-   // Read();
+   Read();
 
     return S_OK;
 }
@@ -69,12 +69,12 @@ HRESULT CLevel_Dungeon::Ready_Layer_Camera()
 
 HRESULT CLevel_Dungeon::Ready_Layer_BackGround()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CLevel_Dungeon::Ready_Layer_Effect()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CLevel_Dungeon::Ready_LandObjects()
@@ -82,15 +82,20 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
     CPlayer::PLAYER_DESC PlayerDesc;
     PlayerDesc.vPosition = _float3(0.f, 0.f, 0.f);
     PlayerDesc.LevelIndex = LEVEL_DUNGEON;
-    if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
+    if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
         return E_FAIL;
+
+	CNavDataObj::NAVOBJ_DESC NavDes;
+	NavDes.iLevelNum = LEVEL_DUNGEON;
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
+		return E_FAIL;
 
     return S_OK;
 }
 
 HRESULT CLevel_Dungeon::Read()
 {
-	const char cFile[50] = "../Bin/Map_Data/Field.dat";
+	const char cFile[50] = "../Bin/Map_Data/Dungeon.dat";
 	ifstream fin(cFile, ios::in | ios::binary);
 
 	if (!fin.is_open())    // 파일 열었다면
@@ -169,7 +174,7 @@ HRESULT CLevel_Dungeon::Read_LandObjects(_int _type, _uint _index, _float3 _fPos
 	pDesc.vPosition = _fPos;
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Land"), TEXT("Prototype_GameObject_Land"), &pDesc)))
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Land"), TEXT("Prototype_GameObject_Land"), &pDesc)))
 		return E_FAIL;
 
 	return S_OK;
@@ -184,19 +189,15 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	pDesc.vPosition = _fPos;
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
-	pDesc.LevelIndex = LEVEL_FIELD;
+	pDesc.LevelIndex = LEVEL_DUNGEON;
 	pDesc.iCellNum = _iCellNum;
 
-	if (_strLyaerTag == "Layer_SeaUrchin")
+	if (_strLyaerTag == "Layer_DeguTail")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_SeaUrchin"), TEXT("Prototype_GameObject_SeaUrchin"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
-	else if (_strLyaerTag == "Layer_Octorok")
-	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Octorok"), TEXT("Prototype_GameObject_Octorok"), &pDesc)))
-			return E_FAIL;
-	}
+
 	return S_OK;
 }
 
@@ -213,12 +214,12 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 
 	if (_strLyaerTag == "Layer_Weathercock")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Weathercock"), TEXT("Prototype_GameObject_Weathercock"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Weathercock"), TEXT("Prototype_GameObject_Weathercock"), &pDesc)))
 			return E_FAIL;
 	}
 	else if (_strLyaerTag == "Layer_Tree")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Tree"), TEXT("Prototype_GameObject_Tree"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Tree"), TEXT("Prototype_GameObject_Tree"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;
@@ -234,16 +235,12 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
 
-	if (_strLyaerTag == "Layer_Lawn")
+	if (_strLyaerTag == "Layer_DungeonCollapseTileLv01")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Lawn"), TEXT("Prototype_GameObject_Lawn"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DungeonCollapseTileLv01"), TEXT("Prototype_GameObject_CollapseTile"), &pDesc)))
 			return E_FAIL;
 	}
-	else if (_strLyaerTag == "Layer_Grass")
-	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Grass"), TEXT("Prototype_GameObject_Grass"), &pDesc)))
-			return E_FAIL;
-	}
+	
 	return S_OK;
 }
 

@@ -80,6 +80,49 @@ void CTransform::Go_Straight(_float fTimeDelta, _float fSpeed, class CNavigation
 	}
 }
 
+void CTransform::Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSpeed, CNavigation* pNavigation)
+{
+	_vector		vPosition = Get_State(STATE_POSITION);
+	_vector		vLook = Get_State(STATE_LOOK);
+
+	if (fSpeed <= 0.f)
+		fSpeed = m_fSpeedPerSec;
+
+	_vector vTemp = vPosition + XMVector3Normalize(vLook) * fSpeed * fTimeDelta;
+
+	if (nullptr == pNavigation || true == pNavigation->isMove_in_Room(vTemp, iRoomNum))
+	{
+		Set_State(STATE_POSITION, vTemp);
+	}
+}
+
+void CTransform::Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool bReflect, _float fSpeed, CNavigation* pNavigation, _int* iStopCount)
+{
+	_vector		vPosition = Get_State(STATE_POSITION);
+	_vector		vLook = Get_State(STATE_LOOK);
+
+	if (fSpeed <= 0.f)
+		fSpeed = m_fSpeedPerSec;
+
+	_vector vTemp = vPosition + XMVector3Normalize(vLook) * fSpeed * fTimeDelta;
+
+	if (nullptr == pNavigation || true == pNavigation->isMove_in_Room(vTemp, iRoomNum))
+	{
+		Set_State(STATE_POSITION, vTemp);
+	}
+	else
+		iStopCount++;
+
+	if (pNavigation != nullptr && pNavigation->isMove_in_Room(vTemp, iRoomNum) == false && bReflect == true)
+	{
+		m_fRot.y += 180.f;
+		//m_fRot.y = m_fRot.y  360.f;
+		//왔던 방향 반대로 전환
+		RotationThreeAxis(m_fRot);
+	}
+
+}
+
 void CTransform::Go_Backward(_float fTimeDelta, _float fSpeed)
 {
 	_vector		vPosition = Get_State(STATE_POSITION);
@@ -531,6 +574,8 @@ void CTransform::LookAt(_fvector vAt)
 
 void CTransform::RotationThreeAxis(const _float3 fRadians)
 {
+	m_fRot = fRadians;
+
 	_float3		vScaled = Get_Scaled();
 
 	_float3		vRight = _float3(Get_Scaled().x, 0.f, 0.f);

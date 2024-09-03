@@ -6,6 +6,7 @@
 #include "Level_MarinHouse.h"
 #include "Level_Field.h"
 #include "Level_Test.h"
+#include "Level_Dungeon.h"
 
 #include "BackGround.h"
 #include "GameInstance.h"
@@ -51,6 +52,9 @@ void CLevel_Loading::Update(_float fTimeDelta)
 			break;
 		case LEVEL_TEST:
 			pNewLevel = CLevel_Test::Create(m_pDevice, m_pContext);
+			break;
+		case LEVEL_DUNGEON:
+			pNewLevel = CLevel_Dungeon::Create(m_pDevice, m_pContext);
 			break;
 		}
 

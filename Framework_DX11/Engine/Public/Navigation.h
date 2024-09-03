@@ -28,6 +28,7 @@ public:
 
 public:
 	_bool isMove(_fvector vPosition);
+	_bool isMove_in_Room(_fvector vPosition, _int iRoomNum);
 	_uint isSlide(_fvector vLook);
 	_bool isInTotalCell(_fvector vPosition);
 	_vector Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDelta);
@@ -36,6 +37,7 @@ public:
 	_int Get_CurrentCellIndex() { return m_iCurrentCellIndex; }
 	_vector Get_OutLIne() { return m_vOutLine; }
 	_uint Get_CurrentCellType() { return m_iCurrentCelltype; }
+	_int Get_CurrentCell_RoomNum();
 	_float3 Get_MiddlePosOfPreCell();
 #ifdef _DEBUG
 public:

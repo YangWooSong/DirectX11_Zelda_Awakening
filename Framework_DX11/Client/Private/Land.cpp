@@ -112,7 +112,7 @@ HRESULT CLand::Add_Component_Dungeon()
     _wstring finalName = sPath + m_DungeonList[m_iListIndex];
 
     /* FOR.Com_Model */
-    if (FAILED(__super::Add_Component(LEVEL_TEST, finalName,
+    if (FAILED(__super::Add_Component(LEVEL_DUNGEON, finalName,
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
 

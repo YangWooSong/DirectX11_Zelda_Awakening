@@ -36,7 +36,7 @@ HRESULT CLevel_MarinHouse::Initialize()
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_MARINHOUSE));
+	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON));
 
 	if (KEY_AWAY(I))
 		pCamera->Zoom_Out(1.5f, 45.f);
@@ -58,7 +58,7 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_All();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_TEST))))
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
 			return;
 	}
 

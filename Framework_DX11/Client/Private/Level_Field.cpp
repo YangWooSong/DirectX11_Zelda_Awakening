@@ -36,7 +36,14 @@ HRESULT CLevel_Field::Initialize()
 
 void CLevel_Field::Update(_float fTimeDelta)
 {
-
+	if (GetKeyState(VK_RETURN) & 0x8000)
+	{
+		//m_pGameInstance->DeletePlayer();
+		//m_pGameInstance->DeleteActors();
+		m_pGameInstance->Stop_All();
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
+			return;
+	}
 }
 
 HRESULT CLevel_Field::Render()
@@ -123,7 +130,7 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	
 	CNavDataObj::NAVOBJ_DESC NavDes;
 	NavDes.iLevelNum = LEVEL_FIELD;
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
 
 	return S_OK;

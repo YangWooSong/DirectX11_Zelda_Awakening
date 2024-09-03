@@ -156,6 +156,8 @@
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
+    <ClInclude Include="..\Public\CollapseTile.h" />
+    <ClInclude Include="..\Public\DeguTail_00.h" />
     <ClInclude Include="..\Public\Grass.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
     <ClInclude Include="..\Public\Lawn.h" />
@@ -167,6 +169,8 @@
     <ClInclude Include="..\Public\Rola.h" />
     <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\Spark.h" />
+    <ClInclude Include="..\Public\State_DeguTail_Idle.h" />
+    <ClInclude Include="..\Public\State_DeguTail_Walk.h" />
     <ClInclude Include="..\Public\State_Kuribo_Dead.h" />
     <ClInclude Include="..\Public\State_Kuribo_Idle.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk.h" />
@@ -248,6 +252,8 @@
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
+    <ClCompile Include="..\Private\CollapseTile.cpp" />
+    <ClCompile Include="..\Private\DeguTail_00.cpp" />
     <ClCompile Include="..\Private\FreeCamera.cpp" />
     <ClCompile Include="..\Private\Grass.cpp" />
     <ClCompile Include="..\Private\HousePot.cpp" />
@@ -276,6 +282,8 @@
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
     <ClCompile Include="..\Private\Shield.cpp" />
     <ClCompile Include="..\Private\Spark.cpp" />
+    <ClCompile Include="..\Private\State_DeguTail_Idle.cpp" />
+    <ClCompile Include="..\Private\State_DeguTail_Walk.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Dead.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Idle.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk.cpp" />

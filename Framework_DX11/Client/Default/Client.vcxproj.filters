@@ -316,6 +316,24 @@
     <Filter Include="02.GameObjects\03.Objects\Field\05.TailCaveShutter">
       <UniqueIdentifier>{44b07006-ae19-42ed-b4c8-a69b16f54d42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\05.Monster\13.DeguTail">
+      <UniqueIdentifier>{ddfa43f5-0c7a-46b3-8696-0b307fcea640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail">
+      <UniqueIdentifier>{7595ad43-ed19-4c2b-a263-a754ca5c3835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Idle">
+      <UniqueIdentifier>{fddc2511-e1eb-47ff-8f92-6d43ceb3d198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon">
+      <UniqueIdentifier>{10940312-34ba-4e68-ab63-8b3ca517bad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\CollapseTile">
+      <UniqueIdentifier>{ed5d1ae1-5d26-4801-aefc-9a9056a32fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Walk">
+      <UniqueIdentifier>{2d5f622d-a199-4223-9ca2-7ddf7e4ed86e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -588,6 +606,18 @@
     <ClInclude Include="..\Public\TailCaveShutter.h">
       <Filter>02.GameObjects\03.Objects\Field\05.TailCaveShutter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\DeguTail_00.h">
+      <Filter>02.GameObjects\05.Monster\13.DeguTail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_DeguTail_Idle.h">
+      <Filter>05.State\Monster\14.DeguTail\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\CollapseTile.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\CollapseTile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_DeguTail_Walk.h">
+      <Filter>05.State\Monster\14.DeguTail\Walk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -850,6 +880,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\TailCaveShutter.cpp">
       <Filter>02.GameObjects\03.Objects\Field\05.TailCaveShutter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\DeguTail_00.cpp">
+      <Filter>02.GameObjects\05.Monster\13.DeguTail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_DeguTail_Idle.cpp">
+      <Filter>05.State\Monster\14.DeguTail\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CollapseTile.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\CollapseTile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_DeguTail_Walk.cpp">
+      <Filter>05.State\Monster\14.DeguTail\Walk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

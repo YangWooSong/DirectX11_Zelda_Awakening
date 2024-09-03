@@ -41,6 +41,9 @@
 #include "Kuribo.h"
 #include "Vegas.h"
 
+#include "DeguTail_00.h"
+#include "CollapseTile.h"
+
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
 	, m_pContext{ pContext }
@@ -101,6 +104,9 @@ HRESULT CLoader::Loading()
 		break;
 	case LEVEL_FIELD:
 		hr = Ready_Resources_For_Field();
+		break;
+	case LEVEL_DUNGEON:
+		hr = Ready_Resources_For_Dungeon();
 		break;
 	}
 
@@ -317,6 +323,37 @@ HRESULT CLoader::Ready_Resources_For_Field()
 	return S_OK;
 }
 
+HRESULT CLoader::Ready_Resources_For_Dungeon()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
+
+	Ready_Models_For_Dungeon();
+
+	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
+
+	/* For.Prototype_Component_Navigation */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Navigation"),
+		CNavigation::Create(m_pDevice, m_pContext, TEXT("../Bin/Nav_Data/Dungeon_Nav_Data.dat")))))
+		return E_FAIL;
+
+	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
+
+	Ready_Prototype_For_Dungeon();
+
+	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+
 HRESULT CLoader::Ready_Models_For_MarinHouse()
 {
 	/* For. Prototype_Component_VIBuffer_Terrain*/
@@ -440,9 +477,6 @@ HRESULT CLoader::Ready_Models_For_Test()
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 #pragma region MONSTER
 
-
-
-
 	/* For. Prototype_Component_Model_Rola*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Rola"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
@@ -486,12 +520,47 @@ HRESULT CLoader::Ready_Models_For_Test()
 
 #pragma endregion
 
-#pragma region LAND
-	/* For. Prototype_Component_Model_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Level_Lv01TailCave_03G"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/Dungeon/Lv01TailCave_03G.dat"))))
-		return E_FAIL;
+	return S_OK;
+}
 
+HRESULT CLoader::Ready_Models_For_Dungeon()
+{
+	_matrix		PreTransformMatrix = XMMatrixIdentity();
+
+	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
+
+#pragma region LAND
+
+	for (int i = 0; i < 29; i++)
+	{
+		_wstring sPath = TEXT("../Bin/ModelData/NonAnim/Level/Dungeon/Lv01TailCave_");
+		_wstring sFBX = TEXT(".dat");
+		_wstring finalPath = sPath + m_DungeonList[i] + sFBX;
+
+		_wstring sTag = TEXT("Prototype_Component_Level_Lv01TailCave_");
+		_wstring finalTag = sTag + m_DungeonList[i];
+
+		std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+		std::string str = converter.to_bytes(finalPath);
+
+		if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, finalTag,
+			CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, str.c_str()))))
+			return E_FAIL;
+	}
+#pragma endregion
+
+#pragma region MONSTER
+	/* For. Prototype_Component_Model_DeguTail01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DeguTail01"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/DeguTail/DeguTail01.dat", PreTransformMatrix))))
+		return E_FAIL;
+#pragma endregion
+
+#pragma region NONANIM_OBJ
+	/* For. Prototype_Component_Model_DungeonCollapseTileLv01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DungeonCollapseTileLv01"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/DungeonCollapseTileLv01/DungeonCollapseTileLv01.dat"))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }
@@ -583,6 +652,20 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		CVegas::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Prototype_For_Dungeon()
+{
+	/* For. Prototype_GameObject_DeguTail_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_00"),
+		CDeguTail_00::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_CollapseTile*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CollapseTile"),
+		CCollapseTile::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 	return S_OK;
 }
 

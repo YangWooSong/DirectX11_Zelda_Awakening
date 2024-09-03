@@ -27,9 +27,9 @@ public:
 	virtual HRESULT Render() override;
 
 public:
-	class CShader* m_pShaderCom = { nullptr };
-	class CModel* m_pModelCom = { nullptr };
-	class CCollider* m_pColliderCom = { nullptr };
+	CShader* m_pShaderCom = { nullptr };
+	CModel* m_pModelCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
 
 private:
 	HRESULT Ready_Components();

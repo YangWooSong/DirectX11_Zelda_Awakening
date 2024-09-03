@@ -41,6 +41,9 @@ public:
 
 public:
 	void		Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr);
+	void		Go_Straight_in_Room(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr);
+	void		Go_Straight_in_Room_Reverse(_float fTimeDelta, _float fSpeed, _bool bReflect = false, CNavigation* pNavigation = nullptr , _int* iStopCount = nullptr);
+
 	void		Change_State(const _uint iState);
 	void		SetUp_NextAnimation(_uint iNextAnimationIndex, _float fChangeDuration = 0.2f, _bool _bLoop = false, _uint iStartFrame = 0);
 	void		Set_AnimationSpeed(_uint _AnimationIndex, _double _dAnimSpeed);

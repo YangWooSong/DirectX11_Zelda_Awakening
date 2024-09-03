@@ -34,3 +34,5 @@
 # Debug
 *.ipch
 
+*.pdb
+
