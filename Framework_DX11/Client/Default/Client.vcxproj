@@ -158,6 +158,8 @@
     <ClInclude Include="..\Public\Bed.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
     <ClInclude Include="..\Public\DeguTail_00.h" />
+    <ClInclude Include="..\Public\DeguTail_01.h" />
+    <ClInclude Include="..\Public\DeguTail_02.h" />
     <ClInclude Include="..\Public\Grass.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
     <ClInclude Include="..\Public\Lawn.h" />
@@ -254,6 +256,8 @@
     <ClCompile Include="..\Private\Bed.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
     <ClCompile Include="..\Private\DeguTail_00.cpp" />
+    <ClCompile Include="..\Private\DeguTail_01.cpp" />
+    <ClCompile Include="..\Private\DeguTail_02.cpp" />
     <ClCompile Include="..\Private\FreeCamera.cpp" />
     <ClCompile Include="..\Private\Grass.cpp" />
     <ClCompile Include="..\Private\HousePot.cpp" />

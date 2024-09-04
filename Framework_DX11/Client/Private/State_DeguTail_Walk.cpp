@@ -42,8 +42,7 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
         m_iStopCount = 0;
         m_iReflectDir *= -1.f;
     }
-    _vector vCurrentLook = m_pOwner->Get_Transform()->Get_State(CTransform::STATE_LOOK);
-   // _vector vNewlook = XMVectorSetX(vCurrentLook, XMVectorGetX(vCurrentLook)+m_iReflectDir);
+  
     m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 3.f, fTimeDelta);
  
     m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, 7.f, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);

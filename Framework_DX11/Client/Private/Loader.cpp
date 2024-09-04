@@ -42,6 +42,8 @@
 #include "Vegas.h"
 
 #include "DeguTail_00.h"
+#include "DeguTail_01.h"
+#include "DeguTail_02.h"
 #include "CollapseTile.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -554,6 +556,16 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DeguTail01"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/DeguTail/DeguTail01.dat", PreTransformMatrix))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_DeguTail02*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DeguTail02"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/DeguTail/DeguTail02.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_DeguTail03*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DeguTail03"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/DeguTail/DeguTail03.dat", PreTransformMatrix))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region NONANIM_OBJ
@@ -657,15 +669,29 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 
 HRESULT CLoader::Ready_Prototype_For_Dungeon()
 {
+#pragma region MONSTER
 	/* For. Prototype_GameObject_DeguTail_00*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_00"),
 		CDeguTail_00::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_DeguTail_01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_01"),
+		CDeguTail_01::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_DeguTail_01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_02"),
+		CDeguTail_02::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+#pragma endregion
+
+#pragma region NONANIM_OBJ
 	/* For. Prototype_GameObject_CollapseTile*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CollapseTile"),
 		CCollapseTile::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+#pragma endregion
 	return S_OK;
 }
 

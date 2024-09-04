@@ -5,6 +5,8 @@
 #include "Model.h"
 #include "State_DeguTail_Idle.h"
 #include "State_DeguTail_Walk.h"
+#include "DeguTail_01.h"
+#include "DeguTail_02.h"
 
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -146,6 +148,45 @@ HRESULT CDeguTail_00::Ready_Components()
 
 HRESULT CDeguTail_00::Ready_PartObjects()
 {
+	m_Parts.resize(PART_END);
+
+	CDeguTail_01::DEGUBODY_DESC		BodyDesc{};
+	BodyDesc.vSize = _float3(1.f, 1.f, 1.f);
+	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	BodyDesc.pParent = this;
+	BodyDesc.iBodyNum = 0;
+
+	if (FAILED(__super::Add_PartObject(PART_BODY0, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
+		return E_FAIL;
+
+	BodyDesc.vSize = _float3(0.7f, 0.7f, 0.7f);
+	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	BodyDesc.pParent = this;
+	BodyDesc.iBodyNum = 1;
+
+	if (FAILED(__super::Add_PartObject(PART_BODY1, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
+		return E_FAIL;
+
+	BodyDesc.vSize = _float3(0.5f, 0.5f, 0.5f);
+	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	BodyDesc.pParent = this;
+	BodyDesc.iBodyNum = 2;
+
+	if (FAILED(__super::Add_PartObject(PART_BODY2, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
+		return E_FAIL;
+
+
+	CDeguTail_02::DEGUTAIL_DESC		TailDesc{};
+	TailDesc.vSize = _float3(0.5f, 0.5f, 0.5f);
+	TailDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	TailDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	TailDesc.pParent = this;
+
+	if (FAILED(__super::Add_PartObject(PART_TAIL, TEXT("Prototype_GameObject_DeguTail_02"), &TailDesc)))
+		return E_FAIL;
     return S_OK;
 }
 
