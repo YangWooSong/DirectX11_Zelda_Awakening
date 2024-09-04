@@ -45,6 +45,7 @@ public:
 
 	_float Culculate_InputAngle(_fvector vLook , _fvector vOutLine);
 	_vector Culculate_SlidePos(_fvector vLook,_float fSpeed, _float fTimeDelta, _fvector vOutLine);
+	_vector	Calculate_ReflectVec(_fvector vLook, _float fSpeed, _float fTimeDelta, _fvector vOutLine);
 	void  CompareAndChange(_float3 _comparePos, _float3 _changePos);
 #ifdef _DEBUG
 public:

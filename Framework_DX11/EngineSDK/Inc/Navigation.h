@@ -32,6 +32,7 @@ public:
 	_uint isSlide(_fvector vLook);
 	_bool isInTotalCell(_fvector vPosition);
 	_vector Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDelta);
+	_vector Calculate_ReflectVec(_fvector vLook, _float fSpeed, _float fTimeDelta);
 public:
 	_int Get_PreCellIndex() { return m_iPreCellIndex; }
 	_int Get_CurrentCellIndex() { return m_iCurrentCellIndex; }

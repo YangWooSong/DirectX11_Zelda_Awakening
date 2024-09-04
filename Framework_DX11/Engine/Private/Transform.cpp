@@ -96,7 +96,7 @@ void CTransform::Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSp
 	}
 }
 
-void CTransform::Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool bReflect, _float fSpeed, CNavigation* pNavigation, _int* iStopCount)
+void CTransform::Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool* bReflect, _float fSpeed, CNavigation* pNavigation, _int* iStopCount)
 {
 	_vector		vPosition = Get_State(STATE_POSITION);
 	_vector		vLook = Get_State(STATE_LOOK);
@@ -110,17 +110,20 @@ void CTransform::Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _b
 	{
 		Set_State(STATE_POSITION, vTemp);
 	}
-	else
-		iStopCount++;
 
-	if (pNavigation != nullptr && pNavigation->isMove_in_Room(vTemp, iRoomNum) == false && bReflect == true)
+	if (pNavigation != nullptr && pNavigation->isMove_in_Room(vTemp, iRoomNum) == false )
 	{
-		m_fRot.y += 180.f;
-		//m_fRot.y = m_fRot.y  360.f;
-		//왔던 방향 반대로 전환
-		RotationThreeAxis(m_fRot);
-	}
+		//m_fRot.y += 180.f;
+		////m_fRot.y = m_fRot.y  360.f;
+		////왔던 방향 반대로 전환
+		//RotationThreeAxis(m_fRot);
 
+		//Set_State(STATE_LOOK, pNavigation->Calculate_ReflectVec(vLook, fSpeed, fTimeDelta));
+		*iStopCount += 1;
+		*bReflect = true;
+		Turn_Lerp(pNavigation->Calculate_ReflectVec(vLook, fSpeed, fTimeDelta), 100.f, fTimeDelta);
+		Go_Straight_InRoom(fTimeDelta, iRoomNum, fSpeed, pNavigation);
+	}
 }
 
 void CTransform::Go_Backward(_float fTimeDelta, _float fSpeed)

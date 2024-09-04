@@ -33,6 +33,11 @@ void CState_Link_Slash::Update(_float fTimeDelta)
 	{
 		m_pPlayer->Change_State(CLink::IDLE);
 	}
+
+	if (KEY_AWAY(KEY::P))
+	{
+		m_pPlayer->Change_State(CLink::ITEMB);
+	}
 }
 
 void CState_Link_Slash::End_State()

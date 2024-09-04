@@ -74,7 +74,7 @@ void CMonster::Go_Straight_in_Room(_float fTimeDelta, _float fSpeed, CNavigation
 	m_pTransformCom->Go_Straight_InRoom(fTimeDelta, m_pNavigationCom->Get_CurrentCell_RoomNum(), fSpeed, pNavigation);
 }
 
-void CMonster::Go_Straight_in_Room_Reverse(_float fTimeDelta, _float fSpeed, _bool bReflect, CNavigation* pNavigation, _int* iStopCount)
+void CMonster::Go_Straight_in_Room_Reverse(_float fTimeDelta, _float fSpeed, _bool* bReflect, CNavigation* pNavigation, _int* iStopCount)
 {
 	m_pTransformCom->Go_Straight_InRoom_Reverse(fTimeDelta, m_pNavigationCom->Get_CurrentCell_RoomNum(), bReflect, fSpeed, pNavigation, iStopCount);
 }

@@ -237,6 +237,11 @@ _vector CNavigation::Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fT
 	return  m_Cells[m_iCurrentCellIndex]->Culculate_SlidePos(vLook, fSpeed, fTimeDelta, m_vOutLine);
 }
 
+_vector CNavigation::Calculate_ReflectVec(_fvector vLook, _float fSpeed, _float fTimeDelta)
+{
+	return  m_Cells[m_iCurrentCellIndex]->Calculate_ReflectVec(vLook, fSpeed, fTimeDelta, m_vOutLine);
+}
+
 void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fTimeDelta)
 {
 	if (m_iCurrentCellIndex < 0 || m_iCurrentCellIndex >= m_Cells.size() || m_Cells[m_iCurrentCellIndex]->Get_CellType() == CCell::CELL_JUMP || m_Cells[m_iCurrentCellIndex]->Get_CellType() == CCell::CELL_JUMP)

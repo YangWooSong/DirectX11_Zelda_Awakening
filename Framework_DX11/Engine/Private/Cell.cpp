@@ -109,6 +109,15 @@ _vector CCell::Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDel
 	return vNew;
 }
 
+_vector CCell::Calculate_ReflectVec(_fvector vLook, _float fSpeed, _float fTimeDelta, _fvector vOutLine)
+{
+	_vector vLinePerpendicular;
+
+	vLinePerpendicular = XMVector3Normalize(-XMVectorSet(XMVectorGetZ(vOutLine), XMVectorGetY(vOutLine), XMVectorGetX(vOutLine), 0.f));
+
+	return XMVector3Normalize(vLook + (XMVector3Dot(-vLook, vLinePerpendicular) * vLinePerpendicular * 2));
+}
+
 void CCell::CompareAndChange(_float3 _comparePos, _float3 _changePos)
 {
 	for (size_t i = 0; i < POINT_END; ++i)

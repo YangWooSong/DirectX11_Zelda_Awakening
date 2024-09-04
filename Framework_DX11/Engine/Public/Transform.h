@@ -38,7 +38,7 @@ public:
 
 	void		Go_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 	void		Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
-	void		Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool bReflect = false, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _int* iStopCount = nullptr);
+	void		Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool* bReflect = nullptr, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _int* iStopCount = nullptr);
 
 	void		Go_Backward(_float fTimeDelta, _float fSpeed = 0.f);
 

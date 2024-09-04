@@ -26,9 +26,11 @@ private:
     class CMonster* m_pOwner = { nullptr };
     CNavigation* m_pOwnerNavigation = { nullptr };
 
-    _float      m_fRotateY = { 180.f };
+    _float      m_fTimer = { 0.f };
+
     _bool       m_bReflect = { true };
     _int           m_iStopCount = { 0 };
+    _float            m_iReflectDir = { 1.f };
     _uint               m_iCurrentAnimIndex = {};
 
 public:

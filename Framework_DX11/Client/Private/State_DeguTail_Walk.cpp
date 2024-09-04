@@ -27,9 +27,26 @@ HRESULT CState_DeguTail_Walk::Start_State()
 
 void CState_DeguTail_Walk::Update(_float fTimeDelta)
 {
-    m_fRotateY += 1.f;
-    m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, 5.f, m_bReflect, m_pOwnerNavigation, &m_iStopCount);
-    m_pOwner->Get_Transform()->RotationThreeAxis(_float3(0.f, m_fRotateY, 0.f));
+   
+    if (m_bReflect == true)
+    {
+        m_fTimer = 0.f;
+        m_bReflect = false;
+    }
+    if (m_bReflect == false)
+        m_fTimer += fTimeDelta;
+
+    if (m_iStopCount == 3 || m_fTimer > 1.f)
+    {
+        m_fTimer = 0.f;
+        m_iStopCount = 0;
+        m_iReflectDir *= -1.f;
+    }
+    _vector vCurrentLook = m_pOwner->Get_Transform()->Get_State(CTransform::STATE_LOOK);
+   // _vector vNewlook = XMVectorSetX(vCurrentLook, XMVectorGetX(vCurrentLook)+m_iReflectDir);
+    m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 3.f, fTimeDelta);
+ 
+    m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, 7.f, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
 }
 
 void CState_DeguTail_Walk::End_State()
