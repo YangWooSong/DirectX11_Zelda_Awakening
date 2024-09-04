@@ -1,22 +1,3 @@
-﻿  BlendObject.cpp
-  Camera.cpp
-  ContainerObject.cpp
-  Event_Manager.cpp
-  Fsm.cpp
-  GameObject.cpp
-  Layer.cpp
-  Navigation.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Navigation.cpp(63,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Navigation.cpp(78,73): warning C4267: '인수': 'size_t'에서 'Engine::_int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Object_Manager.cpp
-  PartObject.cpp
-  PhysX_Manager.cpp
-  Renderer.cpp
-  State.cpp
-  Transform.cpp
-  UI_Manager.cpp
-  UIObject.cpp
-  코드를 생성하고 있습니다...
+﻿  LINK : ..\Bin\Engine.dll을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
      ..\Bin\Engine.lib 라이브러리 및 ..\Bin\Engine.exp 개체를 생성하고 있습니다.
   Engine.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Engine.dll

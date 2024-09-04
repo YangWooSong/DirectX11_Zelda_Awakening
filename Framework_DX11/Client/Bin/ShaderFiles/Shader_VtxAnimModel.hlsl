@@ -1,4 +1,4 @@
-
+#include "Shader_Engine_Defines.hlsli"
 /* float2 float3 float4 == vector */
 
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
@@ -7,13 +7,6 @@ bool g_bIsDead;
 
 /* 뼈행렬들(내 모델 전체의 뼈행렬들(x), 현재 그리는 메시에게 영향을 주는 뼈행렬들(o) */
 matrix g_BoneMatrices[512];
-
-sampler LinearSampler = sampler_state
-{
-    Filter = MIN_MAG_MIP_LINEAR;
-    AddressU = wrap;
-    AddressV = wrap;
-};
 
 struct VS_IN
 {
@@ -91,6 +84,12 @@ technique11 DefaultTechnique
 {
     pass Terrain
     {
+//3줄 다 넣어야함
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+//색상 더하고 싶으면 벡터에 넣어라, rgba다 섞는다~ 하나혹은 몇개만 섞을꺼면 고쳐라~
+        SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
         VertexShader = compile vs_5_0 VS_MAIN();
         PixelShader = compile ps_5_0 PS_MAIN();
     }

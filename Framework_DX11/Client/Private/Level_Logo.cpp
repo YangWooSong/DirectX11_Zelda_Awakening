@@ -41,22 +41,6 @@ HRESULT CLevel_Logo::Ready_Layer_BackGround(const _wstring& strLayerTag)
 {
 	CBackGround::BACKGROUND_DESC Desc { };
 	
-
-	Desc.eType = CBackGround::KEY;
-	Desc.fSizeX = 400;
-	Desc.fSizeY = 90;
-	Desc.fX = g_iWinSizeX >> 1;
-	Desc.fY = 570;
-
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOGO, strLayerTag,
-		TEXT("Prototype_GameObject_BackGround"), &Desc)))
-		return E_FAIL;
-
-	Desc.eType = CBackGround::KEY_BACKGROUND;
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOGO, strLayerTag,
-		TEXT("Prototype_GameObject_BackGround"), &Desc)))
-		return E_FAIL;
-
 	Desc.eType = CBackGround::BACKGROUND;
 	Desc.fX = g_iWinSizeX >> 1;
 	Desc.fY = g_iWinSizeY >> 1;
@@ -66,6 +50,25 @@ HRESULT CLevel_Logo::Ready_Layer_BackGround(const _wstring& strLayerTag)
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOGO, strLayerTag,
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))
 		return E_FAIL;
+
+	
+	Desc.fSizeX = 400;
+	Desc.fSizeY = 90;
+	Desc.fX = g_iWinSizeX >> 1;
+	Desc.fY = 570;
+
+	Desc.eType = CBackGround::KEY_BACKGROUND;
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOGO, strLayerTag,
+		TEXT("Prototype_GameObject_BackGround"), &Desc)))
+		return E_FAIL;
+
+	Desc.eType = CBackGround::KEY;
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOGO, strLayerTag,
+		TEXT("Prototype_GameObject_BackGround"), &Desc)))
+		return E_FAIL;
+
+	
+	
 
 	return S_OK;
 }

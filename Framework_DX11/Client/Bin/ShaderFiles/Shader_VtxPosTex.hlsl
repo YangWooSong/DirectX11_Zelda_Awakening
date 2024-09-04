@@ -1,4 +1,4 @@
-
+#include "Shader_Engine_Defines.hlsli"
 /* float2 float3 float4 == vector */
 /* float1x3, float3x3, float1x3, float4x4 == matrix */
 
@@ -15,19 +15,6 @@ matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 texture2D g_Texture;
 bool g_bBlink;
 float g_fBrightness;
-
-
-RasterizerState rsWireframe
-{
-    FillMode = WireFrame;
-};
-
-sampler LinearSampler = sampler_state
-{
-    Filter = MIN_MAG_MIP_LINEAR;
-    AddressU = wrap;
-    AddressV = WRAP;
-};
 
 struct VS_IN
 {
@@ -108,9 +95,9 @@ technique11 DefaultTechnique
 	/* 빛연산 + 림라이트 + ssao + 노멀맵핑 + pbr*/
     pass UI
     {
-		//SetBlendState(나만의블렌드스테이츠);
-		//SetDepthStecilState();
-		//SetRasterizerState();
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
         VertexShader = compile vs_5_0 VS_MAIN();
         PixelShader = compile ps_5_0 PS_MAIN();
@@ -118,7 +105,9 @@ technique11 DefaultTechnique
 
     pass UI_WIRE
     {
-        SetRasterizerState(rsWireframe);
+        SetRasterizerState(RS_Wireframe);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
         VertexShader = compile vs_5_0 VS_MAIN();
         PixelShader = compile ps_5_0 PS_MAIN();
     }
