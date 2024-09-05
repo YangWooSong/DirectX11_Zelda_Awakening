@@ -2,6 +2,7 @@
 #include "DeguTail_04.h"
 #include "GameInstance.h"
 #include "Monster.h"
+#include "DeguTail_01.h"
 
 CDeguTail_04::CDeguTail_04(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CPartObject(pDevice, pContext)
@@ -30,12 +31,11 @@ HRESULT CDeguTail_04::Initialize(void* pArg)
     m_pTransformCom->Set_Scaled(pDesc->vSize.x, pDesc->vSize.y, pDesc->vSize.z);
     m_iCellNum = pDesc->iCellNum;
     m_pParent = pDesc->pParent;
-
+    m_fSize = pDesc->vSize;
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
     m_fSpeed = 7.f;
-
     return S_OK;
 }
 
@@ -49,6 +49,28 @@ void CDeguTail_04::Update(_float fTimeDelta)
         m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.5f, fTimeDelta);
 
     m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    //////////////////////////////////////////////////////////////////////
+
+    m_pParentWorldMatrixVector = static_cast<CDeguTail_01*>(m_pParent)->Get_Parent_WorlMatrix_Vector();
+
+    if (m_pParentWorldMatrixVector.size() > 0)
+    {
+        m_fTimer += fTimeDelta;
+    }
+
+    if (m_fTimer > 0.2f)
+    {
+        if (m_pParentWorldMatrixVector.size() > 0)
+        {
+            m_pTransformCom->Set_WorldMatrix(m_pParentWorldMatrixVector.back());
+            m_pTransformCom->Set_Scaled(m_fSize.x, m_fSize.y, m_fSize.z);
+           // m_pTransformCom->RotationThreeAxis(_float3( 90.f, 0.f, 0.f));
+            static_cast<CDeguTail_01*>(m_pParent)->Vec_PopBackp();
+        }
+        else
+            m_fTimer = 0.f;
+    }
+
 }
 
 void CDeguTail_04::Late_Update(_float fTimeDelta)

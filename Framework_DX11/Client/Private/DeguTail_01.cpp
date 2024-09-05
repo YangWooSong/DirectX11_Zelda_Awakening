@@ -32,11 +32,14 @@ HRESULT CDeguTail_01::Initialize(void* pArg)
     m_iCellNum = pDesc->iCellNum;
     m_pParent = pDesc->pParent;
     m_fSize = pDesc->vSize;
-
+    m_fWaitTime = pDesc->fWaitTime;
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-    m_pParentWorldMatrixVector = static_cast<CDeguTail_00*>(m_pParent)->Get_Parent_WorlMatrix_Vector();
+    //벡터 사이즈 임의 지정
+    m_MParentWorldMarix.reserve(100);
+
+
     return S_OK;
 }
 
@@ -46,25 +49,34 @@ void CDeguTail_01::Priority_Update(_float fTimeDelta)
 
 void CDeguTail_01::Update(_float fTimeDelta)
 {
+    if(dynamic_cast<CDeguTail_00*>(m_pParent) != nullptr)
+         m_pParentWorldMatrixVector = static_cast<CDeguTail_00*>(m_pParent)->Get_Parent_WorlMatrix_Vector();
+    else
+        m_pParentWorldMatrixVector = static_cast<CDeguTail_01*>(m_pParent)->Get_Parent_WorlMatrix_Vector();
+
     if (m_pNavigationCom != nullptr)
         m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.5f, fTimeDelta);
 
     m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 /////////////////////////////////////////
 
-
-    if (m_pParent->Get_Fsm()->Get_CurrentState() == CDeguTail_00::WALK)
+    if (m_pParentWorldMatrixVector.size() > 0)
     {
         m_fTimer += fTimeDelta;
     }
 
-    if (m_fTimer > 0.3f )
+    if (m_fTimer > 0.2f )
     {
-        if (m_pParentWorldMatrixVector->size() > 0)
+        if (m_pParentWorldMatrixVector.size() > 0)
         {
-            m_pTransformCom->Set_WorldMatrix(m_pParentWorldMatrixVector->back());
+            m_pTransformCom->Set_WorldMatrix(m_pParentWorldMatrixVector.back());
             m_pTransformCom->Set_Scaled(m_fSize.x, m_fSize.y, m_fSize.z);
-            m_pParentWorldMatrixVector->pop_back();
+            if (dynamic_cast<CDeguTail_00*>(m_pParent) != nullptr)
+               static_cast<CDeguTail_00*>(m_pParent)->Vec_PopBackp();
+            else
+                static_cast<CDeguTail_01*>(m_pParent)->Vec_PopBackp();
+        
+            Add_Vec_Matrix();
         }
         else
             m_fTimer = 0.f;
@@ -149,6 +161,12 @@ void CDeguTail_01::Set_Parent(CGameObject* pParent)
 {
     m_pParent = static_cast<CMonster*>(pParent);
 }
+
+void CDeguTail_01::Add_Vec_Matrix()
+{
+    m_MParentWorldMarix.insert(m_MParentWorldMarix.begin(), m_pTransformCom->Get_WorldMatrix());
+}
+
 
 CDeguTail_01* CDeguTail_01::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {

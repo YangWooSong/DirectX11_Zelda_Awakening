@@ -6,6 +6,7 @@
 #include "State_DeguTail_Idle.h"
 #include "State_DeguTail_Walk.h"
 #include "DeguTail_01.h"
+#include "DeguTail_04.h"
 
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -154,12 +155,40 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	m_Parts.resize(PART_END);
 
 	CDeguTail_01::DEGUBODY_DESC		BodyDesc{};
-	BodyDesc.vSize = _float3(0.8f, 0.8f, 0.8f);
+	BodyDesc.vSize = _float3(0.9f, 0.9f, 0.9f);
 	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
 	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	BodyDesc.pParent = this;
-
+	BodyDesc.fWaitTime = 0.2f;
 	if (FAILED(__super::Add_PartObject(PART_BODY1, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
+		return E_FAIL;
+
+	BodyDesc.vSize = _float3(0.8f, 0.8f, 0.8f);
+	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	BodyDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY1]);
+	BodyDesc.fWaitTime = 0.4f;
+
+	if (FAILED(__super::Add_PartObject(PART_BODY2, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
+		return E_FAIL;
+
+	BodyDesc.vSize = _float3(0.7f, 0.7f, 0.7f);
+	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	BodyDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY2]);
+	BodyDesc.fWaitTime = 0.6f;
+
+	if (FAILED(__super::Add_PartObject(PART_BODY3, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
+		return E_FAIL;
+
+	CDeguTail_04::DEGUTAIL_DESC		TailDesc{};
+	TailDesc.vSize = _float3(1.f,1.f,1.f);
+	TailDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
+	TailDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	TailDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY3]);
+	TailDesc.fWaitTime = 0.8f;
+
+	if (FAILED(__super::Add_PartObject(PART_TAIL, TEXT("Prototype_GameObject_DeguTail_04"), &TailDesc)))
 		return E_FAIL;
 
     return S_OK;

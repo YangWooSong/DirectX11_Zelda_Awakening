@@ -17,8 +17,9 @@ public:
 	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
 		_int iCellNum;
+		_float	fWaitTime = 0.f;
 		_float3 vSize = { 1.f,1.f,1.f };
-		class CMonster* pParent;
+		class CGameObject* pParent;
 	} DEGUTAIL_DESC;
 
 private:
@@ -46,8 +47,14 @@ public:
 	void Set_Parent(CGameObject* pParent);
 private:
 	_float m_fSpeed = {  };
-	class CMonster* m_pParent = { nullptr };
 
+	_float			m_fTimer = { 0.f };
+	_float			m_fWaitTime = { 0.f };
+	_float3			m_fSize = { };
+	_bool			m_bMove = { false };
+
+	class CGameObject* m_pParent = { nullptr };
+	vector<_matrix> m_pParentWorldMatrixVector;
 public:
 	static CDeguTail_04* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

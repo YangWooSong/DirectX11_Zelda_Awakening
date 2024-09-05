@@ -340,6 +340,9 @@
     <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29">
       <UniqueIdentifier>{5a8cbcfd-4851-45d0-9b74-d0bc5d05c5ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Appear">
+      <UniqueIdentifier>{306f4dc6-2fc9-4b5d-8d37-4dca4b3adbb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -630,6 +633,9 @@
     <ClInclude Include="..\Public\DeguTail_04.h">
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_DeguTail_Appear.h">
+      <Filter>05.State\Monster\14.DeguTail\Appear</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -910,6 +916,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\DeguTail_04.cpp">
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_DeguTail_Appear.cpp">
+      <Filter>05.State\Monster\14.DeguTail\Appear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
