@@ -28,10 +28,14 @@ private:
     CNavigation* m_pOwnerNavigation = { nullptr };
 
     _float      m_fTimer = { 0.f };
+    _float      m_fAngryTimer = { 0.f };
 
     _bool       m_bReflect = { true };
+    _bool       m_bAngry = { false };
+
     _int           m_iStopCount = { 0 };
     _float            m_iReflectDir = { 1.f };
+    _float            m_fSpeed = { 6.f };
     _uint               m_iCurrentAnimIndex = {};
 
 public:

@@ -21,8 +21,8 @@ HRESULT CState_DeguTail_Walk::Initialize(_uint iStateNum)
 HRESULT CState_DeguTail_Walk::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-    //  m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
-
+    m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
+    m_bAngry = m_pOwnerDegu->Get_Angry();
     return S_OK;
 }
 
@@ -35,6 +35,7 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
         m_fTimer = 0.f;
         m_bReflect = false;
     }
+
     if (m_bReflect == false)
         m_fTimer += fTimeDelta;
 
@@ -45,16 +46,37 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
         m_iReflectDir *= -1.f;
     }
   
+    if (m_bAngry)
+    {
+        m_fAngryTimer += fTimeDelta;
+        m_fSpeed = 10.f;
+    }
+
+    if (m_fAngryTimer > 2.f)
+    {
+        m_fAngryTimer = 0.f;
+        m_bAngry = false;
+        m_fSpeed = 6.f;
+        m_pOwnerDegu->Set_Angry(false);
+    }
+
     m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 3.f, fTimeDelta);
  
-    m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, 7.f, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
+    m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, m_fSpeed, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
 
     if (KEY_AWAY(Q))
-        m_pOwner->Change_State(CDeguTail_00::IDLE);
+        m_pOwner->Change_State(CDeguTail_00::HURT);
+
+    if (KEY_AWAY(E))
+        m_pOwner->Change_State(CDeguTail_00::GUARD);
+
+    if (KEY_AWAY(Z))
+        m_pOwner->Change_State(CDeguTail_00::DEAD);
 }
 
 void CState_DeguTail_Walk::End_State()
 {
+    m_fAngryTimer = 0.f;
 }
 
 CState_DeguTail_Walk* CState_DeguTail_Walk::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

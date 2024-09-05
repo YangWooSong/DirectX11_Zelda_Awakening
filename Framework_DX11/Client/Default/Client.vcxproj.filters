@@ -322,17 +322,11 @@
     <Filter Include="05.State\Monster\14.DeguTail">
       <UniqueIdentifier>{7595ad43-ed19-4c2b-a263-a754ca5c3835}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.State\Monster\14.DeguTail\Idle">
-      <UniqueIdentifier>{fddc2511-e1eb-47ff-8f92-6d43ceb3d198}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\03.Objects\Dungeon">
       <UniqueIdentifier>{10940312-34ba-4e68-ab63-8b3ca517bad2}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObjects\03.Objects\Dungeon\CollapseTile">
       <UniqueIdentifier>{ed5d1ae1-5d26-4801-aefc-9a9056a32fd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.State\Monster\14.DeguTail\Walk">
-      <UniqueIdentifier>{2d5f622d-a199-4223-9ca2-7ddf7e4ed86e}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29">
       <UniqueIdentifier>{3d0c32e5-4f6b-4e15-ab26-d2e7c9ed8be1}</UniqueIdentifier>
@@ -340,8 +334,26 @@
     <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29">
       <UniqueIdentifier>{5a8cbcfd-4851-45d0-9b74-d0bc5d05c5ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.State\Monster\14.DeguTail\Appear">
+    <Filter Include="05.State\Monster\14.DeguTail\Head">
+      <UniqueIdentifier>{9b10cf62-b829-4e1a-a071-b2e4b4c428a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Head\Walk">
+      <UniqueIdentifier>{2d5f622d-a199-4223-9ca2-7ddf7e4ed86e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Head\Idle">
+      <UniqueIdentifier>{fddc2511-e1eb-47ff-8f92-6d43ceb3d198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Head\Appear">
       <UniqueIdentifier>{306f4dc6-2fc9-4b5d-8d37-4dca4b3adbb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Head\Hurt">
+      <UniqueIdentifier>{37170057-7a5c-4c6a-9095-ea9a58225208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Head\Guard">
+      <UniqueIdentifier>{5c02a251-3712-4e14-9c0e-1eb9068fbe52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Monster\14.DeguTail\Head\Dead">
+      <UniqueIdentifier>{0b53544a-012e-4604-85ce-2da214544d70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -619,13 +631,13 @@
       <Filter>02.GameObjects\05.Monster\13.DeguTail</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State_DeguTail_Idle.h">
-      <Filter>05.State\Monster\14.DeguTail\Idle</Filter>
+      <Filter>05.State\Monster\14.DeguTail\Head\Idle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\CollapseTile.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\CollapseTile</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State_DeguTail_Walk.h">
-      <Filter>05.State\Monster\14.DeguTail\Walk</Filter>
+      <Filter>05.State\Monster\14.DeguTail\Head\Walk</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\DeguTail_01.h">
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29</Filter>
@@ -634,7 +646,16 @@
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State_DeguTail_Appear.h">
-      <Filter>05.State\Monster\14.DeguTail\Appear</Filter>
+      <Filter>05.State\Monster\14.DeguTail\Head\Appear</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_DeguTail_Hurt.h">
+      <Filter>05.State\Monster\14.DeguTail\Head\Hurt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_DeguTail_Guard.h">
+      <Filter>05.State\Monster\14.DeguTail\Head\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_DeguTail_Dead.h">
+      <Filter>05.State\Monster\14.DeguTail\Head\Dead</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -903,13 +924,13 @@
       <Filter>02.GameObjects\05.Monster\13.DeguTail</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State_DeguTail_Idle.cpp">
-      <Filter>05.State\Monster\14.DeguTail\Idle</Filter>
+      <Filter>05.State\Monster\14.DeguTail\Head\Idle</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\CollapseTile.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\CollapseTile</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State_DeguTail_Walk.cpp">
-      <Filter>05.State\Monster\14.DeguTail\Walk</Filter>
+      <Filter>05.State\Monster\14.DeguTail\Head\Walk</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\DeguTail_01.cpp">
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29</Filter>
@@ -918,7 +939,16 @@
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State_DeguTail_Appear.cpp">
-      <Filter>05.State\Monster\14.DeguTail\Appear</Filter>
+      <Filter>05.State\Monster\14.DeguTail\Head\Appear</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_DeguTail_Hurt.cpp">
+      <Filter>05.State\Monster\14.DeguTail\Head\Hurt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_DeguTail_Guard.cpp">
+      <Filter>05.State\Monster\14.DeguTail\Head\Guard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_DeguTail_Dead.cpp">
+      <Filter>05.State\Monster\14.DeguTail\Head\Dead</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

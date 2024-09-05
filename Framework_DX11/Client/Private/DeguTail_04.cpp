@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Monster.h"
 #include "DeguTail_01.h"
+#include "DeguTail_00.h"
 
 CDeguTail_04::CDeguTail_04(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CPartObject(pDevice, pContext)
@@ -35,40 +36,69 @@ HRESULT CDeguTail_04::Initialize(void* pArg)
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-    m_fSpeed = 7.f;
+    m_pHeadFsm = pDesc->pFsm;
+    Safe_AddRef(m_pHeadFsm);
+
+    m_iWalkAnimIndex = m_pModelCom->Get_AnimationIndex("wait_move03");
+    m_iGuardAnimIndex = m_pModelCom->Get_AnimationIndex("guard03");
+    m_iHurtAnimIndex = m_pModelCom->Get_AnimationIndex("damage03");
+    m_iDeadAnimIndex = m_pModelCom->Get_AnimationIndex("dead03");
+    m_iAppearAnimIndex = m_pModelCom->Get_AnimationIndex("demo_pop");
+
+    m_iCurrentAnimIndex = m_iAppearAnimIndex;
+    m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
+    m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+    m_bRender = false;
+
     return S_OK;
 }
 
 void CDeguTail_04::Priority_Update(_float fTimeDelta)
 {
+    if (m_isDead)
+        m_bRender = false;
 }
 
 void CDeguTail_04::Update(_float fTimeDelta)
 {
+    Set_Animation();
+
+    m_pParentWorldMatrixVector = static_cast<CDeguTail_01*>(m_pParent)->Get_Parent_WorlMatrix_Vector();
+
+    m_pModelCom->Play_Animation(fTimeDelta);
+
     if (m_pNavigationCom != nullptr)
         m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.5f, fTimeDelta);
 
     m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     //////////////////////////////////////////////////////////////////////
 
-    m_pParentWorldMatrixVector = static_cast<CDeguTail_01*>(m_pParent)->Get_Parent_WorlMatrix_Vector();
-
-    if (m_pParentWorldMatrixVector.size() > 0)
-    {
-        m_fTimer += fTimeDelta;
-    }
-
-    if (m_fTimer > 0.2f)
+    if (m_pHeadFsm->Get_CurrentState() != CDeguTail_00::DEAD && m_pHeadFsm->Get_CurrentState() != CDeguTail_00::GUARD && m_pHeadFsm->Get_CurrentState() != CDeguTail_00::APPEAR)
     {
         if (m_pParentWorldMatrixVector.size() > 0)
         {
-            m_pTransformCom->Set_WorldMatrix(m_pParentWorldMatrixVector.back());
-            m_pTransformCom->Set_Scaled(m_fSize.x, m_fSize.y, m_fSize.z);
-           // m_pTransformCom->RotationThreeAxis(_float3( 90.f, 0.f, 0.f));
-            static_cast<CDeguTail_01*>(m_pParent)->Vec_PopBackp();
+            m_fTimer += fTimeDelta;
         }
         else
-            m_fTimer = 0.f;
+        {
+            if (m_pHeadFsm->Get_CurrentState() == CDeguTail_00::HURT)
+                m_bRender = false;
+        }
+
+        if (m_fTimer > 0.2f)
+        {
+            if (m_pParentWorldMatrixVector.size() > 0)
+            {
+                m_pTransformCom->Set_WorldMatrix(m_pParentWorldMatrixVector.back());
+                m_pTransformCom->Set_Scaled(m_fSize.x, m_fSize.y, m_fSize.z);
+                static_cast<CDeguTail_01*>(m_pParent)->Vec_PopBackp();
+            }
+            else
+            {
+                m_fTimer = 0.f;
+            }
+
+        }
     }
 
 }
@@ -81,31 +111,45 @@ void CDeguTail_04::Late_Update(_float fTimeDelta)
 
 HRESULT CDeguTail_04::Render()
 {
-    if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-        return E_FAIL;
-
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-        return E_FAIL;
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-        return E_FAIL;
-
-
-    _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
-
-    for (size_t i = 0; i < iNumMeshes; i++)
+    if(m_bRender)
     {
-        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+        if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(0)))
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+            return E_FAIL;
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+            return E_FAIL;
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &m_isDead, sizeof(_bool))))
             return E_FAIL;
 
-        if (FAILED(m_pModelCom->Render(i)))
+        _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+        for (size_t i = 0; i < iNumMeshes; i++)
+        {
+            m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
+
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+                return E_FAIL;
+
+
+            if (FAILED(m_pShaderCom->Begin(0)))
+                return E_FAIL;
+
+            if (FAILED(m_pModelCom->Render((_uint)i)))
+                return E_FAIL;
+        }
+
+        //다른 모델한테 영향이 가면 안되서 dead처리를 풀어줘야 함
+        _bool bFalse = false;
+
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
             return E_FAIL;
-    }
+
 #ifdef _DEBUG
-    m_pColliderCom->Render();
+        m_pColliderCom->Render();
 #endif
+    }
     return S_OK;
 }
 
@@ -142,6 +186,44 @@ HRESULT CDeguTail_04::Ready_Components()
         return E_FAIL;
 
     return S_OK;
+}
+
+void CDeguTail_04::Set_Animation()
+{
+    if (m_pHeadFsm->Get_CurrentState() == CDeguTail_00::WALK && m_iCurrentAnimIndex != m_iWalkAnimIndex)
+    {
+        m_bRender = true;
+        m_iCurrentAnimIndex = m_iWalkAnimIndex;
+        m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
+        m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
+    }
+
+    if (m_pHeadFsm->Get_CurrentState() == CDeguTail_00::HURT && m_iCurrentAnimIndex != m_iHurtAnimIndex)
+    {
+        m_iCurrentAnimIndex = m_iHurtAnimIndex;
+        m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
+        m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+    }
+    else if (m_iCurrentAnimIndex == m_iHurtAnimIndex && m_pModelCom->Get_IsEnd_CurrentAnimation())
+    {
+        m_iCurrentAnimIndex = m_iWalkAnimIndex;
+        m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
+        m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
+    }
+
+    if (m_pHeadFsm->Get_CurrentState() == CDeguTail_00::GUARD && m_iCurrentAnimIndex != m_iGuardAnimIndex)
+    {
+        m_iCurrentAnimIndex = m_iGuardAnimIndex;
+        m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.2f);
+        m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+    }
+
+    if (m_pHeadFsm->Get_CurrentState() == CDeguTail_00::DEAD && m_iCurrentAnimIndex != m_iDeadAnimIndex)
+    {
+        m_iCurrentAnimIndex = m_iDeadAnimIndex;
+        m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
+        m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
+    }
 }
 
 void CDeguTail_04::Set_Parent(CGameObject* pParent)
@@ -184,5 +266,6 @@ void CDeguTail_04::Free()
     Safe_Release(m_pModelCom);
     Safe_Release(m_pNavigationCom);
     Safe_Release(m_pColliderCom);
+    Safe_Release(m_pHeadFsm);
 }
 

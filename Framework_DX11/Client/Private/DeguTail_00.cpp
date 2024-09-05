@@ -5,6 +5,10 @@
 #include "Model.h"
 #include "State_DeguTail_Idle.h"
 #include "State_DeguTail_Walk.h"
+#include "State_DeguTail_Appear.h"
+#include "State_DeguTail_Hurt.h"
+#include "State_DeguTail_Guard.h"
+#include "State_DeguTail_Dead.h"
 #include "DeguTail_01.h"
 #include "DeguTail_04.h"
 
@@ -35,13 +39,13 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	if (FAILED(Ready_Components()))
 		return E_FAIL;
 
-	if (FAILED(Ready_PartObjects()))
-		return E_FAIL;
-
 	if (FAILED(Ready_State()))
 		return E_FAIL;
 
-	m_pFsmCom->Set_State(WALK);
+	if (FAILED(Ready_PartObjects()))
+		return E_FAIL;
+
+	m_pFsmCom->Set_State(APPEAR);
 
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
@@ -59,15 +63,18 @@ void CDeguTail_00::Priority_Update(_float fTimeDelta)
 
 void CDeguTail_00::Update(_float fTimeDelta)
 {
-	if (m_pNavigationCom != nullptr)
-		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.5f, fTimeDelta);
+	if (m_isDead == false)
+	{
+		if (m_pNavigationCom != nullptr)
+			m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.5f, fTimeDelta);
 
-	m_pFsmCom->Update(fTimeDelta);
-	m_pModelCom->Play_Animation(fTimeDelta);
+		m_pFsmCom->Update(fTimeDelta);
+		m_pModelCom->Play_Animation(fTimeDelta);
 
-	__super::Update(fTimeDelta);
+		__super::Update(fTimeDelta);
 
-	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+	}
 }
 
 void CDeguTail_00::Late_Update(_float fTimeDelta)
@@ -78,44 +85,47 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 }
 HRESULT CDeguTail_00::Render()
 {
-	if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-		return E_FAIL;
-
-	if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-		return E_FAIL;
-	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-		return E_FAIL;
-	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &m_isDead, sizeof(_bool))))
-		return E_FAIL;
-
-	_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
-
-	for (size_t i = 0; i < iNumMeshes; i++)
+	if(m_isDead == false)
 	{
-		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
-
-		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+		if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
 			return E_FAIL;
 
-
-		if (FAILED(m_pShaderCom->Begin(0)))
+		if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+			return E_FAIL;
+		if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+			return E_FAIL;
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &m_isDead, sizeof(_bool))))
 			return E_FAIL;
 
-		if (FAILED(m_pModelCom->Render((_uint)i)))
+		_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+		for (size_t i = 0; i < iNumMeshes; i++)
+		{
+			m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
+
+			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+				return E_FAIL;
+
+
+			if (FAILED(m_pShaderCom->Begin(0)))
+				return E_FAIL;
+
+			if (FAILED(m_pModelCom->Render((_uint)i)))
+				return E_FAIL;
+		}
+
+		//다른 모델한테 영향이 가면 안되서 dead처리를 풀어줘야 함
+		_bool bFalse = false;
+
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
 			return E_FAIL;
-	}
-
-	//다른 모델한테 영향이 가면 안되서 dead처리를 풀어줘야 함
-	_bool bFalse = false;
-
-	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
-		return E_FAIL;
 
 #ifdef _DEBUG
-	m_pColliderCom->Render();
+		m_pColliderCom->Render();
 #endif
 
-	return S_OK;
+		return S_OK;
+	}
 }
 
 HRESULT CDeguTail_00::Ready_Components()
@@ -160,6 +170,7 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	BodyDesc.pParent = this;
 	BodyDesc.fWaitTime = 0.2f;
+	BodyDesc.pFsm = m_pFsmCom;
 	if (FAILED(__super::Add_PartObject(PART_BODY1, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
@@ -168,7 +179,7 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	BodyDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY1]);
 	BodyDesc.fWaitTime = 0.4f;
-
+	BodyDesc.pFsm = m_pFsmCom;
 	if (FAILED(__super::Add_PartObject(PART_BODY2, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
@@ -177,7 +188,7 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	BodyDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY2]);
 	BodyDesc.fWaitTime = 0.6f;
-
+	BodyDesc.pFsm = m_pFsmCom;
 	if (FAILED(__super::Add_PartObject(PART_BODY3, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
@@ -187,7 +198,7 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	TailDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	TailDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY3]);
 	TailDesc.fWaitTime = 0.8f;
-
+	TailDesc.pFsm = m_pFsmCom;
 	if (FAILED(__super::Add_PartObject(PART_TAIL, TEXT("Prototype_GameObject_DeguTail_04"), &TailDesc)))
 		return E_FAIL;
 
@@ -202,12 +213,36 @@ HRESULT CDeguTail_00::Ready_State()
 
 	m_pFsmCom->Add_State(CState_DeguTail_Idle::Create(m_pFsmCom, this, IDLE));
 	m_pFsmCom->Add_State(CState_DeguTail_Walk::Create(m_pFsmCom, this, WALK));
+	m_pFsmCom->Add_State(CState_DeguTail_Appear::Create(m_pFsmCom, this, APPEAR));
+	m_pFsmCom->Add_State(CState_DeguTail_Hurt::Create(m_pFsmCom, this, HURT));
+	m_pFsmCom->Add_State(CState_DeguTail_Guard::Create(m_pFsmCom, this, GUARD));
+	m_pFsmCom->Add_State(CState_DeguTail_Dead::Create(m_pFsmCom, this, DEAD));
     return S_OK;
 }
 
 void CDeguTail_00::Add_Vec_Matrix()
 {
 	m_MParentWorldMarix.insert(m_MParentWorldMarix.begin(), m_pTransformCom->Get_WorldMatrix());
+}
+
+void CDeguTail_00::Kill_Parts(_float fTimeDelta)
+{
+	fTimer += fTimeDelta;
+
+	if(fTimer > 0.3f)
+	{
+		if (m_iPartIndex == 0)
+			m_isDead = true;
+
+		--m_iPartIndex;
+
+		if (m_iPartIndex < 0)
+			m_iPartIndex = 0;
+
+		m_Parts[m_iPartIndex]->Set_Dead(true);
+		fTimer = 0.f;
+	}
+
 }
 
 CDeguTail_00* CDeguTail_00::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

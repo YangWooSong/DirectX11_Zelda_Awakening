@@ -19,8 +19,8 @@ HRESULT CState_DeguTail_Appear::Initialize(_uint iStateNum)
 
 HRESULT CState_DeguTail_Appear::Start_State()
 {
-    m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-    m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+    m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
+    m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
 
     return S_OK;
 }
@@ -28,7 +28,7 @@ HRESULT CState_DeguTail_Appear::Start_State()
 void CState_DeguTail_Appear::Update(_float fTimeDelta)
 {
     if (m_pOwner->Get_IsEnd_CurrentAnimation())
-        m_pOwner->Change_State(CDeguTail_00::IDLE);
+        m_pOwner->Change_State(CDeguTail_00::WALK);
 }
 
 void CState_DeguTail_Appear::End_State()

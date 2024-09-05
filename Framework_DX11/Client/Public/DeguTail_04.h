@@ -7,6 +7,7 @@ class CShader;
 class CModel;
 class CNavigation;
 class CCollider;
+class CFsm;
 END
 
 BEGIN(Client)
@@ -20,6 +21,7 @@ public:
 		_float	fWaitTime = 0.f;
 		_float3 vSize = { 1.f,1.f,1.f };
 		class CGameObject* pParent;
+		CFsm* pFsm = { nullptr };
 	} DEGUTAIL_DESC;
 
 private:
@@ -43,18 +45,31 @@ public:
 private:
 	HRESULT Ready_Components();
 	void Set_CellNum(_int iNum) { m_iCellNum = iNum; }
+	void Set_Animation();
+
 public:
 	void Set_Parent(CGameObject* pParent);
+	void Set_Render(_bool bRender) { m_bRender = bRender; }
+
 private:
-	_float m_fSpeed = {  };
+	_uint			m_iWalkAnimIndex = { 0 };
+	_uint			m_iGuardAnimIndex = { 0 };
+	_uint			m_iHurtAnimIndex = { 0 };
+	_uint			m_iDeadAnimIndex = { 0 };
+	_uint			m_iAppearAnimIndex = { 0 };
+
+	_uint			m_iCurrentAnimIndex = { 0 };
 
 	_float			m_fTimer = { 0.f };
 	_float			m_fWaitTime = { 0.f };
 	_float3			m_fSize = { };
 	_bool			m_bMove = { false };
+	_bool			m_bRender= { false };
 
 	class CGameObject* m_pParent = { nullptr };
 	vector<_matrix> m_pParentWorldMatrixVector;
+
+	CFsm* m_pHeadFsm = { nullptr };
 public:
 	static CDeguTail_04* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);
