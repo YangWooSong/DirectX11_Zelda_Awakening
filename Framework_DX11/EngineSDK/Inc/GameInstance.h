@@ -123,6 +123,12 @@ public:
 	void	DeletePlayer();
 	void	DeleteActors();
 #pragma endregion
+
+#pragma region FONT_MANAGER
+	HRESULT Add_Font(const _wstring& strFontTag, const _tchar* pFontFilePath);
+	HRESULT Render_Text(const _wstring& strFontTag, const _tchar* pText, _fvector vPosition, _fvector vColor = XMVectorSet(1.f, 1.f, 1.f, 1.f), _float fRadian = 0.f, _fvector vPivot = XMVectorSet(0.f, 0.f, 0.f, 1.f), _float fScale = 1.f);
+#pragma endregion
+
 private:
 	class CGraphic_Device*			m_pGraphic_Device = { nullptr };
 	class CInput_Device*			m_pInput_Device = { nullptr };
@@ -133,6 +139,7 @@ private:
 	class CRenderer*				m_pRenderer = { nullptr };
 	class CPipeLine*				m_pPipeLine = { nullptr };
 	class CPicking_Manager*			m_pPicking_Manager = { nullptr };
+	class CFont_Manager* m_pFont_Manager = { nullptr };
 
 	/*추가한 기능들*/
 	class CKey_Manager*				m_pKey_Manager = { nullptr };

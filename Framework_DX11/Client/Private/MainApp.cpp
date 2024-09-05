@@ -29,9 +29,13 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(Ready_Prototype_Component_Static()))
 		return E_FAIL;
 
+	if (FAILED(Ready_Font()))
+		return E_FAIL;
+
 	if (FAILED(Open_Level(LEVEL_LOGO)))
 		return E_FAIL;
 
+	
 
 	return S_OK;
 }
@@ -52,6 +56,9 @@ HRESULT CMainApp::Render()
 
 	m_pGameInstance->Draw_Engine();
 
+	//이걸 draw끝나고 원하는 렌더에서 불러준다.
+	//m_pGameInstance->Render_Text(TEXT("Font_Gulim"), TEXT("담배 하나 피자."), XMVectorSet(0.f, 0.f, 0.f, 1.f));
+
 	m_pGameInstance->Render_End();
 
 	return S_OK;
@@ -62,6 +69,18 @@ void CMainApp::Final_Update()
 	m_pGameInstance->FinalUpdate_Engine();
 }
 
+
+HRESULT CMainApp::Ready_Font()
+{
+	//cmd창 명령어 (각종 성분 세팅->사이즈는 고정된다.
+	/* MakeSpriteFont "글꼴 이름 넣는 곳" /FontSize:10 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 내가 정하는 이름.spritefont */
+
+	//Font_Gulim : 이건 레이어 이름 마냥 내가 정한다.
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim"), TEXT("../Bin/Resources/Fonts/Gulim.spritefont"))))
+		return E_FAIL;
+
+	return S_OK;
+}
 
 HRESULT CMainApp::Ready_Prototype_Component_Static()
 {

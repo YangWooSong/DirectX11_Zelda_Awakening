@@ -160,6 +160,12 @@
     <Filter Include="01.Utility\03.Components\Collider\Bounding\Sphere">
       <UniqueIdentifier>{a83227b2-6505-47ec-94a7-5859a5a15b9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\12.Font">
+      <UniqueIdentifier>{1dc82a3a-f123-46bf-96ea-a2b56b51d8e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\12.Font\Manager">
+      <UniqueIdentifier>{c1d95c56-85af-48e2-b0e5-edd74553fe1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -308,6 +314,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Collider.cpp">
       <Filter>01.Utility\03.Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CustomFont.cpp">
+      <Filter>01.Utility\12.Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Font_Manager.cpp">
+      <Filter>01.Utility\12.Font\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +485,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\Collider.h">
       <Filter>01.Utility\03.Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\CustomFont.h">
+      <Filter>01.Utility\12.Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Font_Manager.h">
+      <Filter>01.Utility\12.Font\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
