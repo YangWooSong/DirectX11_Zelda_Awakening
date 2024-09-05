@@ -13,7 +13,7 @@ class CDeguTail_00 :
     public CMonster
 {
 public:
-	enum PARTID { PART_BODY0, PART_BODY1, PART_BODY2, PART_TAIL, PART_END };
+	enum PARTID { PART_BODY1, PART_END };
 	enum DEGUTAIL_STATE { IDLE, WALK, ATTACK, DEAD, STATE_END };
 private:
 	CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -33,6 +33,11 @@ private:
 	HRESULT Ready_PartObjects();
 	HRESULT Ready_State();
 
+public:
+	void Add_Vec_Matrix();	
+	vector<_matrix>* Get_Parent_WorlMatrix_Vector(){return  &m_MParentWorldMarix;}
+private:
+	vector<_matrix> m_MParentWorldMarix;
 public:
 	static CDeguTail_00* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

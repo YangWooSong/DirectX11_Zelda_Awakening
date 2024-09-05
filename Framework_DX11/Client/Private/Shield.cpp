@@ -71,7 +71,7 @@ void CShield::Late_Update(_float fTimeDelta)
 HRESULT CShield::Render()
 {
 #ifdef _DEBUG
-	if (m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD || m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD_WALK)
+	//if (m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD || m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD_WALK)
 		m_pColliderCom->Render();
 #endif
 	return S_OK;

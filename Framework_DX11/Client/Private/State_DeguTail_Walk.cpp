@@ -14,6 +14,7 @@ HRESULT CState_DeguTail_Walk::Initialize(_uint iStateNum)
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("wait_move01");
     m_iStateNum = iStateNum;
     m_pOwnerNavigation = m_pOwner->Get_NavigationCom();
+    m_pOwnerDegu = static_cast<CDeguTail_00*>(m_pOwner);
     return S_OK;
 }
 
@@ -27,7 +28,8 @@ HRESULT CState_DeguTail_Walk::Start_State()
 
 void CState_DeguTail_Walk::Update(_float fTimeDelta)
 {
-   
+    m_pOwnerDegu->Add_Vec_Matrix();
+
     if (m_bReflect == true)
     {
         m_fTimer = 0.f;
@@ -46,6 +48,9 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
     m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 3.f, fTimeDelta);
  
     m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, 7.f, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
+
+    if (KEY_AWAY(Q))
+        m_pOwner->Change_State(CDeguTail_00::IDLE);
 }
 
 void CState_DeguTail_Walk::End_State()

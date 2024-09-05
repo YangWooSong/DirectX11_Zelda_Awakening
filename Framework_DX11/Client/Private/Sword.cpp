@@ -70,7 +70,7 @@ void CSword::Late_Update(_float fTimeDelta)
 HRESULT CSword::Render()
 {
 #ifdef _DEBUG
-	if (m_pPlayerFsm->Get_CurrentState() == CLink::SLASH || m_pPlayerFsm->Get_CurrentState() == CLink::SLASH_HOLD)
+	//if (m_pPlayerFsm->Get_CurrentState() == CLink::SLASH || m_pPlayerFsm->Get_CurrentState() == CLink::SLASH_HOLD)
 		m_pColliderCom->Render();
 #endif
 	return S_OK;

@@ -17,7 +17,6 @@ public:
 	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
 		_int iCellNum;
-		_uint iBodyNum;
 		_float3 vSize = {1.f,1.f,1.f};
 		class CMonster* pParent;
 	} DEGUBODY_DESC;
@@ -46,9 +45,12 @@ private:
 public:
 	void Set_Parent(CGameObject* pParent);
 private:
-	_float m_fSpeed = {  };
+	_float			m_fTimer = { 0.f };
+	_float3			m_fSize = { };
+	_bool			m_bMove = { false };
+
 	class CMonster* m_pParent = { nullptr };
-	_uint	m_iBodyNum = { 0 };
+	vector<_matrix>* m_pParentWorldMatrixVector = { nullptr };
 public:
 	static CDeguTail_01* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

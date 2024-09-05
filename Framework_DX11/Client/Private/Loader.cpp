@@ -43,7 +43,7 @@
 
 #include "DeguTail_00.h"
 #include "DeguTail_01.h"
-#include "DeguTail_02.h"
+#include "DeguTail_04.h"
 #include "CollapseTile.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -680,9 +680,9 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 		CDeguTail_01::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_DeguTail_01*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_02"),
-		CDeguTail_02::Create(m_pDevice, m_pContext))))
+	/* For. Prototype_GameObject_DeguTail_04*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_04"),
+		CDeguTail_04::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 

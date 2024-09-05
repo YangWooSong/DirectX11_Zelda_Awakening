@@ -24,6 +24,7 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
+    class CDeguTail_00* m_pOwnerDegu = { nullptr };
     CNavigation* m_pOwnerNavigation = { nullptr };
 
     _float      m_fTimer = { 0.f };

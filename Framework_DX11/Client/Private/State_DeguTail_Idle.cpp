@@ -27,6 +27,8 @@ HRESULT CState_DeguTail_Idle::Start_State()
 
 void CState_DeguTail_Idle::Update(_float fTimeDelta)
 {
+    if (KEY_AWAY(E))
+        m_pOwner->Change_State(CDeguTail_00::WALK);
 }
 
 void CState_DeguTail_Idle::End_State()

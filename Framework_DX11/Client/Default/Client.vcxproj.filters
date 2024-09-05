@@ -337,7 +337,7 @@
     <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29">
       <UniqueIdentifier>{3d0c32e5-4f6b-4e15-ab26-d2e7c9ed8be1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_02%28Tail%29">
+    <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29">
       <UniqueIdentifier>{5a8cbcfd-4851-45d0-9b74-d0bc5d05c5ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -627,8 +627,8 @@
     <ClInclude Include="..\Public\DeguTail_01.h">
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\DeguTail_02.h">
-      <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_02%28Tail%29</Filter>
+    <ClInclude Include="..\Public\DeguTail_04.h">
+      <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -908,8 +908,8 @@
     <ClCompile Include="..\Private\DeguTail_01.cpp">
       <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\DeguTail_02.cpp">
-      <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_02%28Tail%29</Filter>
+    <ClCompile Include="..\Private\DeguTail_04.cpp">
+      <Filter>02.GameObjects\05.Monster\13.DeguTail\DeguTail_04%28Tail%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

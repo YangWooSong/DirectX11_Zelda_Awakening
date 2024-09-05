@@ -6,7 +6,6 @@
 #include "State_DeguTail_Idle.h"
 #include "State_DeguTail_Walk.h"
 #include "DeguTail_01.h"
-#include "DeguTail_02.h"
 
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -45,6 +44,10 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
+
+	//벡터 사이즈 임의 지정
+	m_MParentWorldMarix.reserve(100);
+
 	return S_OK;
 }
 void CDeguTail_00::Priority_Update(_float fTimeDelta)
@@ -151,42 +154,14 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	m_Parts.resize(PART_END);
 
 	CDeguTail_01::DEGUBODY_DESC		BodyDesc{};
-	BodyDesc.vSize = _float3(1.f, 1.f, 1.f);
+	BodyDesc.vSize = _float3(0.8f, 0.8f, 0.8f);
 	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
 	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	BodyDesc.pParent = this;
-	BodyDesc.iBodyNum = 0;
-
-	if (FAILED(__super::Add_PartObject(PART_BODY0, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
-		return E_FAIL;
-
-	BodyDesc.vSize = _float3(0.7f, 0.7f, 0.7f);
-	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
-	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-	BodyDesc.pParent = this;
-	BodyDesc.iBodyNum = 1;
 
 	if (FAILED(__super::Add_PartObject(PART_BODY1, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
-	BodyDesc.vSize = _float3(0.5f, 0.5f, 0.5f);
-	BodyDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
-	BodyDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-	BodyDesc.pParent = this;
-	BodyDesc.iBodyNum = 2;
-
-	if (FAILED(__super::Add_PartObject(PART_BODY2, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
-		return E_FAIL;
-
-
-	CDeguTail_02::DEGUTAIL_DESC		TailDesc{};
-	TailDesc.vSize = _float3(0.5f, 0.5f, 0.5f);
-	TailDesc.iCellNum = m_pNavigationCom->Get_CurrentCellIndex();
-	TailDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-	TailDesc.pParent = this;
-
-	if (FAILED(__super::Add_PartObject(PART_TAIL, TEXT("Prototype_GameObject_DeguTail_02"), &TailDesc)))
-		return E_FAIL;
     return S_OK;
 }
 
@@ -199,6 +174,11 @@ HRESULT CDeguTail_00::Ready_State()
 	m_pFsmCom->Add_State(CState_DeguTail_Idle::Create(m_pFsmCom, this, IDLE));
 	m_pFsmCom->Add_State(CState_DeguTail_Walk::Create(m_pFsmCom, this, WALK));
     return S_OK;
+}
+
+void CDeguTail_00::Add_Vec_Matrix()
+{
+	m_MParentWorldMarix.insert(m_MParentWorldMarix.begin(), m_pTransformCom->Get_WorldMatrix());
 }
 
 CDeguTail_00* CDeguTail_00::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
