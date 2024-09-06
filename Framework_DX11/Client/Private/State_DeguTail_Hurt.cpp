@@ -27,6 +27,8 @@ HRESULT CState_DeguTail_Hurt::Start_State()
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
     m_pGameInstance->Play_Sound(TEXT("3_Monster_Hit.wav"), SOUND_MONSTER, 1.f);
+  
+  
     return S_OK;
 }
 
@@ -34,6 +36,7 @@ void CState_DeguTail_Hurt::Update(_float fTimeDelta)
 {
     if (m_iCurrentAnimIndex == m_iHitAnimIndex && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
+        m_pGameInstance->Play_Sound(TEXT("2_DeguTail_Angry.wav"), SOUND_MONSTER, 1.f);
         m_iCurrentAnimIndex = m_iSpinAnimIndex;
         m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);

@@ -45,7 +45,7 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	if (FAILED(Ready_PartObjects()))
 		return E_FAIL;
 
-	m_pFsmCom->Set_State(IDLE);
+	m_pFsmCom->Set_State(APPEAR);
 
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
@@ -229,7 +229,7 @@ void CDeguTail_00::Kill_Parts(_float fTimeDelta)
 {
 	fTimer += fTimeDelta;
 
-	if(fTimer > 0.3f)
+	if(fTimer > 0.5f)
 	{
 		if (m_iPartIndex == 0)
 			m_isDead = true;
@@ -239,6 +239,7 @@ void CDeguTail_00::Kill_Parts(_float fTimeDelta)
 		if (m_iPartIndex < 0)
 			m_iPartIndex = 0;
 
+		m_pGameInstance->Play_Sound(TEXT("3_Monster_Explosion.wav"), SOUND_MONSTER, 1.f);
 		m_Parts[m_iPartIndex]->Set_Dead(true);
 		fTimer = 0.f;
 	}
