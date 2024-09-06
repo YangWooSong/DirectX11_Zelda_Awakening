@@ -44,13 +44,6 @@ namespace Engine
 		static const D3D11_INPUT_ELEMENT_DESC	Elements[iNumElements];
 	}VTXPOS;
 
-	typedef struct
-	{
-		_uint	iNextAnimIndex;
-		_uint	iStartFrame;
-		_float	fChangeTime = 0.0f;
-		_float	fChangeDuration = 0.0f;
-	}CHANGEANIMATION_DESC;
 
 	typedef struct ENGINE_DLL
 	{
@@ -94,4 +87,33 @@ namespace Engine
 		static const unsigned int	iNumElements = 6;
 		static const D3D11_INPUT_ELEMENT_DESC	Elements[iNumElements];
 	}VTXANIMMESH;
+
+	typedef struct ENGINE_DLL
+	{
+		XMFLOAT4		vRight;
+		XMFLOAT4		vUp;
+		XMFLOAT4		vLook;
+		XMFLOAT4		vTranslation;
+
+	}VTXMATRIX;
+
+	typedef struct ENGINE_DLL
+	{
+		static const unsigned int	iNumElements = 6;
+		static const D3D11_INPUT_ELEMENT_DESC	Elements[iNumElements];
+	}VTXRECTINSTANCE;
+
+	typedef struct
+	{
+		_uint	iNextAnimIndex;
+		_uint	iStartFrame;
+		_float	fChangeTime = 0.0f;
+		_float	fChangeDuration = 0.0f;
+	}CHANGEANIMATION_DESC;
+
+
+
+
+
+
 }

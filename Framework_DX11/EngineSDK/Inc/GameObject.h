@@ -13,8 +13,8 @@ public:
 	enum OBJ_TYPE { ANIM_MONSTER, ANIM_NPC, ANIM_OBJ, NONANIM_LEVEL, NONANIM_OBJ, NONANIM_LEVEL_DUNGEON, NONANIM_LEVEL_FIELD, TYPE_END };
 	typedef struct : public CTransform::TRANSFORM_DESC
 	{
-		OBJ_TYPE eType;
-		_uint listIndex;
+		OBJ_TYPE eType = TYPE_END;
+		_uint listIndex = 100;
 		_float3		vPosition = _float3(0.f, 0.f, 0.f);
 		_float3		vScale = _float3(1.f, 1.f, 1.f);
 		_float3		vRotation = _float3(0.f, 0.f, 0.f);
@@ -41,7 +41,7 @@ public:
 
 public:
 	virtual HRESULT Initialize_Prototype();
-	virtual HRESULT Initialize(void* pArg);
+	virtual HRESULT Initialize(void* pArg = nullptr);
 	virtual void Priority_Update(_float fTimeDelta);
 	virtual void Update(_float fTimeDelta);
 	virtual void Late_Update(_float fTimeDelta);

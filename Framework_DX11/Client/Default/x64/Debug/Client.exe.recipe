@@ -18,6 +18,9 @@
     <ContentFile>
       <FullPath>C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPosTex.cso</FullPath>
     </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxRectInstance.cso</FullPath>
+    </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />

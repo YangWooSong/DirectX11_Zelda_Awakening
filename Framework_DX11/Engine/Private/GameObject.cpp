@@ -28,16 +28,22 @@ HRESULT CGameObject::Initialize_Prototype()
 
 HRESULT CGameObject::Initialize(void* pArg)
 {
-	GAMEOBJECT_DESC*	pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
+	GAMEOBJECT_DESC* pDesc = nullptr != pArg ? static_cast<GAMEOBJECT_DESC*>(pArg) : nullptr;
 
-	m_eObjType = pDesc->eType;
-	m_iListIndex = pDesc->listIndex;
+	if(pDesc!= nullptr)
+	{
+		m_eObjType = pDesc->eType;
+		m_iListIndex = pDesc->listIndex;
+	}
 
 	m_pTransformCom = CTransform::Create(m_pDevice, m_pContext, pDesc);
 	if (nullptr == m_pTransformCom)
 		return E_FAIL;
 
+	/* 다른 객체가 내 컴포넌트를 검색할 수 있도록 맵에다가 컴포넌트를 모아둔다. */
+	m_Components.emplace(g_strTransformTag, m_pTransformCom);
 
+	Safe_AddRef(m_pTransformCom);
 
 	return S_OK;
 }

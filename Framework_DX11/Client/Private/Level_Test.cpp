@@ -26,6 +26,9 @@ HRESULT CLevel_Test::Initialize()
 		return E_FAIL;
 	if (FAILED(Ready_Layer_Effect()))
 		return E_FAIL;
+	
+	if (FAILED(Ready_Layer_Paticle()))
+		return E_FAIL;
 
 	//Read();
 
@@ -113,6 +116,14 @@ HRESULT CLevel_Test::Ready_Layer_Effect()
 	//		return E_FAIL;
 	//}
 
+
+	return S_OK;
+}
+
+HRESULT CLevel_Test::Ready_Layer_Paticle()
+{
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Particle"), TEXT("Prototype_GameObject_Particle_Expolosion"))))
+		return E_FAIL;
 
 	return S_OK;
 }

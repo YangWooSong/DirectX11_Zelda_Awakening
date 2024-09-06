@@ -355,6 +355,12 @@
     <Filter Include="05.State\Monster\14.DeguTail\Head\Dead">
       <UniqueIdentifier>{0b53544a-012e-4604-85ce-2da214544d70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\06.Particle">
+      <UniqueIdentifier>{dc349804-0e8f-4acc-81d4-25a24efcfc76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\06.Particle\Test_Explosion">
+      <UniqueIdentifier>{69bb110b-9fcb-418e-a96c-ff3e2308f571}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -657,6 +663,9 @@
     <ClInclude Include="..\Public\State_DeguTail_Dead.h">
       <Filter>05.State\Monster\14.DeguTail\Head\Dead</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Particle_Explosion.h">
+      <Filter>02.GameObjects\06.Particle\Test_Explosion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -950,6 +959,9 @@
     <ClCompile Include="..\Private\State_DeguTail_Dead.cpp">
       <Filter>05.State\Monster\14.DeguTail\Head\Dead</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\Particle_Explosion.cpp">
+      <Filter>02.GameObjects\06.Particle\Test_Explosion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -980,6 +992,9 @@
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxAnimModel.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxRectInstance.hlsl">
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

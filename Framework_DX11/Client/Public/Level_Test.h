@@ -22,6 +22,7 @@ public:
 	HRESULT Ready_Layer_Camera();
 	HRESULT Ready_Layer_BackGround();
 	HRESULT Ready_Layer_Effect();
+	HRESULT Ready_Layer_Paticle();
 
 	HRESULT Ready_LandObjects();
 	//HRESULT Ready_Layer_Player(CLandObject::LANDOBJECT_DESC& LandObjectDesc);
