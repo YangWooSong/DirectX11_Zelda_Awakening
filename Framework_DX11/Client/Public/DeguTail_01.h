@@ -23,6 +23,9 @@ public:
 		_float3 vSize = {1.f,1.f,1.f};
 		class CGameObject* pParent;
 		CFsm* pFsm = { nullptr };
+		_bool* pBodyRed = { nullptr };
+		_bool* pOutBodyRed = { nullptr };
+		_bool* pBlink = { nullptr };
 	} DEGUBODY_DESC;
 
 private:
@@ -71,6 +74,10 @@ private:
 	_float3			m_fSize = { };
 	_bool			m_bMove = { false };
 	_bool			m_bRender = { false };
+
+	_bool*			m_pOutBodyRed = { nullptr };
+	_bool*			m_pBodyRed = { nullptr };
+	_bool*			m_pBlink = { nullptr };
 
 	class CGameObject* m_pParent = { nullptr };
 	vector<_matrix> m_pParentWorldMatrixVector;

@@ -17,6 +17,7 @@ HRESULT CState_DeguTail_Hurt::Initialize(_uint iStateNum)
     m_iCurrentAnimIndex = m_iHitAnimIndex;
     m_iStateNum = iStateNum;
     m_pOwnerTransform = m_pOwner->Get_Transform();
+    m_pDeguOwner = static_cast<CDeguTail_00*>(m_pOwner);
     return S_OK;
 }
 
@@ -26,6 +27,8 @@ HRESULT CState_DeguTail_Hurt::Start_State()
 
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+    m_pOwner->Minus_Hp();
+
     m_pGameInstance->Play_Sound(TEXT("3_Monster_Hit.wav"), SOUND_MONSTER, 1.f);
   
   
@@ -34,6 +37,13 @@ HRESULT CState_DeguTail_Hurt::Start_State()
 
 void CState_DeguTail_Hurt::Update(_float fTimeDelta)
 {
+    m_fBlinkTimer += fTimeDelta;
+
+    if (m_fBlinkTimer > 0.2f)
+    {
+        m_fBlinkTimer = 0.f;
+        m_pDeguOwner->Set_bBlink(!m_pDeguOwner->Get_bBlink());
+    }
     if (m_iCurrentAnimIndex == m_iHitAnimIndex && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
         m_pGameInstance->Play_Sound(TEXT("2_DeguTail_Angry.wav"), SOUND_MONSTER, 1.f);
@@ -59,6 +69,11 @@ void CState_DeguTail_Hurt::Update(_float fTimeDelta)
 
 void CState_DeguTail_Hurt::End_State()
 {
+    m_pDeguOwner->Set_bBlink(false);
+
+    if(m_pDeguOwner->Get_Hp() == 2)
+         m_pDeguOwner->Set_bOutBodyRed(true);
+
     m_fTimer = 0.f;
 }
 

@@ -68,6 +68,11 @@ public:
 	CNavigation* Get_NavigationCom() { return m_pNavigationCom; }
 	CFsm* Get_Fsm() { return m_pFsmCom; }
 	_int Get_CurrentCellNum(); 
+
+	_int Get_Hp() { return m_iHp; }
+	void Minus_Hp() { m_iHp--; }
+	void Plus_Hp() { m_iHp++; }
+
 protected:
 	HRESULT Ready_Components();
 
@@ -82,6 +87,8 @@ protected:
 	_float				m_fMoveSpeed = { 3.f };
 	_uint				m_iDir = { BACK };	
 	_uint				m_iLevelIndex = { LEVEL_END };
+	_int				m_iHp = { 0 };
+
 public:
 	static CMonster* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

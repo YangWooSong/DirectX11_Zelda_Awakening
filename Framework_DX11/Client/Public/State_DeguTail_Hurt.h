@@ -24,12 +24,14 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
+    class CDeguTail_00* m_pDeguOwner = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iHitAnimIndex = {};
     _uint               m_iSpinAnimIndex = {};
 
     _float              m_fTimer = { 0.f };
+    _float              m_fBlinkTimer = { 0.f };
 
     CTransform* m_pOwnerTransform = { nullptr };
 public:

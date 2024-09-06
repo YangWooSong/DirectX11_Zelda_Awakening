@@ -43,9 +43,17 @@ public:
 
 	void Kill_Parts(_float fTimeDelta);
 
+	void Set_bOutBodyRed(_bool bOutBodyRed) { m_bOutBodyRed = bOutBodyRed; }
+	void Set_bBlink(_bool bBlink) { m_bBlink = bBlink; }
+	_bool Get_bBlink() { return m_bBlink; }
 private:
 	vector<_matrix> m_MParentWorldMarix;
 	_bool			m_bAngry = { false };
+
+	_bool			m_bOutBodyRed = { false };
+	_bool			m_bBodyRed = { false };
+	_bool			m_bBlink = { false };
+
 	_float fTimer = { 0.f };
 	_int m_iPartIndex = { PART_END };
 public:

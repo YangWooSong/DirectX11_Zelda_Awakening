@@ -3,7 +3,7 @@
 
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 texture2D g_DiffuseTexture;
-bool g_bIsDead;
+bool g_bIsRed = false, g_bOutBodyIsRed = false, g_bRedBlink = false;
 
 /* 뼈행렬들(내 모델 전체의 뼈행렬들(x), 현재 그리는 메시에게 영향을 주는 뼈행렬들(o) */
 matrix g_BoneMatrices[512];
@@ -62,19 +62,43 @@ struct PS_OUT
 };
 
 
-PS_OUT PS_MAIN(PS_IN In)
+PS_OUT PS_MAIN_NONRED(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
-	
+    
     Out.vColor = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
 
     if (0.3f >= Out.vColor.a)
         discard;
+    
+    return Out;
+}
 
-    if (g_bIsDead)
+PS_OUT PS_MAIN_CHANGE_RED(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    Out.vColor = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    
+    if (0.3f >= Out.vColor.a)
+        discard;
+
+    if (g_bIsRed)
     {
-        Out.vColor.r *= 4.0f;
+        Out.vColor.r *= 2.5f;
+        Out.vColor.g *= 0.6f;
+        Out.vColor.b *= 0.6f;
     }
+    else if (g_bRedBlink)
+    {
+        Out.vColor.r *= 1.5f;
+    }
+    else if (g_bOutBodyIsRed)
+    {
+        if (Out.vColor.b < 0.14f)   
+            Out.vColor.r *= (1.4f - Out.vColor.b*2.8f);
+    }
+   
     return Out;
 }
 
@@ -82,7 +106,7 @@ PS_OUT PS_MAIN(PS_IN In)
 
 technique11 DefaultTechnique
 {
-    pass Terrain
+    pass AnimModel
     {
 //3줄 다 넣어야함
         SetRasterizerState(RS_Default);
@@ -91,6 +115,16 @@ technique11 DefaultTechnique
         SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
         VertexShader = compile vs_5_0 VS_MAIN();
-        PixelShader = compile ps_5_0 PS_MAIN();
+        PixelShader = compile ps_5_0 PS_MAIN_NONRED();
+    }
+
+    pass AnimModelRed
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        PixelShader = compile ps_5_0 PS_MAIN_CHANGE_RED();
     }
 }

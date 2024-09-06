@@ -21,7 +21,7 @@ HRESULT CState_DeguTail_Walk::Initialize(_uint iStateNum)
 HRESULT CState_DeguTail_Walk::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-    m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
+    m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
     m_bAngry = m_pOwnerDegu->Get_Angry();
     m_fSpeed = 5.f;
     return S_OK;
@@ -54,7 +54,7 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
         m_fSpeed = 10.f;
     }
 
-    if (m_fAngryTimer > 2.f)
+    if (m_fAngryTimer > 3.f)
     {
         if (m_pGameInstance->IsPlaying(SOUND_MONSTER))
             m_pGameInstance->Stop_Sound(SOUND_MONSTER);
@@ -73,9 +73,6 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
 
     if (KEY_AWAY(E))
         m_pOwner->Change_State(CDeguTail_00::GUARD);
-
-    if (KEY_AWAY(Z))
-        m_pOwner->Change_State(CDeguTail_00::DEAD);
 }
 
 void CState_DeguTail_Walk::End_State()

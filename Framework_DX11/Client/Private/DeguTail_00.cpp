@@ -45,13 +45,15 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	if (FAILED(Ready_PartObjects()))
 		return E_FAIL;
 
-	m_pFsmCom->Set_State(APPEAR);
+	m_pFsmCom->Set_State(WALK);
 
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
 
 	//벡터 사이즈 임의 지정
 	m_MParentWorldMarix.reserve(100);
+
+	m_iHp = 4;
 
 	return S_OK;
 }
@@ -74,6 +76,13 @@ void CDeguTail_00::Update(_float fTimeDelta)
 		__super::Update(fTimeDelta);
 
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+		if (m_iHp == 0)
+		{
+			m_iHp--;
+			m_bBodyRed = true;
+			m_pFsmCom->Change_State(DEAD);
+		}
 	}
 }
 
@@ -94,30 +103,52 @@ HRESULT CDeguTail_00::Render()
 			return E_FAIL;
 		if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
 			return E_FAIL;
-		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &m_isDead, sizeof(_bool))))
-			return E_FAIL;
 
 		_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+		_bool bTrue = true;
+		_bool bFalse = false;
 
 		for (size_t i = 0; i < iNumMeshes; i++)
 		{
+			if( i == 2)
+			{
+				if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &m_bBodyRed, sizeof(_bool))))
+					return E_FAIL;
+				if (FAILED(m_pShaderCom->Bind_RawValue("g_bOutBodyIsRed", &m_bOutBodyRed, sizeof(_bool))))
+					return E_FAIL;
+			}
+			else
+			{
+				if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
+					return E_FAIL;
+				if (FAILED(m_pShaderCom->Bind_RawValue("g_bOutBodyIsRed", &bFalse, sizeof(_bool))))
+					return E_FAIL;
+			}
+
+			if (FAILED(m_pShaderCom->Bind_RawValue("g_bRedBlink", &m_bBlink, sizeof(_bool))))
+				return E_FAIL;
+
 			m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
 
 			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 				return E_FAIL;
 
-
-			if (FAILED(m_pShaderCom->Begin(0)))
+			if (FAILED(m_pShaderCom->Begin(1)))
 				return E_FAIL;
 
 			if (FAILED(m_pModelCom->Render((_uint)i)))
 				return E_FAIL;
 		}
-
 		//다른 모델한테 영향이 가면 안되서 dead처리를 풀어줘야 함
-		_bool bFalse = false;
 
-		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
+
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
+			return E_FAIL;
+
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bOutBodyIsRed", &bFalse, sizeof(_bool))))
+			return E_FAIL;
+
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bRedBlink", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 
 #ifdef _DEBUG
@@ -171,6 +202,9 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	BodyDesc.pParent = this;
 	BodyDesc.fWaitTime = 0.2f;
 	BodyDesc.pFsm = m_pFsmCom;
+	BodyDesc.pBodyRed = &m_bBodyRed;
+	BodyDesc.pOutBodyRed = &m_bOutBodyRed;
+	BodyDesc.pBlink = &m_bBlink;
 	if (FAILED(__super::Add_PartObject(PART_BODY1, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
@@ -180,6 +214,9 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	BodyDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY1]);
 	BodyDesc.fWaitTime = 0.4f;
 	BodyDesc.pFsm = m_pFsmCom;
+	BodyDesc.pBodyRed = &m_bBodyRed;
+	BodyDesc.pOutBodyRed = &m_bOutBodyRed;
+	BodyDesc.pBlink = &m_bBlink;
 	if (FAILED(__super::Add_PartObject(PART_BODY2, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
@@ -189,6 +226,9 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	BodyDesc.pParent = dynamic_cast<CGameObject*>(m_Parts[PART_BODY2]);
 	BodyDesc.fWaitTime = 0.6f;
 	BodyDesc.pFsm = m_pFsmCom;
+	BodyDesc.pBodyRed = &m_bBodyRed;
+	BodyDesc.pOutBodyRed = &m_bOutBodyRed;
+	BodyDesc.pBlink = &m_bBlink;
 	if (FAILED(__super::Add_PartObject(PART_BODY3, TEXT("Prototype_GameObject_DeguTail_01"), &BodyDesc)))
 		return E_FAIL;
 
