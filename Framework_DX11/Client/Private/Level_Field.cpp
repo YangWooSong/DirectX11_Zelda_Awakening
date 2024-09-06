@@ -31,6 +31,8 @@ HRESULT CLevel_Field::Initialize()
 
 	Read();
 
+	m_pGameInstance->Play_SoundRepeat(TEXT("0_Field_Normal.wav"), SOUND_BGM, 0.6f);
+
 	return S_OK;
 }
 

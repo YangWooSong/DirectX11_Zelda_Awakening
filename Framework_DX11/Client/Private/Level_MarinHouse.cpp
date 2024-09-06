@@ -29,14 +29,14 @@ HRESULT CLevel_MarinHouse::Initialize()
 
 	Read();
 	
-	m_pGameInstance->Play_Sound(TEXT("0_House_Inside.wav"), SOUND_BGM, 0.8f);
+	m_pGameInstance->Play_SoundRepeat(TEXT("0_House_Inside.wav"), SOUND_BGM, 0.6f);
 
 	return S_OK;
 }
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON));
+	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_MARINHOUSE));
 
 	if (KEY_AWAY(I))
 		pCamera->Zoom_Out(1.5f, 45.f);

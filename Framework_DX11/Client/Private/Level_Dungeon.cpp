@@ -7,6 +7,8 @@
 #include "Link.h"
 #include "NavDataObj.h"
 #include "Monster.h"
+#include "DeguTail_00.h"
+
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CLevel{ pDevice, pContext }
@@ -28,6 +30,8 @@ HRESULT CLevel_Dungeon::Initialize()
         return E_FAIL;
 
    Read();
+
+   m_pGameInstance->Play_SoundRepeat(TEXT("0_Dangeon1_TailCave.wav"), SOUND_BGM, 0.7f);
 
     return S_OK;
 }
@@ -182,6 +186,7 @@ HRESULT CLevel_Dungeon::Read_LandObjects(_int _type, _uint _index, _float3 _fPos
 
 HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum)
 {
+
 	CMonster::MONSTER_DESC pDesc = { };
 	//pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
 	//pDesc.listIndex = _index;
@@ -197,6 +202,7 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
+
 
 	return S_OK;
 }

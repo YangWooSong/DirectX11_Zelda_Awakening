@@ -42,12 +42,12 @@ public:
 	_bool Get_Angry() { return m_bAngry; }
 
 	void Kill_Parts(_float fTimeDelta);
+
 private:
 	vector<_matrix> m_MParentWorldMarix;
 	_bool			m_bAngry = { false };
 	_float fTimer = { 0.f };
 	_int m_iPartIndex = { PART_END };
-
 public:
 	static CDeguTail_00* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

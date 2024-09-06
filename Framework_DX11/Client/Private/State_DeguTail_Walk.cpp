@@ -23,6 +23,7 @@ HRESULT CState_DeguTail_Walk::Start_State()
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
     m_bAngry = m_pOwnerDegu->Get_Angry();
+    m_fSpeed = 5.f;
     return S_OK;
 }
 
@@ -39,8 +40,9 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
     if (m_bReflect == false)
         m_fTimer += fTimeDelta;
 
-    if (m_iStopCount == 3 || m_fTimer > 1.f)
+    if (m_iStopCount == m_iRandomStopCount || m_fTimer > 1.f)
     {
+        m_iRandomStopCount = m_pGameInstance->Get_Random(2,3);
         m_fTimer = 0.f;
         m_iStopCount = 0;
         m_iReflectDir *= -1.f;
@@ -56,11 +58,11 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
     {
         m_fAngryTimer = 0.f;
         m_bAngry = false;
-        m_fSpeed = 6.f;
+        m_fSpeed = 5.f;
         m_pOwnerDegu->Set_Angry(false);
     }
 
-    m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 3.f, fTimeDelta);
+    m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 2.f, fTimeDelta);
  
     m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, m_fSpeed, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
 

@@ -5,6 +5,8 @@ BEGIN(Client)
 
 class CLevel_Dungeon final : public CLevel
 {
+public:
+	enum BGM_INDEX{ BGM_BACKGROUND, BGM_BOSS, BGM_INSTRUMENT, BGM_END };
 private:
 	CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual ~CLevel_Dungeon() = default;
@@ -33,6 +35,7 @@ public:
 private:
 	class CNavigation* m_pNavigationCom = { nullptr };
 
+	_uint m_iBgmIndex = { 0 };
 public:
 	static CLevel_Dungeon* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual void Free() override;

@@ -28,11 +28,12 @@ HRESULT CState_DeguTail_Idle::Start_State()
 void CState_DeguTail_Idle::Update(_float fTimeDelta)
 {
     if (KEY_AWAY(E))
-        m_pOwner->Change_State(CDeguTail_00::WALK);
+        m_pOwner->Change_State(CDeguTail_00::APPEAR);
 }
 
 void CState_DeguTail_Idle::End_State()
 {
+    m_pGameInstance->Stop_Sound(SOUND_BGM);
 }
 
 CState_DeguTail_Idle* CState_DeguTail_Idle::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

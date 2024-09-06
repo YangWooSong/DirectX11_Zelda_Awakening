@@ -21,6 +21,7 @@ HRESULT CState_DeguTail_Guard::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.2f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+    m_pGameInstance->Play_Sound(TEXT("3_Monster_Hit.wav"), SOUND_MONSTER, 0.2f);
     return S_OK;
 }
 

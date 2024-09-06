@@ -34,6 +34,7 @@ private:
     _bool       m_bAngry = { false };
 
     _int           m_iStopCount = { 0 };
+    _int           m_iRandomStopCount = { 3 };
     _float            m_iReflectDir = { 1.f };
     _float            m_fSpeed = { 6.f };
     _uint               m_iCurrentAnimIndex = {};

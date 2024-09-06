@@ -1,3 +1,5 @@
-﻿  DeguTail_00.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\DeguTail_00.cpp(129,1): warning C4715: 'Client::CDeguTail_00::Render': 모든 제어 경로에서 값을 반환하지는 않습니다.
+﻿  State_DeguTail_Walk.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_DeguTail_Walk.cpp(45,57): warning C4244: '=': 'Engine::_float'에서 'Engine::_int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/State_DeguTail_Walk.cpp'을(를) 컴파일하는 중)
+  
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
