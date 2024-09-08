@@ -33,6 +33,9 @@ public:
 	_bool		IsActive() { return m_isActive; }
 	void		IsActive(_bool isActive) { m_isActive = isActive; }
 
+	_wstring			Get_LayerTag() { return m_strLayerTag; }
+	void				Set_LayerTag(_wstring strLayerTag) { m_strLayerTag = strLayerTag; }
+
 	class CTransform* Get_Transform() {
 		if (m_pTransformCom)
 			return m_pTransformCom;
@@ -80,6 +83,8 @@ protected:
 	_uint						m_iListIndex = { 0 };
 	_float3						m_vRot = {};
 	_int						m_iCellNum = {};
+
+	_wstring					m_strLayerTag = {};
 protected:
 	HRESULT Add_Component(_uint iLevelIndex, const _wstring& strPrototypeTag, const _wstring& strComponentTag, CComponent** ppOut, void* pArg = nullptr);
 

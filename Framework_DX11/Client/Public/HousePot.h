@@ -26,6 +26,11 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther) override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther) override;
+
+public:
 	class CShader* m_pShaderCom = { nullptr };
 	class CModel* m_pModelCom = { nullptr };
 	class CCollider* m_pColliderCom = { nullptr };

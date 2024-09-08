@@ -47,6 +47,8 @@ HRESULT CObject_Manager::Add_CloneObject_ToLayer(_uint iLevelIndex, const _wstri
 	if (nullptr == pGameObject)
 		return E_FAIL;
 
+	pGameObject->Set_LayerTag(strLayerTag);
+
 	/* 객체들은 레잉어로 묶어서 관리하고 있었거든 */
 	/* 사본을 추가하기위한 레이어를 찾자.*/
 	CLayer*		pLayer = Find_Layer(iLevelIndex, strLayerTag);

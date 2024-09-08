@@ -32,6 +32,8 @@ HRESULT CHousePot::Initialize(void* pArg)
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("HousePot"));
+
     return S_OK;
 }
 
@@ -47,6 +49,8 @@ void CHousePot::Update(_float fTimeDelta)
 void CHousePot::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
+
+    m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 
@@ -82,6 +86,27 @@ HRESULT CHousePot::Render()
     return S_OK;
 }
 
+void CHousePot::OnCollisionEnter(CGameObject* pOther)
+{
+ 
+}
+
+void CHousePot::OnCollisionStay(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+       
+            //Change_State(HIT);
+        }
+    }
+}
+
+void CHousePot::OnCollisionExit(CGameObject* pOther)
+{
+}
+
 
 HRESULT CHousePot::Ready_Components()
 {
@@ -103,6 +128,7 @@ HRESULT CHousePot::Ready_Components()
     if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
         TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
+    m_pColliderCom->Set_Owner(this);
 
     return S_OK;
 

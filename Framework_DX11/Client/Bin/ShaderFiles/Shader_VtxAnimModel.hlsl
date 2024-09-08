@@ -96,7 +96,7 @@ PS_OUT PS_MAIN_CHANGE_RED(PS_IN In)
     else if (g_bOutBodyIsRed)
     {
         if (Out.vColor.b < 0.14f)   
-            Out.vColor.r *= (1.4f - Out.vColor.b*2.8f);
+            Out.vColor.r *= (1.6f - Out.vColor.b*4.f);
     }
    
     return Out;

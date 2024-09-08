@@ -118,6 +118,8 @@ void CGameInstance::Update_Engine(_float fTimeDelta)
 	
 	m_pObject_Manager->Late_Update(fTimeDelta);
 
+	m_pCollider_Manager->Update();
+
 	m_pPhysX_Manager->PhysX_Update(fTimeDelta);
 
 	//UIManager는 항상 Render 되기 전에 호출
