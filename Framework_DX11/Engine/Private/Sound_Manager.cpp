@@ -108,6 +108,23 @@ void CSound_Manager::Set_ChannelVolume(_uint eID, _float fVolume)
 	m_pSystem->update();
 }
 
+void CSound_Manager::Set_ChannelVolume_Distance(_uint eID, _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume)
+{
+	_float fDistance =fabs( XMVectorGetX(vCurPos - vTargetPos));
+
+	_float fVolume = 0.f;
+
+	if(fDistance > fMaxDistance)
+	{
+		m_pChannelArr[eID]->setVolume(fVolume);
+		return;
+	}
+	
+	fVolume = 1 - (fDistance / fMaxDistance);
+	fVolume = min(fVolume, fMaxVolume);
+	m_pChannelArr[eID]->setVolume(fVolume);
+}
+
 void CSound_Manager::Set_PlayeSpeed(_uint eID, _float fSpeedRatio)
 {
 	_float fCurrentFrequency = {};

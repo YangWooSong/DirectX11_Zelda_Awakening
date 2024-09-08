@@ -85,7 +85,7 @@ PS_OUT PS_MAIN_CHANGE_RED(PS_IN In)
 
     if (g_bIsRed)
     {
-        Out.vColor.r *= 2.5f;
+        Out.vColor.r *= 2.3f;
         Out.vColor.g *= 0.6f;
         Out.vColor.b *= 0.6f;
     }

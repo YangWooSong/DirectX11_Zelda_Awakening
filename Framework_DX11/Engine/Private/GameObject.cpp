@@ -32,7 +32,7 @@ HRESULT CGameObject::Initialize(void* pArg)
 
 	if(pDesc!= nullptr)
 	{
-		m_eObjType = pDesc->eType;
+		m_eObjType = static_cast<OBJ_TYPE>(pDesc->eType);
 		m_iListIndex = pDesc->listIndex;
 	}
 

@@ -50,6 +50,8 @@ HRESULT CDeguTail_04::Initialize(void* pArg)
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
     m_bRender = false;
 
+    Set_LayerTag(TEXT("Layer_Monster"));
+
     return S_OK;
 }
 
@@ -106,6 +108,8 @@ void CDeguTail_04::Update(_float fTimeDelta)
 void CDeguTail_04::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
+
+    m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 

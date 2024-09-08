@@ -405,6 +405,11 @@ void CGameInstance::Set_ChannelVolume(_uint eID, _float fVolume)
 	m_pSound_Manager->Set_ChannelVolume(eID, fVolume);
 }
 
+void CGameInstance::Set_ChannelVolume_Distance(_uint eID, _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume)
+{
+	m_pSound_Manager->Set_ChannelVolume_Distance(eID, vCurPos, vTargetPos, fMaxDistance, fMaxVolume);
+}
+
 void CGameInstance::Set_PlayeSpeed(_uint eID, _float fSpeedRatio)
 {
 	m_pSound_Manager->Set_PlayeSpeed(eID, fSpeedRatio);

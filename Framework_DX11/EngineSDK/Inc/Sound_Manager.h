@@ -29,6 +29,7 @@ public:
 	void	Stop_Sound(_uint eID);
 	void	Stop_All();
 	void	Set_ChannelVolume(_uint eID, _float fVolume);
+	void	Set_ChannelVolume_Distance(_uint eID, _fvector vCurPos, _fvector vTargetPos,  _float fMaxDistance, _float fMaxVolume = 1.f);
 	void	Set_PlayeSpeed(_uint eID, _float fSpeedRatio);
 	void	Pause(_uint eID);
 	_bool	IsPlaying(_uint eID);

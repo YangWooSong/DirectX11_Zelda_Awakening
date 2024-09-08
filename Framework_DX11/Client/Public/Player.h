@@ -28,6 +28,7 @@ public:
 	CModel*			Get_Model() { return m_pModelCom; }
 	CNavigation*	Get_Navigation() { return m_pNavigationCom; }
 	CFsm*			Get_Fsm() { return m_pFsmCom; }
+	CCollider*		Get_Collider() { return m_pColliderCom; }
 
 	_float					Get_MoveSpeed() { return m_fMoveSpeed; }
 	void					Set_MoveSpeed(_float fSpeed) { m_fMoveSpeed = fSpeed; }
@@ -82,7 +83,10 @@ public:
 	_uint		Get_Player_State();
 
 	const _float4x4*    Get_BoneMatrix_Ptr(const _char* pBoneName) const;
+
 	void Set_Fall(_bool bFall) { m_bFall = bFall; }
+	void Set_bBodyRed(_bool bRed) { m_bBodyRed = bRed; }
+	void Set_bBlink(_bool bBlink) { m_bBlink = bBlink; }
 protected:
 	CModel*		m_pModelCom = { nullptr };
 	CShader*		m_pShaderCom = { nullptr };
@@ -98,6 +102,10 @@ protected:
 
 	_uint				m_ePlayer_Dir = { PLAYER_DIR_END };
 	_uint				m_iLevelIndex = { LEVEL_END };
+
+	_bool			m_bBodyRed = { false };
+	_bool			m_bBlink = { false };
+	_bool			m_bRender = { true };
 protected:
 	HRESULT Ready_Components();
 

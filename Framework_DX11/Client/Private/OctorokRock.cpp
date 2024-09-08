@@ -96,9 +96,10 @@ void COctorokRock::Update(_float fTimeDelta)
 void COctorokRock::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
-    m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
-}
+    m_pGameInstance->Add_ColliderList(m_pColliderCom);
+    m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    }
 
 HRESULT COctorokRock::Render()
 {

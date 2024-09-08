@@ -36,6 +36,8 @@ HRESULT CMonster::Initialize(void* pArg)
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
 	m_iCellNum = pDesc->iCellNum;
 
+	
+
 	return S_OK;
 }
 

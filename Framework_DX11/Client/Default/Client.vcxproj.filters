@@ -361,6 +361,9 @@
     <Filter Include="02.GameObjects\06.Particle\Test_Explosion">
       <UniqueIdentifier>{69bb110b-9fcb-418e-a96c-ff3e2308f571}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Link\Damage_Front">
+      <UniqueIdentifier>{fb1a2c64-fec2-4618-ac88-c263119fd432}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -666,6 +669,9 @@
     <ClInclude Include="..\Public\Particle_Explosion.h">
       <Filter>02.GameObjects\06.Particle\Test_Explosion</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Damage_Front.h">
+      <Filter>05.State\Link\Damage_Front</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -961,6 +967,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Particle_Explosion.cpp">
       <Filter>02.GameObjects\06.Particle\Test_Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Damage_Front.cpp">
+      <Filter>05.State\Link\Damage_Front</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

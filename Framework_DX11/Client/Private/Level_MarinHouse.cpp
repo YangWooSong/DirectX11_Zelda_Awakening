@@ -28,14 +28,15 @@ HRESULT CLevel_MarinHouse::Initialize()
 		return E_FAIL;
 
 	Read();
-	
-	m_pGameInstance->Play_SoundRepeat(TEXT("0_House_Inside.wav"), SOUND_BGM, 0.6f);
+
 
 	return S_OK;
 }
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
+	m_pGameInstance->Play_SoundRepeat(TEXT("0_House_Inside.wav"), SOUND_BGM, 0.6f);
+
 	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_MARINHOUSE));
 
 	if (KEY_AWAY(I))
@@ -50,8 +51,8 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 	if (KEY_AWAY(N))
 		pCamera->Set_FollowPlayer(false);
 
-	if (KEY_AWAY(Q))
-		pCamera->Start_Shake(2.f, 0.3f, 1.f);
+	//if (KEY_AWAY(Q))
+		//pCamera->Start_Shake(2.f, 0.3f, 1.f);
 
 	if (GetKeyState(VK_RETURN) & 0x8000)
 	{

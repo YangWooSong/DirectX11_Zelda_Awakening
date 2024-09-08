@@ -47,22 +47,22 @@ _bool CBounding_Sphere::Intersect(CCollider::TYPE eColliderType, CBounding* pBou
 	switch (eColliderType)
 	{
 	case CCollider::TYPE_AABB:
-		m_isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_AABB*>(pBounding)->Get_Desc()));
+		isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_AABB*>(pBounding)->Get_Desc()));
 		break;
 
 	case CCollider::TYPE_OBB:
-		m_isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_OBB*>(pBounding)->Get_Desc()));
+		isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_OBB*>(pBounding)->Get_Desc()));
 		break;
 
 	case CCollider::TYPE_SPHERE:
-		m_isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_Sphere*>(pBounding)->Get_Desc()));
+		isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_Sphere*>(pBounding)->Get_Desc()));
 		break;
 	}
 
 	if (!m_isColl)
 		m_isColl = isColl;
 
-	return m_isColl;
+	return isColl;
 }
 
 CBounding_Sphere* CBounding_Sphere::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, CBounding::BOUNDING_DESC* pBoundingDesc)

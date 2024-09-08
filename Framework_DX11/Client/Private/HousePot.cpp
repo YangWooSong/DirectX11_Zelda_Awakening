@@ -34,6 +34,8 @@ HRESULT CHousePot::Initialize(void* pArg)
 
     m_pGameInstance->AddScene_ColMesh(this, TEXT("HousePot"));
 
+    Set_LayerTag(TEXT("Layer_HousePot"));
+
     return S_OK;
 }
 

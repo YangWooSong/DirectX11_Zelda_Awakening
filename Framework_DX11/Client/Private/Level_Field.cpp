@@ -256,6 +256,7 @@ HRESULT CLevel_Field::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, 
 	pDesc.vRotation = _fRot;
 	pDesc.LevelIndex = LEVEL_FIELD;
 	pDesc.iCellNum = _iCellNum;
+	pDesc.eType = CGameObject::ANIM_MONSTER;
 
 	if (_strLyaerTag == "Layer_SeaUrchin")
 	{

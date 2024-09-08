@@ -196,14 +196,13 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	pDesc.vRotation = _fRot;
 	pDesc.LevelIndex = LEVEL_DUNGEON;
 	pDesc.iCellNum = _iCellNum;
+	pDesc.eType = CGameObject::ANIM_MONSTER;
 
 	if (_strLyaerTag == "Layer_DeguTail")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
-
-
 	return S_OK;
 }
 

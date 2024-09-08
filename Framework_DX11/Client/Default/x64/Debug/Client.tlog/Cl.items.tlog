@@ -44,6 +44,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\St
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Kuribo_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Kuribo_Idle.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Kuribo_Walk.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Kuribo_Walk.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Kuribo_Walk_Shake.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Kuribo_Walk_Shake.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Damage_Front.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_Damage_Front.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Fall.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_Fall.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_Idle.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_ItemA.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_ItemA.obj

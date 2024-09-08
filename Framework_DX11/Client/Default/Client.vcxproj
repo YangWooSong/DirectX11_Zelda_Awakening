@@ -196,6 +196,7 @@
     <ClInclude Include="..\Public\State_Kuribo_Idle.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk_Shake.h" />
+    <ClInclude Include="..\Public\State_Link_Damage_Front.h" />
     <ClInclude Include="..\Public\State_Link_Fall.h" />
     <ClInclude Include="..\Public\State_Link_Slash_Hold.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Down.h" />
@@ -316,6 +317,7 @@
     <ClCompile Include="..\Private\State_Kuribo_Idle.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk_Shake.cpp" />
+    <ClCompile Include="..\Private\State_Link_Damage_Front.cpp" />
     <ClCompile Include="..\Private\State_Link_Fall.cpp" />
     <ClCompile Include="..\Private\State_Link_Idle.cpp" />
     <ClCompile Include="..\Private\State_Link_ItemA.cpp" />

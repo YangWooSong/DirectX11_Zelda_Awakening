@@ -37,6 +37,10 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 		m_pPlayer->Change_State(CLink::ITEMA);
 	}
 
+	if (KEY_HOLD(KEY::Q))
+	{
+	//	m_pPlayer->Change_State(CLink::DAMAGE_FRONT);
+	}
 
 	if (KEY_AWAY(KEY::P))
 	{

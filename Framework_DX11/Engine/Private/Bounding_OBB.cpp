@@ -59,7 +59,7 @@ _bool CBounding_OBB::Intersect(CCollider::TYPE eColliderType, CBounding* pBoundi
 	if (!m_isColl)
 		m_isColl = isColl;
 
-	return m_isColl;
+	return isColl;
 }
 
 CBounding_OBB* CBounding_OBB::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, CBounding::BOUNDING_DESC* pBoundingDesc)

@@ -49,7 +49,7 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
-
+	
 	//벡터 사이즈 임의 지정
 	m_MParentWorldMarix.reserve(100);
 
@@ -90,6 +90,7 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 {
 	__super::Late_Update(fTimeDelta);
 
+	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 HRESULT CDeguTail_00::Render()
@@ -157,6 +158,25 @@ HRESULT CDeguTail_00::Render()
 
 		return S_OK;
 	}
+}
+
+void CDeguTail_00::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
+		{
+			Change_State(GUARD);
+		}
+	}
+}
+
+void CDeguTail_00::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CDeguTail_00::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 HRESULT CDeguTail_00::Ready_Components()

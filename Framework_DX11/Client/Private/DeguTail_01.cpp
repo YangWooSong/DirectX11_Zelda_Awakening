@@ -40,7 +40,7 @@ HRESULT CDeguTail_01::Initialize(void* pArg)
     m_MParentWorldMarix.reserve(100);
    // m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
 
-    
+    Set_LayerTag(TEXT("Layer_Monster"));
 
     m_pOutBodyRed = pDesc->pOutBodyRed;
     m_pBodyRed = pDesc->pBodyRed;
@@ -122,6 +122,8 @@ void CDeguTail_01::Update(_float fTimeDelta)
 void CDeguTail_01::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
+
+    m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 
@@ -191,6 +193,39 @@ HRESULT CDeguTail_01::Render()
 
     }
     return S_OK;
+}
+
+void CDeguTail_01::OnCollisionEnter(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            int a = 10;
+        }
+    }
+}
+
+void CDeguTail_01::OnCollisionStay(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            int a = 10;
+        }
+    }
+}
+
+void CDeguTail_01::OnCollisionExit(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            int a = 10;
+        }
+    }
 }
 
 

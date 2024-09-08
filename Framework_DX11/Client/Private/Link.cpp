@@ -17,6 +17,7 @@
 #include "State_Link_Stair_Up.h"
 #include "State_Link_Stair_Down.h"
 #include "State_Link_Fall.h"
+#include "State_Link_Damage_Front.h"
 
 #include "Cell.h"
 #include "Sword.h"
@@ -91,6 +92,30 @@ void CLink::Update(_float fTimeDelta)
 		if(m_pFsmCom->Get_CurrentState() != FALL)
 			m_pFsmCom->Change_State(FALL);
 	}
+
+	//±ôºýÀÌ±â
+	if (m_bBlink )
+	{
+		if(m_iBlinkCount < 6)
+		{
+			m_fBlinkTimer += fTimeDelta;
+
+			if (m_fBlinkTimer > 0.3f)
+			{
+				m_bRender = !m_bRender;
+				m_fBlinkTimer = 0.f;
+				m_iBlinkCount++;
+			}
+		}
+		else
+		{
+			m_bBlink = false;
+			m_iBlinkCount = 0;
+			m_fBlinkTimer = 0.f;
+			m_pColliderCom->Set_IsActive(true);
+		}
+	}
+
 }
 
 void CLink::Late_Update(_float fTimeDelta)
@@ -104,43 +129,54 @@ void CLink::Late_Update(_float fTimeDelta)
 
 HRESULT CLink::Render()
 {
-	if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-		return E_FAIL;
-
-	if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-		return E_FAIL;
-	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-		return E_FAIL;
-
-	_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
-
-	for (size_t i = 0; i < iNumMeshes; i++)
+	if(m_bRender)
 	{
-		if (i == 0 ||  i == 4 || i == 10 || i == 12 ||  i == 17 || i == 1 || i == 6 || i == 7)
-			continue;
-
-		if(m_bActiveSheild == false)
-		{
-			if (i == 2 || i == 18)
-				continue;
-		}
-
-		if (m_bActiveSword == false)
-		{
-			if (i == 13 || i == 16)
-				continue;
-		}
-
-		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
-
-		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+		if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
 			return E_FAIL;
 
-
-		if (FAILED(m_pShaderCom->Begin(0)))
+		if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+			return E_FAIL;
+		if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
 			return E_FAIL;
 
-		if (FAILED(m_pModelCom->Render((_uint)i)))
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &m_bBodyRed, sizeof(_bool))))
+			return E_FAIL;
+
+		_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+		for (size_t i = 0; i < iNumMeshes; i++)
+		{
+			if (i == 0 || i == 4 || i == 10 || i == 12 || i == 17 || i == 1 || i == 6 || i == 7)
+				continue;
+
+			if (m_bActiveSheild == false)
+			{
+				if (i == 2 || i == 18)
+					continue;
+			}
+
+			if (m_bActiveSword == false)
+			{
+				if (i == 13 || i == 16)
+					continue;
+			}
+
+			m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
+
+			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+				return E_FAIL;
+
+
+			if (FAILED(m_pShaderCom->Begin(1)))
+				return E_FAIL;
+
+			if (FAILED(m_pModelCom->Render((_uint)i)))
+				return E_FAIL;
+		}
+
+		_bool bFalse = false;
+
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 	}
 
@@ -149,6 +185,25 @@ HRESULT CLink::Render()
 #endif
 
 	return S_OK;
+}
+
+void CLink::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Monster"))
+		{
+			Change_State(DAMAGE_FRONT);
+		}
+	}
+}
+
+void CLink::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CLink::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 HRESULT CLink::Ready_Components()
@@ -176,7 +231,7 @@ HRESULT CLink::Ready_Components()
 
 	/* For.Com_Collider */
 	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
-	ColliderDesc.vExtents = _float3(0.5f, 0.8f, 0.5f);
+	ColliderDesc.vExtents = _float3(0.4f, 0.7f, 0.4f);
 	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
@@ -230,6 +285,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Stair_Up::Create(m_pFsmCom, this, STAIR_UP));
 	m_pFsmCom->Add_State(CState_Link_Stair_Down::Create(m_pFsmCom, this, STAIR_DOWN));
 	m_pFsmCom->Add_State(CState_Link_Fall::Create(m_pFsmCom, this, FALL));
+	m_pFsmCom->Add_State(CState_Link_Damage_Front::Create(m_pFsmCom, this, DAMAGE_FRONT));
 
 	return S_OK;
 }

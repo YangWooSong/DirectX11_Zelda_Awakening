@@ -37,6 +37,10 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther) {};
+	virtual void OnCollisionStay(CGameObject* pOther) {};
+	virtual void OnCollisionExit(CGameObject* pOther) {};
+public:
 	class CModel* Get_Model() { return m_pModelCom; }
 
 public:
