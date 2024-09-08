@@ -70,8 +70,9 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 	}
 
 	//ÈÖµÎ¸£±â
-	if (KEY_AWAY(KEY::P))
+	if (KEY_AWAY(KEY::P) &&m_iButttonAwayCount == 0)
 	{
+		m_iButttonAwayCount++;
 		m_pGameInstance->Play_Sound(TEXT("1_Link_Sword_Charge_Slash.wav"), SOUND_PLAYER, 1.f);
 		m_pGameInstance->Play_Sound(TEXT("1_Sword_AttackCharging.wav"), SOUND_PLAYER_EFFECT, 1.f);
 		m_iCurrentAnimIndex = m_iSlash_Hold_ed_AnimIndex;
@@ -249,6 +250,7 @@ void CState_Link_Slash_Hold::End_State()
 {
 	m_fTimer = 0.f;
 	m_bChargeEnd = false;
+	m_iButttonAwayCount = 0;
 }
 
 CState_Link_Slash_Hold* CState_Link_Slash_Hold::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

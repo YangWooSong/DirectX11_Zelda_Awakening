@@ -6,7 +6,7 @@
 CCollider::CCollider(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CComponent{ pDevice, pContext }
 {
-
+	m_eComponentType = COLLIDER;
 }
 
 CCollider::CCollider(const CCollider& Prototype)
@@ -19,6 +19,7 @@ CCollider::CCollider(const CCollider& Prototype)
 #endif
 {
 	Safe_AddRef(m_pInputLayout);
+	m_eComponentType = COLLIDER;
 }
 
 HRESULT CCollider::Initialize_Prototype(TYPE eColliderType)
@@ -74,24 +75,39 @@ void CCollider::Update(const _float4x4* pWorldMatrix)
 HRESULT CCollider::Render()
 {
 #ifdef _DEBUG
+	if (m_isActive)
+	{
+		m_pEffect->SetWorld(XMMatrixIdentity());
+		m_pEffect->SetView(m_pGameInstance->Get_Transform_Matrix(CPipeLine::D3DTS_VIEW));
+		m_pEffect->SetProjection(m_pGameInstance->Get_Transform_Matrix(CPipeLine::D3DTS_PROJ));
 
-	m_pEffect->SetWorld(XMMatrixIdentity());
-	m_pEffect->SetView(m_pGameInstance->Get_Transform_Matrix(CPipeLine::D3DTS_VIEW));
-	m_pEffect->SetProjection(m_pGameInstance->Get_Transform_Matrix(CPipeLine::D3DTS_PROJ));
+		m_pContext->IASetInputLayout(m_pInputLayout);
 
-	m_pContext->IASetInputLayout(m_pInputLayout);
+		m_pEffect->Apply(m_pContext);
 
-	m_pEffect->Apply(m_pContext);
+		m_pBatch->Begin();
 
-	m_pBatch->Begin();
+		m_pBounding->Render(m_pBatch);
 
-	m_pBounding->Render(m_pBatch);
-
-	m_pBatch->End();
+		m_pBatch->End();
+	}
 
 #endif
 
 	return S_OK;
+}
+
+_bool CCollider::Intersect(CCollider* pTargetCollider)
+{
+	return m_pBounding->Intersect(pTargetCollider->m_eColliderType, pTargetCollider->m_pBounding);
+}
+
+_bool CCollider::Get_IsColl()
+{
+	if (!m_isActive)
+		return false;
+
+	return m_pBounding->Get_IsColl();
 }
 
 CCollider* CCollider::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, TYPE eColliderType)

@@ -63,7 +63,7 @@ void CState_Link_Shield::Update(_float fTimeDelta)
 
     if (KEY_TAP(KEY::P) )
     {
-        m_pPlayer->Change_State(CLink::ITEMB);
+        m_pPlayer->Change_State(CLink::IDLE);
     }
 }
 

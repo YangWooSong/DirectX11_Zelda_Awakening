@@ -1,14 +1,17 @@
 #include "..\Public\Bounding_AABB.h"
 
-CBounding_AABB::CBounding_AABB(ID3D11Device * pDevice, ID3D11DeviceContext * pContext)
-	: CBounding { pDevice, pContext }
+#include "Bounding_OBB.h"
+#include "Bounding_Sphere.h"
+
+CBounding_AABB::CBounding_AABB(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
+	: CBounding{ pDevice, pContext }
 {
 }
 
-HRESULT CBounding_AABB::Initialize(CBounding::BOUNDING_DESC * pBoundingDesc)	
+HRESULT CBounding_AABB::Initialize(CBounding::BOUNDING_DESC* pBoundingDesc)
 {
 	/* 기초 로컬에서의 상태. */
-	BOUNDING_AABB_DESC*		pDesc = static_cast<BOUNDING_AABB_DESC*>(pBoundingDesc);
+	BOUNDING_AABB_DESC* pDesc = static_cast<BOUNDING_AABB_DESC*>(pBoundingDesc);
 
 	m_pOriginalBoundingDesc = new BoundingBox(pDesc->vCenter, pDesc->vExtents);
 	m_pBoundingDesc = new BoundingBox(*m_pOriginalBoundingDesc);
@@ -24,21 +27,47 @@ void CBounding_AABB::Update(_fmatrix WorldMatrix)
 	TransformMatrix.r[1] = XMVectorSet(0.f, 1.f, 0.f, 0.f) * XMVector3Length(WorldMatrix.r[1]);
 	TransformMatrix.r[2] = XMVectorSet(0.f, 0.f, 1.f, 0.f) * XMVector3Length(WorldMatrix.r[2]);
 
+	m_isColl = false;
 	m_pOriginalBoundingDesc->Transform(*m_pBoundingDesc, TransformMatrix);
 }
 
 HRESULT CBounding_AABB::Render(PrimitiveBatch<VertexPositionColor>* pBatch)
 {
 #ifdef _DEBUG
-	DX::Draw(pBatch, *m_pBoundingDesc);
+	DX::Draw(pBatch, *m_pBoundingDesc, m_isColl == true ? XMVectorSet(1.f, 0.f, 0.f, 1.f) : XMVectorSet(0.f, 1.f, 0.f, 1.f));
 #endif
 
 	return S_OK;
 }
 
-CBounding_AABB * CBounding_AABB::Create(ID3D11Device * pDevice, ID3D11DeviceContext * pContext, CBounding::BOUNDING_DESC * pBoundingDesc)
+_bool CBounding_AABB::Intersect(CCollider::TYPE eColliderType, CBounding* pBounding)
 {
-	CBounding_AABB*		pInstance = new CBounding_AABB(pDevice, pContext);
+	_bool isColl = false;
+
+	switch (eColliderType)
+	{
+	case CCollider::TYPE_AABB:
+		isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_AABB*>(pBounding)->Get_Desc()));
+		break;
+
+	case CCollider::TYPE_OBB:
+		isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_OBB*>(pBounding)->Get_Desc()));
+		break;
+
+	case CCollider::TYPE_SPHERE:
+		isColl = m_pBoundingDesc->Intersects(*(dynamic_cast<CBounding_Sphere*>(pBounding)->Get_Desc()));
+		break;
+	}
+
+	if (!m_isColl)
+		m_isColl = isColl;
+
+	return m_isColl;
+}
+
+CBounding_AABB* CBounding_AABB::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, CBounding::BOUNDING_DESC* pBoundingDesc)
+{
+	CBounding_AABB* pInstance = new CBounding_AABB(pDevice, pContext);
 
 	if (FAILED(pInstance->Initialize(pBoundingDesc)))
 	{

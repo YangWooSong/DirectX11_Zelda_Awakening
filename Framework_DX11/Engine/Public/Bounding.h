@@ -2,6 +2,7 @@
 
 #include "Base.h"
 #include "DebugDraw.h"
+#include "Collider.h"
 
 BEGIN(Engine)
 
@@ -17,9 +18,15 @@ protected:
 	virtual ~CBounding() = default;
 
 public:
+	_bool		Get_IsColl() { return m_isColl; }
+
+public:
 	virtual HRESULT Initialize(CBounding::BOUNDING_DESC* pBoundingDesc);
 	virtual void Update(_fmatrix WorldMatrix);
 	virtual HRESULT Render(PrimitiveBatch<VertexPositionColor>* pBatch);
+
+public:
+	virtual _bool Intersect(CCollider::TYPE eColliderType, CBounding* pBounding) = 0;
 
 protected:
 	ID3D11Device*				m_pDevice = { nullptr };

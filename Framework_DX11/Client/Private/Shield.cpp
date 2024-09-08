@@ -54,24 +54,27 @@ void CShield::Update(_float fTimeDelta)
 	}
 	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()) * SocketMatrix * XMLoadFloat4x4(m_pParentMatrix));
 
+	//상태에 따라 활성화 결정
+	if (m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD || m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD_WALK)
+		m_pColliderCom->Set_IsActive(true);
+	else
+		m_pColliderCom->Set_IsActive(false);
 
 	m_pColliderCom->Update(&m_WorldMatrix);
-
-	//상태에 따라 활성화 결정
-
 }
 
 void CShield::Late_Update(_float fTimeDelta)
 {
 	/* 직교투영을 위한 월드행렬까지 셋팅하게 된다. */
 	__super::Late_Update(fTimeDelta);
+
+	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 
 HRESULT CShield::Render()
 {
 #ifdef _DEBUG
-	//if (m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD || m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD_WALK)
 		m_pColliderCom->Render();
 #endif
 	return S_OK;
@@ -88,7 +91,8 @@ HRESULT CShield::Ready_Components()
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_OBB"),
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
-
+	m_pColliderCom->Set_Owner(this);
+	m_pColliderCom->Set_IsActive(false);
 	return S_OK;
 }
 

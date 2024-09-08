@@ -55,6 +55,12 @@ public:
 	_uint Get_ListIndex() { return m_iListIndex; }
 	_float3 Get_Rotation() { return m_vRot; }
 	void Set_Rotation(_float3 _rot) {  m_vRot = _rot; }
+
+public:
+	virtual void OnCollisionEnter(CGameObject* pOther) {};
+	virtual void OnCollisionStay(CGameObject* pOther) {};
+	virtual void OnCollisionExit(CGameObject* pOther) {};
+
 protected:
 	ID3D11Device*				m_pDevice = { nullptr };
 	ID3D11DeviceContext*		m_pContext = { nullptr };

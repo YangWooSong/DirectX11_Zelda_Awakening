@@ -14,7 +14,9 @@
 #include "Navigation.h"
 #include "Collider.h"
 
-
+#include "Bounding_AABB.h"
+#include "Bounding_OBB.h"
+#include "Bounding_Sphere.h"
 /* 컴포넌트의 원형을 레벨별로 보관한다. */
 /* 복제하여 리턴한다.*/
 

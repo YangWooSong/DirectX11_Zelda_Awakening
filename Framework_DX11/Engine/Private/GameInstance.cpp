@@ -13,7 +13,7 @@
 
 #include "PhysX_Manager.h"
 #include "Event_Manager.h"
-
+#include "Collider_Manager.h"
 IMPLEMENT_SINGLETON(CGameInstance)
 
 CGameInstance::CGameInstance()
@@ -73,6 +73,10 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 
 	m_pSound_Manager = CSound_Manager::Create();
 	if (nullptr == m_pSound_Manager)
+		return E_FAIL;
+
+	m_pCollider_Manager = CCollider_Manager::Create();
+	if (nullptr == m_pCollider_Manager)
 		return E_FAIL;
 
 	m_pUI_Manager = CUI_Manager::Create();
@@ -502,6 +506,13 @@ HRESULT CGameInstance::Render_Text(const _wstring& strFontTag, const _tchar* pTe
 {
 	return m_pFont_Manager->Render(strFontTag, pText, vPosition, vColor, fRadian, vPivot, fScale);
 }
+#pragma endregion
+
+#pragma region Collider_Manager
+HRESULT CGameInstance::Add_ColliderList(CCollider* pCollider)
+{
+	return m_pCollider_Manager->Add_ColliderList(pCollider);
+}
 
 #pragma endregion
 
@@ -518,6 +529,7 @@ void CGameInstance::Release_Engine()
 	Safe_Release(m_pSound_Manager);
 	Safe_Release(m_pTimer_Manager);
 	Safe_Release(m_pComponent_Manager);
+	Safe_Release(m_pCollider_Manager);
 
 	Safe_Release(m_pEvent_Manager);
 	Safe_Release(m_pUI_Manager);

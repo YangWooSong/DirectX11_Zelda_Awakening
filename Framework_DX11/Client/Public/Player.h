@@ -46,6 +46,11 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther) {};
+	virtual void OnCollisionStay(CGameObject* pOther) {};
+	virtual void OnCollisionExit(CGameObject* pOther) {};
+
+public:
 	HRESULT		Ready_PartObjects();
 
 	void		Move_Dir(_fvector vDir, _float fSpeed, _float fTimeDelta);

@@ -39,6 +39,7 @@ private:
     _bool               m_bChargeEnd = { false };
 
     _uint               m_iPlayerDir = {};
+    _int                m_iButttonAwayCount = { 0 };
 
     class CNavigation* m_pPlayer_Navigation = { nullptr };
 public:

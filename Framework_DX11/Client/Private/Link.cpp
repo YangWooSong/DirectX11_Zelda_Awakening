@@ -98,6 +98,7 @@ void CLink::Late_Update(_float fTimeDelta)
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Late_Update(fTimeDelta);
 
+	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 }
 
@@ -181,6 +182,7 @@ HRESULT CLink::Ready_Components()
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
+	m_pColliderCom->Set_Owner(this);
 
 	return S_OK;
 }
