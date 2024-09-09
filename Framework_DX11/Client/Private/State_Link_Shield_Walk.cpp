@@ -33,10 +33,10 @@ HRESULT CState_Link_Shield_Walk::Start_State()
 
 void CState_Link_Shield_Walk::Update(_float fTimeDelta)
 {
-    if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
-        m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep_Slow.wav"), SOUND_PLAYER, 0.3f);
-    else
-        m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep_Slow.wav"), SOUND_PLAYER, 0.7f);
+ //   if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
+    //    m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep_Slow.wav"), SOUND_PLAYER, 0.3f);
+//    else
+     //   m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep_Slow.wav"), SOUND_PLAYER, 0.7f);
 
     if (!(GetAsyncKeyState(0x57) & 0x8000) && !(GetAsyncKeyState(0x41) & 0x8000) && !(GetAsyncKeyState(0x53) & 0x8000) && !(GetAsyncKeyState(0x44) & 0x8000)&& !(GetAsyncKeyState(0xA0) & 0x8000))
     {

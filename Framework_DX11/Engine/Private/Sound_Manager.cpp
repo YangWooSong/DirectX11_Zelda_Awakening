@@ -80,7 +80,7 @@ void CSound_Manager::LoadSoundFile(const char* pFolderName)
 	// _finddata_t : <io.h>에서 제공하며 파일 정보를 저장하는 구조체
 	_finddata_t fd;
 
-	char path[MAX_PATH] = "../../Client/Bin/Sound/";
+	char path[MAX_PATH] = "../../Client/Bin/";
 	strcat_s(path, MAX_PATH, pFolderName);
 	strcat_s(path, MAX_PATH, "/*");
 
@@ -92,7 +92,7 @@ void CSound_Manager::LoadSoundFile(const char* pFolderName)
 
 	int iResult = 0;
 
-	char szCurPath[MAX_PATH] = "../../Client/Bin/Sound/";
+	char szCurPath[MAX_PATH] = "../../Client/Bin/";
 	char szFullPath[MAX_PATH] = "";
 
 	while (iResult != -1)

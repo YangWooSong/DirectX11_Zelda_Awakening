@@ -33,7 +33,7 @@ void CState_Link_Fall::Update(_float fTimeDelta)
 		m_fTimer += fTimeDelta;
 		if(m_bPlaySound == false)
 		{
-			m_pGameInstance->Play_Sound(TEXT("1_Link_Fall.wav"), SOUND_PLAYER, 0.8f);
+	//		m_pGameInstance->Play_Sound(TEXT("1_Link_Fall.wav"), SOUND_PLAYER, 0.8f);
 			m_bPlaySound = true;
 		}
 		m_pPlayer->Get_Transform()->Go_World_Down(fTimeDelta, 5.f);

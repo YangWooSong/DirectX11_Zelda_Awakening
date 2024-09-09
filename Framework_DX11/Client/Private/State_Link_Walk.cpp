@@ -33,10 +33,10 @@ HRESULT CState_Link_Walk::Start_State()
 
 void CState_Link_Walk::Update(_float fTimeDelta)
 {
-    if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
-        m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep.wav"), SOUND_PLAYER, 0.2f);
-    else
-        m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep.wav"), SOUND_PLAYER, 0.4f);
+  //  if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
+   //     m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep.wav"), SOUND_PLAYER, 0.2f);
+ //   else
+     //   m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep.wav"), SOUND_PLAYER, 0.4f);
 
     m_iPlayerDir = m_pPlayer->Get_Player_Dir();
     switch (m_iPlayerDir)

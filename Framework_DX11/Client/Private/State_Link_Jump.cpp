@@ -32,7 +32,7 @@ HRESULT CState_Link_Jump::Start_State()
         CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
         pCamera->Set_FollowPlayer(false);
     }
-    m_pGameInstance->Play_Sound(TEXT("1_Link_Jump.wav"), SOUND_PLAYER, 0.8f);
+ //   m_pGameInstance->Play_Sound(TEXT("1_Link_Jump.wav"), SOUND_PLAYER, 0.8f);
     return S_OK;
 }
 

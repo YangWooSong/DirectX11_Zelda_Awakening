@@ -16,7 +16,8 @@ HRESULT CLevel_Logo::Initialize()
 	if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
 		return E_FAIL;
 
-	m_pGameInstance->Play_SoundRepeat(TEXT("0_Title_NoIntro.wav"), SOUND_BGM, 0.8f);
+	m_pGameInstance->Play_BGM(TEXT("0_Title_NoIntro.wav"), 0.8f);
+
 	return S_OK;
 }
 
@@ -24,7 +25,7 @@ void CLevel_Logo::Update(_float fTimeDelta)
 {
 	if (GetKeyState(VK_RETURN) & 0x8000)
 	{
-		m_pGameInstance->Stop_All();
+		//m_pGameInstance->Stop_All();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_MARINHOUSE))))
 			return;
 	}

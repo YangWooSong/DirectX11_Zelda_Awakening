@@ -30,7 +30,7 @@ HRESULT CState_Link_Slash_Hold::Start_State()
 	m_iPlayerDir = m_pPlayer->Get_Player_Dir();
 	m_iCurrentAnimIndex = m_iSlash_Hold_lp_AnimIndex;
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f,true);
-	m_pGameInstance->Play_Sound(TEXT("1_Sword_chargeStart.wav"), SOUND_PLAYER_EFFECT, 0.8f);
+//	m_pGameInstance->Play_Sound(TEXT("1_Sword_chargeStart.wav"), SOUND_PLAYER_EFFECT, 0.8f);
 	return S_OK;
 }
 
@@ -43,7 +43,7 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 	if(m_fTimer > 1.f && m_bChargeEnd == false)
 	{
 		m_bChargeEnd = true;
-		m_pGameInstance->Play_Sound(TEXT("1_Link_ChargeEnd.wav"), SOUND_PLAYER_EFFECT, 1.f);
+	//	m_pGameInstance->Play_Sound(TEXT("1_Link_ChargeEnd.wav"), SOUND_PLAYER_EFFECT, 1.f);
 	}
 
 	//가만히 있는 애니로 돌아가기
@@ -62,10 +62,10 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 	{
 		if (m_iCurrentAnimIndex != m_iSlash_Hold_lp_AnimIndex && m_iCurrentAnimIndex != m_iSlash_Hold_ed_AnimIndex)
 		{
-			if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
-				m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep_Slow.wav"), SOUND_PLAYER, 0.3f);
-			else
-				m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep_Slow.wav"), SOUND_PLAYER, 0.7f);
+			//if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
+			//	m_pGameInstance->Play_SoundRepeat(TEXT("1_Field_FootStep_Slow.wav"), SOUND_PLAYER, 0.3f);
+		//	else
+				//m_pGameInstance->Play_SoundRepeat(TEXT("1_Inside_FootStep_Slow.wav"), SOUND_PLAYER, 0.7f);
 		}
 	}
 
@@ -73,8 +73,8 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 	if (KEY_AWAY(KEY::P) &&m_iButttonAwayCount == 0)
 	{
 		m_iButttonAwayCount++;
-		m_pGameInstance->Play_Sound(TEXT("1_Link_Sword_Charge_Slash.wav"), SOUND_PLAYER, 1.f);
-		m_pGameInstance->Play_Sound(TEXT("1_Sword_AttackCharging.wav"), SOUND_PLAYER_EFFECT, 1.f);
+	//	m_pGameInstance->Play_Sound(TEXT("1_Link_Sword_Charge_Slash.wav"), SOUND_PLAYER, 1.f);
+	//	m_pGameInstance->Play_Sound(TEXT("1_Sword_AttackCharging.wav"), SOUND_PLAYER_EFFECT, 1.f);
 		m_iCurrentAnimIndex = m_iSlash_Hold_ed_AnimIndex;
 		m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
 		m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);

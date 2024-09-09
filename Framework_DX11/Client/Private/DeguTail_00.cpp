@@ -300,7 +300,7 @@ void CDeguTail_00::Kill_Parts(_float fTimeDelta)
 		if (m_iPartIndex < 0)
 			m_iPartIndex = 0;
 
-		m_pGameInstance->Play_Sound(TEXT("3_Monster_Explosion.wav"), SOUND_MONSTER, 1.f);
+		//m_pGameInstance->Play_Sound(TEXT("3_Monster_Explosion.wav"), SOUND_MONSTER, 1.f);
 		m_Parts[m_iPartIndex]->Set_Dead(true);
 		fTimer = 0.f;
 	}

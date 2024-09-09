@@ -2,6 +2,10 @@
 
 #include "Client_Defines.h"
 #include "Level.h"
+BEGIN(Engine)
+class CSound;
+END
+
 
 BEGIN(Client)
 

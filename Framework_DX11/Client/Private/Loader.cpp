@@ -125,6 +125,8 @@ void CLoader::Draw_LoadingText()
 
 HRESULT CLoader::Ready_Resources_For_Loading()
 {
+	m_pGameInstance->LoadSoundFile("Sounds");
+
 	/* For. Prototype_GameObject_BackGround */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BackGround"),
 		CBackGround::Create(m_pDevice, m_pContext))))

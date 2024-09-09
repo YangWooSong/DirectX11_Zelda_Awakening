@@ -95,8 +95,8 @@ protected:
 	CNavigation* m_pNavigationCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
 
-	CSound* m_pVoiceSoundCom = { nullptr };
-	CSound* m_pWeapontSoundCom = { nullptr };
+	CSound* m_pPlayerSoundCom = { nullptr };
+	CSound* m_pBGMSoundCom = { nullptr };
 	CSound* m_pEffectSoundCom = { nullptr };
 protected:
 	_float				m_fMoveSpeed = { 4.f};

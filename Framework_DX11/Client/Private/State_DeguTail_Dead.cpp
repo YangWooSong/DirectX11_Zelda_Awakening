@@ -22,8 +22,8 @@ HRESULT CState_DeguTail_Dead::Start_State()
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
 
-    m_pGameInstance->Stop_All();
-    m_pGameInstance->Play_Sound(TEXT("3_Monster_Hit.wav"), SOUND_MONSTER, 1.f);
+  //  m_pGameInstance->Stop_All();
+ //   m_pGameInstance->Play_Sound(TEXT("3_Monster_Hit.wav"), SOUND_MONSTER, 1.f);
     return S_OK;
 }
 

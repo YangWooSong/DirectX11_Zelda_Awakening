@@ -2,7 +2,7 @@
 #include "Component.h"
 
 #include "fmod.h"
-#include "fmod.hpp"
+#include "../../Engine/Public/Fmod/fmod.hpp"
 
 BEGIN(Engine)
 
@@ -31,7 +31,8 @@ public:
 	//void	Play3D(const TCHAR* pSoundKey, _float fVolume);
 	//void	Play3D_Repeat(const TCHAR* pSoundKey, _float fVolume);
 
-	void	PlaySound(const TCHAR* pSoundKey, _float fVolume);
+	void	PlaySound(const TCHAR* pSoundKey, _float fVolume = 1.f);
+	void	Play_SoundRepeat(const TCHAR* pSoundKey, _float fVolume = 1.f);
 
 	void	Pause();
 	void	Stop();
@@ -40,6 +41,7 @@ public:
 	void	UnMute();
 
 	void	Set_Volume(_float fVolume);
+	void	Set_ChannelVolume_Distance(_fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume);
 	void	Set_PlaySpeed(_float fSpeedRatio);
 
 private:

@@ -31,7 +31,7 @@ HRESULT CLevel_Dungeon::Initialize()
 
    Read();
 
-   m_pGameInstance->Play_SoundRepeat(TEXT("0_Dangeon1_TailCave.wav"), SOUND_BGM, 0.7f);
+  // m_pGameInstance->Play_SoundRepeat(TEXT("0_Dangeon1_TailCave.wav"), SOUND_BGM, 0.7f);
 
     return S_OK;
 }

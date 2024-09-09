@@ -106,6 +106,12 @@ void CSound::PlaySound(const TCHAR* pSoundKey, _float fVolume)
 	m_pChannel->setVolume(fVolume);
 }
 
+void CSound::Play_SoundRepeat(const TCHAR* pSoundKey, _float fVolume)
+{
+	if (m_isPlaying == false)
+		PlaySound(pSoundKey, fVolume);
+}
+
 void CSound::Pause()
 {
 	m_pChannel->setPaused(!m_isPause);
@@ -132,6 +138,23 @@ void CSound::UnMute()
 
 void CSound::Set_Volume(_float fVolume)
 {
+	m_pChannel->setVolume(fVolume);
+}
+
+void CSound::Set_ChannelVolume_Distance( _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume)
+{
+	_float fDistance = fabs(XMVectorGetX(vCurPos - vTargetPos));
+
+	_float fVolume = 0.f;
+
+	if (fDistance > fMaxDistance)
+	{
+		m_pChannel->setVolume(fVolume);
+		return;
+	}
+
+	fVolume = 1 - (fDistance / fMaxDistance);
+	fVolume = min(fVolume, fMaxVolume);
 	m_pChannel->setVolume(fVolume);
 }
 

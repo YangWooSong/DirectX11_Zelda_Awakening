@@ -33,7 +33,7 @@ void CState_DeguTail_Idle::Update(_float fTimeDelta)
 
 void CState_DeguTail_Idle::End_State()
 {
-    m_pGameInstance->Stop_Sound(SOUND_BGM);
+  //  m_pGameInstance->Stop_Sound(SOUND_BGM);
 }
 
 CState_DeguTail_Idle* CState_DeguTail_Idle::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)
