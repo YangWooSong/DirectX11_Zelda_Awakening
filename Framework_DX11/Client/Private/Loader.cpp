@@ -181,6 +181,11 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
 
+	/* For. Prototype_Component_Texture_Loading */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Texture_House_Background"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/House_Background.dds"), 1))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
 	Ready_Models_For_MarinHouse();

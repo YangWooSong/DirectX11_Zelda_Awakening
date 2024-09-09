@@ -146,18 +146,18 @@ HRESULT CLink::Render()
 
 		for (size_t i = 0; i < iNumMeshes; i++)
 		{
-			if (i == 0 || i == 4 || i == 10 || i == 12 || i == 17 || i == 1 || i == 6 || i == 7)
+			if ( i == 1 || i == 3 || i == 5 || i == 9 || i == 11 || i == 12 || i == 16 || i == 18 || i == 17)
 				continue;
 
 			if (m_bActiveSheild == false)
 			{
-				if (i == 2 || i == 18)
+				if ( i == 7)
 					continue;
 			}
 
 			if (m_bActiveSword == false)
 			{
-				if (i == 13 || i == 16)
+				if (i == 2 || i == 6)
 					continue;
 			}
 

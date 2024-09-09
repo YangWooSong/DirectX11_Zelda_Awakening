@@ -75,8 +75,12 @@ void CBackGround::Late_Update(_float fTimeDelta)
 	/* 직교투영을 위한 월드행렬까지 셋팅하게 된다. */
 	__super::Late_Update(fTimeDelta);
 
-
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
+	if (m_eType == HOUSE_BACKGROUND)
+	{
+		m_pGameInstance->Add_RenderObject(CRenderer::RG_PRIORITY, this);
+	}
+	else
+		m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
 }
 
 HRESULT CBackGround::Render()
@@ -100,8 +104,16 @@ HRESULT CBackGround::Render()
 	if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", 0)))
 		return E_FAIL;
 
-	if (FAILED(m_pShaderCom->Begin(0)))
-		return E_FAIL;
+	if (m_eType == HOUSE_BACKGROUND)
+	{
+		if (FAILED(m_pShaderCom->Begin(2)))
+			return E_FAIL;
+	}
+	else
+	{
+		if (FAILED(m_pShaderCom->Begin(0)))
+			return E_FAIL;
+	}
 
 	if (FAILED(m_pVIBufferCom->Bind_Buffers()))
 		return E_FAIL;
@@ -143,6 +155,11 @@ HRESULT CBackGround::Ready_Components()
 		break;
 	case Client::CBackGround::LOADING_ICON:
 		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_LoadingIcon"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+		break;
+	case Client::CBackGround::HOUSE_BACKGROUND:
+		if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Texture_House_Background"),
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
 		break;

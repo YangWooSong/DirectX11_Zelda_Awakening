@@ -7,6 +7,7 @@
 #include "AnimModel.h"
 #include "Link.h"
 #include "NavDataObj.h"
+#include "BackGround.h"
 #include <fstream>
 CLevel_MarinHouse::CLevel_MarinHouse(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -17,13 +18,13 @@ HRESULT CLevel_MarinHouse::Initialize()
 {
 	if (FAILED(Ready_Lights()))
 		return E_FAIL;
-
+	if (FAILED(Ready_Layer_BackGround()))
+		return E_FAIL;
 	if (FAILED(Ready_LandObjects()))
 		return E_FAIL;
 	if (FAILED(Ready_Layer_Camera()))
 		return E_FAIL;
-	if (FAILED(Ready_Layer_BackGround()))
-		return E_FAIL;
+	
 	if (FAILED(Ready_Layer_Effect()))
 		return E_FAIL;
 
@@ -123,6 +124,18 @@ HRESULT CLevel_MarinHouse::Ready_Layer_Camera()
 
 HRESULT CLevel_MarinHouse::Ready_Layer_BackGround()
 {
+	CBackGround::BACKGROUND_DESC Desc{ };
+
+	Desc.eType = CBackGround::HOUSE_BACKGROUND;
+	Desc.fSizeX = g_iWinSizeX;
+	Desc.fSizeY = g_iWinSizeY;
+	Desc.fX = g_iWinSizeX  / 2;
+	Desc.fY = g_iWinSizeY / 2;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_BackGround"),
+		TEXT("Prototype_GameObject_BackGround"), &Desc)))
+		return E_FAIL;
+
 	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Prototype_GameObject_Terrain"))))
 	//	return E_FAIL;
 
