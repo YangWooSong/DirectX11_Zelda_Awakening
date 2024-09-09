@@ -33,6 +33,7 @@
 #include "SeaUrchin.h"
 #include "Octorok.h"
 #include "OctorokRock.h"
+#include "Detector.h"
 
 #include "Rola.h"
 #include "Spark.h"
@@ -511,6 +512,17 @@ HRESULT CLoader::Ready_Models_For_Test()
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 #pragma region MONSTER
 
+
+	/* For. Prototype_Component_Model_Octorok*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Octorok"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Octorok/Octorok.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_OctorokRock"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Monster/OctorokRock/OctorokRock.dat"))))
+		return E_FAIL;
+
 	/* For. Prototype_Component_Model_Rola*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Rola"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
@@ -658,6 +670,11 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
 		COctorokRock::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+	/* For. Prototype_GameObject_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Detector"),
+		CDetector::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 
@@ -666,6 +683,17 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 HRESULT CLoader::Ready_Prototype_For_Test()
 {
 #pragma region MONSTER
+
+	/* For. Prototype_GameObject_Octorok*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Octorok"),
+		COctorok::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OctorokRock"),
+		COctorokRock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 	/* For. Prototype_GameObject_Rola*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
 		CRola::Create(m_pDevice, m_pContext))))

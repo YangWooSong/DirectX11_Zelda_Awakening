@@ -77,15 +77,7 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
 {
 	CBackGround::BACKGROUND_DESC Desc{ };
 
-	Desc.eType = CBackGround::LOADING_ICON;
-	Desc.fSizeX = 60;
-	Desc.fSizeY = 60;
-	Desc.fX = g_iWinSizeX - g_iWinSizeX*0.2;
-	Desc.fY = g_iWinSizeY - g_iWinSizeY*0.3;
 
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOADING, TEXT("Layer_BackGround"),
-		TEXT("Prototype_GameObject_BackGround"), &Desc)))
-		return E_FAIL;
 
 	Desc.eType = CBackGround::LOADING_BACKGROUND;
 	Desc.fSizeX = g_iWinSizeX;
@@ -97,7 +89,15 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))
 		return E_FAIL;
 
-	
+	Desc.eType = CBackGround::LOADING_ICON;
+	Desc.fSizeX = 60;
+	Desc.fSizeY = 60;
+	Desc.fX = g_iWinSizeX - g_iWinSizeX * 0.2;
+	Desc.fY = g_iWinSizeY - g_iWinSizeY * 0.3;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_LOADING, TEXT("Layer_BackGround"),
+		TEXT("Prototype_GameObject_BackGround"), &Desc)))
+		return E_FAIL;
 
 	return S_OK;
 }

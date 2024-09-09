@@ -260,12 +260,12 @@ HRESULT CLevel_Field::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, 
 
 	if (_strLyaerTag == "Layer_SeaUrchin")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_SeaUrchin"), TEXT("Prototype_GameObject_SeaUrchin"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_SeaUrchin"), &pDesc)))
 			return E_FAIL;
 	}
 	else if (_strLyaerTag == "Layer_Octorok")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Octorok"), TEXT("Prototype_GameObject_Octorok"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Octorok"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;

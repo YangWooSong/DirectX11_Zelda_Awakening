@@ -36,6 +36,8 @@ public:
 	_float3		Get_Scaled() const;
 	void		Set_Scaled(_float fX, _float fY, _float fZ);
 
+	void		Go_Vector(_vector vNewLook, _float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
+
 	void		Go_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 	void		Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 	void		Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool* bReflect = nullptr, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _int* iStopCount = nullptr);

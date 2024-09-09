@@ -23,7 +23,7 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
-
+    _vector  m_vNewLook = {};
     _uint               m_iCurrentAnimIndex = {};
 
 public:

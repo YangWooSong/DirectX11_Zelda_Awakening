@@ -26,6 +26,7 @@ HRESULT CState_Octorok_Attack::Start_State()
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 80.f);
     m_pRock = m_pOwner->Get_PartObject(COctorok::PART_BULLET);
+
     return S_OK;
 }
 
@@ -34,7 +35,11 @@ void CState_Octorok_Attack::Update(_float fTimeDelta)
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "attack_st") == 0)
     {
         if (m_pOwner->Get_Model()->Get_CurrentTrackPosition() > 10)
+        {
+            _float fVoume = m_pOwner->Get_Sound()->Culculate_Volume_Distance(m_pOwner->Get_Pos_vector(), m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION), 5.f, 0.3f);
+            m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Octarock_Walk01.wav"), fVoume);
             Shoot();
+        }
 
         if (m_pOwner->Get_IsEnd_CurrentAnimation())
         {

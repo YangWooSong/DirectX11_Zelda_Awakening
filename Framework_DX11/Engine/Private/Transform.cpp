@@ -45,6 +45,41 @@ void CTransform::Set_Scaled(_float fX, _float fY, _float fZ)
 	Set_State(STATE_LOOK, XMVector3Normalize(Get_State(STATE_LOOK)) * fZ);
 }
 
+void CTransform::Go_Vector(_vector vNewLook, _float fTimeDelta, _float fSpeed, CNavigation* pNavigation)
+{
+	_vector		vPosition = Get_State(STATE_POSITION);
+	_vector		vLook = vNewLook;
+
+	_vector vTemp = vPosition + XMVector3Normalize(vLook) * fSpeed * fTimeDelta;
+
+	if (nullptr == pNavigation || true == pNavigation->isMove(vTemp))
+	{
+		Set_State(STATE_POSITION, vTemp);
+	}
+
+	if (nullptr != pNavigation && false == pNavigation->isMove(vTemp))
+	{
+		if (pNavigation->isSlide(vLook) == CNavigation::SLIDE_FORWARD)
+		{
+			//슬라이드 벡터 가져와서 더해주기
+			_vector vSlide = pNavigation->Get_OutLIne();
+			_vector vSlideTmp = vPosition + XMVector3Normalize(-vSlide) * fSpeed * fTimeDelta;
+
+			if (pNavigation->isInTotalCell(vSlideTmp))
+				Set_State(STATE_POSITION, vSlideTmp);
+		}
+		else if (pNavigation->isSlide(vLook) == CNavigation::SLIDE_BACKWARD)
+		{
+			//슬라이드 벡터 가져와서 더해주기
+			_vector vSlide = pNavigation->Get_OutLIne();
+			_vector vSlideTmp = vPosition + XMVector3Normalize(vSlide) * fSpeed * fTimeDelta;
+
+			if (pNavigation->isInTotalCell(vSlideTmp))
+				Set_State(STATE_POSITION, vSlideTmp);
+		}
+	}
+}
+
 void CTransform::Go_Straight(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation )
 {
 	_vector		vPosition = Get_State(STATE_POSITION);

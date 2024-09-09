@@ -109,6 +109,33 @@ void CSound::Play_SoundRepeat(const TCHAR* pSoundKey, _float fVolume)
 		Play_Sound( pSoundKey, fVolume);
 }
 
+void CSound::Play_Sound_Distance(const TCHAR* pSoundKey, _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume, _bool bRepeat)
+{
+	_float fDistance = fabs(XMVectorGetX(vCurPos - vTargetPos));
+
+	_float fVolume = 0.f;
+
+	if (fDistance > fMaxDistance)
+	{
+		m_pChannel->setVolume(0.f);
+		return;
+	}
+
+	fVolume = 1 - (fDistance / fMaxDistance);
+	fVolume = fVolume * fMaxVolume;
+
+	if(bRepeat)
+	{
+		if (!m_isPlaying)
+		{
+			Play_Sound(pSoundKey, fVolume);
+			return;
+		}
+	}
+	else
+		Play_Sound(pSoundKey, fVolume);
+}
+
 void CSound::Pause()
 {
 	m_pChannel->setPaused(!m_isPause);
@@ -162,6 +189,22 @@ void CSound::Set_PlaySpeed(_float fSpeedRatio)
 
 	//44100.f
 	m_pChannel->setFrequency(fCurrentFrequency * fSpeedRatio);
+}
+
+_float CSound::Culculate_Volume_Distance(_fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume)
+{
+	_float fDistance = fabs(XMVectorGetX(XMVector3Length(vCurPos - vTargetPos)));
+
+	_float fVolume = 0.f;
+
+	if (fDistance > fMaxDistance)
+	{
+		return 0.f;
+	}
+
+	fVolume = 1 - (fDistance / fMaxDistance);
+	fVolume = min(fVolume, fMaxVolume);
+	return fVolume;
 }
 
 CSound* CSound::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

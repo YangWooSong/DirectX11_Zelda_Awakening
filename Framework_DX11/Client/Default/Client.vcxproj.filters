@@ -40,9 +40,6 @@
     <Filter Include="02.GameObjects\NonAnimModel">
       <UniqueIdentifier>{f07725b1-7c8d-4e74-b346-a23ed786e8e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\AnimModel">
-      <UniqueIdentifier>{c1db762a-68d0-4517-b168-df23579cb577}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.State">
       <UniqueIdentifier>{928459ee-b954-4696-8ab4-3516ab1edb38}</UniqueIdentifier>
     </Filter>
@@ -364,6 +361,12 @@
     <Filter Include="05.State\Link\Damage_Front">
       <UniqueIdentifier>{fb1a2c64-fec2-4618-ac88-c263119fd432}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\99.Camera\AnimModel">
+      <UniqueIdentifier>{c1db762a-68d0-4517-b168-df23579cb577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\05.Monster\Detector">
+      <UniqueIdentifier>{1e1e0c1a-b014-401a-90ff-1f7e473f2a0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -403,7 +406,7 @@
       <Filter>02.GameObjects\NonAnimModel</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\AnimModel.h">
-      <Filter>02.GameObjects\AnimModel</Filter>
+      <Filter>02.GameObjects\99.Camera\AnimModel</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Player.h">
       <Filter>02.GameObjects\02.Player</Filter>
@@ -672,6 +675,9 @@
     <ClInclude Include="..\Public\State_Link_Damage_Front.h">
       <Filter>05.State\Link\Damage_Front</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Detector.h">
+      <Filter>02.GameObjects\05.Monster\Detector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -702,7 +708,7 @@
       <Filter>02.GameObjects\NonAnimModel</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\AnimModel.cpp">
-      <Filter>02.GameObjects\AnimModel</Filter>
+      <Filter>02.GameObjects\99.Camera\AnimModel</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\FreeCamera.cpp">
       <Filter>02.GameObjects\99.Camera\FreeCamera</Filter>
@@ -970,6 +976,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Damage_Front.cpp">
       <Filter>05.State\Link\Damage_Front</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Detector.cpp">
+      <Filter>02.GameObjects\05.Monster\Detector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

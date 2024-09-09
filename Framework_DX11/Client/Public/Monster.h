@@ -42,7 +42,8 @@ public:
 	virtual void OnCollisionStay(CGameObject* pOther) {};
 	virtual void OnCollisionExit(CGameObject* pOther) {};
 public:
-	class CModel* Get_Model() { return m_pModelCom; }
+	CModel* Get_Model() { return m_pModelCom; }
+	CCollider* Get_Collider() { return m_pColliderCom; }
 
 public:
 	void		Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr);

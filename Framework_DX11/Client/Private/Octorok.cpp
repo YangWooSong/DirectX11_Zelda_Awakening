@@ -8,6 +8,7 @@
 #include "State_Octorok_Attack.h"
 #include "State_Octorok_Walk.h"
 #include "OctorokRock.h"
+#include "Detector.h"
 
 COctorok::COctorok(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
@@ -63,6 +64,8 @@ void COctorok::Update(_float fTimeDelta)
 
 	__super::Update(fTimeDelta);
 
+	m_pMonsterSoundCom->Update(fTimeDelta);
+	
 	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
@@ -83,8 +86,6 @@ HRESULT COctorok::Render()
 		return E_FAIL;
 	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
 		return E_FAIL;
-	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &m_isDead, sizeof(_bool))))
-		return E_FAIL;
 
 	_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
@@ -103,17 +104,30 @@ HRESULT COctorok::Render()
 			return E_FAIL;
 	}
 
-	//다른 모델한테 영향이 가면 안되서 dead처리를 풀어줘야 함
-	_bool bFalse = false;
-
-	if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsDead", &bFalse, sizeof(_bool))))
-		return E_FAIL;
-
 #ifdef _DEBUG
 	m_pColliderCom->Render();
 #endif
 
 	return S_OK;
+}
+
+void COctorok::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
+		{
+			Change_State(DEAD);
+		}
+	}
+}
+
+void COctorok::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void COctorok::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 
@@ -143,9 +157,15 @@ HRESULT COctorok::Ready_Components()
 	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
-		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
+		TEXT("Com_Collider0"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
+
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pMonsterSoundCom))))
+		return E_FAIL;
+	m_pMonsterSoundCom->Set_Owner(this);
 
 	return S_OK;
 }
@@ -162,6 +182,12 @@ HRESULT COctorok::Ready_PartObjects()
 	RockDesc.pParent = this;
 
 	if (FAILED(__super::Add_PartObject(PART_BULLET, TEXT("Prototype_GameObject_OctorokRock"), &RockDesc)))
+		return E_FAIL;
+
+	CDetector::DETECTOR_DESC partDesc{};
+	partDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	partDesc.pOwnerFsm = m_pFsmCom;
+	if (FAILED(__super::Add_PartObject(PART_DETECTOR, TEXT("Prototype_GameObject_Detector"), &RockDesc)))
 		return E_FAIL;
 
 	return S_OK;
@@ -214,5 +240,6 @@ void COctorok::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 	Safe_Release(m_pFsmCom);
+	Safe_Release(m_pMonsterSoundCom);
 }
 

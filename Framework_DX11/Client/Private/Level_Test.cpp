@@ -6,6 +6,7 @@
 #include "PlayerCamera.h"
 #include "AnimModel.h"
 #include "Link.h"
+#include "Monster.h"
 #include <fstream>
 
 CLevel_Test::CLevel_Test(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -142,6 +143,20 @@ HRESULT CLevel_Test::Ready_LandObjects()
 	objDesc.vPosition = _float3(5.f, 0.f, 0.f);
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Vegas"), TEXT("Prototype_GameObject_Vegas"), &objDesc)))
 		return E_FAIL;
+
+	CMonster::MONSTER_DESC pDesc = { };
+	//pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
+	//pDesc.listIndex = _index;
+
+	pDesc.vPosition = _float3(0.f, 0.f, 0.f);
+	pDesc.vScale = _float3(1.f,1.f,1.f);
+	pDesc.LevelIndex = LEVEL_TEST;
+	pDesc.eType = CGameObject::ANIM_MONSTER;
+
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Octorok"), TEXT("Prototype_GameObject_Octorok"), &pDesc)))
+		return E_FAIL;
+
 
 	return S_OK;
 }
