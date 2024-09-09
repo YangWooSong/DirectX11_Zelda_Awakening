@@ -65,7 +65,10 @@ HRESULT CDeguTail_01::Initialize(void* pArg)
 void CDeguTail_01::Priority_Update(_float fTimeDelta)
 {
     if (m_isDead)
+    {
+        m_pColliderCom->Set_IsActive(false);
         m_bRender = false;
+    }
 }
 
 void CDeguTail_01::Update(_float fTimeDelta)
@@ -199,33 +202,19 @@ void CDeguTail_01::OnCollisionEnter(CGameObject* pOther)
 {
     if (m_pColliderCom->Get_IsColl())
     {
-        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
         {
-            int a = 10;
+            m_pHeadFsm->Change_State(GUARD);
         }
     }
 }
 
 void CDeguTail_01::OnCollisionStay(CGameObject* pOther)
 {
-    if (m_pColliderCom->Get_IsColl())
-    {
-        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
-        {
-            int a = 10;
-        }
-    }
 }
 
 void CDeguTail_01::OnCollisionExit(CGameObject* pOther)
 {
-    if (m_pColliderCom->Get_IsColl())
-    {
-        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
-        {
-            int a = 10;
-        }
-    }
 }
 
 
@@ -255,9 +244,9 @@ HRESULT CDeguTail_01::Ready_Components()
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
     ColliderDesc.vExtents = m_pTransformCom->Get_Scaled();
-    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+    ColliderDesc.vCenter = _float3(0.f, 0.f, 0.f);
 
-    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_Sphere"),
         TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);

@@ -23,6 +23,7 @@ HRESULT CState_DeguTail_Dead::Start_State()
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
 
     m_pGameInstance->Stop_BGM();
+    m_pOwner->Get_Sound()->Stop();
     m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Hit.wav"), 1.f);
     return S_OK;
 }

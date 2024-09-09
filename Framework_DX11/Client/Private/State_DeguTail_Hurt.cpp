@@ -29,6 +29,7 @@ HRESULT CState_DeguTail_Hurt::Start_State()
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
     m_pOwner->Minus_Hp();
 
+    m_pOwner->Get_Sound()->Stop();
     m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Hit.wav"), 1.f);
   
   

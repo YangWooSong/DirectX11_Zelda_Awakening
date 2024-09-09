@@ -203,9 +203,9 @@ HRESULT CDeguTail_00::Ready_Components()
 	/* For.Com_Collider */
 	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
 	ColliderDesc.vExtents = m_pTransformCom->Get_Scaled();
-	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+	ColliderDesc.vCenter = _float3(0.f, 0.f, 0.f);
 
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_Sphere"),
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
@@ -300,7 +300,10 @@ void CDeguTail_00::Kill_Parts(_float fTimeDelta)
 	if(fTimer > 0.5f)
 	{
 		if (m_iPartIndex == 0)
+		{
 			m_isDead = true;
+			m_pColliderCom->Set_IsActive(false);
+		}
 
 		--m_iPartIndex;
 

@@ -58,7 +58,10 @@ HRESULT CDeguTail_04::Initialize(void* pArg)
 void CDeguTail_04::Priority_Update(_float fTimeDelta)
 {
     if (m_isDead)
+    {
+        m_pColliderCom->Set_IsActive(false);
         m_bRender = false;
+    }
 }
 
 void CDeguTail_04::Update(_float fTimeDelta)
@@ -147,6 +150,25 @@ HRESULT CDeguTail_04::Render()
 #endif
     }
     return S_OK;
+}
+
+void CDeguTail_04::OnCollisionEnter(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
+        {
+            m_pHeadFsm->Change_State(CDeguTail_00::HURT);
+        }
+    }
+}
+
+void CDeguTail_04::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CDeguTail_04::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 

@@ -26,6 +26,7 @@ private:
 
     _uint               m_iCurrentAnimIndex = {};
     _float              m_fPlayerSpeed = { 0.f };
+    _float              m_fPressTime = { 0.f };
 
     class CItem* m_pPlayer_ItemA = { nullptr };
     class CItem* m_pPlayer_ItemB = { nullptr };
