@@ -13,6 +13,7 @@
 #include "Component.h"
 #include "Navigation.h"
 #include "Collider.h"
+#include "Sound.h"
 
 #include "Bounding_AABB.h"
 #include "Bounding_OBB.h"

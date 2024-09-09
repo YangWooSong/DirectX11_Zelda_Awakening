@@ -239,6 +239,23 @@ HRESULT CLink::Ready_Components()
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
 
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pVoiceSoundCom))))
+		return E_FAIL;
+	m_pVoiceSoundCom->Set_Owner(this);
+
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pWeapontSoundCom))))
+		return E_FAIL;
+	m_pWeapontSoundCom->Set_Owner(this);
+
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pEffectSoundCom))))
+		return E_FAIL;
+	m_pEffectSoundCom->Set_Owner(this);
 	return S_OK;
 }
 
@@ -321,6 +338,10 @@ void CLink::Free()
 
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
+
 	Safe_Release(m_pFsmCom);
+	Safe_Release(m_pVoiceSoundCom);
+	Safe_Release(m_pWeapontSoundCom);
+	Safe_Release(m_pEffectSoundCom);
 
 }

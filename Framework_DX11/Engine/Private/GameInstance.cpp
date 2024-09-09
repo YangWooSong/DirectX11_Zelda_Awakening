@@ -375,55 +375,46 @@ KEY_STATE CGameInstance::Get_KeyState(KEY _eKey)
 
 #pragma region SOUND_MANAGER
 
-void CGameInstance::Play_Sound(const TCHAR* pSoundKey, _uint eID, _float fVolume)
-{
-	m_pSound_Manager->PlaySound(pSoundKey, eID, fVolume);
-}
-
-void CGameInstance::Play_SoundRepeat(const TCHAR* pSoundKey, _uint eID, _float fVolume)
-{
-	m_pSound_Manager->Play_SoundRepeat(pSoundKey, eID, fVolume);
-}
-
 void CGameInstance::Play_BGM(const TCHAR* pSoundKey, _float fVolume)
 {
 	m_pSound_Manager->Play_BGM(pSoundKey, fVolume);
 }
 
-void CGameInstance::Stop_Sound(_uint eID)
+void CGameInstance::Stop_BGM()
 {
-	m_pSound_Manager->Stop_Sound(eID);
+	m_pSound_Manager->Stop_BGM();
 }
 
-void CGameInstance::Stop_All()
+void CGameInstance::Pause_BGM()
 {
-	m_pSound_Manager->Stop_All();
+	m_pSound_Manager->Pause_BGM();
 }
 
-void CGameInstance::Set_ChannelVolume(_uint eID, _float fVolume)
+void CGameInstance::SetVolume_BGM(_float fVolume)
 {
-	m_pSound_Manager->Set_ChannelVolume(eID, fVolume);
+	m_pSound_Manager->SetVolume_BGM(fVolume);
 }
 
-void CGameInstance::Set_ChannelVolume_Distance(_uint eID, _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume)
+void CGameInstance::Set_Listener(CGameObject* pListener)
 {
-	m_pSound_Manager->Set_ChannelVolume_Distance(eID, vCurPos, vTargetPos, fMaxDistance, fMaxVolume);
+	m_pSound_Manager->Set_Listener(pListener);
 }
 
-void CGameInstance::Set_PlayeSpeed(_uint eID, _float fSpeedRatio)
+FMOD::System* CGameInstance::Get_SoundSystem()
 {
-	m_pSound_Manager->Set_PlayeSpeed(eID, fSpeedRatio);
+	return m_pSound_Manager->Get_System();
 }
 
-void CGameInstance::Pause(_uint eID)
+map<TCHAR*, FMOD::Sound*>& CGameInstance::Get_Sounds()
 {
-	m_pSound_Manager->Pause(eID);
+	return m_pSound_Manager->Get_Sounds();
 }
 
-_bool CGameInstance::IsPlaying(_uint eID)
+void CGameInstance::LoadSoundFile(const char* pFolderName)
 {
-	return m_pSound_Manager->IsPlaying(eID);
+	m_pSound_Manager->LoadSoundFile(pFolderName);
 }
+
 #pragma endregion
 
 #pragma region EVENT_MANAGER

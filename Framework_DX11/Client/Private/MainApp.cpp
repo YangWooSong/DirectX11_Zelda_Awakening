@@ -99,6 +99,11 @@ HRESULT CMainApp::Ready_Prototype_Component_Static()
 		CFsm::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Fsm */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		CSound::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 	/* For. Prototype_Component_Shader_VtxAnimModel */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxAnimModel"),
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxAnimModel.hlsl"), VTXANIMMESH::Elements, VTXANIMMESH::iNumElements))))

@@ -1,6 +1,8 @@
 #include "Sound_Manager.h"
 #include "Timer_Manager.h"
 
+#include "GameObject.h"
+
 CSound_Manager::CSound_Manager()
 	:CBase{}
 {
@@ -11,174 +13,99 @@ HRESULT CSound_Manager::Initialize()
 	// 사운드를 담당하는 대표객체를 생성하는 함수
 	FMOD::System_Create(&m_pSystem);
 
-	m_pSystem->init(30, FMOD_INIT_NORMAL, nullptr);
+	m_pSystem->init(300, FMOD_INIT_NORMAL, nullptr);
 
 	if (m_pSystem == nullptr)
 		return E_FAIL;
 
-	LoadSoundFile();
-
 	return S_OK;
 }
 
-void CSound_Manager::PlaySound(const TCHAR* pSoundKey, _uint eID, _float fVolume)
+void CSound_Manager::Update()
 {
-	map<TCHAR*, FMOD::Sound*>::iterator iter;
+	if (nullptr != m_pListenerObject)
+	{
+		_matrix WorldMatrix = m_pListenerObject->Get_Transform()->Get_WorldMatrix();
 
-	// iter = find_if(m_mapSound.begin(), m_mapSound.end(), CTag_Finder(pSoundKey));
-	iter = find_if(m_Sounds.begin(), m_Sounds.end(),
-		[&](auto& iter)->bool
-		{
-			return !lstrcmp(pSoundKey, iter.first);
-		});
+		_vector vUp = XMVector3Normalize(WorldMatrix.r[1]);
+		_vector vLook = XMVector3Normalize(WorldMatrix.r[2]);
+		_vector vPos = WorldMatrix.r[3];
 
-	if (iter == m_Sounds.end())
-		return;
+		FMOD_VECTOR ListenerPos = { XMVectorGetX(vPos), XMVectorGetY(vPos), XMVectorGetZ(vPos) };
+		FMOD_VECTOR ListenerUp = { XMVectorGetX(vUp), XMVectorGetY(vUp), XMVectorGetZ(vUp) };
+		FMOD_VECTOR ListenerLook = { XMVectorGetX(vLook), XMVectorGetY(vLook), XMVectorGetZ(vLook) };
 
-	FMOD_BOOL bPlay = FALSE;
-
-	m_pSystem->playSound(iter->second, 0, false, &m_pChannelArr[eID]);
-
-	m_pChannelArr[eID]->setVolume(fVolume);
+		m_pSystem->set3DListenerAttributes(0, &ListenerPos, 0, &ListenerUp, &ListenerLook);
+	}
 
 	m_pSystem->update();
-
-	//if (FMOD_Channel_IsPlaying(m_pChannelArr[eID], &bPlay))
-	//{
-	//	FMOD_System_PlaySound(m_pSystem, 0, iter->second, FALSE, &m_pChannelArr[eID]);
-	//}
-
-	//FMOD_Channel_SetVolume(m_pChannelArr[eID], fVolume);
-
-	//FMOD_System_Update(m_pSystem);
-}
-
-void CSound_Manager::Play_SoundRepeat(const TCHAR* pSoundKey, _uint eID, _float fVolume)
-{
-	if (!IsPlaying(eID))
-	{
-		PlaySound(pSoundKey, eID, fVolume);
-	}
 }
 
 void CSound_Manager::Play_BGM(const TCHAR* pSoundKey, _float fVolume)
 {
-	map<TCHAR*, FMOD::Sound*>::iterator iter;
-
-	// iter = find_if(m_mapSound.begin(), m_mapSound.end(), CTag_Finder(pSoundKey));
-	iter = find_if(m_Sounds.begin(), m_Sounds.end(), [&](auto& iter)->bool
-		{
-			return !lstrcmp(pSoundKey, iter.first);
-		});
+	auto iter = Find_Sound(pSoundKey);
 
 	if (iter == m_Sounds.end())
 		return;
 
 	//FMOD_System_PlaySound(m_pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &m_pChannelArr[SOUND_BGM]);
-	m_pSystem->playSound(iter->second, 0, false, &m_pChannelArr[0]);
+	m_pSystem->playSound(iter->second, 0, false, &m_pBGMChannel);
 
 	//FMOD_Channel_SetMode(m_pChannelArr[SOUND_BGM], FMOD_LOOP_NORMAL);
-	m_pChannelArr[0]->setMode(FMOD_LOOP_NORMAL);
+	m_pBGMChannel->setMode(FMOD_LOOP_NORMAL);
 
 	//FMOD_Channel_SetVolume(m_pChannelArr[SOUND_BGM], fVolume);
-	m_pChannelArr[0]->setVolume(fVolume);
-
-	//FMOD_System_Update(m_pSystem);
-	m_pSystem->update();
+	m_pBGMChannel->setVolume(fVolume);
 }
 
-void CSound_Manager::Stop_Sound(_uint eID)
+void CSound_Manager::Stop_BGM()
 {
-	//FMOD_Channel_Stop(m_pChannelArr[eID]);
-	m_pChannelArr[eID]->stop();
+	m_pBGMChannel->stop();
 }
 
-void CSound_Manager::Stop_All()
+void CSound_Manager::Pause_BGM()
 {
-	for (int i = 0; i < 30; ++i)
-		m_pChannelArr[i]->stop();
+	_bool isPause;
+	m_pBGMChannel->getPaused(&isPause);
+	m_pBGMChannel->setPaused(!isPause);
 }
 
-void CSound_Manager::Set_ChannelVolume(_uint eID, _float fVolume)
+void CSound_Manager::SetVolume_BGM(_float fVolume)
 {
-	//FMOD_Channel_SetVolume(m_pChannelArr[eID], fVolume);
-	m_pChannelArr[eID]->setVolume(fVolume);
-
-	//FMOD_System_Update(m_pSystem);
-	m_pSystem->update();
+	m_pBGMChannel->setVolume(fVolume);
 }
 
-void CSound_Manager::Set_ChannelVolume_Distance(_uint eID, _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume)
-{
-	_float fDistance =fabs( XMVectorGetX(vCurPos - vTargetPos));
-
-	_float fVolume = 0.f;
-
-	if(fDistance > fMaxDistance)
-	{
-		m_pChannelArr[eID]->setVolume(fVolume);
-		return;
-	}
-	
-	fVolume = 1 - (fDistance / fMaxDistance);
-	fVolume = min(fVolume, fMaxVolume);
-	m_pChannelArr[eID]->setVolume(fVolume);
-}
-
-void CSound_Manager::Set_PlayeSpeed(_uint eID, _float fSpeedRatio)
-{
-	_float fCurrentFrequency = {};
-	m_pChannelArr[eID]->getFrequency(&fCurrentFrequency);
-
-	//44100.f
-	m_pChannelArr[eID]->setFrequency(fCurrentFrequency * fSpeedRatio);
-
-	m_pSystem->update();
-}
-
-void CSound_Manager::Pause(_uint eID)
-{
-	_bool bIsPause;
-	m_pChannelArr[eID]->getPaused(&bIsPause);
-
-	m_pChannelArr[eID]->setPaused(bIsPause);
-}
-
-_bool CSound_Manager::IsPlaying(_uint eID)
-{
-	_bool isPlay;
-
-	m_pChannelArr[eID]->isPlaying(&isPlay);
-
-	return isPlay;
-}
-
-void CSound_Manager::LoadSoundFile()
+void CSound_Manager::LoadSoundFile(const char* pFolderName)
 {
 	// _finddata_t : <io.h>에서 제공하며 파일 정보를 저장하는 구조체
 	_finddata_t fd;
 
+	char path[MAX_PATH] = "../../Client/Bin/Sound/";
+	strcat_s(path, MAX_PATH, pFolderName);
+	strcat_s(path, MAX_PATH, "/*");
+
 	// _findfirst : <io.h>에서 제공하며 사용자가 설정한 경로 내에서 가장 첫 번째 파일을 찾는 함수
-	intptr_t handle = _findfirst("../../Client/Bin//Sounds/*", &fd);
+	intptr_t handle = _findfirst(path, &fd);
 
 	if (handle == -1)
 		return;
 
 	int iResult = 0;
 
-	char szCurPath[128] = "../../Client/Bin/Sounds/";	 // 상대 경로
-	char szFullPath[128] = "";
+	char szCurPath[MAX_PATH] = "../../Client/Bin/Sound/";
+	char szFullPath[MAX_PATH] = "";
 
 	while (iResult != -1)
 	{
 		strcpy_s(szFullPath, szCurPath);
+		strcat_s(szFullPath, pFolderName);
+		strcat_s(szFullPath, MAX_PATH, "/");
 		strcat_s(szFullPath, fd.name);
 
-		//FMOD_SOUND* pSound = nullptr;
 		FMOD::Sound* pSound = nullptr;
 
 		//FMOD_RESULT eRes = FMOD_System_CreateSound(m_pSystem, szFullPath, FMOD_HARDWARE, 0, &pSound);
-		FMOD_RESULT eRes = m_pSystem->createSound(szFullPath, FMOD_LOOP_OFF, 0, &pSound);
+		FMOD_RESULT eRes = m_pSystem->createSound(szFullPath, FMOD_LOOP_OFF | FMOD_3D, 0, &pSound);
 
 		if (eRes == FMOD_OK)
 		{
@@ -190,15 +117,39 @@ void CSound_Manager::LoadSoundFile()
 			// 아스키 코드 문자열을 유니코드 문자열로 변환시켜주는 함수
 			MultiByteToWideChar(CP_ACP, 0, fd.name, iLength, pSoundKey, iLength);
 
+			pSound->set3DMinMaxDistance(8.f, 30.f);
 			m_Sounds.emplace(pSoundKey, pSound);
 		}
 		//_findnext : <io.h>에서 제공하며 다음 위치의 파일을 찾는 함수, 더이상 없다면 -1을 리턴
 		iResult = _findnext(handle, &fd);
 	}
 
-	m_pSystem->update();
-
 	_findclose(handle);
+}
+
+void CSound_Manager::Clear()
+{
+	for (auto& Pair : m_Sounds)
+	{
+		delete[] Pair.first;
+
+		//FMOD_Sound_Release(Mypair.second);
+		Pair.second->release();
+	}
+	m_Sounds.clear();
+}
+
+map<TCHAR*, FMOD::Sound*>::iterator CSound_Manager::Find_Sound(const TCHAR* pSoundKey)
+{
+	map<TCHAR*, FMOD::Sound*>::iterator iter;
+
+	// iter = find_if(m_mapSound.begin(), m_mapSound.end(), CTag_Finder(pSoundKey));
+	iter = find_if(m_Sounds.begin(), m_Sounds.end(), [&](auto& iter)->bool
+		{
+			return !lstrcmp(pSoundKey, iter.first);
+		});
+
+	return iter;
 }
 
 CSound_Manager* CSound_Manager::Create()
@@ -225,6 +176,6 @@ void CSound_Manager::Free()
 	}
 	m_Sounds.clear();
 
-	m_pSystem->release();
 	m_pSystem->close();
+	m_pSystem->release();
 }

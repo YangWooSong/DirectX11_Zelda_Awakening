@@ -101,16 +101,14 @@ public:
 #pragma endregion
 
 #pragma region SOUND_MANAGER
-	void	Play_Sound(const TCHAR* pSoundKey, _uint eID, _float fVolume);
-	void	Play_SoundRepeat(const TCHAR* pSoundKey, _uint eID, _float fVolume);
-	void	Play_BGM(const TCHAR* pSoundKey, _float fVolume);
-	void	Stop_Sound(_uint eID);
-	void	Stop_All();
-	void	Set_ChannelVolume(_uint eID, _float fVolume);
-	void	Set_ChannelVolume_Distance(_uint eID, _fvector vCurPos, _fvector vTargetPos, _float fMaxDistance, _float fMaxVolume = 1.f);
-	void	Set_PlayeSpeed(_uint eID, _float fSpeedRatio);
-	void	Pause(_uint eID);
-	_bool	IsPlaying(_uint eID);
+	void Play_BGM(const TCHAR* pSoundKey, _float fVolume);
+	void Stop_BGM();
+	void Pause_BGM();
+	void SetVolume_BGM(_float fVolume);
+	void	Set_Listener(class CGameObject* pListener);
+	FMOD::System* Get_SoundSystem();
+	map<TCHAR*, FMOD::Sound*>& Get_Sounds();
+	void	LoadSoundFile(const char* pFolderName);
 #pragma endregion
 
 #pragma region EVENT_MANAGER

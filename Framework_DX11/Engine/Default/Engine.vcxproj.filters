@@ -55,9 +55,6 @@
     <Filter Include="01.Utility\08.KeyManager">
       <UniqueIdentifier>{59039c63-ace4-4985-848b-1a095c105627}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\09.SoundManager">
-      <UniqueIdentifier>{d03e72a8-3d62-44fa-879c-e03837e8a1bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\10.PhysXManager">
       <UniqueIdentifier>{271d1bef-a092-4d98-b181-930aa3cec8eb}</UniqueIdentifier>
     </Filter>
@@ -175,6 +172,12 @@
     <Filter Include="01.Utility\03.Components\Collider\Manager">
       <UniqueIdentifier>{9ec73ee5-ed89-4037-9431-4fa59b2efe8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\Sound">
+      <UniqueIdentifier>{d425f451-c500-4174-aafa-a92503b0d91d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\Sound\00.SoundManager">
+      <UniqueIdentifier>{d03e72a8-3d62-44fa-879c-e03837e8a1bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -229,7 +232,7 @@
       <Filter>01.Utility\08.KeyManager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Sound_Manager.cpp">
-      <Filter>01.Utility\09.SoundManager</Filter>
+      <Filter>01.Utility\03.Components\Sound\00.SoundManager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\PhysX_Manager.cpp">
       <Filter>01.Utility\10.PhysXManager</Filter>
@@ -339,6 +342,9 @@
     <ClCompile Include="..\Private\Collider_Manager.cpp">
       <Filter>01.Utility\03.Components\Collider\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\Sound.cpp">
+      <Filter>01.Utility\03.Components\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -411,7 +417,7 @@
       <Filter>01.Utility\08.KeyManager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Sound_Manager.h">
-      <Filter>01.Utility\09.SoundManager</Filter>
+      <Filter>01.Utility\03.Components\Sound\00.SoundManager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\PhysX_Manager.h">
       <Filter>01.Utility\10.PhysXManager</Filter>
@@ -518,6 +524,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Collider_Manager.h">
       <Filter>01.Utility\03.Components\Collider\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Sound.h">
+      <Filter>01.Utility\03.Components\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
