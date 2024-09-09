@@ -56,8 +56,8 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
 
     if (m_fAngryTimer > 3.f)
     {
-    //    if (m_pGameInstance->IsPlaying(SOUND_MONSTER))
-        //    m_pGameInstance->Stop_Sound(SOUND_MONSTER);
+        if (m_pOwner->Get_Sound()->Get_IsPlaying())
+            m_pOwner->Get_Sound()->Stop();
         m_fAngryTimer = 0.f;
         m_bAngry = false;
         m_fSpeed = 5.f;

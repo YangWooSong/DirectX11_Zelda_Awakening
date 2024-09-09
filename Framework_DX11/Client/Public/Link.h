@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CFsm;
+class CSound;
 END
 
 BEGIN(Client)

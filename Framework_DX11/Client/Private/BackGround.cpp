@@ -67,8 +67,6 @@ void CBackGround::Update(_float fTimeDelta)
 
 		m_fY += m_fSpeed;	
 	}
-
-	m_pSoundCom->Update(fTimeDelta);
 }
 
 void CBackGround::Late_Update(_float fTimeDelta)

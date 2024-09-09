@@ -31,10 +31,10 @@ void CState_Link_Fall::Update(_float fTimeDelta)
 	if (m_pPlayer->Get_IsEnd_CurrentAnimation())
 	{
 		m_fTimer += fTimeDelta;
-		if(m_bPlaySound == false)
+		if(m_bPlay_Sound == false)
 		{
-	//		m_pGameInstance->Play_Sound(TEXT("1_Link_Fall.wav"), SOUND_PLAYER, 0.8f);
-			m_bPlaySound = true;
+			m_pPlayer->Get_PlayerSound()->Play_Sound(TEXT("1_Link_Fall.wav"), 0.8f);
+			m_bPlay_Sound = true;
 		}
 		m_pPlayer->Get_Transform()->Go_World_Down(fTimeDelta, 5.f);
 	}
@@ -49,7 +49,7 @@ void CState_Link_Fall::Update(_float fTimeDelta)
 
 void CState_Link_Fall::End_State()
 {
-	m_bPlaySound = false;
+	m_bPlay_Sound = false;
 	m_fTimer = 0.f;
 }
 

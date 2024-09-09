@@ -31,6 +31,9 @@ public:
 	CFsm*			Get_Fsm() { return m_pFsmCom; }
 	CCollider*		Get_Collider() { return m_pColliderCom; }
 
+	CSound* Get_PlayerSound() { return m_pPlayerSoundCom; }
+	CSound* Get_EffectSound() { return m_pEffectSoundCom; }
+
 	_float					Get_MoveSpeed() { return m_fMoveSpeed; }
 	void					Set_MoveSpeed(_float fSpeed) { m_fMoveSpeed = fSpeed; }
 
@@ -96,7 +99,6 @@ protected:
 	CCollider* m_pColliderCom = { nullptr };
 
 	CSound* m_pPlayerSoundCom = { nullptr };
-	CSound* m_pBGMSoundCom = { nullptr };
 	CSound* m_pEffectSoundCom = { nullptr };
 protected:
 	_float				m_fMoveSpeed = { 4.f};

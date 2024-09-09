@@ -21,7 +21,7 @@ HRESULT CState_Link_Damage_Front::Start_State()
 {
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
 	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 80.f);
-	//m_pGameInstance->Play_Sound(TEXT("1_Link_Sword_Damage_Front.wav"), SOUND_PLAYER, 1.f);
+	m_pPlayer->Get_PlayerSound()->Play_Sound(TEXT("1_Link_Sword_Damage_Front.wav"), 1.f);
 	m_pPlayer->Set_bBodyRed(true);
 	m_pPlayer->Get_Collider()->Set_IsActive(false);
 	return S_OK;

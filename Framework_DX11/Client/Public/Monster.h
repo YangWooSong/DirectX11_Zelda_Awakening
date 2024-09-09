@@ -9,6 +9,7 @@ class CModel;
 class CFsm;
 class CNavigation;
 class CCollider;
+class CSound;
 END
 
 BEGIN(Client)
@@ -71,6 +72,8 @@ public:
 	_vector Get_Pos_vector();
 	CNavigation* Get_NavigationCom() { return m_pNavigationCom; }
 	CFsm* Get_Fsm() { return m_pFsmCom; }
+	CSound* Get_Sound() { return m_pMonsterSoundCom; }
+
 	_int Get_CurrentCellNum(); 
 
 	_int Get_Hp() { return m_iHp; }
@@ -81,11 +84,12 @@ protected:
 	HRESULT Ready_Components();
 
 protected:
-	class CModel* m_pModelCom = { nullptr };
-	class CShader* m_pShaderCom = { nullptr };
-	class CFsm* m_pFsmCom = { nullptr };
-	class CNavigation* m_pNavigationCom = { nullptr };
-	class CCollider* m_pColliderCom = { nullptr };
+	CModel* m_pModelCom = { nullptr };
+	CShader* m_pShaderCom = { nullptr };
+	CFsm* m_pFsmCom = { nullptr };
+	CNavigation* m_pNavigationCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
+	CSound* m_pMonsterSoundCom = { nullptr };
 
 protected:
 	_float				m_fMoveSpeed = { 3.f };

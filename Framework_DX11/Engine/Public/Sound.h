@@ -31,7 +31,7 @@ public:
 	//void	Play3D(const TCHAR* pSoundKey, _float fVolume);
 	//void	Play3D_Repeat(const TCHAR* pSoundKey, _float fVolume);
 
-	void	PlaySound(const TCHAR* pSoundKey, _float fVolume = 1.f);
+	void	Play_Sound(const TCHAR* pSoundKey, _float fVolume = 1.f, _bool bRepeat = false);
 	void	Play_SoundRepeat(const TCHAR* pSoundKey, _float fVolume = 1.f);
 
 	void	Pause();

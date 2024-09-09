@@ -30,13 +30,14 @@ HRESULT CLevel_MarinHouse::Initialize()
 
 	Read();
 
+	m_pGameInstance->Play_BGM(TEXT("0_House_Inside.wav"), 0.8f);
 
 	return S_OK;
 }
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-	//m_pGameInstance->Play_SoundRepeat(TEXT("0_House_Inside.wav"), SOUND_BGM, 0.6f);
+
 
 	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_MARINHOUSE));
 
@@ -59,7 +60,7 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
-		//m_pGameInstance->Stop_All();
+		m_pGameInstance->Stop_BGM();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
 			return;
 	}
@@ -115,8 +116,6 @@ HRESULT CLevel_MarinHouse::Ready_Layer_Camera()
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
 		return E_FAIL;
-
-	//m_pGameInstance->Play_SoundRepeat(TEXT("0_House_First.ry.wav"), SOUND_BGM, 0.8f);
 
 	return S_OK;
 }

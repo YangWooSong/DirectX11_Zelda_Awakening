@@ -21,7 +21,7 @@ HRESULT CState_DeguTail_Appear::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
-  //  m_pGameInstance->Play_Sound(TEXT("2_DeguTail_Appear.wav"), SOUND_MONSTER, 1.f);
+    m_pOwner->Get_Sound()->Play_Sound(TEXT("2_DeguTail_Appear.wav"), 1.f);
     return S_OK;
 }
 
@@ -33,8 +33,8 @@ void CState_DeguTail_Appear::Update(_float fTimeDelta)
 
 void CState_DeguTail_Appear::End_State()
 {
-  //  m_pGameInstance->Stop_Sound(SOUND_BGM);
-  //  m_pGameInstance->Play_SoundRepeat(TEXT("0_Dangeon_Boss.wav"), SOUND_BGM, 0.6f);
+    m_pGameInstance->Stop_BGM();
+     m_pGameInstance->Play_BGM(TEXT("0_Dangeon_Boss.wav"), 0.6f);
 }
 
 CState_DeguTail_Appear* CState_DeguTail_Appear::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

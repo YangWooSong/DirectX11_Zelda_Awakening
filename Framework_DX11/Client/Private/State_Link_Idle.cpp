@@ -21,7 +21,9 @@ HRESULT CState_Link_Idle::Initialize(_uint iStateNum)
 HRESULT CState_Link_Idle::Start_State()
 {
     m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-    return S_OK;
+	m_pPlayer->Get_PlayerSound()->Stop();
+
+	return S_OK;
 }
 
 void CState_Link_Idle::Update(_float fTimeDelta)

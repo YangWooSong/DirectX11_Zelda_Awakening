@@ -80,6 +80,8 @@ void CLink::Update(_float fTimeDelta)
 	m_pFsmCom->Update(fTimeDelta);
 	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 	m_pModelCom->Play_Animation(fTimeDelta);
+	m_pPlayerSoundCom->Update(fTimeDelta);
+	m_pEffectSoundCom->Update(fTimeDelta);
 
 //	int a = m_pNavigationCom->Get_PreCellIndex();
 
@@ -241,19 +243,13 @@ HRESULT CLink::Ready_Components()
 
 	/* FOR.Com_Sound */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
-		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pPlayerSoundCom))))
+		TEXT("Com_Sound0"), reinterpret_cast<CComponent**>(&m_pPlayerSoundCom))))
 		return E_FAIL;
 	m_pPlayerSoundCom->Set_Owner(this);
 
 	/* FOR.Com_Sound */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
-		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pBGMSoundCom))))
-		return E_FAIL;
-	m_pBGMSoundCom->Set_Owner(this);
-
-	/* FOR.Com_Sound */
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
-		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pEffectSoundCom))))
+		TEXT("Com_Sound1"), reinterpret_cast<CComponent**>(&m_pEffectSoundCom))))
 		return E_FAIL;
 	m_pEffectSoundCom->Set_Owner(this);
 	return S_OK;
@@ -341,7 +337,6 @@ void CLink::Free()
 
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pPlayerSoundCom);
-	Safe_Release(m_pBGMSoundCom);
 	Safe_Release(m_pEffectSoundCom);
 
 }

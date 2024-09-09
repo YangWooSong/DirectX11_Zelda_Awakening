@@ -79,11 +79,8 @@ void CSound::Update(_float fTimeDelta)
 //	}
 //}
 
-void CSound::PlaySound(const TCHAR* pSoundKey, _float fVolume)
+void CSound::Play_Sound(const TCHAR* pSoundKey, _float fVolume, _bool bRepeat)
 {
-	if (m_isPlaying)
-		m_pChannel->stop();
-
 	map<TCHAR*, FMOD::Sound*> Sounds = m_pGameInstance->Get_Sounds();
 
 	map<TCHAR*, FMOD::Sound*>::iterator iter;
@@ -108,8 +105,8 @@ void CSound::PlaySound(const TCHAR* pSoundKey, _float fVolume)
 
 void CSound::Play_SoundRepeat(const TCHAR* pSoundKey, _float fVolume)
 {
-	if (m_isPlaying == false)
-		PlaySound(pSoundKey, fVolume);
+	if (!m_isPlaying)
+		Play_Sound( pSoundKey, fVolume);
 }
 
 void CSound::Pause()

@@ -67,6 +67,8 @@ void CDeguTail_00::Update(_float fTimeDelta)
 {
 	if (m_isDead == false)
 	{
+		m_pMonsterSoundCom->Update(fTimeDelta);
+
 		if (m_pNavigationCom != nullptr)
 			m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.5f, fTimeDelta);
 
@@ -154,10 +156,9 @@ HRESULT CDeguTail_00::Render()
 
 #ifdef _DEBUG
 		m_pColliderCom->Render();
-#endif
-
-		return S_OK;
+#endif	
 	}
+	return S_OK;
 }
 
 void CDeguTail_00::OnCollisionEnter(CGameObject* pOther)
@@ -208,6 +209,12 @@ HRESULT CDeguTail_00::Ready_Components()
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
+
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pMonsterSoundCom))))
+		return E_FAIL;
+	m_pMonsterSoundCom->Set_Owner(this);
 
 	return S_OK;
 }
@@ -300,7 +307,7 @@ void CDeguTail_00::Kill_Parts(_float fTimeDelta)
 		if (m_iPartIndex < 0)
 			m_iPartIndex = 0;
 
-		//m_pGameInstance->Play_Sound(TEXT("3_Monster_Explosion.wav"), SOUND_MONSTER, 1.f);
+		m_pMonsterSoundCom->Play_Sound(TEXT("3_Monster_Explosion.wav"), 1.f);
 		m_Parts[m_iPartIndex]->Set_Dead(true);
 		fTimer = 0.f;
 	}
@@ -339,5 +346,6 @@ void CDeguTail_00::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 	Safe_Release(m_pFsmCom);
+	Safe_Release(m_pMonsterSoundCom);
 }
 
