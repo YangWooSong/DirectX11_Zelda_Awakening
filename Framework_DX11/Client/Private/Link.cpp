@@ -193,10 +193,8 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 {
 	if (m_pColliderCom->Get_IsColl())
 	{
-		if (pOther->Get_LayerTag() == TEXT("Layer_Monster"))
-		{
+		if(pOther->Get_ObjType() ==CGameObject::ANIM_MONSTER)
 			Change_State(DAMAGE_FRONT);
-		}
 	}
 }
 

@@ -50,8 +50,8 @@ HRESULT CDeguTail_04::Initialize(void* pArg)
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
     m_bRender = false;
 
-    Set_LayerTag(TEXT("Layer_Monster"));
-
+    Set_LayerTag(TEXT("Layer_DeguTail_04"));
+    m_eObjType = CGameObject::ANIM_MONSTER;
     return S_OK;
 }
 

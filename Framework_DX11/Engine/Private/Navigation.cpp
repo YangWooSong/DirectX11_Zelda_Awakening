@@ -209,11 +209,24 @@ _uint CNavigation::isSlide(_fvector vLook)
 {
 	_float fAngle = m_Cells[m_iCurrentCellIndex]->Culculate_InputAngle(vLook, m_vOutLine);
 
-	if ((fAngle >= 0.f && fAngle < 20.f))
+	if ((fAngle >= 0.f && fAngle < 30.f))
 	{
 		return SLIDE_FORWARD;
 	}
-	else if ((fAngle > 160.f && fAngle <= 180.f))
+	else if ((fAngle > 150.f && fAngle <= 180.f))
+		return SLIDE_BACKWARD;
+	return SLIDE_END;
+}
+
+_uint CNavigation::SlideDir(_fvector vLook)
+{
+	_float fAngle = m_Cells[m_iCurrentCellIndex]->Culculate_InputAngle(vLook, m_vOutLine);
+
+	if ((fAngle >= 0.f && fAngle < 45.f))
+	{
+		return SLIDE_FORWARD;
+	}
+	else if ((fAngle >135.f && fAngle <= 180.f))
 		return SLIDE_BACKWARD;
 	return SLIDE_END;
 }

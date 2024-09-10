@@ -29,6 +29,7 @@ private:
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iOwnerDir = {};
 
+    _bool               m_bGoStraight = { true };
 
     _float              m_fSpeed = { 0.f };
     _float              m_fTimer = { 0.f };

@@ -24,6 +24,8 @@ HRESULT CDetector::Initialize(void* pArg)
 
 	DETECTOR_DESC* pDesc = static_cast<DETECTOR_DESC*>(pArg);
 	m_pDetect = pDesc->pDetect;
+	m_vSize = pDesc->vSize;
+	m_vOffset = pDesc->vOffset;
 
 	/* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(pArg)))
@@ -99,8 +101,8 @@ HRESULT CDetector::Ready_Components()
 {
 	/* FOR.Com_Collider */
 	CBounding_OBB::BOUNDING_OBB_DESC			ColliderDesc{};
-	ColliderDesc.vExtents = _float3(1.5f, 1.f, 3.f);
-	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 2.5f);
+	ColliderDesc.vExtents = _float3(m_vSize.x, m_vSize.y, m_vSize.z);
+	ColliderDesc.vCenter = _float3(0.f + m_vOffset.x, ColliderDesc.vExtents.y + m_vOffset.y, 0.f + m_vOffset.z);
 	ColliderDesc.vAngles = _float3(0.f, 0.f, 0.f);
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_OBB"),

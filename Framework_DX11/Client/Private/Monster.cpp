@@ -24,6 +24,8 @@ HRESULT CMonster::Initialize(void* pArg)
 	MONSTER_DESC* pDesc = static_cast<MONSTER_DESC*>(pArg);
 
 	m_iLevelIndex = pDesc->LevelIndex;
+	
+
 
 	/* 직교투영을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(&pDesc)))
@@ -66,9 +68,9 @@ HRESULT CMonster::Render()
     return S_OK;
 }
 
-void CMonster::Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation)
+void CMonster::Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation, _bool* bMove)
 {
-	m_pTransformCom->Go_Straight(fTimeDelta, fSpeed, pNavigation);
+	m_pTransformCom->Go_Straight(fTimeDelta, fSpeed, pNavigation, bMove);
 }
 
 void CMonster::Go_Straight_in_Room(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation)

@@ -46,7 +46,7 @@ public:
 	CCollider* Get_Collider() { return m_pColliderCom; }
 
 public:
-	void		Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr);
+	void		Go_Straight(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr, _bool* bMove = nullptr);
 	void		Go_Straight_in_Room(_float fTimeDelta, _float fSpeed, CNavigation* pNavigation = nullptr);
 	void		Go_Straight_in_Room_Reverse(_float fTimeDelta, _float fSpeed, _bool* bReflect = nullptr, CNavigation* pNavigation = nullptr , _int* iStopCount = nullptr);
 

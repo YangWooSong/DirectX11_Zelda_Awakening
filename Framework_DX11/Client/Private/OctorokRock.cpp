@@ -2,6 +2,8 @@
 #include "OctorokRock.h"
 #include "GameInstance.h"
 #include "Monster.h"
+#include "Octorok.h"
+#include "Detector.h"
 
 COctorokRock::COctorokRock(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CPartObject(pDevice, pContext)
@@ -35,7 +37,9 @@ HRESULT COctorokRock::Initialize(void* pArg)
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-    Set_LayerTag(TEXT("Layer_Monster"));
+    m_eObjType = CGameObject::ANIM_MONSTER;
+
+    Set_LayerTag(TEXT("Layer_OctorokRock"));
 
     m_fSpeed = 7.f;
   //  m_isDead = true;
@@ -55,53 +59,50 @@ void COctorokRock::Update(_float fTimeDelta)
         //시작 설정
         Set_StartState();
         m_bShoot = false;
-        m_bFollowParent = false;
+        m_bRender = true;
+        m_isDead = false;
     }
 
     if (m_pNavigationCom != nullptr)
         m_pNavigationCom->SetUp_OnCell(m_pTransformCom, m_fOffset.y, fTimeDelta);
 
-    if(m_bFollowParent == true)
+    //문어 속에 있을 때, 문어 죽을때 
+    if(m_bRender == false || m_pParent->Get_Dead() == true)
     {
         _vector vPosition = m_pParent->Get_Transform()->Get_State(CTransform::STATE_POSITION);
         XMVectorSetY(vPosition, XMVectorGetY(vPosition) + m_fOffset.y);
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPosition);
+        m_pColliderCom->Set_IsActive(false);
     }
     else
     {
+        m_pColliderCom->Set_IsActive(true);
+
         switch (m_iRockDir)
         {
         case FRONT:
-            m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            m_pTransformCom->Go_World_Straight_Slide(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
             break;
         case BACK:
-            m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            m_pTransformCom->Go_World_Backward_Slide(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
             break;
         case LEFT:
-            m_pTransformCom->Go_World_Left(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            m_pTransformCom->Go_World_Left_Slide(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
             break;
         case RIGHT:
-            m_pTransformCom->Go_World_Right(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
+            m_pTransformCom->Go_World_Right_Slide(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bIsMove);
             break;
         default:
             break;
         }
     }
-  
+
     if (m_bIsMove == false )
     {
-        _float fVolume = m_pSoundCom->Culculate_Volume_Distance(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION), 8.f, 0.7f);
-        m_pSoundCom->Play_Sound(TEXT("3_Octarock_RockBreak.wav"), fVolume);
-        m_bFollowParent = true;
-        m_bIsMove = true;
+        Break();
     }
 
-    if (m_pParent->Get_Dead() == true)
-    {
-        m_pColliderCom->Set_IsActive(false);
-    }
-    else
-        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 void COctorokRock::Late_Update(_float fTimeDelta)
 {
@@ -113,7 +114,7 @@ void COctorokRock::Late_Update(_float fTimeDelta)
 
 HRESULT COctorokRock::Render()
 {
-  if(m_bFollowParent == false)
+  if(m_bRender == true)
   {
       if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
           return E_FAIL;
@@ -149,7 +150,8 @@ void COctorokRock::OnCollisionEnter(CGameObject* pOther)
 {
     if (m_pColliderCom->Get_IsColl())
     {
-        m_bIsMove = false;
+        if (pOther->Get_LayerTag() != TEXT("Layer_Octorok") && pOther->Get_LayerTag() != TEXT("Layer_Detector"))
+            Break();
     }
 }
 
@@ -207,10 +209,23 @@ void COctorokRock::Set_Parent(CGameObject* pParent)
     m_pParent = static_cast<CMonster*>(pParent);
 }
 
+void COctorokRock::Break()
+{
+    _float fVolume = m_pSoundCom->Culculate_Volume_Distance(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION), 5.f, 0.4f);
+    m_pSoundCom->Play_Sound(TEXT("3_Octarock_RockBreak.wav"), fVolume);
+    m_bRender = false;
+    m_bIsMove = true;
+    m_isDead = false;
+}
+
 void COctorokRock::Set_StartState()
 {
     m_iRockDir = m_pParent->Get_Monster_Dir();
     m_iCellNum = m_pParent->Get_CurrentCellNum();
+
+    _vector vPosition = m_pParent->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+    XMVectorSetY(vPosition, XMVectorGetY(vPosition) + m_fOffset.y);
+    m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPosition);
 }
 
 COctorokRock* COctorokRock::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

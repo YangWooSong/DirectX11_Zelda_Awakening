@@ -59,12 +59,15 @@ private:
 	_float m_fSpeed = {  };
 	_uint	m_iRockDir = { OCTOROKROCK_DIR_END };
 	_bool m_bShoot = { false };
-	_bool	m_bIsMove = { false };		//벽에 부딪혔는지
-	_bool	m_bFollowParent = { true };	//문어 따라가기
+	_bool	m_bIsMove = { true };		//벽에 부딪혔는지
+	_bool	m_bRender = { false };	//문어 따라가기
 	_float3 m_fOffset = {};
+
+	_bool	m_bBreak = { false };
 	class CMonster* m_pParent = { nullptr };
 
 private:
+	void Break();
 	void Set_StartState();
 public:
 	static COctorokRock* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

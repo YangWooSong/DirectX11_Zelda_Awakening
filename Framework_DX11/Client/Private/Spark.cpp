@@ -40,7 +40,7 @@ HRESULT CSpark::Initialize(void* pArg)
 
 	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
-	
+	m_eObjType = CGameObject::ANIM_MONSTER;
 	return S_OK;
 }
 

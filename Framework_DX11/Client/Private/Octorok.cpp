@@ -46,6 +46,7 @@ HRESULT COctorok::Initialize(void* pArg)
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
 
+	m_eObjType = CGameObject::ANIM_MONSTER;
 	return S_OK;
 }
 
@@ -212,10 +213,12 @@ HRESULT COctorok::Ready_PartObjects()
 	if (FAILED(__super::Add_PartObject(PART_BULLET, TEXT("Prototype_GameObject_OctorokRock"), &RockDesc)))
 		return E_FAIL;
 
-	CDetector::DETECTOR_DESC partDesc{};
-	partDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-	partDesc.pDetect = &m_bDetect;
-	if (FAILED(__super::Add_PartObject(PART_DETECTOR, TEXT("Prototype_GameObject_Detector"), &partDesc)))
+	CDetector::DETECTOR_DESC DetectDesc{};
+	DetectDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	DetectDesc.pDetect = &m_bDetect;
+	DetectDesc.vOffset = _float3(0.f, 0.f, 3.5f);
+	DetectDesc.vSize = _float3(1.5f, 0.5f, 3.f);
+	if (FAILED(__super::Add_PartObject(PART_DETECTOR, TEXT("Prototype_GameObject_Detector"), &DetectDesc)))
 		return E_FAIL;
 
 	return S_OK;

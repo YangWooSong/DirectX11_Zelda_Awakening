@@ -29,7 +29,8 @@ public:
 public:
 	_bool isMove(_fvector vPosition);
 	_bool isMove_in_Room(_fvector vPosition, _int iRoomNum);
-	_uint isSlide(_fvector vLook);
+	_uint isSlide(_fvector vLook);	//각도 제한으로 슬라이드 유무 확인
+	_uint SlideDir(_fvector vLook);	//각도 제한이 유함, 방향만 정한다
 	_bool isInTotalCell(_fvector vPosition);
 	_vector Culculate_SlidePos(_fvector vLook, _float fSpeed, _float fTimeDelta);
 	_vector Calculate_ReflectVec(_fvector vLook, _float fSpeed, _float fTimeDelta);

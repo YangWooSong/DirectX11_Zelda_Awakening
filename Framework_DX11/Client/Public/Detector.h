@@ -15,6 +15,8 @@ public:
 	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
 		_bool* pDetect = { nullptr };
+		_float3 vSize = {};
+		_float3 vOffset= {};
 	}DETECTOR_DESC;
 
 private:
@@ -44,6 +46,8 @@ private:
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
 	_bool* m_pDetect = { nullptr };
+	_float3 m_vOffset = { };
+	_float3 m_vSize = { };
 private:
 	HRESULT Ready_Components();
 

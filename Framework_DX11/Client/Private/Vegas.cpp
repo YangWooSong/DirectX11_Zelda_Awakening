@@ -51,7 +51,7 @@ HRESULT CVegas::Initialize(void* pArg)
 	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Monster/Vegas/MI_body_alb.3.dds"), TEXTURE_TYPE::DIFFUSE, 0);
 
 	m_iTextureNum = 0;
-
+	m_eObjType = CGameObject::ANIM_MONSTER;
 	return S_OK;
 }
 

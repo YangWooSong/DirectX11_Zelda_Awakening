@@ -36,6 +36,7 @@ public:
 
 public:
 	void Set_BodyRed(_bool bRed) { m_bBodyRed = bRed; }
+	_bool Get_Detect() { return m_bDetect; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();

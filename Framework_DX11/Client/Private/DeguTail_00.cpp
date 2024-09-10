@@ -54,7 +54,7 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	m_MParentWorldMarix.reserve(100);
 
 	m_iHp = 4;
-
+	m_eObjType = CGameObject::ANIM_MONSTER;
 	return S_OK;
 }
 void CDeguTail_00::Priority_Update(_float fTimeDelta)

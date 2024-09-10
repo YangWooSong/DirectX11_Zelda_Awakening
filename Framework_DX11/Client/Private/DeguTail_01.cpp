@@ -40,7 +40,7 @@ HRESULT CDeguTail_01::Initialize(void* pArg)
     m_MParentWorldMarix.reserve(100);
    // m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
 
-    Set_LayerTag(TEXT("Layer_Monster"));
+    Set_LayerTag(TEXT("Layer_DeguTail01"));
 
     m_pOutBodyRed = pDesc->pOutBodyRed;
     m_pBodyRed = pDesc->pBodyRed;
@@ -59,6 +59,8 @@ HRESULT CDeguTail_01::Initialize(void* pArg)
     m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
     m_bRender = false;
+
+    m_eObjType = CGameObject::ANIM_MONSTER;
     return S_OK;
 }
 

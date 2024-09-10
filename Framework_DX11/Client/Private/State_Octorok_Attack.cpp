@@ -26,7 +26,8 @@ HRESULT CState_Octorok_Attack::Start_State()
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 80.f);
     m_pRock = m_pOwner->Get_PartObject(COctorok::PART_BULLET);
-
+    _float fVoume = m_pOwner->Get_Sound()->Culculate_Volume_Distance(m_pOwner->Get_Pos_vector(), m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION), 8.f, 0.8f);
+    m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Octarock_Shoot (2).wav"), fVoume);
     return S_OK;
 }
 
@@ -34,10 +35,8 @@ void CState_Octorok_Attack::Update(_float fTimeDelta)
 {
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "attack_st") == 0)
     {
-        if (m_pOwner->Get_Model()->Get_CurrentTrackPosition() > 10)
+        if (m_pOwner->Get_Model()->Get_CurrentTrackPosition() > 10 )
         {
-            _float fVoume = m_pOwner->Get_Sound()->Culculate_Volume_Distance(m_pOwner->Get_Pos_vector(), m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION), 5.f, 0.3f);
-            m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Octarock_Walk01.wav"), fVoume);
             Shoot();
         }
 
@@ -52,18 +51,28 @@ void CState_Octorok_Attack::Update(_float fTimeDelta)
 
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "attack_ed") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
-        m_pOwner->Change_State(COctorok::IDLE);
-    }
+        m_fTimer += fTimeDelta;
+        if (static_cast<COctorok*>(m_pOwner)->Get_Detect() == false)
+            m_fUnDetectTimer += fTimeDelta;
+        else
+            m_fUnDetectTimer = 0.f;
+          
+        if(m_fTimer > 1.f && static_cast<COctorok*>(m_pOwner)->Get_Detect() == true)
+        {
+            m_fTimer = 0.f;
+            m_pOwner->Change_State(COctorok::ATTACK);
+        }
 
-
-    if (KEY_AWAY(Z))
-    {
-        m_pOwner->Change_State(COctorok::DEAD);
+        if(m_fUnDetectTimer > 2.f)
+           m_pOwner->Change_State(COctorok::IDLE);
     }
 }
 
 void CState_Octorok_Attack::End_State()
 {
+    m_fUnDetectTimer = 0.f;
+    m_pOwner->Get_PartObject(COctorok::PART_BULLET)->Set_Dead(true);
+    m_fTimer = 0.f;
     m_iShootCount = 0;
 }
 

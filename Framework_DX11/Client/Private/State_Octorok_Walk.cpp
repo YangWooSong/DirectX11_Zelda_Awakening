@@ -64,7 +64,7 @@ void CState_Octorok_Walk::Update(_float fTimeDelta)
     {
         m_pDetector->Set_Active_Collider(true);
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
-        m_pOwner->Go_Straight(fTimeDelta, m_fSpeed, m_pNavigation);
+        m_pOwner->Go_Straight(fTimeDelta, m_fSpeed, m_pNavigation, &m_bGoStraight);
 
         m_fTimer += fTimeDelta;
 

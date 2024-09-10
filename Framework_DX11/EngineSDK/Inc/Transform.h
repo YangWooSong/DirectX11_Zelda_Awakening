@@ -38,7 +38,7 @@ public:
 
 	void		Go_Vector(_vector vNewLook, _float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 
-	void		Go_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
+	void		Go_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr , _bool* bIsMove = nullptr);
 	void		Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 	void		Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool* bReflect = nullptr, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _int* iStopCount = nullptr);
 
@@ -51,6 +51,12 @@ public:
 	void		Go_World_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Right(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Left(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
+
+	void		Go_World_Straight_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
+	void		Go_World_Backward_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
+	void		Go_World_Right_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
+	void		Go_World_Left_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
+
 
 	void		Go_World_Up(_float fTimeDelta, _float fSpeed = 0.f);
 	void		Go_World_Down(_float fTimeDelta, _float fSpeed = 0.f);

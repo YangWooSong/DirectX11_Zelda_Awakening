@@ -50,6 +50,7 @@ HRESULT CSeaUrchin::Initialize(void* pArg)
 	m_fShrinklScale.y = m_fOrginScale.y / 1.3f;
 	m_fShrinklScale.z = m_fOrginScale.z / 1.3f;
 
+	m_eObjType = CGameObject::ANIM_MONSTER;
 	return S_OK;
 }
 
