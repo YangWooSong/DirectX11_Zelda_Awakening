@@ -23,9 +23,9 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
-
+    _vector  m_vNewLook = {};
     _uint               m_iCurrentAnimIndex = {};
-
+    _float  m_fTimer = { 0.f };
 public:
     static CState_SeaUrchin_Dead* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

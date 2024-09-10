@@ -28,6 +28,13 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+public:
+	virtual void OnCollisionEnter(CGameObject* pOther) override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther) override;
+
+public:
+	void Set_Render(_bool bRender) { m_bRender = bRender; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
@@ -39,6 +46,8 @@ private:
 	_float3 m_fOrginScale = { };
 	_float3 m_fShrinklScale = { };
 
+	_bool	m_bBodyRed = { false };
+	_bool	m_bRender = { true };
 public:
 	static CSeaUrchin* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

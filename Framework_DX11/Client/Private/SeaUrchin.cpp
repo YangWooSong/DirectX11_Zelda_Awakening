@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Shader.h"
 #include "Model.h"
+#include "Link.h"
 #include "State_SeaUrchin_Idle.h"
 #include "State_SeaUrchin_Pushed.h"
 #include "State_SeaUrchin_Dead.h"
@@ -66,7 +67,10 @@ void CSeaUrchin::Update(_float fTimeDelta)
 	m_pModelCom->Play_Animation(fTimeDelta);
 
 	if (m_isDead)
+	{
 		Shrink(fTimeDelta);
+		m_bBodyRed = true;
+	}
 	else
 		m_pTransformCom->Set_Scaled(m_fOrginScale.x, m_fOrginScale.y, m_fOrginScale.z);
 
@@ -85,28 +89,38 @@ void CSeaUrchin::Late_Update(_float fTimeDelta)
 
 HRESULT CSeaUrchin::Render()
 {
-	if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-		return E_FAIL;
-
-	if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-		return E_FAIL;
-	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-		return E_FAIL;
-
-	_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
-
-	for (size_t i = 0; i < iNumMeshes; i++)
+	if(m_bRender)
 	{
-		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
-
-		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+		if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
 			return E_FAIL;
 
-
-		if (FAILED(m_pShaderCom->Begin(0)))
+		if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+			return E_FAIL;
+		if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
 			return E_FAIL;
 
-		if (FAILED(m_pModelCom->Render((_uint)i)))
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &m_bBodyRed, sizeof(_bool))))
+			return E_FAIL;
+
+		_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+		for (size_t i = 0; i < iNumMeshes; i++)
+		{
+			m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
+
+			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+				return E_FAIL;
+
+
+			if (FAILED(m_pShaderCom->Begin(1)))
+				return E_FAIL;
+
+			if (FAILED(m_pModelCom->Render((_uint)i)))
+				return E_FAIL;
+		}
+
+		_bool bFalse = { false };
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 	}
 
@@ -116,6 +130,37 @@ HRESULT CSeaUrchin::Render()
 #endif
 
 	return S_OK;
+}
+
+void CSeaUrchin::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
+		{
+			Change_State(DEAD);
+		}
+		else if (pOther->Get_LayerTag() == TEXT("Layer_Shield"))
+		{
+			Change_State(PUSHED);
+		}
+	}
+}
+
+void CSeaUrchin::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CSeaUrchin::OnCollisionExit(CGameObject* pOther)
+{
+	if(m_pColliderCom->Get_IsColl() == false)
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Shield"))
+		{
+			Change_State(IDLE);
+		}
+	}
+
 }
 
 
@@ -146,6 +191,12 @@ HRESULT CSeaUrchin::Ready_Components()
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
+
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pMonsterSoundCom))))
+		return E_FAIL;
+	m_pMonsterSoundCom->Set_Owner(this);
 
 	return S_OK;
 }

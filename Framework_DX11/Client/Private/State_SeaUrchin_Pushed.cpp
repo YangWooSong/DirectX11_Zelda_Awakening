@@ -27,10 +27,7 @@ HRESULT CState_SeaUrchin_Pushed::Start_State()
 
 void CState_SeaUrchin_Pushed::Update(_float fTimeDelta)
 {
-    if (KEY_AWAY(Z))
-    {
-        m_pOwner->Change_State(CSeaUrchin::DEAD);
-    }
+    //m_pOwner->Get_Collider()->Get
 }
 
 void CState_SeaUrchin_Pushed::End_State()
