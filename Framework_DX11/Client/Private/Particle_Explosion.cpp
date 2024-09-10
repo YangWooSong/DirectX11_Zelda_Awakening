@@ -37,6 +37,7 @@ void CParticle_Explosion::Priority_Update(_float fTimeDelta)
 
 void CParticle_Explosion::Update(_float fTimeDelta)
 {
+	m_pVIBufferCom->Spread(fTimeDelta);
 
 }
 

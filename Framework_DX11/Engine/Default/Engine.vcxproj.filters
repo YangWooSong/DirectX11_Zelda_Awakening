@@ -178,6 +178,9 @@
     <Filter Include="01.Utility\03.Components\Sound\00.SoundManager">
       <UniqueIdentifier>{d03e72a8-3d62-44fa-879c-e03837e8a1bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\VIBuffer\Instancing\Point">
+      <UniqueIdentifier>{3d2eb767-2555-4e3d-9249-f78f76943a12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -344,6 +347,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Sound.cpp">
       <Filter>01.Utility\03.Components\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Point_Instance.cpp">
+      <Filter>01.Utility\03.Components\VIBuffer\Instancing\Point</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -527,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Sound.h">
       <Filter>01.Utility\03.Components\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Point_Instance.h">
+      <Filter>01.Utility\03.Components\VIBuffer\Instancing\Point</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

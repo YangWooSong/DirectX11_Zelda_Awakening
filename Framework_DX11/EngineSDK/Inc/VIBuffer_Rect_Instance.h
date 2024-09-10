@@ -16,6 +16,10 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 
 public:
+	virtual void Spread(_float fTimeDelta) override;
+	virtual void Drop(_float fTimeDelta) override;
+
+public:
 	static CVIBuffer_Rect_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const CVIBuffer_Instancing::INSTANCE_DESC& Desc);
 	virtual CComponent* Clone(void* pArg) override;
 	virtual void Free() override;
