@@ -35,6 +35,8 @@ HRESULT COctorokRock::Initialize(void* pArg)
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
+    Set_LayerTag(TEXT("Layer_Monster"));
+
     m_fSpeed = 7.f;
   //  m_isDead = true;
     return S_OK;
@@ -47,6 +49,7 @@ void COctorokRock::Priority_Update(_float fTimeDelta)
 
 void COctorokRock::Update(_float fTimeDelta)
 {
+   
     if (m_bShoot)
     {
         //시작 설정
@@ -87,11 +90,18 @@ void COctorokRock::Update(_float fTimeDelta)
   
     if (m_bIsMove == false )
     {
+        _float fVolume = m_pSoundCom->Culculate_Volume_Distance(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION), 8.f, 0.7f);
+        m_pSoundCom->Play_Sound(TEXT("3_Octarock_RockBreak.wav"), fVolume);
         m_bFollowParent = true;
         m_bIsMove = true;
     }
 
-    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    if (m_pParent->Get_Dead() == true)
+    {
+        m_pColliderCom->Set_IsActive(false);
+    }
+    else
+        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 void COctorokRock::Late_Update(_float fTimeDelta)
 {
@@ -99,7 +109,7 @@ void COctorokRock::Late_Update(_float fTimeDelta)
 
     m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-    }
+}
 
 HRESULT COctorokRock::Render()
 {
@@ -135,6 +145,22 @@ HRESULT COctorokRock::Render()
     return S_OK;
 }
 
+void COctorokRock::OnCollisionEnter(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        m_bIsMove = false;
+    }
+}
+
+void COctorokRock::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void COctorokRock::OnCollisionExit(CGameObject* pOther)
+{
+}
+
 HRESULT COctorokRock::Ready_Components()
 {
     /* FOR.Com_Shader */
@@ -166,6 +192,12 @@ HRESULT COctorokRock::Ready_Components()
         TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);
+
+    /* FOR.Com_Sound */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+        TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+        return E_FAIL;
+    m_pSoundCom->Set_Owner(this);
 
     return S_OK;
 }
@@ -214,4 +246,5 @@ void COctorokRock::Free()
     Safe_Release(m_pModelCom);
     Safe_Release(m_pNavigationCom);
     Safe_Release(m_pColliderCom);
+    Safe_Release(m_pSoundCom);
 }

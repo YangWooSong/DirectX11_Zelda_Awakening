@@ -7,6 +7,7 @@ class CShader;
 class CModel;
 class CNavigation;
 class CCollider;
+class CSound;
 END
 
 BEGIN(Client)
@@ -37,10 +38,17 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther) override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther) override;
+
+public:
 	 CShader* m_pShaderCom = { nullptr };
 	 CModel* m_pModelCom = { nullptr };
 	 CNavigation* m_pNavigationCom = { nullptr };
 	 CCollider* m_pColliderCom = { nullptr };
+	 CSound* m_pSoundCom = { nullptr };
+
 private:
 	HRESULT Ready_Components();
 	void Set_CellNum(_int iNum) { m_iCellNum = iNum; }

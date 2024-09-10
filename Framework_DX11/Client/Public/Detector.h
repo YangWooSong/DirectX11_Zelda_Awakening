@@ -14,7 +14,7 @@ class CDetector final : public CPartObject
 public:
 	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
-		CFsm* pOwnerFsm;
+		_bool* pDetect = { nullptr };
 	}DETECTOR_DESC;
 
 private:
@@ -31,12 +31,19 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther) override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther) override;
+
+public:
 	void Set_Active_Collider(_bool bActive);
 private:
 	CCollider* m_pColliderCom = { nullptr };
 	CFsm* m_pOwnerFsm = { nullptr };
+
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
+	_bool* m_pDetect = { nullptr };
 private:
 	HRESULT Ready_Components();
 

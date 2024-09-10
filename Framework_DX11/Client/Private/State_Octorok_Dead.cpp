@@ -26,12 +26,23 @@ HRESULT CState_Octorok_Dead::Start_State()
     static_cast<CDetector*>(m_pOwner->Get_PartObject(COctorok::PART_DETECTOR))->Set_Active_Collider(false);
     m_pOwner->Get_Collider()->Set_IsActive(false);
     m_vNewLook = XMVector3Normalize(m_pGameInstance->Find_Player(LEVEL_FIELD)->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pOwner->Get_Pos_vector());
-    
+    static_cast<COctorok*>(m_pOwner)->Set_BodyRed(true);
+    m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Octarock_Damage.wav"), 0.8f);
+    m_pOwner->Get_Sound()->Set_PlaySpeed(2.f);
     return S_OK;
 }
 
 void CState_Octorok_Dead::Update(_float fTimeDelta)
 {
+    m_fTimer += fTimeDelta;
+    if (m_fTimer > 0.5f)
+    {
+        m_pOwner->Get_Sound()->Set_PlaySpeed(1.f);
+        m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Explosion.wav"), 0.8f);
+        m_pOwner->Set_Dead(true);
+        m_pOwner->Change_State(COctorok::IDLE);
+    }
+
     m_pOwner->Get_Transform()->Turn_Lerp(m_vNewLook, 3.f, fTimeDelta);
     m_pOwner->Get_Transform()->Go_Vector(m_vNewLook,fTimeDelta, -20.f, m_pOwner->Get_NavigationCom());
     if (KEY_AWAY(Z))
@@ -42,7 +53,6 @@ void CState_Octorok_Dead::Update(_float fTimeDelta)
 
 void CState_Octorok_Dead::End_State()
 {
-    m_pOwner->Set_Dead(false);
 }
 
 CState_Octorok_Dead* CState_Octorok_Dead::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

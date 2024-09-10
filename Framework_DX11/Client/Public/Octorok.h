@@ -34,11 +34,16 @@ public:
 	virtual void OnCollisionStay(CGameObject* pOther) override;
 	virtual void OnCollisionExit(CGameObject* pOther) override;
 
+public:
+	void Set_BodyRed(_bool bRed) { m_bBodyRed = bRed; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();
 	HRESULT Ready_State();
-
+private:
+	_bool	m_bBodyRed = { false };
+	_bool	m_bRender = { true };
+	_bool   m_bDetect = { false };
 public:
 	static COctorok* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

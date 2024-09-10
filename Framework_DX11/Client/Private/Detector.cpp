@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Detector.h"
 #include "GameInstance.h"
+#include "Monster.h"
 
 CDetector::CDetector(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPartObject{ pDevice, pContext }
@@ -21,6 +22,9 @@ HRESULT CDetector::Initialize(void* pArg)
 {
 	//m_pSocketMatrix = pDesc->pSocketBoneMatrix;
 
+	DETECTOR_DESC* pDesc = static_cast<DETECTOR_DESC*>(pArg);
+	m_pDetect = pDesc->pDetect;
+
 	/* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
@@ -30,8 +34,6 @@ HRESULT CDetector::Initialize(void* pArg)
 
 	Set_LayerTag(TEXT("Layer_Detector"));
 
-	DETECTOR_DESC* pDesc = static_cast<DETECTOR_DESC*>(pArg);
-	m_pOwnerFsm = pDesc->pOwnerFsm;
 
 	return S_OK;
 }
@@ -42,7 +44,6 @@ void CDetector::Priority_Update(_float fTimeDelta)
 
 void CDetector::Update(_float fTimeDelta)
 {
-
 	m_pColliderCom->Update(m_pParentMatrix);
 }
 
@@ -61,6 +62,32 @@ HRESULT CDetector::Render()
 	m_pColliderCom->Render();
 #endif
 	return S_OK;
+}
+
+void CDetector::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+		{
+			*m_pDetect = true;
+		}
+	}
+}
+
+void CDetector::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CDetector::OnCollisionExit(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+		{
+			*m_pDetect = false;
+		}
+	}
 }
 
 void CDetector::Set_Active_Collider(_bool bActive)
@@ -115,4 +142,5 @@ void CDetector::Free()
 	__super::Free();
 
 	Safe_Release(m_pColliderCom);
+
 }
