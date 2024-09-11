@@ -140,15 +140,19 @@ void CSeaUrchin::OnCollisionEnter(CGameObject* pOther)
 		{
 			Change_State(DEAD);
 		}
-		else if (pOther->Get_LayerTag() == TEXT("Layer_Shield"))
-		{
-			Change_State(PUSHED);
-		}
 	}
 }
 
 void CSeaUrchin::OnCollisionStay(CGameObject* pOther)
 {
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Shield"))
+		{
+			if(m_pFsmCom->Get_CurrentState() != PUSHED)
+				Change_State(PUSHED);
+		}
+	}
 }
 
 void CSeaUrchin::OnCollisionExit(CGameObject* pOther)
@@ -261,5 +265,6 @@ void CSeaUrchin::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 	Safe_Release(m_pFsmCom);
+	Safe_Release(m_pMonsterSoundCom);
 }
 

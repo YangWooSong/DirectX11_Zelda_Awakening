@@ -35,6 +35,7 @@ HRESULT CShield::Initialize(void* pArg)
 		return E_FAIL;
 
 	m_pTransformCom->Set_Scaled(1.f, 1.f, 1.f);
+
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, -0.5f, 0.4f, 1.f));
 
 	Set_LayerTag(TEXT("Layer_Shield"));
@@ -48,13 +49,13 @@ void CShield::Priority_Update(_float fTimeDelta)
 
 void CShield::Update(_float fTimeDelta)
 {
-	_matrix		SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
+	//_matrix		SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
 
 	for (size_t i = 0; i < 3; i++)
 	{
-		SocketMatrix.r[i] = XMVector3Normalize(SocketMatrix.r[i]);
+	//	SocketMatrix.r[i] = XMVector3Normalize(SocketMatrix.r[i]);
 	}
-	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()) * SocketMatrix * XMLoadFloat4x4(m_pParentMatrix));
+	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pParentMatrix));
 
 	//상태에 따라 활성화 결정
 	if (m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD || m_pPlayerFsm->Get_CurrentState() == CLink::SHIELD_WALK)
@@ -86,8 +87,8 @@ HRESULT CShield::Ready_Components()
 {
 	/* FOR.Com_Collider */
 	CBounding_OBB::BOUNDING_OBB_DESC			ColliderDesc{};
-	ColliderDesc.vExtents = _float3(0.5f, 0.3f , 0.8f);
-	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+	ColliderDesc.vExtents = _float3(0.5f, 1.f , 0.2f);
+	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.5f);
 	ColliderDesc.vAngles = _float3(0.f, 0.f, 0.f);
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_OBB"),

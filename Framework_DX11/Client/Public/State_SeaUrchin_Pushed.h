@@ -23,9 +23,14 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
+    class CPlayer* m_pPlayer = { nullptr };
 
+    _float m_fSpeed = { 2.f };
     _uint               m_iCurrentAnimIndex = {};
-
+    
+private:
+    void MoveUpDown(_uint iPlayer_Dir, _float fTimeDelta);
+    void MoveRightLeft(_uint iPlayer_Dir, _float fTimeDelta);
 public:
     static CState_SeaUrchin_Pushed* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;
