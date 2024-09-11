@@ -111,11 +111,7 @@ HRESULT CLevel_Test::Ready_Layer_BackGround()
 
 HRESULT CLevel_Test::Ready_Layer_Effect()
 {
-	//for (size_t i = 0; i < 50; i++)
-	//{
-	//	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Prototype_GameObject_Effect"))))
-	//		return E_FAIL;
-	//}
+
 
 
 	return S_OK;
@@ -124,6 +120,9 @@ HRESULT CLevel_Test::Ready_Layer_Effect()
 HRESULT CLevel_Test::Ready_Layer_Paticle()
 {
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Particle"), TEXT("Prototype_GameObject_Particle_Expolosion"))))
+		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Particle"), TEXT("Prototype_GameObject_Particle_Snow"))))
 		return E_FAIL;
 
 	return S_OK;

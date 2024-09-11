@@ -49,7 +49,7 @@ protected:
 	_float2						m_vSize = {};
 	_float2						m_vLifeTime = {};
 	_bool						m_isLoop = {};
-	_float* m_pSpeed = { nullptr };
+	_float*						m_pSpeed = { nullptr };
 
 
 	void* m_pInstanceVertices = { nullptr };

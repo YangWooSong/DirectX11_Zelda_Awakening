@@ -99,7 +99,7 @@ HRESULT CMainApp::Ready_Prototype_Component_Static()
 		CFsm::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Fsm */
+	/* For. Prototype_Component_Sound */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
 		CSound::Create(m_pDevice, m_pContext))))
 		return E_FAIL;

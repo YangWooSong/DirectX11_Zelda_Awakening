@@ -65,17 +65,45 @@ void GS_MAIN(point GS_IN In[1], inout TriangleStream<GS_OUT> Container)
 {
 	GS_OUT			Out[4];
 
+	//정점이 보는 Look
+    float3 vLook = (g_vCamPosition - In[0].vPosition).xyz; //vPosition은 float4임
+	//임의의 Up 벡터와 Look벡터는 외적해 사이즈 조절
+    float3 vRight = normalize(cross(float3(0.f, 1.f, 0.f), vLook)) * In[0].vPSize.x * 0.5f;
+	//제대로 구한 Look,Right으로 Up을 구함
+    float3 vUp = normalize(cross(vLook, vRight)) * In[0].vPSize.y * 0.5f;
 
+    Out[0].vPosition = float4(In[0].vPosition.xyz + vRight + vUp, 1.f);
+    Out[0].vTexcoord = float2(0.f, 0.f);
+    Out[0].vLifeTime = In[0].vLifeTime;
 
-	Container.Append(Out[0]);
-	Container.Append(Out[1]);
-	Container.Append(Out[2]);
-	Container.RestartStrip();
+    Out[1].vPosition = float4(In[0].vPosition.xyz - vRight + vUp, 1.f);
+    Out[1].vTexcoord = float2(1.f, 0.f);
+    Out[1].vLifeTime = In[0].vLifeTime;
 
-	Container.Append(Out[0]);
-	Container.Append(Out[2]);
-	Container.Append(Out[3]);
-	Container.RestartStrip();
+    Out[2].vPosition = float4(In[0].vPosition.xyz - vRight - vUp, 1.f);
+    Out[2].vTexcoord = float2(1.f, 1.f);
+    Out[2].vLifeTime = In[0].vLifeTime;
+
+    Out[3].vPosition = float4(In[0].vPosition.xyz + vRight - vUp, 1.f);
+    Out[3].vTexcoord = float2(0.f, 1.f);
+    Out[3].vLifeTime = In[0].vLifeTime;
+
+    matrix matVP = mul(g_ViewMatrix, g_ProjMatrix);
+
+    Out[0].vPosition = mul(Out[0].vPosition, matVP);
+    Out[1].vPosition = mul(Out[1].vPosition, matVP);
+    Out[2].vPosition = mul(Out[2].vPosition, matVP);
+    Out[3].vPosition = mul(Out[3].vPosition, matVP);
+
+    Container.Append(Out[0]);
+    Container.Append(Out[1]);
+    Container.Append(Out[2]);
+    Container.RestartStrip();
+
+    Container.Append(Out[0]);
+    Container.Append(Out[2]);
+    Container.Append(Out[3]);
+    Container.RestartStrip();
 }
 
 /* Triangle : 정점 세개가 다 vs_main을 통과할때까지 대기 */
@@ -130,7 +158,7 @@ technique11	DefaultTechnique
 		SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
 		VertexShader = compile vs_5_0 VS_MAIN();
-		GeometryShader = compile gs_5_0 GS_MAIN();
+        GeometryShader = compile gs_5_0 GS_MAIN();
 		PixelShader = compile ps_5_0 PS_MAIN();
 	}
 

@@ -42,6 +42,7 @@
 #include "Kuribo.h"
 #include "Vegas.h"
 #include "Particle_Explosion.h"
+#include "Particle_Snow.h"
 
 #include "DeguTail_00.h"
 #include "DeguTail_01.h"
@@ -312,9 +313,31 @@ HRESULT CLoader::Ready_Resources_For_Test()
 		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
+	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
+
+	ParticleDesc.iNumInstance = 3000;
+	ParticleDesc.vCenter = _float3(64.f, 20.f, 64.f);
+	ParticleDesc.vRange = _float3(128.f, 1.f, 128.f);
+	ParticleDesc.vSize = _float2(0.1f, 0.3f);
+	ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
+	ParticleDesc.vSpeed = _float2(1.f, 3.f);
+	ParticleDesc.vLifeTime = _float2(4.f, 8.f);
+	ParticleDesc.isLoop = true;
+
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_VIBuffer_Particle_Snow"),
+		CVIBuffer_Point_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		return E_FAIL;
+
+
 	/* For. Prototype_Component_Shader_VtxRectInstance */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Shader_VtxRectInstance"),
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Shader_VtxPointInstance */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Shader_VtxPointInstance"),
+		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxPointInstance.hlsl"), VTXPOINTINSTANCE::Elements, VTXPOINTINSTANCE::iNumElements))))
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
@@ -711,6 +734,10 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		CParticle_Explosion::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_Particle_Snow */
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Snow"),
+		CParticle_Snow::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 	return S_OK;
 }
 

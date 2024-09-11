@@ -367,6 +367,9 @@
     <Filter Include="02.GameObjects\05.Monster\Detector">
       <UniqueIdentifier>{1e1e0c1a-b014-401a-90ff-1f7e473f2a0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\06.Particle\Test_Snow">
+      <UniqueIdentifier>{d1d531b4-5c15-4e42-9780-1426273bb984}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -678,6 +681,9 @@
     <ClInclude Include="..\Public\Detector.h">
       <Filter>02.GameObjects\05.Monster\Detector</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Particle_Snow.h">
+      <Filter>02.GameObjects\06.Particle\Test_Snow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -979,6 +985,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Detector.cpp">
       <Filter>02.GameObjects\05.Monster\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Particle_Snow.cpp">
+      <Filter>02.GameObjects\06.Particle\Test_Snow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

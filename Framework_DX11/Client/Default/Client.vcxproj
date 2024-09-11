@@ -183,6 +183,7 @@
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\Particle_Explosion.h" />
+    <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\Rola.h" />
     <ClInclude Include="..\Public\Shield.h" />
@@ -302,6 +303,7 @@
     <ClCompile Include="..\Private\Octorok.cpp" />
     <ClCompile Include="..\Private\OctorokRock.cpp" />
     <ClCompile Include="..\Private\Particle_Explosion.cpp" />
+    <ClCompile Include="..\Private\Particle_Snow.cpp" />
     <ClCompile Include="..\Private\Pawn.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\PlayerCamera.cpp" />
