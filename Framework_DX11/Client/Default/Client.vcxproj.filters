@@ -370,6 +370,18 @@
     <Filter Include="02.GameObjects\06.Particle\Test_Snow">
       <UniqueIdentifier>{d1d531b4-5c15-4e42-9780-1426273bb984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\SquareBlock">
+      <UniqueIdentifier>{7a4f215f-dc29-4bdf-a49d-8bedb41c6253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\StoneHinoxRock">
+      <UniqueIdentifier>{e3978932-85a7-47ae-83ce-e5cdf824bb54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\DungeonOwlStatue">
+      <UniqueIdentifier>{11f8f513-233e-4ba8-bcc1-fe89648dd041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\CrackedWall">
+      <UniqueIdentifier>{adb807a8-7baf-4bc7-a076-f3bdfc02978d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -684,6 +696,9 @@
     <ClInclude Include="..\Public\Particle_Snow.h">
       <Filter>02.GameObjects\06.Particle\Test_Snow</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\CrackedWall.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\CrackedWall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -988,6 +1003,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Particle_Snow.cpp">
       <Filter>02.GameObjects\06.Particle\Test_Snow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CrackedWall.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\CrackedWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

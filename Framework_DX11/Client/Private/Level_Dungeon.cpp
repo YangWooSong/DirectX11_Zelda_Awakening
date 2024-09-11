@@ -245,7 +245,11 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DungeonCollapseTileLv01"), TEXT("Prototype_GameObject_CollapseTile"), &pDesc)))
 			return E_FAIL;
 	}
-	
+	else if (_strLyaerTag == "Layer_DungeonCrackedWallLv01")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DungeonCrackedWallLv01"), TEXT("Prototype_GameObject_CrackedWall"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 

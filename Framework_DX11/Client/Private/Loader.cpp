@@ -48,6 +48,7 @@
 #include "DeguTail_01.h"
 #include "DeguTail_04.h"
 #include "CollapseTile.h"
+#include "CrackedWall.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -632,6 +633,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DungeonCollapseTileLv01"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/DungeonCollapseTileLv01/DungeonCollapseTileLv01.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_DungeonCrackedWallLv01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DungeonCrackedWallLv01"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/DungeonCrackedWallLv01/DungeonCrackedWallLv01.dat"))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }
@@ -764,6 +770,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_CollapseTile*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CollapseTile"),
 		CCollapseTile::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_CrackedWall*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CrackedWall"),
+		CCrackedWall::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
