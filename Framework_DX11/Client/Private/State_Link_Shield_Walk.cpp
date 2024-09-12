@@ -81,14 +81,21 @@ void CState_Link_Shield_Walk::Update(_float fTimeDelta)
         m_pPlayer->Change_State(CLink::ITEMA);
     }
 
-    if (KEY_TAP(KEY::P))
+    if (KEY_AWAY(KEY::P))
     {
         m_pPlayer->Change_State(CLink::ITEMB);
+    }
+    else if (KEY_HOLD(KEY::P))
+    {
+        m_fPressTime += fTimeDelta;
+        if (m_fPressTime > 0.2f)
+            m_pPlayer->Change_State(CLink::SLASH_HOLD);
     }
 }
 
 void CState_Link_Shield_Walk::End_State()
 {
+    m_fPressTime = 0.f;
 }
 
 CState_Link_Shield_Walk* CState_Link_Shield_Walk::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

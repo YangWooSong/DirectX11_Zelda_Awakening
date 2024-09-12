@@ -67,6 +67,8 @@ void COctorok::Update(_float fTimeDelta)
 	{
 		if (m_bDetect == true && m_pFsmCom->Get_PrevState() != ATTACK)
 			m_pFsmCom->Change_State(ATTACK);
+		else if(m_bDetect == false && m_pFsmCom->Get_PrevState() == ATTACK)
+			m_pFsmCom->Change_State(IDLE);
 
 		if(m_bRender == false)
 		{

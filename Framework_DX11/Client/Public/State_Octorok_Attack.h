@@ -35,7 +35,6 @@ private:
     _uint               m_iShootCount = { 0 };
 
     _float              m_fTimer = { 0.f };
-    _float              m_fUnDetectTimer = { 0.f };
 public:
     static CState_Octorok_Attack* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

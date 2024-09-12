@@ -52,25 +52,17 @@ void CState_Octorok_Attack::Update(_float fTimeDelta)
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "attack_ed") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
         m_fTimer += fTimeDelta;
-        if (static_cast<COctorok*>(m_pOwner)->Get_Detect() == false)
-            m_fUnDetectTimer += fTimeDelta;
-        else
-            m_fUnDetectTimer = 0.f;
           
         if(m_fTimer > 1.f && static_cast<COctorok*>(m_pOwner)->Get_Detect() == true)
         {
             m_fTimer = 0.f;
             m_pOwner->Change_State(COctorok::ATTACK);
         }
-
-        if(m_fUnDetectTimer > 2.f)
-           m_pOwner->Change_State(COctorok::IDLE);
     }
 }
 
 void CState_Octorok_Attack::End_State()
 {
-    m_fUnDetectTimer = 0.f;
     m_pOwner->Get_PartObject(COctorok::PART_BULLET)->Set_Dead(true);
     m_fTimer = 0.f;
     m_iShootCount = 0;

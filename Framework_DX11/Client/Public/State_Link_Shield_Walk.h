@@ -31,6 +31,7 @@ private:
     _uint               m_iBackAnimIndex = {};
 
     _float              m_fPlayerSpeed = { 0.f };
+    _float              m_fPressTime = { 0.f };
 
     class CNavigation* m_pPlayer_Navigation = { nullptr };
 
