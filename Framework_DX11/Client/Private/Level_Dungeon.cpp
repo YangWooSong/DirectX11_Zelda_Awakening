@@ -250,6 +250,21 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DungeonCrackedWallLv01"), TEXT("Prototype_GameObject_CrackedWall"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_DungeonOwlStatue")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DungeonOwlStatue"), TEXT("Prototype_GameObject_OwlStatue"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_SquareBlock")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock"), TEXT("Prototype_GameObject_SquareBlock"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_StoneHinoxRock")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_StoneHinoxRock"), TEXT("Prototype_GameObject_StoneHinoxRock"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 

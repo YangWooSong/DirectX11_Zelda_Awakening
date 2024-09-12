@@ -183,12 +183,14 @@
     <ClInclude Include="..\Public\Level_Test.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
+    <ClInclude Include="..\Public\OwlStatue.h" />
     <ClInclude Include="..\Public\Particle_Explosion.h" />
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\Rola.h" />
     <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\Spark.h" />
+    <ClInclude Include="..\Public\SquareBlock.h" />
     <ClInclude Include="..\Public\State_DeguTail_Appear.h" />
     <ClInclude Include="..\Public\State_DeguTail_Dead.h" />
     <ClInclude Include="..\Public\State_DeguTail_Guard.h" />
@@ -260,6 +262,7 @@
     <ClInclude Include="..\Public\State_Vegas_Walk_f.h" />
     <ClInclude Include="..\Public\State_Vegas_Walk_l.h" />
     <ClInclude Include="..\Public\State_Vegas_Walk_r.h" />
+    <ClInclude Include="..\Public\StoneHinoxRock.h" />
     <ClInclude Include="..\Public\Sword.h" />
     <ClInclude Include="..\Public\TailCaveShutter.h" />
     <ClInclude Include="..\Public\TailLockStatue.h" />
@@ -304,6 +307,7 @@
     <ClCompile Include="..\Private\NonAnimModel.cpp" />
     <ClCompile Include="..\Private\Octorok.cpp" />
     <ClCompile Include="..\Private\OctorokRock.cpp" />
+    <ClCompile Include="..\Private\OwlStatue.cpp" />
     <ClCompile Include="..\Private\Particle_Explosion.cpp" />
     <ClCompile Include="..\Private\Particle_Snow.cpp" />
     <ClCompile Include="..\Private\Pawn.cpp" />
@@ -313,6 +317,7 @@
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
     <ClCompile Include="..\Private\Shield.cpp" />
     <ClCompile Include="..\Private\Spark.cpp" />
+    <ClCompile Include="..\Private\SquareBlock.cpp" />
     <ClCompile Include="..\Private\State_DeguTail_Appear.cpp" />
     <ClCompile Include="..\Private\State_DeguTail_Dead.cpp" />
     <ClCompile Include="..\Private\State_DeguTail_Guard.cpp" />
@@ -366,6 +371,7 @@
     <ClCompile Include="..\Private\State_Vegas_Walk_f.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Walk_l.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Walk_r.cpp" />
+    <ClCompile Include="..\Private\StoneHinoxRock.cpp" />
     <ClCompile Include="..\Private\Sword.cpp" />
     <ClCompile Include="..\Private\TailCaveShutter.cpp" />
     <ClCompile Include="..\Private\TailLockStatue.cpp" />
