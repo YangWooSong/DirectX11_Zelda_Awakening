@@ -1,14 +1,5 @@
-﻿  Level_MarinHouse.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_MarinHouse.cpp(229,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_MarinHouse.cpp'을(를) 컴파일하는 중)
+﻿  Level_Dungeon.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(133,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
   
-  Loader.cpp
-  StoneHinoxRock.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\StoneHinoxRock.cpp(67,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/StoneHinoxRock.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\StoneHinoxRock.cpp(73,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/StoneHinoxRock.cpp'을(를) 컴파일하는 중)
-  
-  코드를 생성하고 있습니다...
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
