@@ -163,7 +163,7 @@ HRESULT CLevel_Dungeon::Read()
 			fin.read(reinterpret_cast<char*>(&fRot.z), sizeof(_float));
 
 			fin.read(reinterpret_cast<char*>(&iCellNum), sizeof(_int));
-			fin.read(reinterpret_cast<char*>(&iRoomNum), sizeof(_int));
+			fin.read(reinterpret_cast<char*>(&iRoomNum), sizeof(_uint));
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
@@ -286,16 +286,115 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 
 void CLevel_Dungeon::Change_Room()
 {
-	CLayer* pLandLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));
 	m_iCurRoomNum = m_pPlayer->Get_CurRoomNum();
+	CLayer* pLayer = { nullptr };
 
-	for (auto iter = pLandLayer->Get_ObjectList().begin(); iter != pLandLayer->Get_ObjectList().end(); iter++)
+#pragma region Land
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{
-		if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum-1][0])
-			static_cast<CLand*>(*iter)->SetActive(true);
-		else
-			static_cast<CLand*>(*iter)->SetActive(false);
+		switch (m_iCurRoomNum)
+		{
+		case 7:
+			if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][0]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][1]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][2]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][3]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][4]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][5])
+				static_cast<CLand*>(*iter)->SetActive(true);
+			else
+				static_cast<CLand*>(*iter)->SetActive(false);
+			break;
+		case 14:
+			if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][0] 
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][1])
+				static_cast<CLand*>(*iter)->SetActive(true);
+			else
+				static_cast<CLand*>(*iter)->SetActive(false);
+			break;
+		case 16:
+			if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][0]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][1]
+				|| static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][2])
+				static_cast<CLand*>(*iter)->SetActive(true);
+			else
+				static_cast<CLand*>(*iter)->SetActive(false);
+			break;
+		default:
+			if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum - 1][0])
+				static_cast<CLand*>(*iter)->SetActive(true);
+			else
+				static_cast<CLand*>(*iter)->SetActive(false);
+			break;
+		}
 	}
+#pragma endregion
+
+#pragma region Monster
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Monster"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+#pragma endregion
+
+#pragma region NonAnimObj
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_DungeonCollapseTileLv01"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_DungeonCrackedWallLv01"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_DungeonOwlStatue"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_StoneHinoxRock"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+#pragma endregion
 }
 
 CLevel_Dungeon* CLevel_Dungeon::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

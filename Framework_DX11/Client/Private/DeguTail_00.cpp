@@ -55,17 +55,21 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 
 	m_iHp = 4;
 	m_eObjType = CGameObject::ANIM_MONSTER;
+	m_isActive = false;
 	return S_OK;
 }
 void CDeguTail_00::Priority_Update(_float fTimeDelta)
 {
-	__super::Priority_Update(fTimeDelta);
+	if (m_isActive == true)
+	{
+		__super::Priority_Update(fTimeDelta);
+	}
 }
 
 
 void CDeguTail_00::Update(_float fTimeDelta)
 {
-	if (m_isDead == false)
+	if (m_isActive == true)
 	{
 		m_pMonsterSoundCom->Update(fTimeDelta);
 
@@ -85,19 +89,25 @@ void CDeguTail_00::Update(_float fTimeDelta)
 			m_bBodyRed = true;
 			m_pFsmCom->Change_State(DEAD);
 		}
+
+		if (m_isDead)
+			m_isActive = false;
 	}
 }
 
 void CDeguTail_00::Late_Update(_float fTimeDelta)
 {
-	__super::Late_Update(fTimeDelta);
+	if (m_isActive == true)
+	{
+		__super::Late_Update(fTimeDelta);
 
-	m_pGameInstance->Add_ColliderList(m_pColliderCom);
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+		m_pGameInstance->Add_ColliderList(m_pColliderCom);
+		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+	}
 }
 HRESULT CDeguTail_00::Render()
 {
-	if(m_isDead == false)
+	if(m_isActive == true)
 	{
 		if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
 			return E_FAIL;

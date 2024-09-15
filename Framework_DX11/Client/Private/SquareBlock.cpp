@@ -32,7 +32,9 @@ HRESULT CSquareBlock::Initialize(void* pArg)
     m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
+    m_iRoomNum = pDesc->iRoomNum;
 
+    m_isActive = false;
     return S_OK;
 }
 
@@ -46,34 +48,39 @@ void CSquareBlock::Update(_float fTimeDelta)
 
 void CSquareBlock::Late_Update(_float fTimeDelta)
 {
-    m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    if (m_isActive)
+    {
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    }
 }
 
 HRESULT CSquareBlock::Render()
 {
-    if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-        return E_FAIL;
-
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-        return E_FAIL;
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-        return E_FAIL;
-
-
-    _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
-
-    for (size_t i = 0; i < iNumMeshes; i++)
+    if (m_isActive)
     {
-        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+        if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(0)))
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+            return E_FAIL;
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
             return E_FAIL;
 
-        if (FAILED(m_pModelCom->Render(i)))
-            return E_FAIL;
+
+        _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+        for (size_t i = 0; i < iNumMeshes; i++)
+        {
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+                return E_FAIL;
+
+            if (FAILED(m_pShaderCom->Begin(0)))
+                return E_FAIL;
+
+            if (FAILED(m_pModelCom->Render(i)))
+                return E_FAIL;
+        }
     }
-
     return S_OK;
 }
 

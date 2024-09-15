@@ -23,16 +23,15 @@ HRESULT CMonster::Initialize(void* pArg)
 {
 	MONSTER_DESC* pDesc = static_cast<MONSTER_DESC*>(pArg);
 
-	m_iLevelIndex = pDesc->LevelIndex;
-	
-
-
 	/* 직교투영을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(&pDesc)))
 		return E_FAIL;
 
 	if (FAILED(Ready_Components()))
 		return E_FAIL;
+
+	m_iLevelIndex = pDesc->LevelIndex;
+	m_iRoomNum = pDesc->iRoomNum;
 
 	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
