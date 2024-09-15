@@ -3,6 +3,7 @@
 
 #include "GameInstance.h"
 
+
 CPlayer::CPlayer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CContainerObject{ pDevice, pContext }
 {
@@ -185,6 +186,11 @@ _uint CPlayer::Get_Player_State()
 const _float4x4* CPlayer::Get_BoneMatrix_Ptr(const _char* pBoneName) const
 {
 	return m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr(pBoneName);
+}
+
+_uint CPlayer::Get_CurRoomNum()
+{
+	return m_pNavigationCom->Get_CurrentCell_RoomNum();
 }
 
 HRESULT CPlayer::Ready_Components()

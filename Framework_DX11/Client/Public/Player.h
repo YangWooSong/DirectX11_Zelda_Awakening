@@ -36,7 +36,7 @@ public:
 
 	_float					Get_MoveSpeed() { return m_fMoveSpeed; }
 	void					Set_MoveSpeed(_float fSpeed) { m_fMoveSpeed = fSpeed; }
-
+	_uint					Get_CurRoomNum();
 protected:
 	CPlayer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CPlayer(const CPlayer& Prototype);

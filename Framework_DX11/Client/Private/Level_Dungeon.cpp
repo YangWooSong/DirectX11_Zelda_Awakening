@@ -8,6 +8,8 @@
 #include "NavDataObj.h"
 #include "Monster.h"
 #include "DeguTail_00.h"
+#include "Layer.h"
+#include "Land.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -32,13 +34,24 @@ HRESULT CLevel_Dungeon::Initialize()
    Read();
 
    m_pGameInstance->Play_BGM(TEXT("0_Dangeon1_TailCave.wav"), 0.7f);
+   m_pPlayer = static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON));
 
-    return S_OK;
+   CLayer* pLandLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));
+   for (auto iter = pLandLayer->Get_ObjectList().begin(); iter != pLandLayer->Get_ObjectList().end(); iter++)
+   {
+	   if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[0][0])
+		   static_cast<CLand*>(*iter)->SetActive(true);
+	   else
+		   static_cast<CLand*>(*iter)->SetActive(false);
+   }
+   return S_OK;
 }
 
 
 void CLevel_Dungeon::Update(_float fTimeDelta)
 {
+	if(m_iCurRoomNum != m_pPlayer->Get_CurRoomNum())
+		Change_Room();
 }
 
 HRESULT CLevel_Dungeon::Render()
@@ -122,6 +135,7 @@ HRESULT CLevel_Dungeon::Read()
 	_float3 fScaled = {};
 	_float3 fRot = {};
 	_int iCellNum = {};
+	_uint iRoomNum = {};
 
 	while (i < LayerCout)
 	{
@@ -149,15 +163,16 @@ HRESULT CLevel_Dungeon::Read()
 			fin.read(reinterpret_cast<char*>(&fRot.z), sizeof(_float));
 
 			fin.read(reinterpret_cast<char*>(&iCellNum), sizeof(_int));
+			fin.read(reinterpret_cast<char*>(&iRoomNum), sizeof(_int));
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
 			else if (iObjectType == CGameObject::ANIM_MONSTER)
-				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);
+				Read_AnimMonster(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum, iRoomNum);
 			else if (iObjectType == CGameObject::NONANIM_OBJ)
-				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
+				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iRoomNum);
 			else if (iObjectType == CGameObject::ANIM_OBJ)
-				Read_AnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum);
+				Read_AnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag, iCellNum, iRoomNum);
 		}
 
 		++i;
@@ -184,7 +199,7 @@ HRESULT CLevel_Dungeon::Read_LandObjects(_int _type, _uint _index, _float3 _fPos
 	return S_OK;
 }
 
-HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum)
+HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum, _uint _iRoomNum)
 {
 
 	CMonster::MONSTER_DESC pDesc = { };
@@ -197,7 +212,7 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	pDesc.LevelIndex = LEVEL_DUNGEON;
 	pDesc.iCellNum = _iCellNum;
 	pDesc.eType = CGameObject::ANIM_MONSTER;
-
+	pDesc.iRoomNum = _iRoomNum;
 	if (_strLyaerTag == "Layer_DeguTail")
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
@@ -206,7 +221,7 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	return S_OK;
 }
 
-HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum)
+HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum, _uint _iRoomNum)
 {
 	CGameObject::GAMEOBJECT_DESC pDesc = { };
 	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
@@ -216,7 +231,7 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
 	pDesc.iCellNum = _iCellNum;
-
+	pDesc.iRoomNum = _iRoomNum;
 	if (_strLyaerTag == "Layer_Weathercock")
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Weathercock"), TEXT("Prototype_GameObject_Weathercock"), &pDesc)))
@@ -230,7 +245,7 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 	return S_OK;
 }
 
-HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
+HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _uint _iRoomNum)
 {
 	CGameObject::GAMEOBJECT_DESC pDesc = { };
 	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
@@ -239,6 +254,7 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 	pDesc.vPosition = _fPos;
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
+	pDesc.iRoomNum = _iRoomNum;
 
 	if (_strLyaerTag == "Layer_DungeonCollapseTileLv01")
 	{
@@ -266,6 +282,20 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 			return E_FAIL;
 	}
 	return S_OK;
+}
+
+void CLevel_Dungeon::Change_Room()
+{
+	CLayer* pLandLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));
+	m_iCurRoomNum = m_pPlayer->Get_CurRoomNum();
+
+	for (auto iter = pLandLayer->Get_ObjectList().begin(); iter != pLandLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CLand*>(*iter)->Get_ListIndex() == m_RoomNumList[m_iCurRoomNum-1][0])
+			static_cast<CLand*>(*iter)->SetActive(true);
+		else
+			static_cast<CLand*>(*iter)->SetActive(false);
+	}
 }
 
 CLevel_Dungeon* CLevel_Dungeon::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

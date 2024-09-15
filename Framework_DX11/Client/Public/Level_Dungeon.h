@@ -28,14 +28,39 @@ public:
 
 	HRESULT Read();
 	HRESULT Read_LandObjects(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot);
-	HRESULT Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum);
-	HRESULT Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag);
-	HRESULT Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum);
+	HRESULT Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum, _uint _iRoomNum);
+	HRESULT Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _uint _iRoomNum);
+	HRESULT Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum, _uint _iRoomNum);
 
 private:
 	class CNavigation* m_pNavigationCom = { nullptr };
+	class CPlayer* m_pPlayer = { nullptr };
+
 
 	_uint m_iBgmIndex = { 0 };
+	_uint m_iCurRoomNum = { 1 };
+
+	vector<vector<_uint>> m_RoomNumList = {
+		{28},               // Room 1
+		{27},               // Room 2
+		{26},               // Room 3
+		{24},               // Room 4
+		{25},               // Room 5
+		{16},               // Room 6
+		{10, 11, 12, 17, 18, 19},  // Room 7
+		{20},               // Room 8
+		{13},               // Room 9
+		{21},               // Room 10
+		{14},               // Room 11
+		{8},                // Room 12
+		{4},                // Room 13
+		{6, 7},             // Room 14
+		{5},                // Room 15
+		{9, 15, 22}        // Room 16
+	};
+
+private:
+	void Change_Room();
 public:
 	static CLevel_Dungeon* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual void Free() override;

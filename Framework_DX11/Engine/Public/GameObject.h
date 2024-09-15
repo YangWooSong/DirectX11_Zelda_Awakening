@@ -19,6 +19,7 @@ public:
 		_float3		vScale = _float3(1.f, 1.f, 1.f);
 		_float3		vRotation = _float3(0.f, 0.f, 0.f);
 		_int		iCellNum = -1;
+		_uint       iRoomNum = 0;
 	} GAMEOBJECT_DESC;
 
 protected:
@@ -31,7 +32,7 @@ public:
 	void		Set_Dead(_bool isDead) { m_isDead = isDead; }
 
 	_bool		IsActive() { return m_isActive; }
-	void		IsActive(_bool isActive) { m_isActive = isActive; }
+	void		SetActive(_bool isActive) { m_isActive = isActive; }
 
 	_wstring			Get_LayerTag() { return m_strLayerTag; }
 	void				Set_LayerTag(_wstring strLayerTag) { m_strLayerTag = strLayerTag; }
@@ -56,6 +57,7 @@ public:
 
 	OBJ_TYPE Get_ObjType() { return m_eObjType; }
 	_uint Get_ListIndex() { return m_iListIndex; }
+	_uint Get_RoomNum() { return m_iRoomNum; }
 	_float3 Get_Rotation() { return m_vRot; }
 	void Set_Rotation(_float3 _rot) {  m_vRot = _rot; }
 
@@ -83,7 +85,7 @@ protected:
 	_uint						m_iListIndex = { 0 };
 	_float3						m_vRot = {};
 	_int						m_iCellNum = {};
-
+	_uint						m_iRoomNum = { 0 };
 	_wstring					m_strLayerTag = {};
 protected:
 	HRESULT Add_Component(_uint iLevelIndex, const _wstring& strPrototypeTag, const _wstring& strComponentTag, CComponent** ppOut, void* pArg = nullptr);
