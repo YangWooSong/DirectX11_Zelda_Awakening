@@ -29,12 +29,23 @@ HRESULT CState_Pawn_DeadFall::Start_State()
 
 void CState_Pawn_DeadFall::Update(_float fTimeDelta)
 {
+    m_fTimer += fTimeDelta;
 
+    if (m_fTimer > 1.f)
+    {
+        m_pOwner->Get_Transform()->Go_World_Down(fTimeDelta, 2.f);
+        m_fFallTimer += fTimeDelta;
+    }
+
+    if (m_fFallTimer > 1.f)
+        m_pOwner->SetActive(false);
 }
 
 
 void CState_Pawn_DeadFall::End_State()
 {
+    m_fTimer = 0.f;
+    m_fFallTimer = 0.f;
 }
 
 CState_Pawn_DeadFall* CState_Pawn_DeadFall::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

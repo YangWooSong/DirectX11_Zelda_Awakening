@@ -35,9 +35,14 @@ void CState_Pawn_Jump::Update(_float fTimeDelta)
 	if (m_bJump)
 		Jump();
 	else
-		m_pOwner->Change_State(CPawn::IDLE);
+	{
+		if(m_pOwner->Get_NavigationCom()->Get_CurrentCellType(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION)) == 1)
+			m_pOwner->Change_State(CPawn::DEADFALL);
+		else
+			m_pOwner->Change_State(CPawn::IDLE);
+	}
 
-	m_pOwner->Get_Transform()->Go_Backward(fTimeDelta, m_fMoveSpeed);
+	m_pOwner->Get_Transform()->Go_Backward(fTimeDelta, m_fMoveSpeed, m_pOwner->Get_NavigationCom(), true);
 }
 
 void CState_Pawn_Jump::End_State()

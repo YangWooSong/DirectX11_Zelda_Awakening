@@ -166,7 +166,7 @@ void CTransform::Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _b
 	}
 }
 
-void CTransform::Go_Backward(_float fTimeDelta, _float fSpeed)
+void CTransform::Go_Backward(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation, _bool bMoveCliff)
 {
 	_vector		vPosition = Get_State(STATE_POSITION);
 	_vector		vLook = Get_State(STATE_LOOK);
@@ -176,7 +176,11 @@ void CTransform::Go_Backward(_float fTimeDelta, _float fSpeed)
 
 	vPosition -= XMVector3Normalize(vLook) * fSpeed * fTimeDelta;
 
-	Set_State(STATE_POSITION, vPosition);
+
+	if (nullptr == pNavigation || true == pNavigation->isMove(vPosition, bMoveCliff))
+	{
+		Set_State(STATE_POSITION, vPosition);
+	}
 }
 
 void CTransform::Go_Right(_float fTimeDelta, _float fSpeed)
@@ -660,7 +664,7 @@ void CTransform::Go_World_Down(_float fTimeDelta, _float fSpeed)
 	Set_State(STATE_POSITION, vPosition);
 }
 
-void CTransform::Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed)
+void CTransform::Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed, _bool bMoveCliff,  CNavigation* pNavigation)
 {
 	_vector CurPos = XMLoadFloat3(&_CurrentPos);
 	_vector TaergetPos = XMLoadFloat3(&_TargetPos);
@@ -668,7 +672,13 @@ void CTransform::Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed
 	_vector vDir = XMVector3Normalize(TaergetPos - CurPos);
 	CurPos += vDir * _fSpeed;
 
-	Set_State(STATE_POSITION, CurPos);
+	if(bMoveCliff == true)
+		Set_State(STATE_POSITION, CurPos);
+	else
+	{
+		if(pNavigation->isMove(CurPos))
+			Set_State(STATE_POSITION, CurPos);
+	}
 }
 
 

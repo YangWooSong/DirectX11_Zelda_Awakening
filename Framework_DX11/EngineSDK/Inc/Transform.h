@@ -42,7 +42,7 @@ public:
 	void		Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 	void		Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool* bReflect = nullptr, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _int* iStopCount = nullptr);
 
-	void		Go_Backward(_float fTimeDelta, _float fSpeed = 0.f);
+	void		Go_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool bMoveCliff = false);
 
 	void		Go_Right(_float fTimeDelta, _float fSpeed = 0.f);
 	void		Go_Left(_float fTimeDelta, _float fSpeed = 0.f);
@@ -61,7 +61,7 @@ public:
 	void		Go_World_Up(_float fTimeDelta, _float fSpeed = 0.f);
 	void		Go_World_Down(_float fTimeDelta, _float fSpeed = 0.f);
 
-	void		Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed);
+	void		Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed, _bool bMoveCliff = false , CNavigation* pNavigation = nullptr);
 
 	void		Turn(const _vector& vAxis, _float fTimeDelta);
 	void		Turn_Lerp(_fvector vLook, _float fTurnSpeed, _float fTimeDelta);

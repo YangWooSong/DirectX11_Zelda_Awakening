@@ -26,7 +26,7 @@ HRESULT CState_Pawn_Walk::Start_State()
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
     // m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
 
-    m_pPlayer = static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_FIELD));
+    m_pPlayer = static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON));
 
     return S_OK;
 }
@@ -39,7 +39,7 @@ void CState_Pawn_Walk::Update(_float fTimeDelta)
 
 
     XMStoreFloat3(&m_vPlayerPos, m_pPlayer->Get_Transform()->Get_State(CTransform::STATE_POSITION));
-    m_pOwner->Get_Transform()->Go_Lerp(m_pOwner->Get_Pos(), m_vPlayerPos, 0.02f);
+    m_pOwner->Get_Transform()->Go_Lerp(m_pOwner->Get_Pos(), m_vPlayerPos, 0.02f, false, m_pOwner->Get_NavigationCom());
 
 
     //멀어지면 상태 변환
@@ -61,9 +61,10 @@ void CState_Pawn_Walk::End_State()
 
 void CState_Pawn_Walk::Check_Jump(_float _fTimeDelta)
 {
-    if (m_pPlayer->Get_Player_State() == CLink::SLASH)
+    if (m_pPlayer->Get_Player_State() == CLink::SLASH || m_pPlayer->Get_Player_State() == CLink::SLASH_HOLD)
     {
-        m_pOwner->Change_State(CPawn::JUMP);
+       if(m_pPlayer->Get_Model()->Get_CurrentTrackPosition() < 10.f)
+            m_pOwner->Change_State(CPawn::JUMP);
     }
 
 }

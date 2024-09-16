@@ -119,7 +119,7 @@ void CNavigation::Update(_fmatrix TerrainWorldMatrix)
 	XMStoreFloat4x4(&m_WorldMatrix, TerrainWorldMatrix);
 }
 
-_bool CNavigation::isMove(_fvector vPosition)
+_bool CNavigation::isMove(_fvector vPosition, _bool bMovecliff)
 {
 	//네비게이션으로 이동하는 오브젝트의 좌표를 비교하려는 모델의 로컬로 변환
 	_vector		vLocalPos = XMVector3TransformCoord(vPosition, XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_WorldMatrix)));
@@ -143,7 +143,7 @@ _bool CNavigation::isMove(_fvector vPosition)
 				if (-1 == iNeighborIndex)
 					return false;
 
-				if(m_iOwnerType == NONPLAYER && m_Cells[iNeighborIndex]->Get_CellType() != CCell::CELL_FLOOR)
+				if(m_iOwnerType == NONPLAYER && m_Cells[iNeighborIndex]->Get_CellType() != CCell::CELL_FLOOR && bMovecliff == false)
 					return false;
 				else
 					if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
@@ -335,8 +335,16 @@ void CNavigation::SetUp_OnCell(CTransform* pTransform, _float fOffset, _float fT
 
 }
 
-
-#ifdef _DEBUG
+_uint CNavigation::Get_CurrentCellType(_vector vCurPos)
+{
+	for (int i = 0; i < m_Cells.size(); i++)
+	{
+		if(m_Cells[i]->isIn(vCurPos))
+			return m_Cells[i]->Get_CellType();
+	}
+	
+	return -1;
+}
 
 _int CNavigation::Get_CurrentCell_RoomNum()
 {
@@ -350,6 +358,7 @@ _float3 CNavigation::Get_MiddlePosOfPreCell()
 	return m_Cells[m_iPreCellIndex]->Get_Cell_MiddlePos();
 }
 
+#ifdef _DEBUG
 HRESULT CNavigation::Render()
 {
 

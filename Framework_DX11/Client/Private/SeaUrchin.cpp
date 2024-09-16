@@ -152,6 +152,17 @@ void CSeaUrchin::OnCollisionStay(CGameObject* pOther)
 			if(m_pFsmCom->Get_CurrentState() != PUSHED)
 				Change_State(PUSHED);
 		}
+
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_Monster"))
+		{
+			_vector newLook = pOther->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+			newLook = XMVector3Normalize(newLook);
+
+			_vector newBodyPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION) + -newLook * 0.02f;
+			m_pTransformCom->Set_State(CTransform::STATE_POSITION, newBodyPos);
+		}
+		
 	}
 }
 

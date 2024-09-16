@@ -41,7 +41,7 @@ public:
 public:
 	HRESULT Initialize(const _float3* pPoints, _int iIndex);
 	_bool Compare_Points(_fvector vSour, _fvector vDest);
-	_bool isIn(_fvector vPosition, _int* pNeighborIndex, _vector* vOutLine);
+	_bool isIn(_fvector vPosition, _int* pNeighborIndex = nullptr, _vector* vOutLine = nullptr);
 
 	_float Culculate_InputAngle(_fvector vLook , _fvector vOutLine);
 	_vector Culculate_SlidePos(_fvector vLook,_float fSpeed, _float fTimeDelta, _fvector vOutLine);

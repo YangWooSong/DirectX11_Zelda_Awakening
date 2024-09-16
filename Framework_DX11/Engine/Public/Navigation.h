@@ -27,7 +27,7 @@ public:
 	void Update(_fmatrix TerrainWorldMatrix);
 
 public:
-	_bool isMove(_fvector vPosition);
+	_bool isMove(_fvector vPosition, _bool bMovecliff = false);
 	_bool isMove_in_Room(_fvector vPosition, _int iRoomNum);
 	_uint isSlide(_fvector vLook);	//각도 제한으로 슬라이드 유무 확인
 	_uint SlideDir(_fvector vLook);	//각도 제한이 유함, 방향만 정한다
@@ -39,6 +39,8 @@ public:
 	_int Get_CurrentCellIndex() { return m_iCurrentCellIndex; }
 	_vector Get_OutLIne() { return m_vOutLine; }
 	_uint Get_CurrentCellType() { return m_iCurrentCelltype; }
+	_uint Get_CurrentCellType(_vector vCurPos);
+
 	_int Get_CurrentCell_RoomNum();
 	_float3 Get_MiddlePosOfPreCell();
 #ifdef _DEBUG

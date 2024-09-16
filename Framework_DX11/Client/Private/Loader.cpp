@@ -37,7 +37,7 @@
 
 #include "Rola.h"
 #include "Spark.h"
-#include "Pawn.h"
+
 #include "Togezo.h"
 #include "Kuribo.h"
 #include "Vegas.h"
@@ -47,6 +47,7 @@
 #include "DeguTail_00.h"
 #include "DeguTail_01.h"
 #include "DeguTail_04.h"
+#include "Pawn.h"
 #include "CollapseTile.h"
 #include "CrackedWall.h"
 #include "OwlStatue.h"
@@ -547,11 +548,6 @@ HRESULT CLoader::Ready_Models_For_Test()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_Pawn*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Pawn"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Pawn/Pawn.dat", PreTransformMatrix))))
-		return E_FAIL;
-
 	/* For. Prototype_Component_Model_Spark*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Spark"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Spark/Spark.dat"))))
@@ -629,6 +625,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DeguTail03"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/DeguTail/DeguTail03.dat", PreTransformMatrix))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Pawn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Pawn"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Pawn/Pawn.dat", PreTransformMatrix))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region NONANIM_OBJ
@@ -655,6 +656,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	/* For. Prototype_Component_Model_StoneHinoxRock*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_StoneHinoxRock"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/StoneHinoxRock/StoneHinoxRock.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Obj_HousePot*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Obj_HousePot"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/HousePot/HousePot.dat"))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
@@ -732,10 +738,6 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		CSpark::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_Pawn*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
-		CPawn::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
 
 	/* For. Prototype_GameObject_Togezo*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
@@ -781,6 +783,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_DeguTail_04*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_04"),
 		CDeguTail_04::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Pawn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
+		CPawn::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 

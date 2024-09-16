@@ -22,7 +22,7 @@ HRESULT CState_Pawn_Idle::Initialize(_uint iStateNum)
 
 HRESULT CState_Pawn_Idle::Start_State()
 {
-    m_pPlayer = m_pGameInstance->Find_Player(LEVEL_FIELD);
+    m_pPlayer = m_pGameInstance->Find_Player(LEVEL_DUNGEON);
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
    //m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
     return S_OK;

@@ -36,6 +36,11 @@ HRESULT CHousePot::Initialize(void* pArg)
 
     Set_LayerTag(TEXT("Layer_HousePot"));
 
+    if (m_iRoomNum != 0)
+        m_isActive = false;
+    else
+        m_isActive = true;
+
     return S_OK;
 }
 
@@ -58,32 +63,35 @@ void CHousePot::Late_Update(_float fTimeDelta)
 
 HRESULT CHousePot::Render()
 {
-    if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-        return E_FAIL;
-
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-        return E_FAIL;
-    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-        return E_FAIL;
-
-
-    _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
-
-    for (size_t i = 0; i < iNumMeshes; i++)
+    if(m_isActive)
     {
-        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+        if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(0)))
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+            return E_FAIL;
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
             return E_FAIL;
 
-        if (FAILED(m_pModelCom->Render(i)))
-            return E_FAIL;
-    }
+
+        _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+        for (size_t i = 0; i < iNumMeshes; i++)
+        {
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+                return E_FAIL;
+
+            if (FAILED(m_pShaderCom->Begin(0)))
+                return E_FAIL;
+
+            if (FAILED(m_pModelCom->Render(i)))
+                return E_FAIL;
+        }
 
 #ifdef _DEBUG
-    m_pColliderCom->Render();
+        m_pColliderCom->Render();
 #endif
+    }
 
     return S_OK;
 }
@@ -117,10 +125,20 @@ HRESULT CHousePot::Ready_Components()
         TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
         return E_FAIL;
 
-    /* FOR.Com_Model */
-    if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_HousePot"),
-        TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
-        return E_FAIL;
+    if(m_iRoomNum == 0)
+    {
+        /* FOR.Com_Model */
+        if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_HousePot"),
+            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+            return E_FAIL;
+    }
+    else
+    {
+        /* FOR.Com_Model */
+        if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Obj_HousePot"),
+            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+            return E_FAIL;
+    }
 
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};

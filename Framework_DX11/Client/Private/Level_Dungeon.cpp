@@ -218,6 +218,11 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
+	if (_strLyaerTag == "Layer_Pawn")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Pawn"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -279,6 +284,11 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 	else if (_strLyaerTag == "Layer_StoneHinoxRock")
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_StoneHinoxRock"), TEXT("Prototype_GameObject_StoneHinoxRock"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_HousePot")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_HousePot"), TEXT("Prototype_GameObject_HousePot"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;
@@ -386,6 +396,16 @@ void CLevel_Dungeon::Change_Room()
 	}
 
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_StoneHinoxRock"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_HousePot"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{
