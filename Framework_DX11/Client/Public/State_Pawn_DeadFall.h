@@ -27,7 +27,7 @@ private:
     _uint               m_iCurrentAnimIndex = {};
     _float              m_fTimer = { 0.f };
     _float              m_fFallTimer = { 0.f };
-
+    _bool               m_bPlaySound = { false };
 public:
     static CState_Pawn_DeadFall* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

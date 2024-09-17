@@ -237,14 +237,9 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 	pDesc.vRotation = _fRot;
 	pDesc.iCellNum = _iCellNum;
 	pDesc.iRoomNum = _iRoomNum;
-	if (_strLyaerTag == "Layer_Weathercock")
+	if (_strLyaerTag == "Layer_SpikeTile")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Weathercock"), TEXT("Prototype_GameObject_Weathercock"), &pDesc)))
-			return E_FAIL;
-	}
-	else if (_strLyaerTag == "Layer_Tree")
-	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Tree"), TEXT("Prototype_GameObject_Tree"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_SpikeTile"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;

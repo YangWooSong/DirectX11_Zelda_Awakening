@@ -69,6 +69,7 @@ void CPawn::Update(_float fTimeDelta)
 		m_pFsmCom->Update(fTimeDelta);
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 		m_pModelCom->Play_Animation(fTimeDelta);
+		m_pMonsterSoundCom->Update(fTimeDelta);
 
 		__super::Update(fTimeDelta);
 	}
@@ -179,6 +180,12 @@ HRESULT CPawn::Ready_Components()
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
 
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pMonsterSoundCom))))
+		return E_FAIL;
+	m_pMonsterSoundCom->Set_Owner(this);
+
 	return S_OK;
 }
 
@@ -231,5 +238,6 @@ void CPawn::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 	Safe_Release(m_pFsmCom);
+	Safe_Release(m_pMonsterSoundCom);
 }
 

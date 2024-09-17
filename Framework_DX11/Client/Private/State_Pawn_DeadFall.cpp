@@ -33,6 +33,11 @@ void CState_Pawn_DeadFall::Update(_float fTimeDelta)
 
     if (m_fTimer > 1.f)
     {
+        if(m_bPlaySound == false)
+        {
+            m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Pawn_Dead.wav"), 0.8f);
+            m_bPlaySound = true;
+        }
         m_pOwner->Get_Transform()->Go_World_Down(fTimeDelta, 2.f);
         m_fFallTimer += fTimeDelta;
     }

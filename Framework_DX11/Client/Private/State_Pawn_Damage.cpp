@@ -24,6 +24,7 @@ HRESULT CState_Pawn_Damage::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+    m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Pawn_Damage.wav"),0.8f);
     return S_OK;
 }
 

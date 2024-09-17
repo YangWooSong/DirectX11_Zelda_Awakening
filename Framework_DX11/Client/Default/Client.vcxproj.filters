@@ -382,6 +382,9 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\OwlStatue">
       <UniqueIdentifier>{11f8f513-233e-4ba8-bcc1-fe89648dd041}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\SpikeTile">
+      <UniqueIdentifier>{431b3518-905b-4084-8fdc-5d3cc1b19c42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -708,6 +711,9 @@
     <ClInclude Include="..\Public\StoneHinoxRock.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\StoneHinoxRock</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\SpikeTile.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\SpikeTile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1024,6 +1030,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\StoneHinoxRock.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\StoneHinoxRock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SpikeTile.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\SpikeTile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
