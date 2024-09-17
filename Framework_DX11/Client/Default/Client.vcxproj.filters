@@ -322,9 +322,6 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon">
       <UniqueIdentifier>{10940312-34ba-4e68-ab63-8b3ca517bad2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Dungeon\CollapseTile">
-      <UniqueIdentifier>{ed5d1ae1-5d26-4801-aefc-9a9056a32fd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\05.Monster\13.DeguTail\DeguTail_01%28Body%29">
       <UniqueIdentifier>{3d0c32e5-4f6b-4e15-ab26-d2e7c9ed8be1}</UniqueIdentifier>
     </Filter>
@@ -370,20 +367,32 @@
     <Filter Include="02.GameObjects\06.Particle\Test_Snow">
       <UniqueIdentifier>{d1d531b4-5c15-4e42-9780-1426273bb984}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Dungeon\SquareBlock">
-      <UniqueIdentifier>{7a4f215f-dc29-4bdf-a49d-8bedb41c6253}</UniqueIdentifier>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim">
+      <UniqueIdentifier>{aeb3684c-c8a8-46aa-ab68-fa28e86e4eb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Dungeon\StoneHinoxRock">
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox">
+      <UniqueIdentifier>{bcb1eff2-8464-4812-a214-8cef24723f3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\SpikeTile">
+      <UniqueIdentifier>{431b3518-905b-4084-8fdc-5d3cc1b19c42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim">
+      <UniqueIdentifier>{49101cec-c0dc-4bd9-b88e-90e917bde564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\StoneHinoxRock">
       <UniqueIdentifier>{e3978932-85a7-47ae-83ce-e5cdf824bb54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Dungeon\CrackedWall">
-      <UniqueIdentifier>{adb807a8-7baf-4bc7-a076-f3bdfc02978d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Dungeon\OwlStatue">
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\OwlStatue">
       <UniqueIdentifier>{11f8f513-233e-4ba8-bcc1-fe89648dd041}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Dungeon\SpikeTile">
-      <UniqueIdentifier>{431b3518-905b-4084-8fdc-5d3cc1b19c42}</UniqueIdentifier>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\SquareBlock">
+      <UniqueIdentifier>{7a4f215f-dc29-4bdf-a49d-8bedb41c6253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\CrackedWall">
+      <UniqueIdentifier>{adb807a8-7baf-4bc7-a076-f3bdfc02978d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\CollapseTile">
+      <UniqueIdentifier>{ed5d1ae1-5d26-4801-aefc-9a9056a32fd4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -664,7 +673,7 @@
       <Filter>05.State\Monster\14.DeguTail\Head\Idle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\CollapseTile.h">
-      <Filter>02.GameObjects\03.Objects\Dungeon\CollapseTile</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\CollapseTile</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State_DeguTail_Walk.h">
       <Filter>05.State\Monster\14.DeguTail\Head\Walk</Filter>
@@ -700,19 +709,22 @@
       <Filter>02.GameObjects\06.Particle\Test_Snow</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\CrackedWall.h">
-      <Filter>02.GameObjects\03.Objects\Dungeon\CrackedWall</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\CrackedWall</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\OwlStatue.h">
-      <Filter>02.GameObjects\03.Objects\Dungeon\OwlStatue</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\OwlStatue</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\SquareBlock.h">
-      <Filter>02.GameObjects\03.Objects\Dungeon\SquareBlock</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\SquareBlock</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\StoneHinoxRock.h">
-      <Filter>02.GameObjects\03.Objects\Dungeon\StoneHinoxRock</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\StoneHinoxRock</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\SpikeTile.h">
-      <Filter>02.GameObjects\03.Objects\Dungeon\SpikeTile</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\SpikeTile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\TreasureBox.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -984,7 +996,7 @@
       <Filter>05.State\Monster\14.DeguTail\Head\Idle</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\CollapseTile.cpp">
-      <Filter>02.GameObjects\03.Objects\Dungeon\CollapseTile</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\CollapseTile</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State_DeguTail_Walk.cpp">
       <Filter>05.State\Monster\14.DeguTail\Head\Walk</Filter>
@@ -1020,19 +1032,22 @@
       <Filter>02.GameObjects\06.Particle\Test_Snow</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\CrackedWall.cpp">
-      <Filter>02.GameObjects\03.Objects\Dungeon\CrackedWall</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\CrackedWall</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\OwlStatue.cpp">
-      <Filter>02.GameObjects\03.Objects\Dungeon\OwlStatue</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\OwlStatue</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\SquareBlock.cpp">
-      <Filter>02.GameObjects\03.Objects\Dungeon\SquareBlock</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\SquareBlock</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\StoneHinoxRock.cpp">
-      <Filter>02.GameObjects\03.Objects\Dungeon\StoneHinoxRock</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\StoneHinoxRock</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\SpikeTile.cpp">
-      <Filter>02.GameObjects\03.Objects\Dungeon\SpikeTile</Filter>
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\SpikeTile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TreasureBox.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

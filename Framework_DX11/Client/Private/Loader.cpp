@@ -54,6 +54,7 @@
 #include "SquareBlock.h"
 #include "StoneHinoxRock.h"
 #include "SpikeTile.h"
+#include "TreasureBox.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -670,6 +671,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_SpikeTile"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/SpikeTile/SpikeTile.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_TreasureBox*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_TreasureBox"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/TreasureBox/TreasureBox.dat"))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }
@@ -830,6 +836,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_SpikeTile*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SpikeTile"),
 		CSpikeTile::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_TreasureBox*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_TreasureBox"),
+		CTreasureBox::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 #pragma endregion

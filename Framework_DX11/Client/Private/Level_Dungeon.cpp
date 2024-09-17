@@ -242,6 +242,11 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_SpikeTile"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_TreasureBox")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"), TEXT("Prototype_GameObject_TreasureBox"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -338,6 +343,8 @@ void CLevel_Dungeon::Change_Room()
 #pragma endregion
 
 #pragma region Monster
+	//SpikeTile Æ÷ÇÔ
+
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Monster"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
@@ -409,6 +416,19 @@ void CLevel_Dungeon::Change_Room()
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
+#pragma endregion
+
+#pragma region AnimObj
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
 #pragma endregion
 }
 
