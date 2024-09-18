@@ -13,8 +13,8 @@
 
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 texture2D g_Texture;
-bool g_bBlink;
-float g_fBrightness;
+bool g_bBlink = false;
+float g_fBrightness = 1.f;
 
 struct VS_IN
 {

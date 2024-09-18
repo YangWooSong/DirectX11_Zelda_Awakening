@@ -34,6 +34,8 @@ HRESULT CSquareBlock::Initialize(void* pArg)
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("SquareBlock"));
+
     m_isActive = false;
     return S_OK;
 }

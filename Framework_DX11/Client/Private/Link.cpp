@@ -18,10 +18,12 @@
 #include "State_Link_Stair_Down.h"
 #include "State_Link_Fall.h"
 #include "State_Link_Damage_Front.h"
+#include "State_Link_Carry.h"
 
 #include "Cell.h"
 #include "Sword.h"
 #include "Shield.h"
+#include "BoxOpenUI.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -55,6 +57,9 @@ HRESULT CLink::Initialize(void* pArg)
 	if (FAILED(Ready_PartObjects()))
 		return E_FAIL;
 
+	if (FAILED(Ready_PlayerUI()))
+		return E_FAIL;
+
 	m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 
@@ -69,6 +74,8 @@ void CLink::Priority_Update(_float fTimeDelta)
 {
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Priority_Update(fTimeDelta);
+
+	m_pBoxOpenUI->Priority_Update(fTimeDelta);
 }
 
 void CLink::Update(_float fTimeDelta)
@@ -87,6 +94,8 @@ void CLink::Update(_float fTimeDelta)
 
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Update(fTimeDelta);
+
+	m_pBoxOpenUI->Update(fTimeDelta);
 
 	//¶³¾îÁö±â
 	if (m_pNavigationCom != nullptr && m_pNavigationCom->Get_CurrentCellType() == CCell::CELL_CLIFF && m_pFsmCom->Get_CurrentState() != JUMP)
@@ -124,6 +133,8 @@ void CLink::Late_Update(_float fTimeDelta)
 {
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Late_Update(fTimeDelta);
+
+	m_pBoxOpenUI->Late_Update(fTimeDelta);
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
@@ -180,6 +191,8 @@ HRESULT CLink::Render()
 
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
+
+		m_pBoxOpenUI->Render();
 	}
 
 #ifdef _DEBUG
@@ -197,15 +210,44 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			Change_State(DAMAGE_FRONT);*/
 		if (pOther->Get_LayerTag() == TEXT("Layer_Monster"))
 			Change_State(DAMAGE_FRONT);
+		if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox"))
+		{
+			m_pBoxOpenUI->SetActive(true);
+			m_pBoxOpenUI->Set_TextureNum(0);
+		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
+		{
+			m_pBoxOpenUI->SetActive(true);
+			m_pBoxOpenUI->Set_TextureNum(2);
+		}
 	}
 }
 
 void CLink::OnCollisionStay(CGameObject* pOther)
 {
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
+		{
+			if (KEY_TAP(E))
+				m_pFsmCom->Change_State(CARRY);
+		}
+	}
 }
 
 void CLink::OnCollisionExit(CGameObject* pOther)
 {
+
+	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox"))
+	{
+		m_pBoxOpenUI->SetActive(false);
+	}
+	
+	if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
+	{
+		m_pBoxOpenUI->SetActive(false);
+	}
 }
 
 HRESULT CLink::Ready_Components()
@@ -299,6 +341,25 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Stair_Down::Create(m_pFsmCom, this, STAIR_DOWN));
 	m_pFsmCom->Add_State(CState_Link_Fall::Create(m_pFsmCom, this, FALL));
 	m_pFsmCom->Add_State(CState_Link_Damage_Front::Create(m_pFsmCom, this, DAMAGE_FRONT));
+	m_pFsmCom->Add_State(CState_Link_Carry::Create(m_pFsmCom, this, CARRY));
+
+	return S_OK;
+}
+
+HRESULT CLink::Ready_PlayerUI()
+{
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_BoxOpenUI"));
+	if (pGameObj != nullptr)
+	{
+		CUIObject::UI_DESC pDesc;
+		pDesc.fSizeX = 192.f / 3.f;
+		pDesc.fSizeY = 96.f / 3.f;
+		pDesc.fX = 640.f;
+		pDesc.fY = 360.f;
+
+		m_pBoxOpenUI = dynamic_cast<CBoxOpenUI*>(pGameObj->Clone(&pDesc));
+		m_pBoxOpenUI ->Set_ParentObj(this);
+	}
 
 	return S_OK;
 }
@@ -334,6 +395,8 @@ void CLink::Free()
 
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
+
+	Safe_Release(m_pBoxOpenUI);
 
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pPlayerSoundCom);

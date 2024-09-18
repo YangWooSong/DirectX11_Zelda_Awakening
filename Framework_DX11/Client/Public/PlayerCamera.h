@@ -12,6 +12,7 @@ public:
 		class CPlayer*	pPlayer = { nullptr };
 		_float			fSpeed = {};
 		_bool			bFollowPlayer = {};
+		_float			fDefaultAngle = {45.f};
 	}CAMERA_PLAYER_DESC;
 private:
 	CPlayerCamera(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -51,7 +52,7 @@ private:
 	_float					m_fDefaultRotationY = { 45.f };
 	_float					m_fLerp = { 0.f };
 	
-	_float3					m_vOffset = { 0.0f, 15.0f, -7.0f };
+	_float3					m_vOffset = { 0.0f, 20.0f, -11.f };
 
 	_bool					m_bShake = { false };
 	_bool					m_bZoomIn = { false };

@@ -394,6 +394,15 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\CollapseTile">
       <UniqueIdentifier>{ed5d1ae1-5d26-4801-aefc-9a9056a32fd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\02.Player\UI">
+      <UniqueIdentifier>{95da6917-0ca7-4fcd-b632-6ba11c89371b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\02.Player\UI\TreasureBox">
+      <UniqueIdentifier>{41ffd962-005b-4c02-8506-2e4fe7a46269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Carry">
+      <UniqueIdentifier>{44f17ec8-2b6e-443d-a25e-08fc538fd0bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -726,6 +735,12 @@
     <ClInclude Include="..\Public\TreasureBox.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\BoxOpenUI.h">
+      <Filter>02.GameObjects\02.Player\UI\TreasureBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Carry.h">
+      <Filter>05.State\Link\Carry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1048,6 +1063,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\TreasureBox.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BoxOpenUI.cpp">
+      <Filter>02.GameObjects\02.Player\UI\TreasureBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Carry.cpp">
+      <Filter>05.State\Link\Carry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

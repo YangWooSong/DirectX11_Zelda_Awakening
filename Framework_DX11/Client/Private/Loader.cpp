@@ -55,6 +55,7 @@
 #include "StoneHinoxRock.h"
 #include "SpikeTile.h"
 #include "TreasureBox.h"
+#include "BoxOpenUI.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -197,6 +198,11 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/House_Background.dds"), 1))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_Loading */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_OpenBox"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/InteractBT_%d.dds"), 3))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
 	Ready_Models_For_MarinHouse();
@@ -260,6 +266,11 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	/* For. Prototype_GameObject_Shield*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Shield"),
 		CShield::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_BoxOpenUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BoxOpenUI"),
+		CBoxOpenUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	///* For. Prototype_GameObject_NonAnim*/
@@ -783,6 +794,10 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 
 HRESULT CLoader::Ready_Prototype_For_Dungeon()
 {
+#pragma region UI
+	
+#pragma endregion
+
 #pragma region MONSTER
 	/* For. Prototype_GameObject_DeguTail_00*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DeguTail_00"),

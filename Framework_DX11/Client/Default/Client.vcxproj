@@ -170,6 +170,7 @@
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
+    <ClInclude Include="..\Public\BoxOpenUI.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
     <ClInclude Include="..\Public\CrackedWall.h" />
     <ClInclude Include="..\Public\DeguTail_00.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\Public\State_Kuribo_Idle.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk_Shake.h" />
+    <ClInclude Include="..\Public\State_Link_Carry.h" />
     <ClInclude Include="..\Public\State_Link_Damage_Front.h" />
     <ClInclude Include="..\Public\State_Link_Fall.h" />
     <ClInclude Include="..\Public\State_Link_Slash_Hold.h" />
@@ -282,6 +284,7 @@
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
+    <ClCompile Include="..\Private\BoxOpenUI.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
     <ClCompile Include="..\Private\CrackedWall.cpp" />
     <ClCompile Include="..\Private\DeguTail_00.cpp" />
@@ -331,6 +334,7 @@
     <ClCompile Include="..\Private\State_Kuribo_Idle.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk_Shake.cpp" />
+    <ClCompile Include="..\Private\State_Link_Carry.cpp" />
     <ClCompile Include="..\Private\State_Link_Damage_Front.cpp" />
     <ClCompile Include="..\Private\State_Link_Fall.cpp" />
     <ClCompile Include="..\Private\State_Link_Idle.cpp" />

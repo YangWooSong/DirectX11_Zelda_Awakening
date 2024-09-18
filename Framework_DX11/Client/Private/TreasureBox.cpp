@@ -64,6 +64,7 @@ void CTreasureBox::Late_Update(_float fTimeDelta)
         __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
+
     }
 }
 
@@ -98,9 +99,23 @@ HRESULT CTreasureBox::Render()
 #ifdef _DEBUG
         m_pColliderCom->Render();
 #endif	
+
     }
 
     return S_OK;
+}
+
+void CTreasureBox::OnCollisionEnter(CGameObject* pOther)
+{
+}
+
+void CTreasureBox::OnCollisionStay(CGameObject* pOther)
+{
+ 
+}
+
+void CTreasureBox::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 HRESULT CTreasureBox::Ready_Components()

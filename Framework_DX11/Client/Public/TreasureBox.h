@@ -28,6 +28,10 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther)  override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther)  override;
+public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
@@ -36,8 +40,8 @@ public:
 private:
 	HRESULT Ready_Components();
 
-
 	_int m_iCurrentAnimIndex = { 0 };
+	_bool		m_bOpened = { false };
 public:
 	static CTreasureBox* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

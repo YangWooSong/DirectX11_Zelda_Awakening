@@ -67,7 +67,7 @@ HRESULT CLevel_Dungeon::Ready_Lights()
 
 HRESULT CLevel_Dungeon::Ready_Layer_Camera()
 {
-    CFreeCamera::CAMERA_FREE_DESC		Desc{};
+  /*  CFreeCamera::CAMERA_FREE_DESC		Desc{};
 
     Desc.fSensor = 0.2f;
     Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
@@ -80,7 +80,29 @@ HRESULT CLevel_Dungeon::Ready_Layer_Camera()
     Desc.fRotationPerSec = XMConvertToRadians(90.0f);
 
     if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
-        return E_FAIL;
+        return E_FAIL;*/
+
+
+	CPlayerCamera::CAMERA_PLAYER_DESC	Desc{};
+
+	Desc.vEye = _float4(0.f, 20.f, -11.f, 1.f);
+	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
+	Desc.fFovy = XMConvertToRadians(31.f);
+	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
+	Desc.fNear = 0.1f;
+	Desc.fFar = 1000.f;
+	Desc.fSpeedPerSec = 30.f;
+	Desc.fRotationPerSec = XMConvertToRadians(90.0f);
+	Desc.fDefaultAngle = 60.f;
+
+	Desc.fSpeed = 4.f;
+	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON));
+	Desc.bFollowPlayer = false;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
+		return E_FAIL;
+
+	m_pPlayerCam = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON));
     return S_OK;
 }
 
@@ -298,6 +320,18 @@ void CLevel_Dungeon::Change_Room()
 {
 	m_iCurRoomNum = m_pPlayer->Get_CurRoomNum();
 	CLayer* pLayer = { nullptr };
+
+	_float3 vNewCamPos = { m_CameraRoomPos[m_iCurRoomNum - 1].x, m_CameraRoomPos[m_iCurRoomNum - 1].y, m_CameraRoomPos[m_iCurRoomNum - 1].z };
+
+	if (m_iCurRoomNum == 7 || m_iCurRoomNum == 14 || m_iCurRoomNum == 16)
+	{
+		m_pPlayerCam->Set_FollowPlayer(true);
+	}
+	else
+	{
+		m_pPlayerCam->Set_FollowPlayer(false);
+		m_pPlayerCam->Set_TargetToOtherPos(XMLoadFloat3(&vNewCamPos));
+	}
 
 #pragma region Land
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));

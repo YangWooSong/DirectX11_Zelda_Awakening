@@ -1,2 +1,39 @@
-﻿  TreasureBox.cpp
+﻿  Level_Dungeon.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(169,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
+  
+  Level_Field.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(194,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
+  
+  Level_MarinHouse.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_MarinHouse.cpp(229,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_MarinHouse.cpp'을(를) 컴파일하는 중)
+  
+  Level_Test.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Test.cpp(200,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Test.cpp'을(를) 컴파일하는 중)
+  
+  Link.cpp
+  SeaUrchin.cpp
+  Shield.cpp
+  State_Link_Carry.cpp
+  State_Link_Damage_Front.cpp
+  State_Link_Fall.cpp
+  State_Link_Idle.cpp
+  State_Link_ItemA.cpp
+  State_Link_ItemB.cpp
+  State_Link_Jump.cpp
+  State_Link_Shield.cpp
+  State_Link_Shield_Walk.cpp
+  State_Link_Slash.cpp
+  State_Link_Slash_Hold.cpp
+  State_Link_Stair_Up.cpp
+  State_Link_Walk.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  State_Pawn_Walk.cpp
+  Sword.cpp
+  Loader.cpp
+  코드를 생성하고 있습니다...
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

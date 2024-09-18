@@ -21,6 +21,7 @@ protected:
 
 public:
 	void		Set_ParentUI(CUIObject* _p) { m_pParentUI = _p; }
+	void		Set_ParentObj(CGameObject* _p) { m_pParentGameObj = _p; }
 
 	void		Set_Movement(bool _b) { m_bMovement = _b; }
 	_bool		Get_Movement() { return m_bMovement; }
@@ -44,7 +45,8 @@ public:
 	_float		Get_fSizeX() { return m_fSizeX; }
 	_float		Get_fSizeY() { return m_fSizeY; }
 
-	CUIObject*			Get_Parent() { return m_pParentUI; }
+	CUIObject*			Get_ParentUI() { return m_pParentUI; }
+	CGameObject*			Get_ParentGameObj() { return m_pParentGameObj; }
 	list<CUIObject*>&	Get_ChildUIList() { return m_childUI_List; }
 
 public:
@@ -67,6 +69,7 @@ protected:
 	_bool				m_bLbtnDown = {};	 // UI에 왼쪽버튼이 눌러져 있는지
 
 	CUIObject*			m_pParentUI = { nullptr };	 // 부모 UI가 있니
+	CGameObject*			m_pParentGameObj = { nullptr };	 // 부모 UI가 있니
 	list<CUIObject*>	m_childUI_List;
 
 protected:

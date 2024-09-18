@@ -49,6 +49,10 @@ HRESULT CPlayerCamera::Initialize(void* pArg)
 	XMStoreFloat(&m_fRadian, vRadian);
 	m_fRadian = acosf(m_fRadian);
 
+
+	m_fNewRotationY = pDesc->fDefaultAngle;
+	m_fDefaultRotationY = pDesc->fDefaultAngle;
+	m_pTransformCom->RotationThreeAxis(_float3(m_fDefaultRotationY, 0.f, 0.f));
 	return S_OK;
 }
 
@@ -59,6 +63,7 @@ void CPlayerCamera::Priority_Update(_float fTimeDelta)
 
 void CPlayerCamera::Update(_float fTimeDelta)
 {
+	
 #pragma region È¸Àü
 	if (fabs(m_fNewRotationY - m_fDefaultRotationY) > 0.2f)
 	{
