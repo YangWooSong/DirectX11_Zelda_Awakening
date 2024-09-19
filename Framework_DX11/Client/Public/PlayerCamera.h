@@ -60,6 +60,7 @@ private:
 	_bool					m_bFollowPlayer = {true};
 
 	_vector					m_vTargetPos = {};
+	_vector					m_vOriginTargetPos = {};
 
 public:
 	static CPlayerCamera* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

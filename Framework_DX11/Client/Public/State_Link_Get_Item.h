@@ -22,6 +22,7 @@ public:
 
 private:
     class CPlayer* m_pPlayer = { nullptr };
+    class CPlayerCamera* m_pCamera = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iAnimStIndex = { 0 };

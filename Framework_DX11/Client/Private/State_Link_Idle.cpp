@@ -41,7 +41,7 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 
 	if (KEY_HOLD(KEY::Q))
 	{
-		//m_pPlayer->Change_State(CLink::GET_ITEM);
+		m_pPlayer->Change_State(CLink::GET_ITEM);
 	}
 
 	if (KEY_AWAY(KEY::P))

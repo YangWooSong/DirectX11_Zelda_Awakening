@@ -2,6 +2,7 @@
 #include "TreasureBox.h"
 #include "GameInstance.h"
 #include "Link.h"
+#include "ItemUI.h"
 
 CTreasureBox::CTreasureBox(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -34,6 +35,7 @@ HRESULT CTreasureBox::Initialize(void* pArg)
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
+    m_iCellNum = pDesc->iCellNum;
 
     m_isActive = false;
 
@@ -129,7 +131,7 @@ void CTreasureBox::OnCollisionStay(CGameObject* pOther)
                 m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("open");
                 m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, false);
                 m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
-
+                Change_PlayerUI_TextureNum();
                 m_pSoundCom->Play_Sound(TEXT("4_Obj_Unlock Treasure Box.wav"), 0.8f);
             }
         }
@@ -169,6 +171,38 @@ HRESULT CTreasureBox::Ready_Components()
         return E_FAIL;
     m_pSoundCom->Set_Owner(this);
     return S_OK;
+}
+
+void CTreasureBox::Change_PlayerUI_TextureNum()
+{
+    switch (m_iRoomNum)
+    {
+    case 3:
+        static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::CAMPUS);
+        break;
+    case 4:
+        static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::SMALLKEY);
+        break;
+    case 5:
+        static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::MAP);
+        break;
+    case 7:
+        if(m_iCellNum == 540 || m_iCellNum == 541)
+            static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::SMALLKEY);
+        if(m_iCellNum == 621 || m_iCellNum == 622)
+            static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::BOSSKEY);
+        if(m_iCellNum == 523)
+            static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::LUPEE);
+        break;
+    case 14:
+        static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::STONEBEAK);
+        break;
+    case 15:
+        static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::FEATHER);
+        break;
+    default:
+        break;
+    }
 }
 
 CTreasureBox* CTreasureBox::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

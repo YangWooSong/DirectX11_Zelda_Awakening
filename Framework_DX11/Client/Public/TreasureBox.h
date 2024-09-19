@@ -42,7 +42,9 @@ public:
 
 private:
 	HRESULT Ready_Components();
+	void Change_PlayerUI_TextureNum();
 
+private:
 	_int m_iCurrentAnimIndex = { 0 };
 	_bool		m_bOpened = { false };
 	_bool		m_bCangePlayerState = { false };

@@ -26,7 +26,7 @@
 #include "Cell.h"
 #include "Sword.h"
 #include "Shield.h"
-#include "BoxOpenUI.h"
+#include "InteractUI.h"
 #include "TreasureBox.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -79,7 +79,9 @@ void CLink::Priority_Update(_float fTimeDelta)
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Priority_Update(fTimeDelta);
 
-	m_pBoxOpenUI->Priority_Update(fTimeDelta);
+	for (auto& pPlayerUI : m_PlayerUI)
+		pPlayerUI->Priority_Update(fTimeDelta);
+	
 }
 
 void CLink::Update(_float fTimeDelta)
@@ -99,7 +101,8 @@ void CLink::Update(_float fTimeDelta)
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Update(fTimeDelta);
 
-	m_pBoxOpenUI->Update(fTimeDelta);
+	for (auto& pPlayerUI : m_PlayerUI)
+		pPlayerUI->Update(fTimeDelta);
 
 	//¶³¾îÁö±â
 	if (m_pNavigationCom != nullptr && m_pNavigationCom->Get_CurrentCellType() == CCell::CELL_CLIFF && m_pFsmCom->Get_CurrentState() != JUMP)
@@ -138,7 +141,8 @@ void CLink::Late_Update(_float fTimeDelta)
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Late_Update(fTimeDelta);
 
-	m_pBoxOpenUI->Late_Update(fTimeDelta);
+	for (auto& pPlayerUI : m_PlayerUI)
+		pPlayerUI->Late_Update(fTimeDelta);
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
@@ -196,7 +200,8 @@ HRESULT CLink::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 
-		m_pBoxOpenUI->Render();
+		for (auto& pPlayerUI : m_PlayerUI)
+			pPlayerUI->Render();
 	}
 
 #ifdef _DEBUG
@@ -220,16 +225,16 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 		{
 			if (static_cast<CTreasureBox*>(pOther)->Get_IsOpened() == false)
 			{
-				m_pBoxOpenUI->SetActive(true);
-				m_pBoxOpenUI->Set_TextureNum(0);
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(0);
 			}
 		}
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 		{
 		
-			m_pBoxOpenUI->SetActive(true);
-			m_pBoxOpenUI->Set_TextureNum(2);
+			m_PlayerUI[INTERACT_UI]->SetActive(true);
+			m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
 		}
 	}
 }
@@ -242,7 +247,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 		{
 			if (static_cast<CTreasureBox*>(pOther)->Get_IsOpened() == true)
 			{
-				m_pBoxOpenUI->SetActive(false);
+				m_PlayerUI[INTERACT_UI]->SetActive(false);
 			}
 		}
 
@@ -262,12 +267,12 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 
 	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox"))
 	{
-		m_pBoxOpenUI->SetActive(false);
+		m_PlayerUI[0]->SetActive(false);
 	}
 	
 	if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 	{
-		m_pBoxOpenUI->SetActive(false);
+		m_PlayerUI[0]->SetActive(false);
 	}
 }
 
@@ -372,7 +377,7 @@ HRESULT CLink::Ready_State()
 
 HRESULT CLink::Ready_PlayerUI()
 {
-	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_BoxOpenUI"));
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_InteractUI"));
 	if (pGameObj != nullptr)
 	{
 		CUIObject::UI_DESC pDesc;
@@ -381,8 +386,23 @@ HRESULT CLink::Ready_PlayerUI()
 		pDesc.fX = 640.f;
 		pDesc.fY = 360.f;
 
-		m_pBoxOpenUI = dynamic_cast<CBoxOpenUI*>(pGameObj->Clone(&pDesc));
-		m_pBoxOpenUI ->Set_ParentObj(this);
+		CUIObject*  m_pInteractUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+		m_pInteractUI ->Set_ParentObj(this);
+		m_PlayerUI.push_back(m_pInteractUI);
+	}
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_ItemtUI"));
+	if (pGameObj != nullptr)
+	{
+		CUIObject::UI_DESC pDesc;
+		pDesc.fSizeX = 96.f;
+		pDesc.fSizeY = 96.f ;
+		pDesc.fX = 640.f;
+		pDesc.fY = 360.f;
+
+		CUIObject*  m_pItemUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+		m_pItemUI->Set_ParentObj(this);
+		m_PlayerUI.push_back(m_pItemUI);
 	}
 
 	return S_OK;
@@ -419,8 +439,6 @@ void CLink::Free()
 
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
-
-	Safe_Release(m_pBoxOpenUI);
 
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pPlayerSoundCom);

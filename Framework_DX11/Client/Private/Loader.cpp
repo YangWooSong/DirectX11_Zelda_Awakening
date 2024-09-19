@@ -55,7 +55,9 @@
 #include "StoneHinoxRock.h"
 #include "SpikeTile.h"
 #include "TreasureBox.h"
-#include "BoxOpenUI.h"
+
+#include "InteractUI.h"
+#include "ItemUI.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -193,14 +195,19 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
 
-	/* For. Prototype_Component_Texture_Loading */
+	/* For. Prototype_Component_Texture_House_Background */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Texture_House_Background"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/House_Background.dds"), 1))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Texture_Loading */
+	/* For. Prototype_Component_Texture_OpenBox */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_OpenBox"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/InteractBT_%d.dds"), 3))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_ItemIcon */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIcon"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 7))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Particle */
@@ -297,9 +304,14 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CShield::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_BoxOpenUI*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BoxOpenUI"),
-		CBoxOpenUI::Create(m_pDevice, m_pContext))))
+	/* For. Prototype_GameObject_InteractUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_InteractUI"),
+		CInteractUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_ItemtUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ItemtUI"),
+		CItemUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	/* For. Prototype_GameObject_Particle_Expolosion */

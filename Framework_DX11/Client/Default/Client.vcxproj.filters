@@ -394,12 +394,6 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\CollapseTile">
       <UniqueIdentifier>{ed5d1ae1-5d26-4801-aefc-9a9056a32fd4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\02.Player\UI">
-      <UniqueIdentifier>{95da6917-0ca7-4fcd-b632-6ba11c89371b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\02.Player\UI\TreasureBox">
-      <UniqueIdentifier>{41ffd962-005b-4c02-8506-2e4fe7a46269}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.State\Link\Carry">
       <UniqueIdentifier>{44f17ec8-2b6e-443d-a25e-08fc538fd0bf}</UniqueIdentifier>
     </Filter>
@@ -411,6 +405,21 @@
     </Filter>
     <Filter Include="05.State\Link\Get_Item">
       <UniqueIdentifier>{532bc9cd-2259-46e1-ab01-669b826ebd7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI">
+      <UniqueIdentifier>{8b5d9314-e21f-4fe6-ac5f-ecaff006e125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\Player">
+      <UniqueIdentifier>{95da6917-0ca7-4fcd-b632-6ba11c89371b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\Player\Interact">
+      <UniqueIdentifier>{41ffd962-005b-4c02-8506-2e4fe7a46269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\Object">
+      <UniqueIdentifier>{0eb528cf-200d-4bb7-9677-4bd24492045f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\Player\ItemUI">
+      <UniqueIdentifier>{06328f33-e3fd-4ce3-808b-0b29c113adc9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -482,9 +491,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Land.h">
       <Filter>02.GameObjects\04.Land</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Item.h">
-      <Filter>02.GameObjects\03.Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\HousePot.h">
       <Filter>02.GameObjects\03.Objects\MarinHouse\00.HousePot</Filter>
@@ -744,8 +750,8 @@
     <ClInclude Include="..\Public\TreasureBox.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\BoxOpenUI.h">
-      <Filter>02.GameObjects\02.Player\UI\TreasureBox</Filter>
+    <ClInclude Include="..\Public\InteractUI.h">
+      <Filter>02.GameObjects\07.UI\Player\Interact</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State_Link_Carry.h">
       <Filter>05.State\Link\Carry</Filter>
@@ -758,6 +764,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\State_Link_Get_Item.h">
       <Filter>05.State\Link\Get_Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ItemUI.h">
+      <Filter>02.GameObjects\07.UI\Player\ItemUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -820,9 +829,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Land.cpp">
       <Filter>02.GameObjects\04.Land</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Item.cpp">
-      <Filter>02.GameObjects\03.Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\HousePot.cpp">
       <Filter>02.GameObjects\03.Objects\MarinHouse\00.HousePot</Filter>
@@ -1082,8 +1088,8 @@
     <ClCompile Include="..\Private\TreasureBox.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\TreasureBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\BoxOpenUI.cpp">
-      <Filter>02.GameObjects\02.Player\UI\TreasureBox</Filter>
+    <ClCompile Include="..\Private\InteractUI.cpp">
+      <Filter>02.GameObjects\07.UI\Player\Interact</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Carry.cpp">
       <Filter>05.State\Link\Carry</Filter>
@@ -1096,6 +1102,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Get_Item.cpp">
       <Filter>05.State\Link\Get_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ItemUI.cpp">
+      <Filter>02.GameObjects\07.UI\Player\ItemUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

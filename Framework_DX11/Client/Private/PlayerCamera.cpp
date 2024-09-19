@@ -31,6 +31,7 @@ HRESULT CPlayerCamera::Initialize(void* pArg)
 	vTarget.y = pDesc->vEye.y;
 	vTarget.z = pDesc->vEye.z;
 	m_vTargetPos = XMLoadFloat3(&vTarget);
+	m_vOriginTargetPos = XMLoadFloat3(&vTarget);
 	if (FAILED(__super::Initialize(pDesc)))
 		return E_FAIL;
 
@@ -103,8 +104,12 @@ void CPlayerCamera::Update(_float fTimeDelta)
 
 	//플레이어 따라 다니기
 	if (m_bFollowPlayer)
+	{
 		m_vTargetPos = m_pPlayer->Get_Position() + XMLoadFloat3(&m_vOffset);
-	
+	}
+	else
+		m_vTargetPos = m_vOriginTargetPos;
+
 	_float fLerpSpeed = min(1.0f, 3.f * fTimeDelta);
  	_vector finalPos = XMVectorLerp(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_vTargetPos, fLerpSpeed);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, finalPos);
@@ -132,6 +137,7 @@ void CPlayerCamera::Set_TargetToOtherPos(_vector _vTargetPos)
 {
 	m_bFollowPlayer = false;
 	m_vTargetPos = _vTargetPos;
+	m_vOriginTargetPos = _vTargetPos;
 }
 
 void CPlayerCamera::Zoom_In(_float fZoom, _float _fRotY)

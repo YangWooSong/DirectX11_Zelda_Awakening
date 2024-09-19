@@ -2,7 +2,7 @@
 #include "Player.h"
 
 #include "GameInstance.h"
-
+#include "UIObject.h"
 
 CPlayer::CPlayer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CContainerObject{ pDevice, pContext }
@@ -188,6 +188,22 @@ const _float4x4* CPlayer::Get_BoneMatrix_Ptr(const _char* pBoneName) const
 	return m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr(pBoneName);
 }
 
+void CPlayer::Change_PlayerUI_TextureNum(_uint iIndex, _int iTextureNum)
+{
+	if (m_PlayerUI[iIndex] == nullptr)
+		return;
+
+	m_PlayerUI[iIndex]->Set_TextureNum(iTextureNum);
+}
+
+void CPlayer::Set_UI_Active(_uint iIndex, _bool bActive)
+{
+	if (m_PlayerUI[iIndex] == nullptr)
+		return;
+
+	m_PlayerUI[iIndex]->SetActive(bActive);
+}
+
 _uint CPlayer::Get_CurRoomNum()
 {
 	return m_pNavigationCom->Get_CurrentCell_RoomNum();
@@ -236,6 +252,9 @@ CGameObject* CPlayer::Clone(void* pArg)
 void CPlayer::Free()
 {
 	__super::Free();
+
+	for (auto& pPlayerUI : m_PlayerUI)
+		Safe_Release(pPlayerUI);
 
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);

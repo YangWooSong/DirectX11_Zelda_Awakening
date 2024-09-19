@@ -7,7 +7,6 @@ class CShader;
 class CModel;
 class CFsm;
 class CSound;
-class CUIObject;
 END
 
 BEGIN(Client)
@@ -17,6 +16,7 @@ class CLink :
 {
 public:
 	enum LINKSTATE{IDLE, WALK, ITEMA, ITEMB, SLASH, SLASH_HOLD, JUMP, SHIELD, SHIELD_WALK, STAIR_UP, STAIR_DOWN, FALL, DAMAGE_FRONT, CARRY, CARRY_WALK,THROW, GET_ITEM, LINK_STATE_END};
+	enum UI{INTERACT_UI, ITEM_ICON_UI, UI_END};
 private:
 	CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CLink(const CLink& Prototype);
@@ -59,7 +59,16 @@ private:
 	_float m_fBlinkTimer = { 0.f };
 	_int m_iBlinkCount = { 0};
 	
-	class CBoxOpenUI* m_pBoxOpenUI = { nullptr };
+	_int m_iLupee = { 0 };
+	_int m_iSmallKeyCount = { 0 };
+	_bool m_bGetBossKey = { false };
+	_bool m_bCampus = { false };
+	_bool m_bBeak = { false };
+	_bool m_bFeather = { false };
+	_bool m_bMap = { false };
+
+	//class CInteractUI* m_pInteractUI = { nullptr };
+	//class CItemUI* m_pItemtUI = { nullptr };
 
 public:
 	static CLink* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

@@ -170,7 +170,7 @@
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
-    <ClInclude Include="..\Public\BoxOpenUI.h" />
+    <ClInclude Include="..\Public\InteractUI.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
     <ClInclude Include="..\Public\CrackedWall.h" />
     <ClInclude Include="..\Public\DeguTail_00.h" />
@@ -222,7 +222,7 @@
     <ClInclude Include="..\Public\FreeCamera.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\HousePot.h" />
-    <ClInclude Include="..\Public\Item.h" />
+    <ClInclude Include="..\Public\ItemUI.h" />
     <ClInclude Include="..\Public\Land.h" />
     <ClInclude Include="..\Public\Level_Field.h" />
     <ClInclude Include="..\Public\Level_MarinHouse.h" />
@@ -287,7 +287,7 @@
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
-    <ClCompile Include="..\Private\BoxOpenUI.cpp" />
+    <ClCompile Include="..\Private\InteractUI.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
     <ClCompile Include="..\Private\CrackedWall.cpp" />
     <ClCompile Include="..\Private\DeguTail_00.cpp" />
@@ -297,7 +297,7 @@
     <ClCompile Include="..\Private\FreeCamera.cpp" />
     <ClCompile Include="..\Private\Grass.cpp" />
     <ClCompile Include="..\Private\HousePot.cpp" />
-    <ClCompile Include="..\Private\Item.cpp" />
+    <ClCompile Include="..\Private\ItemUI.cpp" />
     <ClCompile Include="..\Private\Kuribo.cpp" />
     <ClCompile Include="..\Private\Land.cpp" />
     <ClCompile Include="..\Private\Lawn.cpp" />

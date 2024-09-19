@@ -38,6 +38,8 @@ public:
 	void		Set_fSizeX(_float _fSizeX) { m_fSizeX = _fSizeX; }
 	void		Set_fSizeY(_float _fSizeY) { m_fSizeY = _fSizeY; }
 
+	void		Set_TextureNum(_int _iTextureNum) { m_iTextureNum = _iTextureNum; }
+
 
 	_float		Get_fX() { return m_fX; }
 	_float		Get_fY() { return m_fY; }
@@ -49,6 +51,7 @@ public:
 	CGameObject*			Get_ParentGameObj() { return m_pParentGameObj; }
 	list<CUIObject*>&	Get_ChildUIList() { return m_childUI_List; }
 
+
 public:
 	virtual HRESULT Initialize_Prototype() override;
 	virtual HRESULT Initialize(void* pArg) override;
@@ -58,6 +61,7 @@ public:
 	virtual HRESULT Render() override;
 
 protected:
+	_int				m_iTextureNum = { 0 };
 	_float				m_fX{}, m_fY{}, m_fSizeX{}, m_fSizeY{};
 	_float4x4			m_ViewMatrix{}, m_ProjMatrix{};
 	_uint				m_iDepth = {};

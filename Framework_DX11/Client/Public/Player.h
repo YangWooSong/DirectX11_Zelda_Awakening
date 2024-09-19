@@ -10,6 +10,7 @@ class CFsm;
 class CNavigation;
 class CCollider;
 class CSound;
+class CUIObject;
 END
 
 BEGIN(Client)
@@ -91,6 +92,9 @@ public:
 	void Set_Fall(_bool bFall) { m_bFall = bFall; }
 	void Set_bBodyRed(_bool bRed) { m_bBodyRed = bRed; }
 	void Set_bBlink(_bool bBlink) { m_bBlink = bBlink; }
+
+	void Change_PlayerUI_TextureNum(_uint iIndex, _int iTextureNum);
+	void Set_UI_Active(_uint iIndex, _bool bActive);
 protected:
 	CModel*		m_pModelCom = { nullptr };
 	CShader*		m_pShaderCom = { nullptr };
@@ -112,6 +116,8 @@ protected:
 	_bool			m_bBodyRed = { false };
 	_bool			m_bBlink = { false };
 	_bool			m_bRender = { true };
+
+	vector<CUIObject*> m_PlayerUI;
 protected:
 	HRESULT Ready_Components();
 
