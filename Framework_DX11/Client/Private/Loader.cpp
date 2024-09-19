@@ -55,6 +55,7 @@
 #include "StoneHinoxRock.h"
 #include "SpikeTile.h"
 #include "TreasureBox.h"
+#include "FootSwitch.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -707,6 +708,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_TreasureBox"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/TreasureBox/TreasureBox.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_FootSwitch*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_FootSwitch"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/FootSwitch/FootSwitch.dat"))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }
@@ -875,6 +881,10 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 		CTreasureBox::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_FootSwitch*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FootSwitch"),
+		CFootSwitch::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }

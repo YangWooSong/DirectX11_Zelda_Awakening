@@ -170,6 +170,7 @@
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
+    <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
     <ClInclude Include="..\Public\CrackedWall.h" />
@@ -287,6 +288,7 @@
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
+    <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
     <ClCompile Include="..\Private\CrackedWall.cpp" />

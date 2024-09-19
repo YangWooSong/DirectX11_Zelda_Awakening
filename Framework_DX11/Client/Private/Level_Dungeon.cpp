@@ -269,6 +269,11 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"), TEXT("Prototype_GameObject_TreasureBox"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_FootSwitch")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"), TEXT("Prototype_GameObject_FootSwitch"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -454,6 +459,16 @@ void CLevel_Dungeon::Change_Room()
 
 #pragma region AnimObj
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{

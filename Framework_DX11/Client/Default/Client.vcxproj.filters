@@ -421,6 +421,9 @@
     <Filter Include="02.GameObjects\07.UI\Player\ItemUI">
       <UniqueIdentifier>{06328f33-e3fd-4ce3-808b-0b29c113adc9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\FootSwitch">
+      <UniqueIdentifier>{c4864dfe-80c8-4b37-8995-96a5dca0517d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -768,6 +771,9 @@
     <ClInclude Include="..\Public\ItemUI.h">
       <Filter>02.GameObjects\07.UI\Player\ItemUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\FootSwitch.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\FootSwitch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1105,6 +1111,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\ItemUI.cpp">
       <Filter>02.GameObjects\07.UI\Player\ItemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\FootSwitch.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\FootSwitch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
