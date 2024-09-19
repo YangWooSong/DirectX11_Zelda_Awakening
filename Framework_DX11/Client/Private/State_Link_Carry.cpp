@@ -28,10 +28,15 @@ HRESULT CState_Link_Carry::Start_State()
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
 
 	if(m_iCurrentAnimIndex == m_iCarryStartAnimIndex)
-		m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex,50.f);
+	{
+		m_pPlayer->Get_PlayerSound()->Play_Sound(TEXT("1_Link_Carry.wav"), 1.f);
+		m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+	}
 
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSheild(false);
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(false);
+
+
 	return S_OK;
 }
 

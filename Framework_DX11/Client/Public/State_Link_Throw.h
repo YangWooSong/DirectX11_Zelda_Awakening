@@ -25,6 +25,7 @@ private:
 
     _uint               m_iCurrentAnimIndex = {};
     _float          m_fTimer = { 0.f };
+    _bool           m_bPlayEffectSound = { false };
 public:
     static CState_Link_Throw* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);
     virtual void Free() override;

@@ -22,6 +22,7 @@ HRESULT CState_Link_Throw::Start_State()
 {
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
 	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+	m_pPlayer->Get_PlayerSound()->Play_Sound(TEXT("1_Link_Jump.wav"), 1.f);
 	return S_OK;
 }
 
@@ -32,6 +33,11 @@ void CState_Link_Throw::Update(_float fTimeDelta)
 	if (m_fTimer > 0.28f)
 	{
 		static_cast<CHousePot*>(static_cast<CLink*>(m_pPlayer)->Get_CarryItem())->Set_Break(true);
+		if(m_bPlayEffectSound == false)
+		{
+			m_bPlayEffectSound = true;
+			m_pPlayer->Get_EffectSound()->Play_Sound(TEXT("4_Obj_HousePot_Break.wav"), 1.f);
+		}
 	}
 
 	if (m_pPlayer->Get_IsEnd_CurrentAnimation())
