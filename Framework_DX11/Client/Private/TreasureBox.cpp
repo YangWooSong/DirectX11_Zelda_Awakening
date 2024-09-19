@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TreasureBox.h"
 #include "GameInstance.h"
+#include "Link.h"
 
 CTreasureBox::CTreasureBox(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -53,6 +54,14 @@ void CTreasureBox::Update(_float fTimeDelta)
         m_pSoundCom->Update(fTimeDelta);
         m_pModelCom->Play_Animation(fTimeDelta);
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+        if (m_iCurrentAnimIndex == m_pModelCom->Get_AnimationIndex("open") && m_pModelCom->Get_IsEnd_CurrentAnimation() && m_bCangePlayerState == false)
+        {
+            m_bCangePlayerState = true;
+            static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_State(CLink::GET_ITEM);
+        }
+            
+            
     }
 }
 

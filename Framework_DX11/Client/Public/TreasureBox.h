@@ -45,6 +45,8 @@ private:
 
 	_int m_iCurrentAnimIndex = { 0 };
 	_bool		m_bOpened = { false };
+	_bool		m_bCangePlayerState = { false };
+	_float		m_fOpenTimer = { 0.f };
 public:
 	static CTreasureBox* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

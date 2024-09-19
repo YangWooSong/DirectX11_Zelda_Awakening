@@ -21,6 +21,7 @@
 #include "State_Link_Carry.h"
 #include "State_Link_Carry_Walk.h"
 #include "State_Link_Throw.h"
+#include "State_Link_Get_Item.h"
 
 #include "Cell.h"
 #include "Sword.h"
@@ -364,6 +365,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Carry::Create(m_pFsmCom, this, CARRY));
 	m_pFsmCom->Add_State(CState_Link_Carry_Walk::Create(m_pFsmCom, this, CARRY_WALK));
 	m_pFsmCom->Add_State(CState_Link_Throw::Create(m_pFsmCom, this, THROW));
+	m_pFsmCom->Add_State(CState_Link_Get_Item::Create(m_pFsmCom, this, GET_ITEM));
 
 	return S_OK;
 }

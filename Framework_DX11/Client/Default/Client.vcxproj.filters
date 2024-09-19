@@ -409,6 +409,9 @@
     <Filter Include="05.State\Link\Carry\Throw">
       <UniqueIdentifier>{46e88d5a-5642-4031-a887-64eb47259f86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Link\Get_Item">
+      <UniqueIdentifier>{532bc9cd-2259-46e1-ab01-669b826ebd7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -753,6 +756,9 @@
     <ClInclude Include="..\Public\State_Link_Throw.h">
       <Filter>05.State\Link\Carry\Throw</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Get_Item.h">
+      <Filter>05.State\Link\Get_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1087,6 +1093,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Throw.cpp">
       <Filter>05.State\Link\Carry\Throw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Get_Item.cpp">
+      <Filter>05.State\Link\Get_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

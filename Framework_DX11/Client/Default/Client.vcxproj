@@ -207,6 +207,7 @@
     <ClInclude Include="..\Public\State_Link_Carry_Walk.h" />
     <ClInclude Include="..\Public\State_Link_Damage_Front.h" />
     <ClInclude Include="..\Public\State_Link_Fall.h" />
+    <ClInclude Include="..\Public\State_Link_Get_Item.h" />
     <ClInclude Include="..\Public\State_Link_Slash_Hold.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Down.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Up.h" />
@@ -340,6 +341,7 @@
     <ClCompile Include="..\Private\State_Link_Carry_Walk.cpp" />
     <ClCompile Include="..\Private\State_Link_Damage_Front.cpp" />
     <ClCompile Include="..\Private\State_Link_Fall.cpp" />
+    <ClCompile Include="..\Private\State_Link_Get_Item.cpp" />
     <ClCompile Include="..\Private\State_Link_Idle.cpp" />
     <ClCompile Include="..\Private\State_Link_ItemA.cpp" />
     <ClCompile Include="..\Private\State_Link_ItemB.cpp" />
