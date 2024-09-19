@@ -31,6 +31,9 @@ public:
 	virtual void OnCollisionEnter(CGameObject* pOther)  override;
 	virtual void OnCollisionStay(CGameObject* pOther) override;
 	virtual void OnCollisionExit(CGameObject* pOther)  override;
+
+public:
+	_bool Get_IsOpened() { return m_bOpened; }
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };

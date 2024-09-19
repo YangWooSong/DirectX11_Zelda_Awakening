@@ -204,11 +204,13 @@
     <ClInclude Include="..\Public\State_Kuribo_Walk.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk_Shake.h" />
     <ClInclude Include="..\Public\State_Link_Carry.h" />
+    <ClInclude Include="..\Public\State_Link_Carry_Walk.h" />
     <ClInclude Include="..\Public\State_Link_Damage_Front.h" />
     <ClInclude Include="..\Public\State_Link_Fall.h" />
     <ClInclude Include="..\Public\State_Link_Slash_Hold.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Down.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Up.h" />
+    <ClInclude Include="..\Public\State_Link_Throw.h" />
     <ClInclude Include="..\Public\State_Pawn_Damage.h" />
     <ClInclude Include="..\Public\State_Pawn_DeadFall.h" />
     <ClInclude Include="..\Public\State_Pawn_Idle.h" />
@@ -335,6 +337,7 @@
     <ClCompile Include="..\Private\State_Kuribo_Walk.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk_Shake.cpp" />
     <ClCompile Include="..\Private\State_Link_Carry.cpp" />
+    <ClCompile Include="..\Private\State_Link_Carry_Walk.cpp" />
     <ClCompile Include="..\Private\State_Link_Damage_Front.cpp" />
     <ClCompile Include="..\Private\State_Link_Fall.cpp" />
     <ClCompile Include="..\Private\State_Link_Idle.cpp" />
@@ -347,6 +350,7 @@
     <ClCompile Include="..\Private\State_Link_Slash_Hold.cpp" />
     <ClCompile Include="..\Private\State_Link_Stair_Down.cpp" />
     <ClCompile Include="..\Private\State_Link_Stair_Up.cpp" />
+    <ClCompile Include="..\Private\State_Link_Throw.cpp" />
     <ClCompile Include="..\Private\State_Link_Walk.cpp" />
     <ClCompile Include="..\Private\State_Octorok_Attack.cpp" />
     <ClCompile Include="..\Private\State_Octorok_Dead.cpp" />

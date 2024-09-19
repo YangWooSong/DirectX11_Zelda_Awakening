@@ -203,11 +203,22 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/InteractBT_%d.dds"), 3))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_Particle */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Particle"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Snow/Snow.png"), 1))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
 	Ready_Models_For_MarinHouse();
 	
 	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
+	/* For. Prototype_Component_Shader_VtxRectInstance */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxRectInstance"),
+		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
+		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
 
@@ -224,6 +235,24 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 
 	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
 
+	lstrcpy(m_szLoadingText, TEXT("파티클을(를) 로딩중입니다."));
+
+	CVIBuffer_Instancing::INSTANCE_DESC			ParticleDesc{};
+	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
+	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
+
+	ParticleDesc.iNumInstance = 200;
+	ParticleDesc.vCenter = _float3(0.f, 0.f, 0.f);
+	ParticleDesc.vRange = _float3(1.f, 1.f, 1.f);
+	ParticleDesc.vSize = _float2(0.1f, 0.3f);
+	ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
+	ParticleDesc.vSpeed = _float2(1.f, 3.f);
+	ParticleDesc.vLifeTime = _float2(1.f, 2.f);
+	ParticleDesc.isLoop = false;
+
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
+		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
 
@@ -273,10 +302,10 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CBoxOpenUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	///* For. Prototype_GameObject_NonAnim*/
-	//if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_NonAnim"),
-	//	CNonAnimModel::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
+	/* For. Prototype_GameObject_Particle_Expolosion */
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Expolosion"),
+		CParticle_Explosion::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -294,10 +323,7 @@ HRESULT CLoader::Ready_Resources_For_Test()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Terrain/Grass_%d.dds"), 2))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Texture_Particle */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Texture_Particle"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Snow/Snow.png"), 1))))
-		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
@@ -315,21 +341,7 @@ HRESULT CLoader::Ready_Resources_For_Test()
 
 	CVIBuffer_Instancing::INSTANCE_DESC			ParticleDesc{};
 
-	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
-	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
 
-	ParticleDesc.iNumInstance = 200;
-	ParticleDesc.vCenter = _float3(0.f, 0.f, 0.f);
-	ParticleDesc.vRange = _float3(1.f, 1.f, 1.f);
-	ParticleDesc.vSize = _float2(0.1f, 0.3f);
-	ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
-	ParticleDesc.vSpeed = _float2(1.f, 3.f);
-	ParticleDesc.vLifeTime = _float2(1.f, 2.f);
-	ParticleDesc.isLoop = false;
-
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
-		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
-		return E_FAIL;
 
 	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
 	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
@@ -348,11 +360,7 @@ HRESULT CLoader::Ready_Resources_For_Test()
 		return E_FAIL;
 
 
-	/* For. Prototype_Component_Shader_VtxRectInstance */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Shader_VtxRectInstance"),
-		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
-		return E_FAIL;
-
+	
 	/* For. Prototype_Component_Shader_VtxPointInstance */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Shader_VtxPointInstance"),
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxPointInstance.hlsl"), VTXPOINTINSTANCE::Elements, VTXPOINTINSTANCE::iNumElements))))
@@ -780,10 +788,7 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		return E_FAIL;
 #pragma endregion
 
-	/* For. Prototype_GameObject_Particle_Expolosion */
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Expolosion"),
-		CParticle_Explosion::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+
 
 	/* For. Prototype_GameObject_Particle_Snow */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Snow"),

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "HousePot.h"
 #include "GameInstance.h"
+#include "Link.h"
+
 CHousePot::CHousePot(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -41,6 +43,8 @@ HRESULT CHousePot::Initialize(void* pArg)
     else
         m_isActive = true;
 
+    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Expolosion"), nullptr);
+
     return S_OK;
 }
 
@@ -50,15 +54,51 @@ void CHousePot::Priority_Update(_float fTimeDelta)
 
 void CHousePot::Update(_float fTimeDelta)
 {
-    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+    if (m_bBreak)
+    {
+        m_bCarried = false;
+        m_isActive = false;
+        m_pParticle->Update(fTimeDelta);
+    }
+
+    if(m_isActive)
+    {
+     
+        if (m_bBreak)
+        {
+            m_bCarried = false;
+            m_isActive = false;
+            m_pParticle->Update(fTimeDelta);
+        }
+
+        if (m_bCarried)
+        {
+            if (m_fTimer > 0.4f || m_pPlayerFsmCom->Get_CurrentState() != CLink::CARRY)
+            {
+                _matrix		SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
+                m_pTransformCom->Set_WorldMatrix(SocketMatrix * m_pPlayer->Get_Transform()->Get_WorldMatrix());
+            }
+            m_fTimer += fTimeDelta;
+        }           
+
+        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    }
+
 }
 
 void CHousePot::Late_Update(_float fTimeDelta)
 {
-    __super::Late_Update(fTimeDelta);
+    if(m_isActive)
+    {
+        __super::Late_Update(fTimeDelta);
 
-    m_pGameInstance->Add_ColliderList(m_pColliderCom);
-    m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pGameInstance->Add_ColliderList(m_pColliderCom);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    }
+
+    if(m_bBreak)
+        m_pParticle->Late_Update(fTimeDelta);
 }
 
 HRESULT CHousePot::Render()
@@ -93,6 +133,9 @@ HRESULT CHousePot::Render()
 #endif
     }
 
+    if (m_bBreak)
+        m_pParticle->Render();
+
     return S_OK;
 }
 
@@ -107,8 +150,8 @@ void CHousePot::OnCollisionStay(CGameObject* pOther)
     {
         if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
         {
-       
-            //Change_State(HIT);
+            if (KEY_TAP(E))
+                m_bCarried = true;
         }
     }
 }
@@ -150,6 +193,24 @@ HRESULT CHousePot::Ready_Components()
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);
 
+    if (m_pGameInstance->Find_Player(LEVEL_MARINHOUSE) != nullptr)
+    {
+        m_pPlayer = m_pGameInstance->Find_Player(LEVEL_MARINHOUSE);
+    }
+    else
+    {
+        m_pPlayer = m_pGameInstance->Find_Player(LEVEL_DUNGEON);
+    }
+
+    if(m_pPlayer != nullptr)
+    {
+       
+        m_pPlayerFsmCom = static_cast<CLink*>(m_pPlayer)->Get_Fsm();
+        m_pPlayerModelCom = static_cast<CLink*>(m_pPlayer)->Get_Model();
+        m_pSocketMatrix = m_pPlayerModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
+        Safe_AddRef(m_pPlayerModelCom);
+        Safe_AddRef(m_pPlayerFsmCom);
+    }
     return S_OK;
 
 }
@@ -185,8 +246,12 @@ void CHousePot::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pParticle);
+
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);
+    Safe_Release(m_pPlayerModelCom);
+    Safe_Release(m_pPlayerFsmCom);
 }
 

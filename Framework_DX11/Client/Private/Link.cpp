@@ -19,11 +19,14 @@
 #include "State_Link_Fall.h"
 #include "State_Link_Damage_Front.h"
 #include "State_Link_Carry.h"
+#include "State_Link_Carry_Walk.h"
+#include "State_Link_Throw.h"
 
 #include "Cell.h"
 #include "Sword.h"
 #include "Shield.h"
 #include "BoxOpenUI.h"
+#include "TreasureBox.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -159,18 +162,18 @@ HRESULT CLink::Render()
 
 		for (size_t i = 0; i < iNumMeshes; i++)
 		{
-			if ( i == 1 || i == 3 || i == 5 || i == 9 || i == 11 || i == 12 || i == 16 || i == 18 || i == 17)
+			if (i == 0 || i == 1 || i == 3 || i == 5 || i == 9 || i == 13 || i == 14 || i == 18 || i == 19)
 				continue;
 
 			if (m_bActiveSheild == false)
 			{
-				if ( i == 7)
+				if ( i == 2)
 					continue;
 			}
 
 			if (m_bActiveSword == false)
 			{
-				if (i == 2 || i == 6)
+				if (i == 12 || i == 6)
 					continue;
 			}
 
@@ -208,16 +211,22 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 	{
 		/*if(pOther->Get_ObjType() ==CGameObject::ANIM_MONSTER)
 			Change_State(DAMAGE_FRONT);*/
-		if (pOther->Get_LayerTag() == TEXT("Layer_Monster"))
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_Monster") || pOther->Get_ObjType() == CGameObject::ANIM_MONSTER)
 			Change_State(DAMAGE_FRONT);
+
 		if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox"))
 		{
-			m_pBoxOpenUI->SetActive(true);
-			m_pBoxOpenUI->Set_TextureNum(0);
+			if (static_cast<CTreasureBox*>(pOther)->Get_IsOpened() == false)
+			{
+				m_pBoxOpenUI->SetActive(true);
+				m_pBoxOpenUI->Set_TextureNum(0);
+			}
 		}
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 		{
+		
 			m_pBoxOpenUI->SetActive(true);
 			m_pBoxOpenUI->Set_TextureNum(2);
 		}
@@ -228,10 +237,21 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 {
 	if (m_pColliderCom->Get_IsColl())
 	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox"))
+		{
+			if (static_cast<CTreasureBox*>(pOther)->Get_IsOpened() == true)
+			{
+				m_pBoxOpenUI->SetActive(false);
+			}
+		}
+
 		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 		{
 			if (KEY_TAP(E))
+			{
 				m_pFsmCom->Change_State(CARRY);
+				m_pCarryitem = pOther;
+			}
 		}
 	}
 }
@@ -342,6 +362,8 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Fall::Create(m_pFsmCom, this, FALL));
 	m_pFsmCom->Add_State(CState_Link_Damage_Front::Create(m_pFsmCom, this, DAMAGE_FRONT));
 	m_pFsmCom->Add_State(CState_Link_Carry::Create(m_pFsmCom, this, CARRY));
+	m_pFsmCom->Add_State(CState_Link_Carry_Walk::Create(m_pFsmCom, this, CARRY_WALK));
+	m_pFsmCom->Add_State(CState_Link_Throw::Create(m_pFsmCom, this, THROW));
 
 	return S_OK;
 }

@@ -403,6 +403,12 @@
     <Filter Include="05.State\Link\Carry">
       <UniqueIdentifier>{44f17ec8-2b6e-443d-a25e-08fc538fd0bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Link\Carry\Carry_Walk">
+      <UniqueIdentifier>{cdd864c7-9e90-4775-9903-fc9ac0410d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Carry\Throw">
+      <UniqueIdentifier>{46e88d5a-5642-4031-a887-64eb47259f86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -741,6 +747,12 @@
     <ClInclude Include="..\Public\State_Link_Carry.h">
       <Filter>05.State\Link\Carry</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Carry_Walk.h">
+      <Filter>05.State\Link\Carry\Carry_Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Throw.h">
+      <Filter>05.State\Link\Carry\Throw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1069,6 +1081,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Carry.cpp">
       <Filter>05.State\Link\Carry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Carry_Walk.cpp">
+      <Filter>05.State\Link\Carry\Carry_Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Throw.cpp">
+      <Filter>05.State\Link\Carry\Throw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

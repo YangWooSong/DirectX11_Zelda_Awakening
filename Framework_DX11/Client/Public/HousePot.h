@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CCollider;
+class CFsm;
 END
 
 BEGIN(Client)
@@ -31,12 +32,27 @@ public:
 	virtual void OnCollisionExit(CGameObject* pOther) override;
 
 public:
-	class CShader* m_pShaderCom = { nullptr };
-	class CModel* m_pModelCom = { nullptr };
-	class CCollider* m_pColliderCom = { nullptr };
+	void Set_Break(_bool bBreak) { m_bBreak = bBreak; }
 
+public:
+	 CShader* m_pShaderCom = { nullptr };
+	 CModel* m_pModelCom = { nullptr };
+	 CCollider* m_pColliderCom = { nullptr };
+
+	 CModel* m_pPlayerModelCom = { nullptr };
+	 CFsm* m_pPlayerFsmCom = { nullptr };
 private:
 	HRESULT Ready_Components();
+
+private:
+	_bool m_bCarried = { false };
+	_bool m_bBreak = { false };
+	_float m_fTimer = { 0.f };
+
+	const _float4x4* m_pSocketMatrix = { nullptr };
+	CGameObject* m_pPlayer = { nullptr };
+
+	class CGameObject* m_pParticle = { nullptr };
 
 public:
 	static CHousePot* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

@@ -38,7 +38,6 @@ HRESULT CTreasureBox::Initialize(void* pArg)
 
     m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("close_wait");
     m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, true);
-    m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
 
     return S_OK;
 }
@@ -111,8 +110,23 @@ void CTreasureBox::OnCollisionEnter(CGameObject* pOther)
 
 void CTreasureBox::OnCollisionStay(CGameObject* pOther)
 {
- 
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            if (KEY_TAP(E) && m_bOpened == false)
+            {
+                m_bOpened = true;
+                m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("open");
+                m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, false);
+                m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+
+                m_pSoundCom->Play_Sound(TEXT("4_Obj_Unlock Treasure Box.wav"), 0.8f);
+            }
+        }
+    }
 }
+
 
 void CTreasureBox::OnCollisionExit(CGameObject* pOther)
 {

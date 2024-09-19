@@ -61,7 +61,7 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_FIELD))))
 			return;
 	}
 
