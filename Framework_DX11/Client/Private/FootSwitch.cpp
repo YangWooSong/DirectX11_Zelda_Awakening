@@ -37,6 +37,8 @@ HRESULT CFootSwitch::Initialize(void* pArg)
     m_isActive = false;
 
     m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("wait");
+    m_iOnAnimIndex = m_pModelCom->Get_AnimationIndex("on");
+
     m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, true);
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
 
@@ -102,6 +104,29 @@ HRESULT CFootSwitch::Render()
     }
 
     return S_OK;
+}
+
+void CFootSwitch::OnCollisionEnter(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            m_iCurrentAnimIndex = m_iOnAnimIndex;
+            m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex);
+            //m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
+
+            m_bOn = true;
+        }
+    }
+}
+
+void CFootSwitch::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CFootSwitch::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 HRESULT CFootSwitch::Ready_Components()
