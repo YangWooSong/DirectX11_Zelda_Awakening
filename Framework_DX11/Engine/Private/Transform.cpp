@@ -676,7 +676,7 @@ void CTransform::Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed
 		Set_State(STATE_POSITION, CurPos);
 	else
 	{
-		if(pNavigation->isMove(CurPos))
+		if(pNavigation == nullptr || pNavigation->isMove(CurPos))
 			Set_State(STATE_POSITION, CurPos);
 	}
 }

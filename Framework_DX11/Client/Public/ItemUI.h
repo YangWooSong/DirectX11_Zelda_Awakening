@@ -39,8 +39,16 @@ public:
 
 private:
 	_bool m_bShow = { false };
+	_bool m_bOff = { false };
 	_bool m_bDisappear = { false };
+	_bool m_bSizeDown = { false };
 
+	_vector m_TargetPos = {};
+	_float3 m_MinSize = {0.1f,0.1f,0.1f };
+
+private:
+	void Lerp_Size(_float fTimeDelta);
+	void Lerp_Pos(_float fTimeDelta);
 public:
 	static CItemUI* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg) override;

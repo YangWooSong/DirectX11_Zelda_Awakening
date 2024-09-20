@@ -31,7 +31,7 @@ HRESULT CItemUI::Initialize(void* pArg)
 
     m_isActive = false;
 
-    m_pTransformCom->Set_Scaled(1.f, 1.f, 1.f);
+    m_pTransformCom->Set_Scaled(m_MinSize.x, m_MinSize.y, m_MinSize.z);
 
     return S_OK;
 }
@@ -45,7 +45,29 @@ void CItemUI::Update(_float fTimeDelta)
 {
     if(m_isActive)
     {
-       
+        if(m_bShow == false)
+        {
+            //처음 작동
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentGameObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
+            m_bShow = true;
+            m_bOff = false;
+        }
+        _vector vNewPos = m_pParentGameObj->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+        m_TargetPos = XMVectorSetZ(vNewPos, XMVectorGetZ(vNewPos) + 2.5f);
+
+        Lerp_Size(fTimeDelta);
+        Lerp_Pos(fTimeDelta);
+    }
+    else
+    {
+        if (m_bOff == false)
+        {
+            //처음 꺼질 때
+            m_bOff = true;
+            m_pTransformCom->Set_Scaled(m_MinSize.x, m_MinSize.y, m_MinSize.z);
+            m_bShow = false;
+            m_bSizeDown = false;
+        }
     }
 }
 
@@ -53,13 +75,7 @@ void CItemUI::Late_Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-
-        _vector vNewPos = m_pParentGameObj->Get_Transform()->Get_State(CTransform::STATE_POSITION);
-        vNewPos = XMVectorSetZ(vNewPos, XMVectorGetZ(vNewPos) + 2.f);
-
-        m_pTransformCom->Set_State(CTransform::STATE_POSITION, vNewPos);
         m_pTransformCom->BillBoard(static_cast<CLink*>(m_pParentGameObj)->Get_LevelIndex());
-
         m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
     }
 }
@@ -110,6 +126,32 @@ HRESULT CItemUI::Ready_Components()
         return E_FAIL;
 
     return S_OK;
+}
+
+void CItemUI::Lerp_Size(_float fTimeDelta)
+{
+    _float3 fCurSize = m_pTransformCom->Get_Scaled();
+
+    _float fAmout = fTimeDelta * 2.f;
+
+    if (fAmout + fCurSize.x <= 1.8f && m_bSizeDown == false)
+        m_pTransformCom->Set_Scaled(fCurSize.x + fAmout, fCurSize.y + fAmout, fCurSize.z + fAmout);
+    else
+        m_bSizeDown = true;
+
+    if (m_bSizeDown)
+    {
+        if (fAmout + fCurSize.x >= 1.5f)
+            m_pTransformCom->Set_Scaled(fCurSize.x - fAmout, fCurSize.y - fAmout, fCurSize.z - fAmout);
+    }
+
+}
+
+void CItemUI::Lerp_Pos(_float fTimeDelta)
+{
+    _float fLerpSpeed = min(1.0f, 5.f * fTimeDelta);
+    _vector vNewPos = XMVectorLerp(m_pTransformCom->Get_State(CTransform::STATE_POSITION), m_TargetPos, fLerpSpeed);
+    m_pTransformCom->Set_State(CTransform::STATE_POSITION, vNewPos);
 }
 
 CItemUI* CItemUI::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
