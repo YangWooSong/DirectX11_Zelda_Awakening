@@ -358,6 +358,9 @@ void CDeguTail_00::Free()
 
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
+
+	m_MParentWorldMarix.clear();
+
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);
 }

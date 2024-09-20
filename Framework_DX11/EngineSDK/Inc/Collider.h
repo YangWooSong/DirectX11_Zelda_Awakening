@@ -14,24 +14,25 @@ private:
 	virtual ~CCollider() = default;
 
 public:
-	_bool				IsActive() { return m_isActive; }
-	void				Set_IsActive(_bool isActive) { m_isActive = isActive; }
-
-	class CGameObject* Get_GameObject() { return m_pOwner; }
-	void				Set_Owner(class CGameObject* pObject) { m_pOwner = pObject; }
-
-	unordered_set<class CGameObject*>& GetCollisionSet() { return m_ColliderObjects; }
-
-public:
 	virtual HRESULT Initialize_Prototype(TYPE eColliderType);
 	virtual HRESULT Initialize(void* pArg) override;
 	virtual void Update(const _float4x4* pWorldMatrix);
-	virtual HRESULT Render();
+
+#ifdef _DEBUG
+	virtual HRESULT Render() override;
+#endif
 
 public:
-	_bool	Intersect(CCollider* pTargetCollider);
+	class CGameObject* Get_GameObject() { return m_pOwner; }
+	unordered_set<class CGameObject*>& GetCollisionSet() { return m_ColliderObjects; }
 
+	void				Set_Owner(class CGameObject* pObject) { m_pOwner = pObject; }
+
+	_bool	Intersect(CCollider* pTargetCollider);
 	_bool	Get_IsColl();
+
+	_bool				IsActive() { return m_isActive; }
+	void				Set_IsActive(_bool isActive) { m_isActive = isActive; }
 
 private:
 	class CBounding* m_pBounding = { nullptr };

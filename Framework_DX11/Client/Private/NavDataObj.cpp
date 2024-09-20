@@ -48,16 +48,13 @@ void CNavDataObj::Update(_float fTimeDelta)
 void CNavDataObj::Late_Update(_float fTimeDelta)
 {
 	m_pNavigationCom->Update(XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()));
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+#ifdef _DEBUG
+	m_pGameInstance->Add_DebugObject(	m_pNavigationCom);
+#endif
 }
 
 HRESULT CNavDataObj::Render()
 {
-#ifdef _DEBUG
-	if(m_pNavigationCom != nullptr)
-		m_pNavigationCom->Render();
-#endif
-
 	return S_OK;
 }
 

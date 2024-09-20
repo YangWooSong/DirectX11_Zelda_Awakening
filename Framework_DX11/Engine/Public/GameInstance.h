@@ -52,18 +52,15 @@ public:
 #pragma region OBJECT_MANAGER
 	HRESULT Add_Prototype(const _wstring& strPrototypeTag, class CGameObject* pPrototype);
 	HRESULT Add_CloneObject_ToLayer(_uint iLevelIndex, const _wstring& strLayerTag, const _wstring& strPrototypeTag, void* pArg = nullptr);
+	class CGameObject* Clone_GameObject(const _wstring& strPrototypeTag, void* pArg = nullptr);
 
-	class CComponent* Find_Component(_uint iLevelIndex, const _wstring& strLayerTag, const _wstring& strComponentTag, _uint iIndex = 0);
-	class CLayer* Find_Layer(_uint iLevelIndex, const _wstring& strLayerTag);
+	class CComponent*  Find_Component(_uint iLevelIndex, const _wstring& strLayerTag, const _wstring& strComponentTag, _uint iIndex = 0);
+	class CLayer*	   Find_Layer(_uint iLevelIndex, const _wstring& strLayerTag);
 	class CGameObject* Find_Object(_uint iLevelIndex, const _wstring& strLayerTag, _uint iIndex);
 	class CGameObject* Find_Prototype(const _wstring& strPrototypeTag);
-
 	class CGameObject* Find_Player(_uint iLevelIndex);
 	class CGameObject* Find_Camera(_uint iLevelIndex = 0);
-
-	class CGameObject* Clone_GameObject(const _wstring& strPrototypeTag, void* pArg = nullptr);
 #pragma endregion
-
 
 #pragma region COMPONENT_MANAGER
 	HRESULT Add_Prototype(_uint iLevelIndex, const _wstring& strPrototypeTag, class CComponent* pPrototype);
@@ -78,6 +75,9 @@ public:
 #pragma region RENDERER
 	HRESULT Add_RenderObject(CRenderer::RENDERGROUP eRenderGroupID, class CGameObject* pRenderObject);
 	list<class CGameObject*>& Get_RenderList(CRenderer::RENDERGROUP eGroup);
+#ifdef _DEBUG
+	HRESULT Add_DebugObject(class CComponent* pDebugObject);
+#endif
 #pragma endregion
 
 #pragma region PIPELINE
@@ -89,6 +89,27 @@ public:
 
 	_float4 Get_CamPosition_Float4() const;
 	_vector Get_CamPosition_Vector() const;
+#pragma endregion
+
+#pragma region LIGHT_MANAGER
+	HRESULT Add_Light(const LIGHT_DESC& LightDesc);
+	const LIGHT_DESC* Get_LightDesc(_uint iIndex) const;
+	HRESULT Render_Lights(class CShader* pShader, class CVIBuffer_Rect* pVIBuffer);
+
+#pragma endregion
+
+#pragma region TARGET_MANAGER
+	HRESULT Add_RenderTarget(const _wstring& strTargetTag, _uint iWidth, _uint iHeight, DXGI_FORMAT ePixelFormat, const _float4& vClearColor);
+	HRESULT Add_MRT(const _wstring& strMRTTag, const _wstring& strTargetTag);
+	HRESULT Begin_MRT(const _wstring& strMRTTag);
+	HRESULT End_MRT();
+	HRESULT Bind_RT_ShaderResource(class CShader* pShader, const _wstring& strTargetTag, const _char* pConstantName);
+	
+#ifdef _DEBUG
+	HRESULT Ready_RT_Debug(const _wstring& strTargetTag, _float fX, _float fY, _float fSizeX, _float fSizeY);
+	HRESULT Render_MRT_Debug(const _wstring& strMRTTag, class CShader* pShader, class CVIBuffer_Rect* pVIBuffer);
+	void Active_Debug_Renderer();
+#endif
 #pragma endregion
 
 #pragma region PICKING
@@ -144,6 +165,8 @@ private:
 	class CPicking_Manager*			m_pPicking_Manager = { nullptr };
 	class CFont_Manager* m_pFont_Manager = { nullptr };
 	class CCollider_Manager* m_pCollider_Manager = { nullptr };
+	class CLight_Manager* m_pLight_Manager = { nullptr };
+	class CTarget_Manager* m_pTarget_Manager = { nullptr };
 
 	/*추가한 기능들*/
 	class CKey_Manager*				m_pKey_Manager = { nullptr };

@@ -146,6 +146,10 @@ void CLink::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
+#ifdef _DEBUG
+		m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
 }
 
 HRESULT CLink::Render()
@@ -204,10 +208,6 @@ HRESULT CLink::Render()
 			pPlayerUI->Render();
 	}
 
-#ifdef _DEBUG
-	m_pColliderCom->Render();
-#endif
-
 	return S_OK;
 }
 
@@ -231,8 +231,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 		}
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
-		{
-		
+		{		
 			m_PlayerUI[INTERACT_UI]->SetActive(true);
 			m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
 		}

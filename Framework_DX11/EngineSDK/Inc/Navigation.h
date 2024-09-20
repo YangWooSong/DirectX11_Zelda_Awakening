@@ -43,9 +43,10 @@ public:
 
 	_int Get_CurrentCell_RoomNum();
 	_float3 Get_MiddlePosOfPreCell();
+
 #ifdef _DEBUG
 public:
-	HRESULT Render();
+	virtual HRESULT Render() override;
 #endif
 
 private:
@@ -56,6 +57,7 @@ private:
 	_vector								m_vOutLine{};				//셀의 어떤 면으로 나갔는지 저장
 	_uint								m_iOwnerType = { TYPEEND };
 	_uint								m_iCurrentCelltype = { 0 };
+
 #ifdef _DEBUG
 private:
 	class CShader* m_pShader = { nullptr };

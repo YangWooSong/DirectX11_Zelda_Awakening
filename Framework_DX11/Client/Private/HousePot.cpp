@@ -99,6 +99,10 @@ void CHousePot::Late_Update(_float fTimeDelta)
 
     if(m_bBreak)
         m_pParticle->Late_Update(fTimeDelta);
+
+#ifdef _DEBUG
+    m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
 }
 
 HRESULT CHousePot::Render()
@@ -127,10 +131,6 @@ HRESULT CHousePot::Render()
             if (FAILED(m_pModelCom->Render(i)))
                 return E_FAIL;
         }
-
-#ifdef _DEBUG
-        m_pColliderCom->Render();
-#endif
     }
 
     if (m_bBreak)

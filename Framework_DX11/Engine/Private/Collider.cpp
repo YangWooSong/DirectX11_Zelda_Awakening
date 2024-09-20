@@ -77,6 +77,8 @@ HRESULT CCollider::Render()
 #ifdef _DEBUG
 	if (m_isActive)
 	{
+		//m_pContext->GSSetShader(nullptr, nullptr, 0);
+
 		m_pEffect->SetWorld(XMMatrixIdentity());
 		m_pEffect->SetView(m_pGameInstance->Get_Transform_Matrix(CPipeLine::D3DTS_VIEW));
 		m_pEffect->SetProjection(m_pGameInstance->Get_Transform_Matrix(CPipeLine::D3DTS_PROJ));

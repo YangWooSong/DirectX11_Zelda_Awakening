@@ -51,6 +51,7 @@ public:
 	CGameObject*			Get_ParentGameObj() { return m_pParentGameObj; }
 	list<CUIObject*>&	Get_ChildUIList() { return m_childUI_List; }
 
+	_uint Get_Depth() { return m_iDepth; }
 
 public:
 	virtual HRESULT Initialize_Prototype() override;

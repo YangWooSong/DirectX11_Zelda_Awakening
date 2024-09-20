@@ -20,7 +20,9 @@ namespace Engine
 		float		fRange;				//빛의 범위
 
 		XMFLOAT4	vDiffuse;			//빛의 색상 값
-	}LIGHT_DESC;
+		XMFLOAT4	vAmbient;			//명암 밝혀주는 정도
+		XMFLOAT4	vSpecular;			//하이라이트 용도
+	}LIGHT_DESC;	
 
 
 	typedef struct

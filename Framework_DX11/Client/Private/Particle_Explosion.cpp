@@ -47,7 +47,7 @@ void CParticle_Explosion::Late_Update(_float fTimeDelta)
 	__super::Late_Update(fTimeDelta);
 
 
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONLIGHT, this);
 }
 
 HRESULT CParticle_Explosion::Render()

@@ -61,7 +61,7 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_TEST))))
 			return;
 	}
 
@@ -76,7 +76,17 @@ HRESULT CLevel_MarinHouse::Render()
 HRESULT CLevel_MarinHouse::Ready_Lights()
 {
 	/* 게임플레이 레벨에 필요한 광원을 준비한다. */
-	
+	LIGHT_DESC			LightDesc{};
+
+	ZeroMemory(&LightDesc, sizeof LightDesc);
+	LightDesc.eType = LIGHT_DESC::TYPE_DIRECTIONAL;
+	LightDesc.vDirection = _float4(1.f, -1.f, 1.f, 0.f);
+	LightDesc.vDiffuse = _float4(1.f, 1.f, 1.f, 1.f);
+	LightDesc.vAmbient = _float4(0.4f, 0.4f, 0.4f, 1.f);
+	LightDesc.vSpecular = _float4(1.f, 1.f, 1.f, 1.f);
+
+	if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
+		return E_FAIL;
 
 	return S_OK;
 }

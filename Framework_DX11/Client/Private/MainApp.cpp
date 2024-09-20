@@ -42,13 +42,14 @@ HRESULT CMainApp::Initialize()
 
 void CMainApp::Update(_float fTimeDelta)
 {
+	if (KEY_TAP(ONE))
+		m_pGameInstance->Active_Debug_Renderer();
+
 	m_pGameInstance->Update_Engine(fTimeDelta);
 }
 
 HRESULT CMainApp::Render()
 {
-
-	
 	if (nullptr == m_pGameInstance)
 		return E_FAIL;
 

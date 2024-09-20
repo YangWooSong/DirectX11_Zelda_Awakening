@@ -2,10 +2,6 @@
 /* float2 float3 float4 == vector */
 
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
-
-vector g_vLightDiffuse = vector(1.f, 1.f, 1.f, 1.f);
-vector g_vLightDir = vector(1.f, -1.f, 1.f, 0.f);
-
 texture2D g_DiffuseTexture;
 
 struct VS_IN
@@ -23,24 +19,23 @@ struct VS_OUT
     float2 vTexcoord : TEXCOORD0;
 };
 
+
 VS_OUT VS_MAIN( /*정점*/VS_IN In)
 {
     VS_OUT Out = (VS_OUT) 0;
 	
-    vector vPosition = mul(vector(In.vPosition, 1.f), g_WorldMatrix);
+    matrix matWV, matWVP;
 
-    vPosition = mul(vPosition, g_ViewMatrix);
-    vPosition = mul(vPosition, g_ProjMatrix);
+    matWV = mul(g_WorldMatrix, g_ViewMatrix);
+    matWVP = mul(matWV, g_ProjMatrix);
 
-    Out.vPosition = vPosition;
-    
-    //법선벡터를 월드 좌표로 옮겨 빛 벡터랑 비교할 수 있게 함
-    Out.vNormal = mul(vector(In.vNormal, 0.f), g_WorldMatrix);
-    
+    Out.vPosition = mul(vector(In.vPosition, 1.f), matWVP);
+    Out.vNormal = normalize(mul(vector(In.vNormal, 0.f), g_WorldMatrix));
     Out.vTexcoord = In.vTexcoord;
 
     return Out;
 }
+
 
 struct PS_IN
 {
@@ -51,7 +46,8 @@ struct PS_IN
 
 struct PS_OUT
 {
-    vector vColor : SV_TARGET0;
+    vector vDiffuse : SV_TARGET0;
+    vector vNormal : SV_TARGET1;
 };
 
 
@@ -59,15 +55,14 @@ PS_OUT PS_MAIN(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
 	
-    //빛의 방향벡터를 역으로 만들어 픽셀의 법선벡터와 비교 -> 코싸인 그래프와 같은 모양이 나옴
-	//음영은 0~1의 값이라 음수는 0으로 만든다.
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
 
-    float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.5f);
-	
-    Out.vColor = g_vLightDiffuse * g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord) * fShade;
-    if (Out.vColor.a < 0.2f)
+    if (0.3f >= vDiffuse.a)
         discard;
-    
+
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+
     return Out;
 }
 

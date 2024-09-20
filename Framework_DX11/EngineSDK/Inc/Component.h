@@ -12,11 +12,15 @@ protected:
 	virtual ~CComponent() = default;
 
 public:
-	COMPONENT_TYPE	Get_ComponentType() { return m_eComponentType; }
-
-public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
+
+public:
+	COMPONENT_TYPE	Get_ComponentType() { return m_eComponentType; }
+
+#ifdef _DEBUG
+	virtual HRESULT Render() { return S_OK; }
+#endif
 
 protected:
 	ID3D11Device*				m_pDevice = { nullptr };

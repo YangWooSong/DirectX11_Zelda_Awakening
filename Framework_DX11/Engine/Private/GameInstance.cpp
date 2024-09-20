@@ -6,6 +6,8 @@
 #include "Timer_Manager.h"
 #include "Picking_Manager.h"
 #include "Font_Manager.h"
+#include "Light_Manager.h"
+#include "Target_Manager.h"
 
 #include "Key_Manager.h"
 #include "Sound_Manager.h"
@@ -34,12 +36,20 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 	if (nullptr == m_pTimer_Manager)
 		return E_FAIL;
 
+	m_pTarget_Manager = CTarget_Manager::Create(*ppDevice, *ppContext);
+	if (nullptr == m_pTarget_Manager)
+		return E_FAIL;
+
 	m_pRenderer = CRenderer::Create(*ppDevice, *ppContext);
 	if (nullptr == m_pRenderer)
 		return E_FAIL;
 
 	m_pPipeLine = CPipeLine::Create();
 	if (nullptr == m_pPipeLine)
+		return E_FAIL;
+
+	m_pLight_Manager = CLight_Manager::Create();
+	if (nullptr == m_pLight_Manager)
 		return E_FAIL;
 
 	/* 사운드 카드를 초기화하낟. */
@@ -309,6 +319,12 @@ list<class CGameObject*>& CGameInstance::Get_RenderList(CRenderer::RENDERGROUP e
 	return m_pRenderer->Get_RenderList(eGroup);
 }
 
+#ifdef _DEBUG
+HRESULT CGameInstance::Add_DebugObject(CComponent* pDebugObject)
+{
+	return m_pRenderer->Add_DebugObject(pDebugObject);
+}
+#endif
 #pragma endregion
 
 #pragma region PIPELINE
@@ -347,6 +363,67 @@ _vector CGameInstance::Get_CamPosition_Vector() const
 {
 	return m_pPipeLine->Get_CamPosition_Vector();
 }
+
+#pragma endregion
+
+#pragma region LIGHT_MANAGER
+HRESULT CGameInstance::Add_Light(const LIGHT_DESC& LightDesc)
+{
+	return m_pLight_Manager->Add_Light(LightDesc);
+}
+const LIGHT_DESC* CGameInstance::Get_LightDesc(_uint iIndex) const
+{
+	return m_pLight_Manager->Get_LightDesc(iIndex);
+}
+
+HRESULT CGameInstance::Render_Lights(CShader* pShader, CVIBuffer_Rect* pVIBuffer)
+{
+	return m_pLight_Manager->Render(pShader, pVIBuffer);
+}
+
+#pragma endregion
+
+#pragma region TARGET_MANAGER
+HRESULT CGameInstance::Add_RenderTarget(const _wstring& strTargetTag, _uint iWidth, _uint iHeight, DXGI_FORMAT ePixelFormat, const _float4& vClearColor)
+{
+	return m_pTarget_Manager->Add_RenderTarget(strTargetTag, iWidth, iHeight, ePixelFormat, vClearColor);
+}
+
+HRESULT CGameInstance::Add_MRT(const _wstring& strMRTTag, const _wstring& strTargetTag)
+{
+	return m_pTarget_Manager->Add_MRT(strMRTTag, strTargetTag);
+}
+
+HRESULT CGameInstance::Begin_MRT(const _wstring& strMRTTag)
+{
+	return m_pTarget_Manager->Begin_MRT(strMRTTag);
+}
+
+HRESULT CGameInstance::End_MRT()
+{
+	return m_pTarget_Manager->End_MRT();
+}
+
+HRESULT CGameInstance::Bind_RT_ShaderResource(CShader* pShader, const _wstring& strTargetTag, const _char* pConstantName)
+{
+	return m_pTarget_Manager->Bind_ShaderResource(pShader, strTargetTag, pConstantName);
+}
+
+#ifdef _DEBUG
+HRESULT CGameInstance::Ready_RT_Debug(const _wstring& strTargetTag, _float fX, _float fY, _float fSizeX, _float fSizeY)
+{
+	return m_pTarget_Manager->Ready_Debug(strTargetTag, fX, fY, fSizeX, fSizeY);
+}
+HRESULT CGameInstance::Render_MRT_Debug(const _wstring& strMRTTag, CShader* pShader, CVIBuffer_Rect* pVIBuffer)
+{
+	return m_pTarget_Manager->Render(strMRTTag, pShader, pVIBuffer);
+}
+void CGameInstance::Active_Debug_Renderer()
+{
+	m_pTarget_Manager->Acticve_DebugRender();
+}
+#endif
+
 
 #pragma endregion
 
@@ -518,8 +595,10 @@ HRESULT CGameInstance::Add_ColliderList(CCollider* pCollider)
 
 void CGameInstance::Release_Engine()
 {
+	Safe_Release(m_pTarget_Manager);
 	Safe_Release(m_pPhysX_Manager);
 	Safe_Release(m_pFont_Manager);
+	Safe_Release(m_pLight_Manager);
 	Safe_Release(m_pPicking_Manager);
 	Safe_Release(m_pPipeLine);
 	Safe_Release(m_pRenderer);
