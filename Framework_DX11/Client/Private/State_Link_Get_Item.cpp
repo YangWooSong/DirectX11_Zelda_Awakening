@@ -50,17 +50,24 @@ void CState_Link_Get_Item::Update(_float fTimeDelta)
 	{
 		_vector vNewLook = { 0.f,0.f,-1.f };
 		m_pPlayer->Get_Transform()->Turn_Lerp(vNewLook, 5.f, fTimeDelta);
+	
+		_float3 vPlayerLook;
+		XMStoreFloat3(&vPlayerLook, m_pPlayer->Get_Transform()->Get_State(CTransform::STATE_LOOK));
+
+		if (m_pPlayer->Get_Model()->Get_CurrentTrackPosition() > 21.f)
+			m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, true);
 	}
 
 	if (m_iCurrentAnimIndex == m_iAnimLpIndex)
 	{
 		m_fLoopTimer += fTimeDelta;
-		m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, true);
+
 	}
 
 	if (m_fLoopTimer > 2.f && m_iCurrentAnimIndex != m_iAnimEdIndex)
 	{
 		m_iCurrentAnimIndex = m_iAnimEdIndex;
+		m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, false);
 		m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
 		m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
 	}
@@ -79,7 +86,6 @@ void CState_Link_Get_Item::End_State()
 	if(m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 7 && m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 14 && m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 16)
 		m_pCamera->Set_FollowPlayer(false);
 	m_pCamera->Zoom_Out(1.5f, 60.f);
-	m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, false);
 }
 
 CState_Link_Get_Item* CState_Link_Get_Item::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)
