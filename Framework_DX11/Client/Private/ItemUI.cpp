@@ -134,14 +134,14 @@ void CItemUI::Lerp_Size(_float fTimeDelta)
 
     _float fAmout = fTimeDelta * 2.f;
 
-    if (fAmout + fCurSize.x <= 1.8f && m_bSizeDown == false)
+    if (fAmout + fCurSize.x <= 2.f && m_bSizeDown == false)
         m_pTransformCom->Set_Scaled(fCurSize.x + fAmout, fCurSize.y + fAmout, fCurSize.z + fAmout);
     else
         m_bSizeDown = true;
 
     if (m_bSizeDown)
     {
-        if (fAmout + fCurSize.x >= 1.5f)
+        if (fAmout + fCurSize.x >= 1.8f)
             m_pTransformCom->Set_Scaled(fCurSize.x - fAmout, fCurSize.y - fAmout, fCurSize.z - fAmout);
     }
 

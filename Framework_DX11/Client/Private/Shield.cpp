@@ -73,13 +73,14 @@ void CShield::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
+#ifdef _DEBUG
+	m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
 }
 
 HRESULT CShield::Render()
 {
-#ifdef _DEBUG
-		m_pColliderCom->Render();
-#endif
 	return S_OK;
 }
 

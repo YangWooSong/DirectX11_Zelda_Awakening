@@ -42,6 +42,8 @@ HRESULT CTreasureBox::Initialize(void* pArg)
     m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("close_wait");
     m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, true);
 
+    Set_Item();
+
     return S_OK;
 }
 
@@ -63,7 +65,13 @@ void CTreasureBox::Update(_float fTimeDelta)
             static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_State(CLink::GET_ITEM);
         }
             
-            
+     
+        Play_Alarm();
+    }
+    else
+    {
+        if (m_bPlayAlarm)
+            m_bPlayAlarm = false;
     }
 }
 
@@ -75,6 +83,9 @@ void CTreasureBox::Late_Update(_float fTimeDelta)
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
+#ifdef _DEBUG
+        m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
     }
 }
 
@@ -106,10 +117,6 @@ HRESULT CTreasureBox::Render()
             if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
         }
-#ifdef _DEBUG
-        m_pColliderCom->Render();
-#endif	
-
     }
 
     return S_OK;
@@ -202,6 +209,49 @@ void CTreasureBox::Change_PlayerUI_TextureNum()
         break;
     default:
         break;
+    }
+}
+
+void CTreasureBox::Set_Item()
+{
+    switch (m_iRoomNum)
+    {
+    case 3:
+        m_iItemIndex = CItemUI::CAMPUS;
+        break;
+    case 4:
+        m_iItemIndex = CItemUI::SMALLKEY;
+        break;
+    case 5:
+        m_iItemIndex = CItemUI::MAP;
+        break;
+    case 7:
+        if (m_iCellNum == 540 || m_iCellNum == 541)
+            m_iItemIndex = CItemUI::SMALLKEY;
+        if (m_iCellNum == 621 || m_iCellNum == 622)
+            m_iItemIndex = CItemUI::BOSSKEY;
+        if (m_iCellNum == 523)
+            m_iItemIndex = CItemUI::LUPEE;
+        break;
+    case 14:
+        m_iItemIndex = CItemUI::STONEBEAK;
+        break;
+    case 15:
+        m_iItemIndex = CItemUI::FEATHER;
+        break;
+    default:
+        break;
+    }
+}
+
+void CTreasureBox::Play_Alarm()
+{
+    if (m_bOpened == false && 
+        static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->IsGetCampus() && 
+        m_bPlayAlarm == false && m_iItemIndex == CItemUI::SMALLKEY)
+    {
+        m_pSoundCom->Play_Sound(TEXT("5_UI_Campus_Alarm.wav", 1.f));
+        m_bPlayAlarm = true;
     }
 }
 

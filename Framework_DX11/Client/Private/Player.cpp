@@ -3,6 +3,7 @@
 
 #include "GameInstance.h"
 #include "UIObject.h"
+#include "Link.h"
 
 CPlayer::CPlayer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CContainerObject{ pDevice, pContext }
@@ -193,6 +194,8 @@ void CPlayer::Change_PlayerUI_TextureNum(_uint iIndex, _int iTextureNum)
 	if (m_PlayerUI[iIndex] == nullptr)
 		return;
 
+	static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Get_Item(iTextureNum);
+
 	m_PlayerUI[iIndex]->Set_TextureNum(iTextureNum);
 }
 
@@ -216,9 +219,6 @@ HRESULT CPlayer::Ready_Components()
 		TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
 		return E_FAIL;
 	return S_OK;
-
-
-
 }
 
 CPlayer* CPlayer::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

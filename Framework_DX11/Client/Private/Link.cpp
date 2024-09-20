@@ -28,6 +28,7 @@
 #include "Shield.h"
 #include "InteractUI.h"
 #include "TreasureBox.h"
+#include "ItemUI.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -235,6 +236,12 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			m_PlayerUI[INTERACT_UI]->SetActive(true);
 			m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_SmallKey"))
+		{
+			Change_PlayerUI_TextureNum(ITEM_ICON_UI,CItemUI::SMALLKEY);
+			Change_State(GET_ITEM);
+		}
 	}
 }
 
@@ -272,6 +279,36 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 	if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 	{
 		m_PlayerUI[0]->SetActive(false);
+	}
+}
+
+void CLink::Get_Item(_uint iItemIndex)
+{
+	switch (iItemIndex)
+	{
+	case CItemUI::STONEBEAK:
+		m_bBeak = true;
+		break;
+	case CItemUI::CAMPUS:
+		m_bCampus = true;
+		break;
+	case CItemUI::SMALLKEY:
+		m_iSmallKeyCount++;
+		break;
+	case CItemUI::MAP:
+		m_bMap = true;
+		break;
+	case CItemUI::LUPEE:
+		m_iLupee += 20;
+		break;
+	case CItemUI::FEATHER:
+		m_bFeather = true;
+		break;
+	case CItemUI::BOSSKEY:
+		m_bGetBossKey = true;
+		break;
+	default:
+		break;
 	}
 }
 

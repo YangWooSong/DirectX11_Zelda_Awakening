@@ -56,6 +56,7 @@
 #include "SpikeTile.h"
 #include "TreasureBox.h"
 #include "FootSwitch.h"
+#include "SmallKey.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -696,6 +697,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Obj_HousePot"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/HousePot/HousePot.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Obj_SmallKey*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_SmallKey"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/SmallKey/SmallKey.dat"))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region ANIM_OBJ
@@ -867,6 +873,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_StoneHinoxRock*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_StoneHinoxRock"),
 		CStoneHinoxRock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_SmallKey*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SmallKey"),
+		CSmallKey::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 

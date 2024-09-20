@@ -96,6 +96,10 @@ void COctorok::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
+#ifdef _DEBUG
+	m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
 }
 
 HRESULT COctorok::Render()
@@ -134,10 +138,6 @@ HRESULT COctorok::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 	}
-
-#ifdef _DEBUG
-	m_pColliderCom->Render();
-#endif
 
 	return S_OK;
 }

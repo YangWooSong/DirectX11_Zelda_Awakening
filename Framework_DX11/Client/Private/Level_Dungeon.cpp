@@ -52,6 +52,8 @@ void CLevel_Dungeon::Update(_float fTimeDelta)
 {
 	if(m_iCurRoomNum != m_pPlayer->Get_CurRoomNum())
 		Change_Room();
+
+	Setting_Gimmick();
 }
 
 HRESULT CLevel_Dungeon::Render()
@@ -129,6 +131,13 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
 
+	CGameObject::GAMEOBJECT_DESC ObjectDesc;
+	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
+	ObjectDesc.iRoomNum = 2;
+	ObjectDesc.vPosition = _float3(-18.75f, 10.f, 0.69f);
+	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), TEXT("Prototype_GameObject_SmallKey"), &ObjectDesc)))
+		return E_FAIL;
     return S_OK;
 }
 
@@ -242,7 +251,7 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	}
 	if (_strLyaerTag == "Layer_Pawn")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Pawn"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Pawn"), TEXT("Prototype_GameObject_Pawn"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;
@@ -393,6 +402,16 @@ void CLevel_Dungeon::Change_Room()
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Pawn"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
 #pragma endregion
 
 #pragma region NonAnimObj
@@ -480,6 +499,40 @@ void CLevel_Dungeon::Change_Room()
 
 #pragma endregion
 }
+
+void CLevel_Dungeon::Setting_Gimmick()
+{
+	CLayer* pLayer = { nullptr };
+
+	if (m_iCurRoomNum == 2)
+	{
+		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
+		if(pKey->Get_Dead() == false)
+		{
+			int iCountAlive = 0;
+
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Pawn"));
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+				{
+					if (static_cast<CGameObject*>(*iter)->Get_Dead() == false)
+						iCountAlive++;
+				}
+			}
+
+			if (iCountAlive == 0)
+				pKey->SetActive(true);
+		}
+	}
+	else
+	{
+		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
+		pKey->SetActive(false);
+	}
+
+}
+
 
 CLevel_Dungeon* CLevel_Dungeon::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {

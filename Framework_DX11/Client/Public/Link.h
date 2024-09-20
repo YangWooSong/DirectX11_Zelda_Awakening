@@ -38,11 +38,15 @@ public:
 public:
 	class CItem* Get_ItemA() { return m_pItemA; }
 	class CItem* Get_ItemB() { return m_pItemB; }
+	_bool IsGetCampus() { return m_bCampus; }
+
 	CGameObject* Get_CarryItem() { return m_pCarryitem; }
 	void Set_CarryItem(CGameObject* pObject) { m_pCarryitem = pObject; }
 
 	void Set_ActiveSword(_bool bActive) { m_bActiveSword = bActive; }
 	void Set_ActiveSheild(_bool bActive) { m_bActiveSheild = bActive; }
+	void Get_Item(_uint iItemIndex);
+
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();

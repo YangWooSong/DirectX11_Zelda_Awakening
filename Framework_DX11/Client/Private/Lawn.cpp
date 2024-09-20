@@ -52,6 +52,10 @@ void CLawn::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
+#ifdef _DEBUG
+    m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
 }
 
 HRESULT CLawn::Render()
@@ -78,10 +82,6 @@ HRESULT CLawn::Render()
         if (FAILED(m_pModelCom->Render(i)))
             return E_FAIL;
     }
-
-#ifdef _DEBUG
-    m_pColliderCom->Render();
-#endif
 
     return S_OK;
 }

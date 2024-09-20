@@ -31,7 +31,7 @@ void CState_Pawn_DeadFall::Update(_float fTimeDelta)
 {
     m_fTimer += fTimeDelta;
 
-    if (m_fTimer > 1.f)
+    if (m_fTimer > 0.7f)
     {
         if(m_bPlaySound == false)
         {
@@ -43,7 +43,10 @@ void CState_Pawn_DeadFall::Update(_float fTimeDelta)
     }
 
     if (m_fFallTimer > 1.f)
+    {
         m_pOwner->SetActive(false);
+        m_pOwner->Set_Dead(true);
+    }
 }
 
 

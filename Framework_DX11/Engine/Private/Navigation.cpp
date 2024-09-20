@@ -371,7 +371,7 @@ HRESULT CNavigation::Render()
 	_float4x4	WorldMatrix = m_WorldMatrix;
 
 
-	WorldMatrix._42 += 0.1f;
+	WorldMatrix._42 += 0.0f;
 
 	if (FAILED(m_pShader->Bind_Matrix("g_WorldMatrix", &WorldMatrix)))
 		return E_FAIL;

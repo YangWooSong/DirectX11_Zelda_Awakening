@@ -104,6 +104,7 @@ protected:
 
 	CSound* m_pPlayerSoundCom = { nullptr };
 	CSound* m_pEffectSoundCom = { nullptr };
+
 protected:
 	_float				m_fMoveSpeed = { 4.f};
 	_float				m_vTargetPos = {};
@@ -118,6 +119,7 @@ protected:
 	_bool			m_bRender = { true };
 
 	vector<CUIObject*> m_PlayerUI;
+
 protected:
 	HRESULT Ready_Components();
 

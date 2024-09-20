@@ -424,6 +424,9 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\FootSwitch">
       <UniqueIdentifier>{c4864dfe-80c8-4b37-8995-96a5dca0517d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\SmallKey">
+      <UniqueIdentifier>{7c3e22a5-d709-4d8e-9764-6de8fd3e187c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -774,6 +777,9 @@
     <ClInclude Include="..\Public\FootSwitch.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\FootSwitch</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\SmallKey.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\SmallKey</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1114,6 +1120,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\FootSwitch.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\FootSwitch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SmallKey.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\SmallKey</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

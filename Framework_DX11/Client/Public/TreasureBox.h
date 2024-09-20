@@ -43,12 +43,18 @@ public:
 private:
 	HRESULT Ready_Components();
 	void Change_PlayerUI_TextureNum();
+	void Set_Item();
+	void Play_Alarm();
 
 private:
 	_int m_iCurrentAnimIndex = { 0 };
 	_bool		m_bOpened = { false };
 	_bool		m_bCangePlayerState = { false };
+	_bool		m_bPlayAlarm = { false };
 	_float		m_fOpenTimer = { 0.f };
+
+	_uint m_iItemIndex = { 0 };
+
 public:
 	static CTreasureBox* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

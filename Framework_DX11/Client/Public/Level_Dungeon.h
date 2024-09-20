@@ -36,6 +36,7 @@ private:
 	class CNavigation* m_pNavigationCom = { nullptr };
 	class CPlayer* m_pPlayer = { nullptr };
 
+	_bool	m_isPlayerGetCampus = { false };
 
 	_uint m_iBgmIndex = { 0 };
 	_uint m_iCurRoomNum = { 1 };
@@ -71,6 +72,8 @@ private:
 
 private:
 	void Change_Room();
+	void Setting_Gimmick();
+
 public:
 	static CLevel_Dungeon* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual void Free() override;
