@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ItemUI.h"
 #include "GameInstance.h"
+#include "Link.h"
 
 CItemUI::CItemUI(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CUIObject(pDevice, pContext)
@@ -30,6 +31,8 @@ HRESULT CItemUI::Initialize(void* pArg)
 
     m_isActive = false;
 
+    m_pTransformCom->Set_Scaled(1.f, 1.f, 1.f);
+
     return S_OK;
 }
 
@@ -42,20 +45,7 @@ void CItemUI::Update(_float fTimeDelta)
 {
     if(m_isActive)
     {
-        _matrix vPlayerPos = m_pParentGameObj->Get_Transform()->Get_WorldMatrix();
-        vPlayerPos = vPlayerPos * XMLoadFloat4x4(&m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW));
-        //  vPlayerPos = vPlayerPos * XMLoadFloat4x4(&m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ));
-
-        _float4 vPlayer;
-        XMStoreFloat4(&vPlayer, vPlayerPos.r[3]);
-
-        _float3 vNewPos = { vPlayer.x, vPlayer.y, 0.f };
-
-        m_fX = vNewPos.x * m_fViewWidth / 18.f + m_fViewWidth / 2.f + 20.f;
-        m_fY = -vNewPos.y * m_fViewHeight / 10.f + m_fViewHeight / 2.f + 20.f;
-
-        //  float screenX = ((clipPos.m128_f32[0] + 1.0f) / 2.0f) * screenWidth;
-       //   float screenY = ((1.0f - clipPos.m128_f32[1]) / 2.0f) * screenHeight;
+       
     }
 }
 
@@ -63,7 +53,13 @@ void CItemUI::Late_Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-        __super::Late_Update(fTimeDelta);
+
+        _vector vNewPos = m_pParentGameObj->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+        vNewPos = XMVectorSetZ(vNewPos, XMVectorGetZ(vNewPos) + 2.f);
+
+        m_pTransformCom->Set_State(CTransform::STATE_POSITION, vNewPos);
+        m_pTransformCom->BillBoard(static_cast<CLink*>(m_pParentGameObj)->Get_LevelIndex());
+
         m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
     }
 }
@@ -75,16 +71,15 @@ HRESULT CItemUI::Render()
         if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_ViewMatrix)))
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
             return E_FAIL;
-
-        if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_ProjMatrix)))
+        if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
             return E_FAIL;
 
         if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", m_iTextureNum)))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(0)))
+        if (FAILED(m_pShaderCom->Begin(2)))
             return E_FAIL;
 
         if (FAILED(m_pVIBufferCom->Bind_Buffers()))

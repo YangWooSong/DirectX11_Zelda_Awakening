@@ -37,13 +37,10 @@ public:
 	void		Set_Scaled(_float fX, _float fY, _float fZ);
 
 	void		Go_Vector(_vector vNewLook, _float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
-
 	void		Go_Straight(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr , _bool* bIsMove = nullptr);
 	void		Go_Straight_InRoom(_float fTimeDelta, _int iRoomNum, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr);
 	void		Go_Straight_InRoom_Reverse(_float fTimeDelta, _int iRoomNum, _bool* bReflect = nullptr, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _int* iStopCount = nullptr);
-
 	void		Go_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool bMoveCliff = false);
-
 	void		Go_Right(_float fTimeDelta, _float fSpeed = 0.f);
 	void		Go_Left(_float fTimeDelta, _float fSpeed = 0.f);
 
@@ -51,15 +48,14 @@ public:
 	void		Go_World_Backward(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Right(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Left(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
+	void		Go_World_Up(_float fTimeDelta, _float fSpeed = 0.f);
+	void		Go_World_Down(_float fTimeDelta, _float fSpeed = 0.f);
 
 	void		Go_World_Straight_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Backward_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Right_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 	void		Go_World_Left_Slide(_float fTimeDelta, _float fSpeed = 0.f, class CNavigation* pNavigation = nullptr, _bool* bIsMove = nullptr);
 
-
-	void		Go_World_Up(_float fTimeDelta, _float fSpeed = 0.f);
-	void		Go_World_Down(_float fTimeDelta, _float fSpeed = 0.f);
 
 	void		Go_Lerp(_float3 _CurrentPos, _float3 _TargetPos, _float _fSpeed, _bool bMoveCliff = false , CNavigation* pNavigation = nullptr);
 
@@ -68,10 +64,9 @@ public:
 	void		Turn_Lerp_Angle(_float3 _Origin, _float3 _Target, _float fTimeDelta);
 	void		Rotation(const _vector& vAxis, _float fRadian);
 	void		Rotation(_float fX, _float fY, _float fZ);
+	void		RotationThreeAxis(const _float3 fRadians);
 
 	void		LookAt(_fvector vAt);
-
-	void		RotationThreeAxis(const _float3 fRadians);
 
 	void		Set_WorldMatrix(const _matrix _worldMatrix) { XMStoreFloat4x4(&m_WorldMatrix, _worldMatrix); }
 	
@@ -80,6 +75,9 @@ public:
 	_vector		Get_Dir(_vector _pos1, _vector _pos2);
 
 	void		ChangePosToPreCellMiddle(CNavigation* pNavigation);
+
+	void		BillBoard(_uint iLevelIndex);
+
 public:
 	HRESULT Bind_ShaderResource(class CShader* pShader, const _char* pConstantName);
 

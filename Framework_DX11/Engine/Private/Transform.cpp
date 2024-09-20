@@ -1,7 +1,7 @@
 #include "..\Public\Transform.h"
 #include "Shader.h"
-
-
+#include "GameInstance.h"
+#include "Camera.h"
 #include "Navigation.h"
 
 CTransform::CTransform(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -880,6 +880,26 @@ void CTransform::ChangePosToPreCellMiddle( CNavigation* pNavigation)
 
 	_float3 vNew = pNavigation->Get_MiddlePosOfPreCell();
 	Set_State(STATE_POSITION, XMLoadFloat3(&vNew));
+}
+
+void CTransform::BillBoard(_uint iLevelIndex)
+{
+	_float3		vScale = Get_Scaled();
+
+	_vector		vPosition = Get_State(STATE_POSITION);
+
+	_vector		vLook = vPosition - static_cast<CCamera*>(m_pGameInstance->Find_Camera(iLevelIndex))->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+
+	// Up 벡터와 Look 벡터를 외적하여 Right 벡터를 구함
+	_vector		vRight = XMVector3Cross(XMVectorSet(0.f, 1.f, 0.f, 0.f), vLook);
+
+	// Look 벡터와 Right 벡터를 외적하여 진짜 Up 벡터를 구함
+	_vector		vUp = XMVector3Cross(vLook, vRight);
+
+	// 스케일을 맞춰줌
+	Set_State(STATE_RIGHT, XMVector3Normalize(vRight) * vScale.x);
+	Set_State(STATE_UP, XMVector3Normalize(vUp) * vScale.y);
+	Set_State(STATE_LOOK, XMVector3Normalize(vLook) * vScale.z);
 }
 
 HRESULT CTransform::Bind_ShaderResource(CShader* pShader, const _char* pConstantName)
