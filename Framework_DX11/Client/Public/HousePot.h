@@ -7,6 +7,7 @@ class CShader;
 class CModel;
 class CCollider;
 class CFsm;
+class CSound;
 END
 
 BEGIN(Client)
@@ -32,12 +33,13 @@ public:
 	virtual void OnCollisionExit(CGameObject* pOther) override;
 
 public:
-	void Set_Break(_bool bBreak) { m_bBreak = bBreak; }
+	void Set_Break(_bool bBreak);
 
 public:
 	 CShader* m_pShaderCom = { nullptr };
 	 CModel* m_pModelCom = { nullptr };
 	 CCollider* m_pColliderCom = { nullptr };
+	 CSound* m_pSoundCom = { nullptr };
 
 	 CModel* m_pPlayerModelCom = { nullptr };
 	 CFsm* m_pPlayerFsmCom = { nullptr };

@@ -67,8 +67,12 @@ void CTreasureBox::Update(_float fTimeDelta)
             m_bCangePlayerState = true;
             static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_State(CLink::GET_ITEM);
         }
-            
-     
+
+        if(m_bAdd == false)
+        {
+            m_bAdd = true;
+            m_pGameInstance->AddScene_ColMesh(this, TEXT("TreasureBox"));
+        }
       
     }
     else

@@ -74,7 +74,7 @@ void CHousePot::Update(_float fTimeDelta)
 
         if (m_bCarried)
         {
-            if (m_fTimer > 0.4f || m_pPlayerFsmCom->Get_CurrentState() != CLink::CARRY)
+            if (m_fTimer > 0.5f || m_pPlayerFsmCom->Get_CurrentState() != CLink::CARRY)
             {
                 _matrix		SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
                 m_pTransformCom->Set_WorldMatrix(SocketMatrix * m_pPlayer->Get_Transform()->Get_WorldMatrix());
@@ -83,6 +83,7 @@ void CHousePot::Update(_float fTimeDelta)
         }           
 
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+        m_pParticle->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
     }
 
 }
@@ -95,14 +96,15 @@ void CHousePot::Late_Update(_float fTimeDelta)
 
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-    }
-
-    if(m_bBreak)
-        m_pParticle->Late_Update(fTimeDelta);
 
 #ifdef _DEBUG
-    m_pGameInstance->Add_DebugObject(m_pColliderCom);
+        m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+
+    }
+
+    if (m_bBreak)
+        m_pParticle->Late_Update(fTimeDelta);
 }
 
 HRESULT CHousePot::Render()
@@ -160,6 +162,16 @@ void CHousePot::OnCollisionExit(CGameObject* pOther)
 {
 }
 
+void CHousePot::Set_Break(_bool bBreak)
+{
+    if (bBreak)
+    {
+        if(m_bBreak == false)
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_HousePot_Break.wav"), 1.f);
+        m_bBreak = bBreak;
+    }
+}
+
 
 HRESULT CHousePot::Ready_Components()
 {
@@ -211,8 +223,14 @@ HRESULT CHousePot::Ready_Components()
         Safe_AddRef(m_pPlayerModelCom);
         Safe_AddRef(m_pPlayerFsmCom);
     }
-    return S_OK;
 
+    /* FOR.Com_Sound */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+        TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+        return E_FAIL;
+    m_pSoundCom->Set_Owner(this);
+
+    return S_OK;
 }
 
 CHousePot* CHousePot::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -253,5 +271,6 @@ void CHousePot::Free()
     Safe_Release(m_pColliderCom);
     Safe_Release(m_pPlayerModelCom);
     Safe_Release(m_pPlayerFsmCom);
+    Safe_Release(m_pSoundCom);
 }
 

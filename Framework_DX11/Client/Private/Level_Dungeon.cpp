@@ -12,6 +12,7 @@
 #include "Land.h"
 #include "FootSwitch.h"
 #include "TreasureBox.h"
+#include "ClosedPotDoor.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -287,6 +288,11 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"), TEXT("Prototype_GameObject_FootSwitch"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_ClosedPotDoor")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"), TEXT("Prototype_GameObject_ClosedPotDoor"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -503,6 +509,16 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
 
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
 #pragma endregion
 }
 
@@ -540,7 +556,7 @@ void CLevel_Dungeon::Setting_Gimmick()
 
 #pragma endregion
 
-#pragma region ROOM_3
+#pragma region ROOM_4
 	if (m_iCurRoomNum == 4)
 	{
 		CFootSwitch* pSwitch = static_cast<CFootSwitch*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"), 0));
@@ -559,7 +575,27 @@ void CLevel_Dungeon::Setting_Gimmick()
 		}
 		
 	}
+#pragma endregion
 
+#pragma region ROOM_5
+	if (m_iCurRoomNum == 5)
+	{
+		CClosedPotDoor* pDoor = static_cast<CClosedPotDoor*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"), 0));
+		if (pDoor->Get_Opend())
+		{
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+				{
+					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+				}
+			}
+		}
+
+	}
 #pragma endregion
 }
 

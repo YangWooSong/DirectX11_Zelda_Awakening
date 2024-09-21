@@ -54,6 +54,7 @@ private:
 	_bool		m_bCangePlayerState = { false };
 	_bool		m_bPlayAlarm = { false };
 	_bool		m_bShow = { false };
+	_bool		m_bAdd = { false };
 	_float		m_fOpenTimer = { 0.f };
 
 	_uint		m_iItemIndex = { 0 };

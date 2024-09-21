@@ -427,6 +427,9 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\SmallKey">
       <UniqueIdentifier>{7c3e22a5-d709-4d8e-9764-6de8fd3e187c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\ClosedPotDoor">
+      <UniqueIdentifier>{53b3a526-68ad-4966-a2a5-d5e3eb58dbb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -780,6 +783,9 @@
     <ClInclude Include="..\Public\SmallKey.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\SmallKey</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\ClosedPotDoor.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\ClosedPotDoor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1123,6 +1129,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\SmallKey.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\SmallKey</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ClosedPotDoor.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\ClosedPotDoor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

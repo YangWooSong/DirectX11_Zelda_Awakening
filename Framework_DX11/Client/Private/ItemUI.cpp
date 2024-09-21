@@ -48,6 +48,7 @@ void CItemUI::Update(_float fTimeDelta)
         if(m_bShow == false)
         {
             //처음 작동
+            //플레이어 중심에서 시작
             m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentGameObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
             m_bShow = true;
             m_bOff = false;

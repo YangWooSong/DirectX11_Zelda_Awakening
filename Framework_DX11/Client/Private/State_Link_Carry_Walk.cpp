@@ -31,9 +31,9 @@ HRESULT CState_Link_Carry_Walk::Start_State()
 void CState_Link_Carry_Walk::Update(_float fTimeDelta)
 {
     if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
-        m_pPlayer->Get_PlayerSound()->Play_SoundRepeat(TEXT("1_Field_FootStep.wav"), 0.2f);
+        m_pPlayer->Get_PlayerSound()->Play_SoundRepeat(TEXT("1_Field_FootStep_Slow.wav"), 0.2f);
     else
-        m_pPlayer->Get_PlayerSound()->Play_SoundRepeat(TEXT("1_Inside_FootStep.wav"), 0.4f);
+        m_pPlayer->Get_PlayerSound()->Play_SoundRepeat(TEXT("1_Inside_FootStep_Slow.wav"), 0.4f);
 
     m_iPlayerDir = m_pPlayer->Get_Player_Dir();
     switch (m_iPlayerDir)

@@ -11,6 +11,7 @@ CFootSwitch::CFootSwitch(const CFootSwitch& Prototype)
     :CGameObject(Prototype)
 {
 }
+
 HRESULT CFootSwitch::Initialize_Prototype()
 {
     return S_OK;
@@ -127,7 +128,7 @@ void CFootSwitch::OnCollisionEnter(CGameObject* pOther)
         {
             m_iCurrentAnimIndex = m_iOnAnimIndex;
             m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex);
-            m_pSoundCom->Play_Sound(TEXT("4_Obj_FootSwitch_On.wav"), 0.6f);
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_FootSwitch_On.wav"), 0.4f);
 
             m_bOn = true;
         }
