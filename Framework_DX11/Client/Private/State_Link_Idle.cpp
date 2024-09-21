@@ -20,7 +20,12 @@ HRESULT CState_Link_Idle::Initialize(_uint iStateNum)
 
 HRESULT CState_Link_Idle::Start_State()
 {
-    m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
+	if (m_pPlayer->Get_Fsm()->Get_PrevState() == CLink::BOMB)
+	{
+		m_pPlayer->Get_Model()->SetUp_Animation(m_iCurrentAnimIndex);
+	}
+    else
+		m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
 	m_pPlayer->Get_PlayerSound()->Stop();
 
 	return S_OK;
@@ -34,16 +39,17 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 		return;
 	}
 
-	if (KEY_HOLD(KEY::O))
+	if (KEY_HOLD(KEY::I))
 	{
 		m_pPlayer->Change_State(CLink::ITEMA);
 	}
 
-	if (KEY_HOLD(KEY::Q))
+	if (KEY_HOLD(KEY::O))
 	{
-		m_pPlayer->Change_State(CLink::GET_ITEM);
+		m_pPlayer->Change_State(CLink::BOMB);
 	}
 
+	//°Ë °ø°Ý
 	if (KEY_AWAY(KEY::P))
 	{
 		m_pPlayer->Change_State(CLink::ITEMB);
@@ -67,6 +73,7 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 void CState_Link_Idle::End_State()
 {
 	m_fPressTime = 0.f;
+	m_fTimer = 0.f;
 }
 
 CState_Link_Idle* CState_Link_Idle::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

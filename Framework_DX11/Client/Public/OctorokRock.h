@@ -42,7 +42,7 @@ public:
 	virtual void OnCollisionStay(CGameObject* pOther) override;
 	virtual void OnCollisionExit(CGameObject* pOther) override;
 
-public:
+private:
 	 CShader* m_pShaderCom = { nullptr };
 	 CModel* m_pModelCom = { nullptr };
 	 CNavigation* m_pNavigationCom = { nullptr };

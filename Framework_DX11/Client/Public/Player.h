@@ -18,7 +18,7 @@ BEGIN(Client)
 class CPlayer : public CContainerObject
 {
 public:
-	enum PARTID { PART_SWORD, PART_SHIELD, PART_END };
+	enum PARTID { PART_SWORD, PART_SHIELD, PART_BOMB, PART_END };
 	enum PLAYER_DIR{FRONT, LEFT,LEFTUFRONT, LEFTBACK, BACK, RIGHT,RIGHTFRONT,RIGHTBACK, PLAYER_DIR_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{

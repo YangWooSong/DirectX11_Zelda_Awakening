@@ -180,20 +180,12 @@ HRESULT CHousePot::Ready_Components()
         TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
         return E_FAIL;
 
-    if(m_iRoomNum == 0)
-    {
-        /* FOR.Com_Model */
-        if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_HousePot"),
-            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
-            return E_FAIL;
-    }
-    else
-    {
-        /* FOR.Com_Model */
-        if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Obj_HousePot"),
-            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
-            return E_FAIL;
-    }
+
+    /* FOR.Com_Model */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_Obj_HousePot"),
+        TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+        return E_FAIL;
+
 
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};

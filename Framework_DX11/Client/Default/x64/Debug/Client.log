@@ -1,12 +1,2 @@
-﻿  Level_Dungeon.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(183,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
-  
-  Link.cpp
-  TreasureBox.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(265,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
-  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
-  
-  Loader.cpp
-  코드를 생성하고 있습니다...
+﻿  Bomb.cpp
   Client.vcxproj -> C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

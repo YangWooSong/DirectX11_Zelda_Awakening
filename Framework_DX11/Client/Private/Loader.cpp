@@ -23,6 +23,7 @@
 #include "Bed.h"
 #include "Sword.h"
 #include "Shield.h"
+#include "Bomb.h"
 
 #include "Lawn.h"
 #include "Grass.h"
@@ -301,10 +302,14 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CSword::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-
 	/* For. Prototype_GameObject_Shield*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Shield"),
 		CShield::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Bomb*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Bomb"),
+		CBomb::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	/* For. Prototype_GameObject_InteractUI*/
@@ -478,19 +483,19 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/MarinHouse/MarinHouse.dat"))))
 		return E_FAIL;
 
-	///* For. Prototype_Component_Model_Obj_Apple*/
- //	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_Apple"),
-	//	CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/AppleRed/AppleRed.dat"))))
-	//	return E_FAIL;
-
 	/* For. Prototype_Component_Model_Obj_HousePot*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_HousePot"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Obj_HousePot"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/HousePot/HousePot.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Obj_Bed*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_Bed"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bed/Bed.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Bomb*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Bomb"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bomb/Bomb.dat"))))
 		return E_FAIL;
 
 	return S_OK;
@@ -676,7 +681,7 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 
 	/* For. Prototype_Component_Model_DungeonCrackedWallLv01*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DungeonCrackedWallLv01"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/DungeonOwlStatue/DungeonCrackedWallLv01.dat"))))
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/DungeonCrackedWallLv01/DungeonCrackedWallLv01.dat"))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_DungeonOwlStatue*/

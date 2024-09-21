@@ -41,18 +41,6 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 
 	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_MARINHOUSE));
 
-	if (KEY_AWAY(I))
-		pCamera->Zoom_Out(1.5f, 45.f);
-
-	if (KEY_AWAY(U))
-		pCamera->Zoom_In(1.5f, 35.f);
-
-	if (KEY_AWAY(B))
-		pCamera->Set_FollowPlayer(true);
-
-	if (KEY_AWAY(N))
-		pCamera->Set_FollowPlayer(false);
-
 	//if (KEY_AWAY(Q))
 		//pCamera->Start_Shake(2.f, 0.3f, 1.f);
 

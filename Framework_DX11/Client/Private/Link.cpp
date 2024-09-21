@@ -22,6 +22,7 @@
 #include "State_Link_Carry_Walk.h"
 #include "State_Link_Throw.h"
 #include "State_Link_Get_Item.h"
+#include "State_Link_Bomb.h"
 
 #include "Cell.h"
 #include "Sword.h"
@@ -29,6 +30,7 @@
 #include "InteractUI.h"
 #include "TreasureBox.h"
 #include "ItemUI.h"
+#include "Bomb.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -381,6 +383,13 @@ HRESULT CLink::Ready_PartObjects()
 	if (FAILED(__super::Add_PartObject(CPlayer::PART_SHIELD, TEXT("Prototype_GameObject_Shield"), &ShieldDesc)))
 		return E_FAIL;
 
+	CBomb::BOMB_DESC bombDesc{};
+	bombDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	bombDesc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
+
+	if (FAILED(__super::Add_PartObject(CPlayer::PART_BOMB, TEXT("Prototype_GameObject_Bomb"), &bombDesc)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -407,6 +416,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Carry_Walk::Create(m_pFsmCom, this, CARRY_WALK));
 	m_pFsmCom->Add_State(CState_Link_Throw::Create(m_pFsmCom, this, THROW));
 	m_pFsmCom->Add_State(CState_Link_Get_Item::Create(m_pFsmCom, this, GET_ITEM));
+	m_pFsmCom->Add_State(CState_Link_Bomb::Create(m_pFsmCom, this, BOMB));
 
 	return S_OK;
 }

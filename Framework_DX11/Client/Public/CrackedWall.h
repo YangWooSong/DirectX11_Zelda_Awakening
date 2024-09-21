@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CShader;
 class CModel;
+class CCollider;
 END
 
 
@@ -26,8 +27,17 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther)  override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther)  override;
+
+public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
+
+private:
+	_bool m_bCracked = { false };
 
 private:
 	HRESULT Ready_Components();

@@ -430,6 +430,12 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\ClosedPotDoor">
       <UniqueIdentifier>{53b3a526-68ad-4966-a2a5-d5e3eb58dbb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\02.Player\Bomb">
+      <UniqueIdentifier>{b4dadc6f-63a1-42cb-937f-730338494cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\Link\Bomb">
+      <UniqueIdentifier>{c3d34d07-4a0d-41e8-a511-06416e1badc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -786,6 +792,12 @@
     <ClInclude Include="..\Public\ClosedPotDoor.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\ClosedPotDoor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Bomb.h">
+      <Filter>02.GameObjects\02.Player\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Bomb.h">
+      <Filter>05.State\Link\Bomb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1132,6 +1144,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\ClosedPotDoor.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\ClosedPotDoor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bomb.cpp">
+      <Filter>02.GameObjects\02.Player\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Bomb.cpp">
+      <Filter>05.State\Link\Bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -44,19 +44,29 @@ void CCrackedWall::Priority_Update(_float fTimeDelta)
 
 void CCrackedWall::Update(_float fTimeDelta)
 {
+    if (m_isActive && m_bCracked == false)
+    {
+        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    }
 }
 
 void CCrackedWall::Late_Update(_float fTimeDelta)
 {
-    if (m_isActive)
+    if (m_isActive && m_bCracked == false)
     {
+        __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pGameInstance->Add_ColliderList(m_pColliderCom);
+
+#ifdef _DEBUG
+        m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
     }
 }
 
 HRESULT CCrackedWall::Render()
 {
-    if (m_isActive)
+    if (m_isActive && m_bCracked == false)
     {
         if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
@@ -84,6 +94,23 @@ HRESULT CCrackedWall::Render()
     return S_OK;
 }
 
+void CCrackedWall::OnCollisionEnter(CGameObject* pOther)
+{
+}
+
+void CCrackedWall::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CCrackedWall::OnCollisionExit(CGameObject* pOther)
+{
+    if (pOther->Get_LayerTag() == TEXT("Layer_Bomb"))
+    {
+        m_isActive = false;
+        m_bCracked = true;
+    }
+}
+
 HRESULT CCrackedWall::Ready_Components()
 {
     /* FOR.Com_Shader */
@@ -95,6 +122,16 @@ HRESULT CCrackedWall::Ready_Components()
     if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DungeonCrackedWallLv01"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
+
+    /* For.Com_Collider */
+    CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+    ColliderDesc.vExtents = _float3(1.f, 1.f, 1.f);
+    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+        TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
+        return E_FAIL;
+    m_pColliderCom->Set_Owner(this);
 
     return S_OK;
 }
