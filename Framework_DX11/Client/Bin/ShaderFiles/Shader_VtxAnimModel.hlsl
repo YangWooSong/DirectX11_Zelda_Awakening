@@ -15,6 +15,7 @@ vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
 vector g_vCamPosition;
 
 bool g_bIsRed = false, g_bOutBodyIsRed = false, g_bRedBlink = false;
+bool g_bChangeColor = false;
 
 /* 뼈행렬들(내 모델 전체의 뼈행렬들(x), 현재 그리는 메시에게 영향을 주는 뼈행렬들(o) */
 matrix g_BoneMatrices[512];
@@ -125,7 +126,25 @@ PS_OUT PS_MAIN_CHANGE_RED(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_FOOTSWITCH(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
 
+    vector vMtrlDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+
+    if (0.3f > vMtrlDiffuse.a)
+        discard;
+
+    if (g_bChangeColor)
+    {
+        vMtrlDiffuse.rgb *= 0.5f;
+    }
+    
+    Out.vDiffuse = vMtrlDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+
+    return Out;
+}
 
 technique11 DefaultTechnique
 {
@@ -151,5 +170,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_CHANGE_RED();
+    }
+
+    pass Footswitch
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_FOOTSWITCH();
     }
 }

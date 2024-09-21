@@ -32,6 +32,7 @@ HRESULT CMonster::Initialize(void* pArg)
 
 	m_iLevelIndex = pDesc->LevelIndex;
 	m_iRoomNum = pDesc->iRoomNum;
+	m_eObjType = pDesc->eType;
 
 	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));

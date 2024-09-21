@@ -44,6 +44,9 @@ HRESULT CTreasureBox::Initialize(void* pArg)
 
     Set_Item();
 
+    if (m_iRoomNum == 3)
+        m_bShow = true;
+
     return S_OK;
 }
 
@@ -66,13 +69,15 @@ void CTreasureBox::Update(_float fTimeDelta)
         }
             
      
-        Play_Alarm();
+      
     }
     else
     {
-        if (m_bPlayAlarm)
+        if (m_bPlayAlarm && static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Get_CurRoomNum() != m_iRoomNum)
             m_bPlayAlarm = false;
     }
+
+    Play_Alarm();
 }
 
 void CTreasureBox::Late_Update(_float fTimeDelta)
@@ -248,6 +253,7 @@ void CTreasureBox::Play_Alarm()
 {
     if (m_bOpened == false && 
         static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->IsGetCampus() && 
+        static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Get_CurRoomNum() == m_iRoomNum&&
         m_bPlayAlarm == false && m_iItemIndex == CItemUI::SMALLKEY)
     {
         m_pSoundCom->Play_Sound(TEXT("5_UI_Campus_Alarm.wav", 1.f));

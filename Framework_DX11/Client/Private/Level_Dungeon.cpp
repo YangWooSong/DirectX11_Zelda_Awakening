@@ -10,6 +10,8 @@
 #include "DeguTail_00.h"
 #include "Layer.h"
 #include "Land.h"
+#include "FootSwitch.h"
+#include "TreasureBox.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -36,6 +38,7 @@ HRESULT CLevel_Dungeon::Initialize()
    m_pGameInstance->Play_BGM(TEXT("0_Dangeon1_TailCave.wav"), 0.7f);
    m_pPlayer = static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON));
 
+   //처음 땅 활성화
    CLayer* pLandLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));
    for (auto iter = pLandLayer->Get_ObjectList().begin(); iter != pLandLayer->Get_ObjectList().end(); iter++)
    {
@@ -44,6 +47,7 @@ HRESULT CLevel_Dungeon::Initialize()
 	   else
 		   static_cast<CLand*>(*iter)->SetActive(false);
    }
+
    return S_OK;
 }
 
@@ -477,15 +481,17 @@ void CLevel_Dungeon::Change_Room()
 #pragma endregion
 
 #pragma region AnimObj
+
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{
-		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum && static_cast<CTreasureBox*>(*iter)->Get_bShow())
 			static_cast<CGameObject*>(*iter)->SetActive(true);
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
+	
 
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"));
 
@@ -504,6 +510,7 @@ void CLevel_Dungeon::Setting_Gimmick()
 {
 	CLayer* pLayer = { nullptr };
 
+#pragma region ROOM_2
 	if (m_iCurRoomNum == 2)
 	{
 		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
@@ -531,6 +538,29 @@ void CLevel_Dungeon::Setting_Gimmick()
 		pKey->SetActive(false);
 	}
 
+#pragma endregion
+
+#pragma region ROOM_3
+	if (m_iCurRoomNum == 4)
+	{
+		CFootSwitch* pSwitch = static_cast<CFootSwitch*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"), 0));
+		if (pSwitch->Get_IsOn())
+		{
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+				{
+					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+				}
+			}
+		}
+		
+	}
+
+#pragma endregion
 }
 
 

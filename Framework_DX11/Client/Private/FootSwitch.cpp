@@ -86,21 +86,34 @@ HRESULT CFootSwitch::Render()
             return E_FAIL;
 
         _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+        _bool bFalse = false;
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
+            if(i == 0)
+            {
+                if (FAILED(m_pShaderCom->Bind_RawValue("g_bChangeColor", &m_bOn, sizeof(_bool))))
+                    return E_FAIL;
+            }
+
+
             m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", (_uint)i);
 
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
                 return E_FAIL;
 
 
-            if (FAILED(m_pShaderCom->Begin(0)))
+            if (FAILED(m_pShaderCom->Begin(2)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
+
+
+            if (FAILED(m_pShaderCom->Bind_RawValue("g_bChangeColor", &bFalse, sizeof(_bool))))
+                return E_FAIL;
         }
+   
     }
 
     return S_OK;
@@ -110,11 +123,11 @@ void CFootSwitch::OnCollisionEnter(CGameObject* pOther)
 {
     if (m_pColliderCom->Get_IsColl())
     {
-        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player") && m_bOn == false)
         {
             m_iCurrentAnimIndex = m_iOnAnimIndex;
             m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex);
-            //m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_FootSwitch_On.wav"), 0.6f);
 
             m_bOn = true;
         }
@@ -151,6 +164,12 @@ HRESULT CFootSwitch::Ready_Components()
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);
 
+    /* FOR.Com_Sound */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+        TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+        return E_FAIL;
+    m_pSoundCom->Set_Owner(this);
+
     return S_OK;
 }
 
@@ -185,4 +204,5 @@ void CFootSwitch::Free()
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);
+    Safe_Release(m_pSoundCom);
 }

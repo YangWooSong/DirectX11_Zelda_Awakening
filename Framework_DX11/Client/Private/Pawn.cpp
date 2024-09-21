@@ -45,7 +45,6 @@ HRESULT CPawn::Initialize(void* pArg)
 
 	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
-	m_eObjType = CGameObject::ANIM_MONSTER;
 	m_isActive = false;
 
 	return S_OK;
@@ -81,6 +80,7 @@ void CPawn::Late_Update(_float fTimeDelta)
 	{
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+		m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);

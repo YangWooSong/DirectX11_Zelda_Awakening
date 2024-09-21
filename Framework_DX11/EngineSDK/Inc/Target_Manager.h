@@ -32,8 +32,8 @@ private:
 private:
 	ID3D11Device* m_pDevice = { nullptr };
 	ID3D11DeviceContext* m_pContext = { nullptr };
-	map<const _wstring, class CRenderTarget*>			m_RenderTargets;
-	map<const _wstring, list<class CRenderTarget*>>		m_MRTs;
+	map<const _wstring, class CRenderTarget*>			m_RenderTargets;	//뽑아다가 계산하는데 쓰임
+	map<const _wstring, list<class CRenderTarget*>>		m_MRTs;				//연산 한번에 쫙
 
 	ID3D11RenderTargetView* m_pBackBufferView = { nullptr };
 	ID3D11DepthStencilView* m_pDepthStencilView = { nullptr };

@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CCollider;
+class CSound;
 END
 
 
@@ -32,9 +33,13 @@ public:
 	virtual void OnCollisionExit(CGameObject* pOther)  override;
 
 public:
+	_bool Get_IsOn() { return m_bOn; }
+
+public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
-	class CCollider* m_pColliderCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
+	CSound* m_pSoundCom = { nullptr };
 
 private:
 	HRESULT Ready_Components();

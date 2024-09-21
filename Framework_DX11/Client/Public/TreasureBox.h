@@ -34,6 +34,8 @@ public:
 
 public:
 	_bool Get_IsOpened() { return m_bOpened; }
+	_bool Get_bShow() { return m_bShow; }
+	void Set_bShow(_bool bShow) { m_bShow = bShow; }
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
@@ -47,13 +49,14 @@ private:
 	void Play_Alarm();
 
 private:
-	_int m_iCurrentAnimIndex = { 0 };
+	_int		m_iCurrentAnimIndex = { 0 };
 	_bool		m_bOpened = { false };
 	_bool		m_bCangePlayerState = { false };
 	_bool		m_bPlayAlarm = { false };
+	_bool		m_bShow = { false };
 	_float		m_fOpenTimer = { 0.f };
 
-	_uint m_iItemIndex = { 0 };
+	_uint		m_iItemIndex = { 0 };
 
 public:
 	static CTreasureBox* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
