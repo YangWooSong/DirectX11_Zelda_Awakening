@@ -23,6 +23,8 @@
 #include "State_Link_Throw.h"
 #include "State_Link_Get_Item.h"
 #include "State_Link_Bomb.h"
+#include "State_Link_Bomb.h"
+#include "State_Link_Key.h"
 
 #include "Cell.h"
 #include "Sword.h"
@@ -244,6 +246,15 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			Change_PlayerUI_TextureNum(ITEM_ICON_UI,CItemUI::SMALLKEY);
 			Change_State(GET_ITEM);
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
+		{
+			if (m_iSmallKeyCount >= 1)
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(0);
+			}
+		}
 	}
 }
 
@@ -267,13 +278,29 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 				m_pCarryitem = pOther;
 			}
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
+		{
+			if (m_iSmallKeyCount >= 1)
+			{
+				if (KEY_AWAY(E))
+				{
+					if(m_pFsmCom->Get_CurrentState() != KEY)
+						m_pFsmCom->Change_State(KEY);
+				}
+			}
+		}
+
 	}
 }
 
 void CLink::OnCollisionExit(CGameObject* pOther)
 {
 
-	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox"))
+	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox") || 
+		pOther->Get_LayerTag() == TEXT("Layer_LockDoor") ||
+		pOther->Get_LayerTag() == TEXT("Layer_LockBlock") 
+		)
 	{
 		m_PlayerUI[0]->SetActive(false);
 	}
@@ -417,6 +444,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Throw::Create(m_pFsmCom, this, THROW));
 	m_pFsmCom->Add_State(CState_Link_Get_Item::Create(m_pFsmCom, this, GET_ITEM));
 	m_pFsmCom->Add_State(CState_Link_Bomb::Create(m_pFsmCom, this, BOMB));
+	m_pFsmCom->Add_State(CState_Link_Key::Create(m_pFsmCom, this, KEY));
 
 	return S_OK;
 }

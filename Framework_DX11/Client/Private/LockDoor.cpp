@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LockDoor.h"
 #include "GameInstance.h"
+#include "Link.h"
 
 CLockDoor::CLockDoor(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -37,7 +38,7 @@ HRESULT CLockDoor::Initialize(void* pArg)
     m_isActive = false;
 
     m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("open");
-    m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, true);
+    m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, false);
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
 
     Set_LayerTag(TEXT("Layer_Monster"));
@@ -52,9 +53,17 @@ void CLockDoor::Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-        m_pModelCom->Play_Animation(fTimeDelta);
+        if(m_bOpend == true || m_fTimer == 0.f)
+        {
+            m_fTimer += fTimeDelta;
+            m_pModelCom->Play_Animation(fTimeDelta);
+        }
+
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     }
+
+    if (m_bOpend)
+        m_pColliderCom->Set_IsActive(false);
 }
 
 void CLockDoor::Late_Update(_float fTimeDelta)
@@ -104,6 +113,37 @@ HRESULT CLockDoor::Render()
     return S_OK;
 }
 
+void CLockDoor::OnCollisionEnter(CGameObject* pOther)
+{
+}
+
+void CLockDoor::OnCollisionStay(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            if (static_cast<CLink*>(pOther)->Get_SmallKeyCount() >= 1)
+            {
+                if (KEY_TAP(E))
+                {
+                    if (m_bOpend == false)
+                    {
+                        m_pSoundCom->Play_Sound(TEXT("4_Obj_Door_Open.wav"), 1.f);
+                    }
+
+                    m_bOpend = true;
+                }
+                
+            }
+        }
+    }
+}
+
+void CLockDoor::OnCollisionExit(CGameObject* pOther)
+{
+}
+
 HRESULT CLockDoor::Ready_Components()
 {
     /* FOR.Com_Shader */
@@ -118,13 +158,20 @@ HRESULT CLockDoor::Ready_Components()
 
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
-    ColliderDesc.vExtents = _float3(0.65f, 0.4f, 0.65f);
-    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+    ColliderDesc.vExtents = _float3(0.65f, 0.4f, 1.f);
+    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, -0.3f);
 
     if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
         TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);
+
+
+    /* FOR.Com_Sound */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+        TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+        return E_FAIL;
+    m_pSoundCom->Set_Owner(this);
 
     return S_OK;
 }
@@ -158,6 +205,7 @@ void CLockDoor::Free()
     __super::Free();
 
     Safe_Release(m_pShaderCom);
+    Safe_Release(m_pSoundCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);
 }

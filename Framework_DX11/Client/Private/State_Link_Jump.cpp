@@ -15,7 +15,7 @@ HRESULT CState_Link_Jump::Initialize(_uint iStateNum)
     m_iJumpAnimIndex = m_pPlayer->Get_Model()->Get_AnimationIndex("jump");
     m_iLandAnimIndex = m_pPlayer->Get_Model()->Get_AnimationIndex("land");
     m_iStateNum = iStateNum;
-    m_fMoveSpeed = 1.5f;
+    m_fMoveSpeed = 1.7f;
     m_pPlayer_Navigation = m_pPlayer->Get_Navigation();
     return S_OK;
 }

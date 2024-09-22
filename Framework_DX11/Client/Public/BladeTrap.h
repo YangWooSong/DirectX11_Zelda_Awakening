@@ -7,6 +7,7 @@ class CShader;
 class CModel;
 class CCollider;
 class CNavigation;
+class CSound;
 END
 
 
@@ -40,6 +41,7 @@ public:
 	CModel* m_pModelCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
 	CNavigation* m_pNavigationCom = { nullptr };
+	CSound* m_pSoundCom = { nullptr };
 
 private:
 	_int m_iCurrentAnimIndex = { 0 };
@@ -51,8 +53,9 @@ private:
 	_bool m_bHoriDetect = { false };
 	_bool m_bMove = { true };
 	_bool m_bGoBack = { false };
+	_bool m_bPlaySoundMove = { false };
 
-	_float m_fSpeed= { 4.f };
+	_float m_fSpeed= { 5.f };
 	_float m_fWaitTimer= { 0.f };
          
 	_vector m_vOriPos = {};

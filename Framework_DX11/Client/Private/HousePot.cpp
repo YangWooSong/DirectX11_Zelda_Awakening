@@ -54,12 +54,12 @@ void CHousePot::Priority_Update(_float fTimeDelta)
 
 void CHousePot::Update(_float fTimeDelta)
 {
-
     if (m_bBreak)
     {
         m_bCarried = false;
         m_isActive = false;
         m_pParticle->Update(fTimeDelta);
+        m_pColliderCom->Set_IsActive(false);
     }
 
     if(m_isActive)

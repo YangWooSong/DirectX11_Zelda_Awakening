@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LockBlock.h"
 #include "GameInstance.h"
+#include "Link.h"
 
 CLockBlock::CLockBlock(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -44,10 +45,13 @@ void CLockBlock::Priority_Update(_float fTimeDelta)
 
 void CLockBlock::Update(_float fTimeDelta)
 {
-    if (m_isActive)
+    if (m_isActive && m_bOpened == false)
     {
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     }
+
+    if (m_bOpened)
+        m_pColliderCom->Set_IsActive(false);
 }
 
 void CLockBlock::Late_Update(_float fTimeDelta)
@@ -65,7 +69,7 @@ void CLockBlock::Late_Update(_float fTimeDelta)
 
 HRESULT CLockBlock::Render()
 {
-    if (m_isActive)
+    if (m_isActive && m_bOpened == false)
     {
         if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
@@ -95,17 +99,19 @@ HRESULT CLockBlock::Render()
 
 void CLockBlock::OnCollisionEnter(CGameObject* pOther)
 {
-    if (m_pColliderCom->Get_IsColl())
-    {
-        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
-        {
-
-        }
-    }
+  
 }
 
 void CLockBlock::OnCollisionStay(CGameObject* pOther)
 {
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            if(static_cast<CLink*>(pOther)->Get_Fsm()->Get_PrevState() == CLink::KEY && static_cast<CLink*>(pOther)->Get_Fsm()->Get_CurrentState() == CLink::IDLE)
+                m_bOpened = true;
+        }
+    }
 }
 
 void CLockBlock::OnCollisionExit(CGameObject* pOther)

@@ -15,7 +15,7 @@ class CLink :
     public CPlayer
 {
 public:
-	enum LINKSTATE{IDLE, WALK, ITEMA, ITEMB, SLASH, SLASH_HOLD, JUMP, SHIELD, SHIELD_WALK, STAIR_UP, STAIR_DOWN, FALL, DAMAGE_FRONT, CARRY, CARRY_WALK,THROW, GET_ITEM, BOMB, LINK_STATE_END};
+	enum LINKSTATE{IDLE, WALK, ITEMA, ITEMB, SLASH, SLASH_HOLD, JUMP, SHIELD, SHIELD_WALK, STAIR_UP, STAIR_DOWN, FALL, DAMAGE_FRONT, CARRY, CARRY_WALK,THROW, GET_ITEM, BOMB, KEY, LINK_STATE_END};
 	enum UI{INTERACT_UI, ITEM_ICON_UI, UI_END};
 private:
 	CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -47,6 +47,8 @@ public:
 	void Set_ActiveSheild(_bool bActive) { m_bActiveSheild = bActive; }
 	void Get_Item(_uint iItemIndex);
 
+	_int Get_SmallKeyCount() { return m_iSmallKeyCount; }
+	void Minus_SmallKeyCount() {  m_iSmallKeyCount--; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();

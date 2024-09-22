@@ -49,6 +49,7 @@ void CPurpleQuartz::Update(_float fTimeDelta)
 {
     if (m_bBreak)
     {
+        m_pColliderCom->Set_IsActive(false);
         m_pParticle->Update(fTimeDelta);
     }
 

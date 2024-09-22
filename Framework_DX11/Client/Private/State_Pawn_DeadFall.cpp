@@ -46,6 +46,7 @@ void CState_Pawn_DeadFall::Update(_float fTimeDelta)
     {
         m_pOwner->SetActive(false);
         m_pOwner->Set_Dead(true);
+        m_pOwner->Get_Collider()->Set_IsActive(false);
     }
 }
 

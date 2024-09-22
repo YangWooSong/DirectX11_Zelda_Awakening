@@ -39,6 +39,9 @@ public:
 	CSound* m_pSoundCom = { nullptr };
 
 private:
+	_bool m_bOpened = { false };
+
+private:
 	HRESULT Ready_Components();
 
 public:

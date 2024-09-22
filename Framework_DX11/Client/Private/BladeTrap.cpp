@@ -101,12 +101,19 @@ void CBladeTrap::Update(_float fTimeDelta)
             Move(fTimeDelta);
         else
         {
-            m_fWaitTimer += fTimeDelta;
             if (m_fWaitTimer > 0.5f)
             {
                 m_fStopCount++;
                 m_fWaitTimer = 0.f;
+                m_bPlaySoundMove = false;
             }
+            else if (m_bPlaySoundMove == false)
+            {
+                m_bPlaySoundMove = true;
+                m_pSoundCom->Play_Sound(TEXT("4_Obj_BladeTrap.wav"),1.f);
+            }
+
+            m_fWaitTimer += fTimeDelta;
         }
 
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
@@ -173,6 +180,7 @@ void CBladeTrap::OnCollisionEnter(CGameObject* pOther)
             //¹¹µç ´êÀ¸¸é ¸ØÃß°Ô
             m_bMove = false;
             m_fStopCount = 3;
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_BladeTrap.wav"), 1.f);
         }
     }
 }
@@ -216,6 +224,13 @@ HRESULT CBladeTrap::Ready_Components()
     if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Navigation"),
         TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
         return E_FAIL;
+
+
+    /* FOR.Com_Sound */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+        TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+        return E_FAIL;
+    m_pSoundCom->Set_Owner(this);
 
     return S_OK;
 }
@@ -352,10 +367,8 @@ void CBladeTrap::Free()
 {
     __super::Free();
 
-    for (auto& pPartObject : m_Parts)
-        Safe_Release(pPartObject);
-
     Safe_Release(m_pNavigationCom);
+    Safe_Release(m_pSoundCom);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

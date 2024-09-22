@@ -20,7 +20,7 @@ HRESULT CState_Link_Throw::Initialize(_uint iStateNum)
 
 HRESULT CState_Link_Throw::Start_State()
 {
-	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
+	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
 	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
 	m_pPlayer->Get_PlayerSound()->Play_Sound(TEXT("1_Link_Jump.wav"), 1.f);
 	return S_OK;

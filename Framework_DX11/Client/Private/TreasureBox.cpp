@@ -82,6 +82,9 @@ void CTreasureBox::Update(_float fTimeDelta)
     }
 
     Play_Alarm();
+
+    if (m_bOpened )
+        m_pColliderCom->Set_IsActive(false);
 }
 
 void CTreasureBox::Late_Update(_float fTimeDelta)

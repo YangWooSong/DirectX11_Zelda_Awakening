@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CCollider;
+class CSound;
 END
 
 
@@ -27,14 +28,22 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	virtual void OnCollisionEnter(CGameObject* pOther)  override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther)  override;
+
+public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
-	class CCollider* m_pColliderCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
+	CSound* m_pSoundCom = { nullptr };
 
 private:
 	HRESULT Ready_Components();
 
+	_bool		m_bOpend = { false };
 	_int m_iCurrentAnimIndex = { 0 };
+	_float m_fTimer = { 0.f };
 
 public:
 	static CLockDoor* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

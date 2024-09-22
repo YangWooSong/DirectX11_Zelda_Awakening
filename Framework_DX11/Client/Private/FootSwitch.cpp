@@ -58,6 +58,9 @@ void CFootSwitch::Update(_float fTimeDelta)
         m_pModelCom->Play_Animation(fTimeDelta);
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     }
+
+    if (m_bOn)
+        m_pColliderCom->Set_IsActive(false);
 }
 
 void CFootSwitch::Late_Update(_float fTimeDelta)

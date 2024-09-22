@@ -448,6 +448,9 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\LockDoor">
       <UniqueIdentifier>{5b929e7a-ee29-4a9e-a6e4-ea6bf1fa79a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05.State\Link\Key">
+      <UniqueIdentifier>{b61cbbaf-8d72-4024-aff1-b7e5b963af57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -822,6 +825,9 @@
     <ClInclude Include="..\Public\LockDoor.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\LockDoor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Link_Key.h">
+      <Filter>05.State\Link\Key</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1186,6 +1192,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\LockDoor.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\LockDoor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Link_Key.cpp">
+      <Filter>05.State\Link\Key</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
