@@ -293,6 +293,16 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"), TEXT("Prototype_GameObject_ClosedPotDoor"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_BladeTrap")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_BladeTrap"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_LockDoor")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_LockDoor"), TEXT("Prototype_GameObject_LockDoor"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -335,6 +345,16 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 	else if (_strLyaerTag == "Layer_HousePot")
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_HousePot"), TEXT("Prototype_GameObject_HousePot"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_PurpleQuartz")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_PurpleQuartz"), TEXT("Prototype_GameObject_PurpleQuartz"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_LockBlock")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_LockBlock"), TEXT("Prototype_GameObject_LockBlock"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;
@@ -484,6 +504,26 @@ void CLevel_Dungeon::Change_Room()
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_PurpleQuartz"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_LockBlock"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
 #pragma endregion
 
 #pragma region AnimObj
@@ -498,7 +538,6 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
 	
-
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
@@ -510,6 +549,16 @@ void CLevel_Dungeon::Change_Room()
 	}
 
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+	
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_LockDoor"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{

@@ -436,6 +436,18 @@
     <Filter Include="05.State\Link\Bomb">
       <UniqueIdentifier>{c3d34d07-4a0d-41e8-a511-06416e1badc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\PurpleQuartz">
+      <UniqueIdentifier>{b4f7c0b9-b19a-4651-9d5d-52aef9dbdfd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\LockBlock">
+      <UniqueIdentifier>{f6f8d2d5-e877-4db3-bc8c-fb56e1e46721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\BladeTrap">
+      <UniqueIdentifier>{f5601bdd-10b4-4975-a510-8afdec376208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\LockDoor">
+      <UniqueIdentifier>{5b929e7a-ee29-4a9e-a6e4-ea6bf1fa79a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -798,6 +810,18 @@
     <ClInclude Include="..\Public\State_Link_Bomb.h">
       <Filter>05.State\Link\Bomb</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\PurpleQuartz.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\PurpleQuartz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\LockBlock.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\LockBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BladeTrap.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\BladeTrap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\LockDoor.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\LockDoor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1150,6 +1174,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Bomb.cpp">
       <Filter>05.State\Link\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\PurpleQuartz.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\PurpleQuartz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\LockBlock.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\LockBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BladeTrap.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\BladeTrap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\LockDoor.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\LockDoor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,7 @@ HRESULT CTreasureBox::Initialize(void* pArg)
 
     Set_Item();
 
-    if (m_iRoomNum == 3 || m_iRoomNum == 6)
+    if (m_iRoomNum == 3 || m_iRoomNum == 6 || m_iRoomNum == 7)
         m_bShow = true;
 
     return S_OK;

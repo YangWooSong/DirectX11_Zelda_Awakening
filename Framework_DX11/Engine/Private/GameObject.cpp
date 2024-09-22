@@ -35,6 +35,7 @@ HRESULT CGameObject::Initialize(void* pArg)
 		m_eObjType = static_cast<OBJ_TYPE>(pDesc->eType);
 		m_iListIndex = pDesc->listIndex;
 		m_iRoomNum = pDesc->iRoomNum;
+		m_iCellNum = pDesc->iCellNum;
 	}
 
 	m_pTransformCom = CTransform::Create(m_pDevice, m_pContext, pDesc);

@@ -59,6 +59,10 @@
 #include "FootSwitch.h"
 #include "SmallKey.h"
 #include "ClosedPotDoor.h"
+#include "PurpleQuartz.h"
+#include "LockBlock.h"
+#include "BladeTrap.h"
+#include "Lockdoor.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -325,6 +329,11 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	/* For. Prototype_GameObject_Particle_Expolosion */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Expolosion"),
 		CParticle_Explosion::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Detector"),
+		CDetector::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
@@ -708,6 +717,16 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_SmallKey"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/SmallKey/SmallKey.dat"))))
 		return E_FAIL;
+	
+	/* For. Prototype_Component_Model_Obj_PurpleQuartz*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_PurpleQuartz"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/PurpleQuartz/PurpleQuartz.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Obj_LockBlock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_LockBlock"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/LockBlock/LockBlock.dat"))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region ANIM_OBJ
@@ -729,6 +748,16 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	/* For. Prototype_Component_Model_ClosedPotDoor*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_ClosedPotDoor"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/ClosedPotDoor/ClosedPotDoor.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_BladeTrap*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_BladeTrap"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/BladeTrap/BladeTrap.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_LockDoor*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_LockDoor"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/LockDoor/LockDoor.dat"))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
@@ -784,10 +813,6 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 		COctorokRock::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_OctorokRock*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Detector"),
-		CDetector::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
 #pragma endregion
 	return S_OK;
 
@@ -890,6 +915,16 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SmallKey"),
 		CSmallKey::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+	/* For. Prototype_GameObject_PurpleQuartz*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_PurpleQuartz"),
+		CPurpleQuartz::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_LockBlock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LockBlock"),
+		CLockBlock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region ANIM_OBJ
@@ -911,6 +946,16 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_ClosedPotDoor*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ClosedPotDoor"),
 		CClosedPotDoor::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_BladeTrap*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BladeTrap"),
+		CBladeTrap::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_LockDoor*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LockDoor"),
+		CLockDoor::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 #pragma endregion

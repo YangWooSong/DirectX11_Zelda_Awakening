@@ -170,6 +170,7 @@
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
+    <ClInclude Include="..\Public\BladeTrap.h" />
     <ClInclude Include="..\Public\Bomb.h" />
     <ClInclude Include="..\Public\ClosedPotDoor.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
@@ -185,12 +186,15 @@
     <ClInclude Include="..\Public\Lawn.h" />
     <ClInclude Include="..\Public\Level_Dungeon.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
+    <ClInclude Include="..\Public\LockBlock.h" />
+    <ClInclude Include="..\Public\LockDoor.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\OwlStatue.h" />
     <ClInclude Include="..\Public\Particle_Explosion.h" />
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
+    <ClInclude Include="..\Public\PurpleQuartz.h" />
     <ClInclude Include="..\Public\Rola.h" />
     <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\SmallKey.h" />
@@ -292,6 +296,7 @@
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
+    <ClCompile Include="..\Private\BladeTrap.cpp" />
     <ClCompile Include="..\Private\Bomb.cpp" />
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
@@ -317,6 +322,8 @@
     <ClCompile Include="..\Private\Level_Test.cpp" />
     <ClCompile Include="..\Private\Link.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
+    <ClCompile Include="..\Private\LockBlock.cpp" />
+    <ClCompile Include="..\Private\LockDoor.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\NavDataObj.cpp" />
@@ -329,6 +336,7 @@
     <ClCompile Include="..\Private\Pawn.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\PlayerCamera.cpp" />
+    <ClCompile Include="..\Private\PurpleQuartz.cpp" />
     <ClCompile Include="..\Private\Rola.cpp" />
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
     <ClCompile Include="..\Private\Shield.cpp" />
