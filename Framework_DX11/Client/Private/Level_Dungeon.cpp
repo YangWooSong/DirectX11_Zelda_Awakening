@@ -254,9 +254,14 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
-	if (_strLyaerTag == "Layer_Pawn")
+	else if (_strLyaerTag == "Layer_Pawn")
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Pawn"), TEXT("Prototype_GameObject_Pawn"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_Spark")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Spark"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;

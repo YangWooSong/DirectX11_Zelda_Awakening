@@ -28,9 +28,16 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+	_int Get_MonsterNum() { return m_iMonsterNum; }
+private:
+	_int m_iMonsterNum = { 0 };
+
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
+
+private:
+	void Set_MonsterNum(void* pArg);
 
 public:
 	static CSpark* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

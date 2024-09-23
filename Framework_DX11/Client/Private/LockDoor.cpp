@@ -123,21 +123,14 @@ void CLockDoor::OnCollisionStay(CGameObject* pOther)
     {
         if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
         {
-            if (static_cast<CLink*>(pOther)->Get_SmallKeyCount() >= 1)
+            if (static_cast<CLink*>(pOther)->Get_Fsm()->Get_PrevState() == CLink::KEY && static_cast<CLink*>(pOther)->Get_Fsm()->Get_CurrentState() == CLink::IDLE)
             {
-                if (KEY_TAP(E))
-                {
-                    if (m_bOpend == false)
-                    {
-                        m_pSoundCom->Play_Sound(TEXT("4_Obj_Door_Open.wav"), 1.f);
-                    }
-
-                    m_bOpend = true;
-                }
-                
+                m_pSoundCom->Play_Sound(TEXT("4_Obj_Door_Open.wav"), 1.f);
+                m_bOpend = true;
             }
         }
     }
+  
 }
 
 void CLockDoor::OnCollisionExit(CGameObject* pOther)

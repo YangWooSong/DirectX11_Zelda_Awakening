@@ -598,10 +598,6 @@ HRESULT CLoader::Ready_Models_For_Test()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_Spark*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Spark"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Spark/Spark.dat"))))
-		return E_FAIL;
 
 	/* For. Prototype_Component_Model_Togezo*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Togezo"),
@@ -679,6 +675,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	/* For. Prototype_Component_Model_Pawn*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Pawn"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Pawn/Pawn.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Spark*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Spark"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Spark/Spark.dat"))))
 		return E_FAIL;
 #pragma endregion
 
@@ -826,12 +827,6 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		CRola::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
-		CSpark::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
-
 	/* For. Prototype_GameObject_Togezo*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
 		CTogezo::Create(m_pDevice, m_pContext))))
@@ -882,6 +877,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_Pawn*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Pawn"),
 		CPawn::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Spark*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
+		CSpark::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 
