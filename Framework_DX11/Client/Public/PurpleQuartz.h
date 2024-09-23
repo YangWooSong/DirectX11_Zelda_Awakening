@@ -38,6 +38,7 @@ public:
 	class CCollider* m_pColliderCom = { nullptr };
 	CSound* m_pSoundCom = { nullptr };
 
+	_bool Get_isBreaked() { return m_bBreak; }
 private:
 	HRESULT Ready_Components();
 

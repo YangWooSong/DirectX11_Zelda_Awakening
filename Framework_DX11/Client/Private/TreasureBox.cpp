@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Link.h"
 #include "ItemUI.h"
+#include "PlayerCamera.h"
 
 CTreasureBox::CTreasureBox(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -47,6 +48,12 @@ HRESULT CTreasureBox::Initialize(void* pArg)
     if (m_iRoomNum == 3 || m_iRoomNum == 6 || m_iRoomNum == 7)
         m_bShow = true;
 
+    if (m_iCellNum == 523)
+        m_bShow = false;
+
+    if (m_bShowAction == false)
+        m_fBrightness = 1.f;
+
     return S_OK;
 }
 
@@ -68,12 +75,32 @@ void CTreasureBox::Update(_float fTimeDelta)
             static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_State(CLink::GET_ITEM);
         }
 
+        //활성화 되면 피직스에 추가
         if(m_bAdd == false)
         {
             m_bAdd = true;
             m_pGameInstance->AddScene_ColMesh(this, TEXT("TreasureBox"));
         }
       
+
+        //숨겨있던 상자가 활성화 될 때 셰이더 효과
+        if (m_bShowAction)
+            Set_Brightness(fTimeDelta);
+
+
+        //153번 타일 상자의 카메라 세팅
+        if (m_iCellNum == 523 && m_bCameraAction == false)
+        {
+            m_bCameraAction = true;
+            _float3 v_Offset = _float3{ 0.0f, 20.0f, -11.f };
+            static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Set_FollowPlayer(false);
+            static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Set_TargetToOtherPos(m_pTransformCom->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&v_Offset));
+        }
+        else if(m_bCameraAction)
+            m_fCameraTimer += fTimeDelta;
+
+        if(m_fCameraTimer > 2.5f)
+            static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Set_FollowPlayer(true);
     }
     else
     {
@@ -113,6 +140,9 @@ HRESULT CTreasureBox::Render()
         if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
             return E_FAIL;
 
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_fBrightness", &m_fBrightness, sizeof(_float))))
+            return E_FAIL;
+
         _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
         for (size_t i = 0; i < iNumMeshes; i++)
@@ -123,7 +153,7 @@ HRESULT CTreasureBox::Render()
                 return E_FAIL;
 
 
-            if (FAILED(m_pShaderCom->Begin(0)))
+            if (FAILED(m_pShaderCom->Begin(4)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render((_uint)i)))
@@ -213,7 +243,7 @@ void CTreasureBox::Change_PlayerUI_TextureNum()
             static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::SMALLKEY);
         if(m_iCellNum == 621 || m_iCellNum == 622)
             static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::BOSSKEY);
-        if(m_iCellNum == 523)
+        if (m_iCellNum == 523)
             static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::LUPEE);
         break;
     case 14:
@@ -236,9 +266,11 @@ void CTreasureBox::Set_Item()
         break;
     case 4:
         m_iItemIndex = CItemUI::SMALLKEY;
+        m_bShowAction = true;
         break;
     case 5:
         m_iItemIndex = CItemUI::MAP;
+        m_bShowAction = true;
         break;
     case 6:
         m_iItemIndex = CItemUI::LUPEE;
@@ -249,13 +281,18 @@ void CTreasureBox::Set_Item()
         if (m_iCellNum == 621 || m_iCellNum == 622)
             m_iItemIndex = CItemUI::BOSSKEY;
         if (m_iCellNum == 523)
+        {
             m_iItemIndex = CItemUI::LUPEE;
+            m_bShowAction = true;
+        }
         break;
     case 14:
         m_iItemIndex = CItemUI::STONEBEAK;
+        m_bShowAction = true;
         break;
     case 15:
         m_iItemIndex = CItemUI::FEATHER;
+        m_bShowAction = true;
         break;
     default:
         break;
@@ -272,6 +309,11 @@ void CTreasureBox::Play_Alarm()
         m_pSoundCom->Play_Sound(TEXT("5_UI_Campus_Alarm.wav", 1.f));
         m_bPlayAlarm = true;
     }
+}
+
+void CTreasureBox::Set_Brightness(_float fTimeDelta)
+{
+    m_fBrightness = max(1.f, m_fBrightness - fTimeDelta* 15.f );
 }
 
 CTreasureBox* CTreasureBox::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

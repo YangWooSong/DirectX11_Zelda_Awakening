@@ -54,11 +54,18 @@ private:
 	_bool		m_bCangePlayerState = { false };
 	_bool		m_bPlayAlarm = { false };
 	_bool		m_bShow = { false };
+	_bool		m_bShowAction = { false };
 	_bool		m_bAdd = { false };
+	_bool		m_bCameraAction = { false };
+
 	_float		m_fOpenTimer = { 0.f };
+	_float		m_fBrightness = { 15.f };
+	_float		m_fCameraTimer = { 0.f };
 
 	_uint		m_iItemIndex = { 0 };
 
+private:
+	void Set_Brightness(_float fTimeDelta);
 public:
 	static CTreasureBox* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

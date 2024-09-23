@@ -13,6 +13,7 @@
 #include "FootSwitch.h"
 #include "TreasureBox.h"
 #include "ClosedPotDoor.h"
+#include "PurpleQuartz.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -515,7 +516,10 @@ void CLevel_Dungeon::Change_Room()
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{
 		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
-			static_cast<CGameObject*>(*iter)->SetActive(true);
+		{
+			if(static_cast<CPurpleQuartz*>(*iter)->Get_isBreaked() == false)
+				static_cast<CGameObject*>(*iter)->SetActive(true);
+		}
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
@@ -649,6 +653,39 @@ void CLevel_Dungeon::Setting_Gimmick()
 			}
 		}
 
+	}
+#pragma endregion
+
+#pragma region ROOM_7
+	if (m_iCurRoomNum == 7)
+	{
+		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_PurpleQuartz"));
+
+		_int iAliveCount = 0;
+
+		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+		{
+			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			{
+				if (static_cast<CPurpleQuartz*>(*iter)->Get_isBreaked() == false)
+					iAliveCount++;
+			}
+			
+		}
+
+		if (iAliveCount == 0)
+		{
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (static_cast<CGameObject*>(*iter)->Get_CellNum() == 523)
+				{
+					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+				}
+			}
+		}
 	}
 #pragma endregion
 }

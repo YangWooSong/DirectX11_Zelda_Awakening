@@ -58,6 +58,7 @@ public:
 	OBJ_TYPE Get_ObjType() { return m_eObjType; }
 	_uint Get_ListIndex() { return m_iListIndex; }
 	_uint Get_RoomNum() { return m_iRoomNum; }
+	_int Get_CellNum() { return m_iCellNum; }
 	_float3 Get_Rotation() { return m_vRot; }
 	void Set_Rotation(_float3 _rot) {  m_vRot = _rot; }
 

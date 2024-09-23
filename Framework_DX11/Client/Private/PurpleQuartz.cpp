@@ -145,7 +145,7 @@ HRESULT CPurpleQuartz::Ready_Components()
 
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
-    ColliderDesc.vExtents = _float3(0.8f, 1.f, 0.8f);
+    ColliderDesc.vExtents = _float3(0.6f, 1.f, 0.6f);
     ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
 
     if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
