@@ -21,6 +21,7 @@ struct VS_OUT
     float4 vPosition : SV_POSITION;
     float4 vNormal : NORMAL;
     float2 vTexcoord : TEXCOORD0;
+    float4 vProjPos : TEXCOORD2;
 };
 
 VS_OUT VS_MAIN( /*정점*/VS_IN In)
@@ -38,7 +39,7 @@ VS_OUT VS_MAIN( /*정점*/VS_IN In)
     Out.vNormal = mul(vector(In.vNormal, 0.f), g_WorldMatrix);
     
     Out.vTexcoord = In.vTexcoord;
-
+    Out.vProjPos = vPosition;
     return Out;
 }
 
@@ -48,11 +49,13 @@ struct PS_IN
     float4 vPosition : SV_POSITION;
     float4 vNormal : NORMAL;
     float2 vTexcoord : TEXCOORD0;
+    float4 vProjPos : TEXCOORD2;
 };
 
 struct PS_OUT
 {
     vector vColor : SV_TARGET0;
+    vector vDepth : SV_TARGET2;
 };
 
 
@@ -65,6 +68,7 @@ PS_OUT PS_MAIN(PS_IN In)
     float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.f);
 	
     Out.vColor = g_vLightDiffuse * g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord * 30.f) * fShade;
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
 
     return Out;
 }
