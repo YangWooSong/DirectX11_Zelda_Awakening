@@ -176,18 +176,18 @@ HRESULT CLink::Render()
 
 		for (size_t i = 0; i < iNumMeshes; i++)
 		{
-			if (i == 0 || i == 1 || i == 3 || i == 5 || i == 9 || i == 13 || i == 14 || i == 18 || i == 19)
+			if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 13 || i == 14 || i == 17 || i == 18)
 				continue;
 
 			if (m_bActiveSheild == false)
 			{
-				if ( i == 2)
+				if ( i == 7)
 					continue;
 			}
 
 			if (m_bActiveSword == false)
 			{
-				if (i == 12 || i == 6)
+				if (i == 10 || i == 15)
 					continue;
 			}
 
@@ -237,8 +237,11 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 		{		
-			m_PlayerUI[INTERACT_UI]->SetActive(true);
-			m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
+			if(m_pCarryitem == nullptr)
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
+			}
 		}
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_SmallKey"))

@@ -22,8 +22,7 @@ HRESULT CState_Link_Carry_Walk::Initialize(_uint iStateNum)
 HRESULT CState_Link_Carry_Walk::Start_State()
 {
     m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true, 0);
-    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
-    m_pPlayer->Get_PlayerSound()->Set_PlaySpeed(0.5f);
+    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
     m_iPlayerDir = m_pPlayer->Get_Player_Dir();
     return S_OK;
 }
@@ -117,7 +116,6 @@ void CState_Link_Carry_Walk::End_State()
 {
     m_fPressTime = 0.f;
     m_pPlayer->Get_PlayerSound()->Stop();
-    m_pPlayer->Get_PlayerSound()->Set_PlaySpeed(1.f);
 }
 
 CState_Link_Carry_Walk* CState_Link_Carry_Walk::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

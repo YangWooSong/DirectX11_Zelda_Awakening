@@ -26,7 +26,7 @@ HRESULT CState_Link_Shield_Walk::Start_State()
 {
     m_iCurrentAnimIndex = m_iFrontAnimIndex;
     m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 35.f);
+    m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 25.f);
 
     return S_OK;
 }

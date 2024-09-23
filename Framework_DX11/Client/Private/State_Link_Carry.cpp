@@ -25,7 +25,7 @@ HRESULT CState_Link_Carry::Start_State()
 	else
 		m_iCurrentAnimIndex = m_iCarryStartAnimIndex;
 
-	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
+	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f, 0);
 
 	if(m_iCurrentAnimIndex == m_iCarryStartAnimIndex)
 	{
