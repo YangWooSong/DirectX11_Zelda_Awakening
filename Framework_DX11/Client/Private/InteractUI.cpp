@@ -52,6 +52,9 @@ void CInteractUI::Update(_float fTimeDelta)
     fPos = { fPos.x + 0.5f ,0.f ,fPos.z - 0.5f };
 
     m_pTransformCom->Set_State(CTransform::STATE_POSITION,XMLoadFloat3(&fPos));
+
+    if(m_iTextureNum == 3)
+        m_pTransformCom->Set_Scaled(2.4f, 2.f, 1.f);
 }
 
 void CInteractUI::Late_Update(_float fTimeDelta)

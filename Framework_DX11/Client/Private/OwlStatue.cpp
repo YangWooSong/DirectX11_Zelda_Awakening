@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "OwlStatue.h"
 #include "GameInstance.h"
+#include "Link.h"
 
 COwlStatue::COwlStatue(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -44,6 +45,10 @@ void COwlStatue::Priority_Update(_float fTimeDelta)
 
 void COwlStatue::Update(_float fTimeDelta)
 {
+    if (m_isActive)
+    {
+        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    }
 }
 
 void COwlStatue::Late_Update(_float fTimeDelta)
@@ -51,6 +56,11 @@ void COwlStatue::Late_Update(_float fTimeDelta)
     if (m_isActive)
     {
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pGameInstance->Add_ColliderList(m_pColliderCom);
+
+#ifdef _DEBUG
+        m_pGameInstance->Add_DebugObject(m_pColliderCom);
+#endif
     }
 }
 
@@ -66,15 +76,18 @@ HRESULT COwlStatue::Render()
         if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
             return E_FAIL;
 
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_bInteract", &m_bInteract, sizeof(_bool))))
+            return E_FAIL;
 
         _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
+
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
                 return E_FAIL;
 
-            if (FAILED(m_pShaderCom->Begin(0)))
+            if (FAILED(m_pShaderCom->Begin(3)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render(i)))
@@ -82,6 +95,30 @@ HRESULT COwlStatue::Render()
         }
     }
     return S_OK;
+}
+
+void COwlStatue::OnCollisionEnter(CGameObject* pOther)
+{
+}
+
+void COwlStatue::OnCollisionStay(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player") && (static_cast<CLink*>(pOther)->Get_isGetBeak()))
+        {
+            if (KEY_AWAY(E))
+                m_bInteract = true;
+        }
+    }
+}
+
+void COwlStatue::OnCollisionExit(CGameObject* pOther)
+{
+    if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+    {
+        m_bInteract = false;
+    }
 }
 
 HRESULT COwlStatue::Ready_Components()
@@ -95,6 +132,16 @@ HRESULT COwlStatue::Ready_Components()
     if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_DungeonOwlStatue"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
+
+    /* For.Com_Collider */
+    CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+    ColliderDesc.vExtents = _float3(1.f, 1.f, 1.f);
+    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+        TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
+        return E_FAIL;
+    m_pColliderCom->Set_Owner(this);
 
     return S_OK;
 }
@@ -129,4 +176,5 @@ void COwlStatue::Free()
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
+    Safe_Release(m_pColliderCom);
 }

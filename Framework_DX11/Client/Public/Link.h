@@ -49,6 +49,7 @@ public:
 
 	_int Get_SmallKeyCount() { return m_iSmallKeyCount; }
 	void Minus_SmallKeyCount() {  m_iSmallKeyCount--; }
+	_bool Get_isGetBeak() { return m_bBeak; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();

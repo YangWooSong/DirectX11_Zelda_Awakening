@@ -35,7 +35,7 @@ public:
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
-	class CCollider* m_pColliderCom = { nullptr };
+	CCollider* m_pColliderCom = { nullptr };
 	CSound* m_pSoundCom = { nullptr };
 
 private:

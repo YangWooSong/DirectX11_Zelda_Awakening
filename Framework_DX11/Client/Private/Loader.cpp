@@ -211,7 +211,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 
 	/* For. Prototype_Component_Texture_OpenBox */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_OpenBox"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/InteractBT_%d.dds"), 3))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/InteractBT_%d.dds"), 4))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_ItemIcon */

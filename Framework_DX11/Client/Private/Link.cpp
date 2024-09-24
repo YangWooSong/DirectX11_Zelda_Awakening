@@ -260,6 +260,14 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 				m_PlayerUI[INTERACT_UI]->Set_TextureNum(0);
 			}
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue") && m_bBeak)
+		{
+
+			m_PlayerUI[INTERACT_UI]->SetActive(true);
+			m_PlayerUI[INTERACT_UI]->Set_TextureNum(3);
+			
+		}
 	}
 }
 
@@ -296,6 +304,13 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
+		if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue"))
+		{
+			if (KEY_TAP(E))
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(false);
+			}
+		}
 	}
 }
 
@@ -311,6 +326,11 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 	}
 	
 	if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
+	{
+		m_PlayerUI[0]->SetActive(false);
+	}
+
+	if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue"))
 	{
 		m_PlayerUI[0]->SetActive(false);
 	}
