@@ -171,12 +171,6 @@ HRESULT CLevel_Test::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 
-
-	CGameObject::GAMEOBJECT_DESC objDesc;
-	objDesc.vPosition = _float3(5.f, 0.f, 0.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_TEST, TEXT("Layer_Vegas"), TEXT("Prototype_GameObject_Vegas"), &objDesc)))
-		return E_FAIL;
-
 	return S_OK;
 }
 

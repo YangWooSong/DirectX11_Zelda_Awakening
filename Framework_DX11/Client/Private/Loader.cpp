@@ -41,7 +41,7 @@
 
 #include "Togezo.h"
 #include "Kuribo.h"
-#include "Vegas.h"
+
 #include "Particle_Explosion.h"
 #include "Particle_Snow.h"
 
@@ -63,6 +63,7 @@
 #include "LockBlock.h"
 #include "BladeTrap.h"
 #include "Lockdoor.h"
+#include "Vegas.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -609,10 +610,7 @@ HRESULT CLoader::Ready_Models_For_Test()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Kuribo/Kuribo.dat"))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_Vegas0*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Vegas0"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas0.dat"))))
-		return E_FAIL;
+
 
 	/* For. Prototype_Component_Model_StalfosGreen*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_StalfosGreen"),
@@ -680,6 +678,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	/* For. Prototype_Component_Model_Spark*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Spark"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Spark/Spark.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Vegas0*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Vegas0"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas0.dat"))))
 		return E_FAIL;
 #pragma endregion
 
@@ -837,10 +840,7 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 		CKuribo::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_Vegas*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
-		CVegas::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+
 #pragma endregion
 
 
@@ -883,6 +883,12 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark"),
 		CSpark::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+	/* For. Prototype_GameObject_Vegas*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
+		CVegas::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 #pragma endregion
 
 #pragma region NONANIM_OBJ

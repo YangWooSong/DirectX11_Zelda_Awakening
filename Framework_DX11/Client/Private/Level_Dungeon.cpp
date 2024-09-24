@@ -70,6 +70,19 @@ HRESULT CLevel_Dungeon::Render()
 
 HRESULT CLevel_Dungeon::Ready_Lights()
 {
+	/* 게임플레이 레벨에 필요한 광원을 준비한다. */
+	LIGHT_DESC			LightDesc{};
+
+	ZeroMemory(&LightDesc, sizeof LightDesc);
+	LightDesc.eType = LIGHT_DESC::TYPE_DIRECTIONAL;
+	LightDesc.vDirection = _float4(1.f, -1.f, 1.f, 0.f);
+	LightDesc.vDiffuse = _float4(1.f, 1.f, 1.f, 1.f);
+	LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
+	LightDesc.vSpecular = _float4(1.f, 1.f, 1.f, 1.f);
+
+	if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
+		return E_FAIL;
+
     return S_OK;
 }
 
@@ -265,6 +278,11 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Spark"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_Vegas")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Vegas"), TEXT("Prototype_GameObject_Vegas"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -447,6 +465,19 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(true);
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+	
+	if(m_iCurRoomNum == 9)
+	{
+		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Vegas"));
+
+		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+		{
+			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+				static_cast<CGameObject*>(*iter)->SetActive(true);
+			else
+				static_cast<CGameObject*>(*iter)->SetActive(false);
+		}
 	}
 #pragma endregion
 

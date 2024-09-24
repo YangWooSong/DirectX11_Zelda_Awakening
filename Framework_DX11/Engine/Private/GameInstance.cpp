@@ -381,6 +381,11 @@ HRESULT CGameInstance::Render_Lights(CShader* pShader, CVIBuffer_Rect* pVIBuffer
 	return m_pLight_Manager->Render(pShader, pVIBuffer);
 }
 
+HRESULT CGameInstance::Reset_Lights()
+{
+	return m_pLight_Manager->Reset_Lights();
+}
+
 #pragma endregion
 
 #pragma region TARGET_MANAGER

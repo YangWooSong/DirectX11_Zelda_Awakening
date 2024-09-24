@@ -129,7 +129,7 @@ HRESULT CVegas::Ready_Components()
 	__super::Ready_Components();
 
 	/* FOR.Com_Model */
-	if (FAILED(__super::Add_Component(LEVEL_TEST, TEXT("Prototype_Component_Model_Vegas0"),
+	if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Vegas0"),
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
 		return E_FAIL;
 
