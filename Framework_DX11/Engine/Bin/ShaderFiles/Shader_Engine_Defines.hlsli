@@ -93,6 +93,7 @@ BlendState BS_AlphaBlend //기존 알파 블렌드
 BlendState BS_OnebyOne
 {
 	BlendEnable[0] = true;
+	BlendEnable[1] = true;
 
 	SrcBlend = one;
 	DestBlend = one;
