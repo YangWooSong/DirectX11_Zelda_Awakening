@@ -30,9 +30,9 @@ void CState_Vegas_Walk_f::Update(_float fTimeDelta)
 	m_fTimer += fTimeDelta;
 
 
-	m_pOwner->Get_Transform()->Go_World_Straight(fTimeDelta, m_fSpeed);
+	m_pOwner->Get_Transform()->Go_Straight_InRoom(fTimeDelta,9, m_fSpeed, m_pOwner->Get_NavigationCom());
 
-	if (m_fTimer > 1.3f)
+	if (m_fTimer > 1.5f)
 	{
 		m_fTimer = 0;
 		m_pOwner->Change_State(CVegas::IDLE);

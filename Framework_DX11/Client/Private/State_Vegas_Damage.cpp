@@ -20,8 +20,9 @@ HRESULT CState_Vegas_Damage::Initialize(_uint iStateNum)
 
 HRESULT CState_Vegas_Damage::Start_State()
 {
-	m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
+	m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
 	m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 30.f);
+	m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Pawn_Damage.wav"), 1.f);
 	return S_OK;
 }
 

@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Model.h"
 #include "Spark.h"
+#include "Player.h"
 
 CState_Spark_Idle::CState_Spark_Idle(CFsm* pFsm, CMonster* pOwner)
 	:CState{ pFsm }
@@ -38,7 +39,8 @@ void CState_Spark_Idle::Update(_float fTimeDelta)
 
 		if (fabs(XMVectorGetX(XMVector3Normalize(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pGameInstance->Find_Player(LEVEL_DUNGEON)->Get_Transform()->Get_State(CTransform::STATE_POSITION)))) < 0.8f)
 		{
-			m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Spark_Electric_sound_effect.wav"), 0.1f);
+			if(static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Get_CurRoomNum ()  == m_pOwner->Get_RoomNum())
+				m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Spark_Electric_sound_effect.wav"), 0.1f);
 		}
 	}
 

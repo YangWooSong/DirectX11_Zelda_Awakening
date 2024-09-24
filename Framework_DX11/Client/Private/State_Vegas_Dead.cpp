@@ -22,11 +22,14 @@ HRESULT CState_Vegas_Dead::Start_State()
 {
 	m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
 	//m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+	m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Explosion.wav"), 1.f);
 	return S_OK;
 }
 
 void CState_Vegas_Dead::Update(_float fTimeDelta)
 {
+	m_pOwner->SetActive(false);
+	static_cast<CVegas*>(m_pOwner)->Set_Hide(true);
 }
 
 void CState_Vegas_Dead::End_State()

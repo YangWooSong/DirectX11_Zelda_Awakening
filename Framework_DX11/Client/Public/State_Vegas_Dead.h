@@ -24,6 +24,7 @@ public:
 private:
     class CMonster* m_pOwner = { nullptr };
 
+    _float m_fTimer = { 0.f };
     _uint               m_iCurrentAnimIndex = {};
 public:
     static CState_Vegas_Dead* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);

@@ -14,6 +14,7 @@
 #include "TreasureBox.h"
 #include "ClosedPotDoor.h"
 #include "PurpleQuartz.h"
+#include "Vegas.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -467,18 +468,17 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
 	
-	if(m_iCurRoomNum == 9)
-	{
-		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Vegas"));
 
-		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
-		{
-			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
-				static_cast<CGameObject*>(*iter)->SetActive(true);
-			else
-				static_cast<CGameObject*>(*iter)->SetActive(false);
-		}
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Vegas"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
+	
 #pragma endregion
 
 #pragma region NonAnimObj
@@ -711,6 +711,69 @@ void CLevel_Dungeon::Setting_Gimmick()
 			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 			{
 				if (static_cast<CGameObject*>(*iter)->Get_CellNum() == 523)
+				{
+					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+				}
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region ROOM_5
+	if (m_iCurRoomNum == 9)
+	{
+		_int iTextureNum = -1;
+		_int iDemageCount = 0;
+		_bool bRestart = false;
+
+		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Vegas"));
+
+		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+		{
+			if (static_cast<CVegas*>(*iter)->Get_Fsm()->Get_CurrentState() == CVegas::DAMAGE)
+				iDemageCount++;
+		}
+
+		if (iDemageCount == 3)	//전제가 다 멈춤 상태인지 확인
+		{
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (iTextureNum == -1)
+					iTextureNum = (int) static_cast<CVegas*>(*iter)->Get_TextureNum();
+				else
+				{
+					if ((int) static_cast<CVegas*>(*iter)->Get_TextureNum() != iTextureNum)
+						bRestart = true;	//모양이 하나라도 다르면 재시작
+				}
+			}
+		}
+
+		//문양에 따라 초기화 or 죽이기
+		if (bRestart)
+		{
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				static_cast<CVegas*>(*iter)->Get_Fsm()->Change_State(CVegas::IDLE);
+			}
+		}
+		else if(iDemageCount == 3 && bRestart == false)
+		{
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				static_cast<CVegas*>(*iter)->Get_Fsm()->Change_State(CVegas::DEAD);
+			}
+		}
+
+		//다 죽으면 상자 활성화
+		CVegas* pVegas = static_cast<CVegas*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Vegas"), 0));
+		if (pVegas->Get_Dead() == true)
+		{
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
 				{
 					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
 					static_cast<CTreasureBox*>(*iter)->SetActive(true);

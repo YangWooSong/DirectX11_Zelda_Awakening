@@ -28,12 +28,21 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+public:
+	virtual void OnCollisionEnter(CGameObject* pOther)  override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther)  override;
+
+	_uint Get_TextureNum() { return m_iTextureNum; }
+	void Set_Hide(_bool bHide) { m_bHide = bHide; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
 
 	_uint	m_iTextureNum = { 0 };
+	_bool   m_bHide = { false };
 	_float m_fTimer = { 0.f };
+	_float m_fDeadTimer = { 0.f };
 public:
 	static CVegas* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

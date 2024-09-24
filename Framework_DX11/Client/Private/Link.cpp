@@ -91,6 +91,7 @@ void CLink::Priority_Update(_float fTimeDelta)
 
 void CLink::Update(_float fTimeDelta)
 {
+	int a = m_pNavigationCom->Get_CurrentCellIndex();
 
 	//점프일때는 자동으로 땅 타지 않도록
 	if (m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr && m_bFall == false)

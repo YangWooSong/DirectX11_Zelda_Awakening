@@ -53,6 +53,7 @@ void CState_Vegas_Idle::Update(_float fTimeDelta)
 	}
 	else
 	{
+		//앉았다 일어나는 애니 맞춰서 y축 이동하는 코드
 		if (m_fTimer > 0.38f)
 		{
 			m_fTimer = 0;

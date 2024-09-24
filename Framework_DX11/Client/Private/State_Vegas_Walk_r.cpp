@@ -30,9 +30,9 @@ void CState_Vegas_Walk_r::Update(_float fTimeDelta)
 	m_fTimer += fTimeDelta;
 
 
-	m_pOwner->Get_Transform()->Go_World_Right(fTimeDelta, m_fSpeed);
+	m_pOwner->Get_Transform()->Go_World_Right(fTimeDelta, m_fSpeed, m_pOwner->Get_NavigationCom());
 
-	if (m_fTimer > 1.3f)
+	if (m_fTimer > 1.5f)
 	{
 		m_fTimer = 0;
 		m_pOwner->Change_State(CVegas::IDLE);

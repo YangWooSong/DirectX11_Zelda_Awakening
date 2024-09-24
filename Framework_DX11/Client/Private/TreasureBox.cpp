@@ -45,7 +45,7 @@ HRESULT CTreasureBox::Initialize(void* pArg)
 
     Set_Item();
 
-    if (m_iRoomNum == 3 || m_iRoomNum == 6 || m_iRoomNum == 7)
+    if (m_iRoomNum == 3 || m_iRoomNum == 6 || m_iRoomNum == 7 )
         m_bShow = true;
 
     if (m_iCellNum == 523)
@@ -260,7 +260,7 @@ void CTreasureBox::Change_PlayerUI_TextureNum()
         if (m_iCellNum == 523)
             static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::LUPEE);
         break;
-    case 14:
+    case 9:
         static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON))->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, CItemUI::STONEBEAK);
         break;
     case 15:
@@ -300,7 +300,7 @@ void CTreasureBox::Set_Item()
             m_bShowAction = true;
         }
         break;
-    case 14:
+    case 9:
         m_iItemIndex = CItemUI::STONEBEAK;
         m_bShowAction = true;
         break;
