@@ -48,7 +48,20 @@ void CSmallKey::Update(_float fTimeDelta)
     {
         if (m_bShow == false)
             Show(fTimeDelta);
-
+        else
+        {
+            if (m_pSoundCom->Get_IsPlaying() == false && m_bGimmickSoundPlay == false)
+            {
+                m_bGimmickSoundPlay = true;
+                m_pGameInstance->Pause_BGM();
+                m_pSoundCom->Play_Sound(TEXT("5_GimmickSolve.wav"), 1.f);
+            }
+            else if (m_bGimmickSoundPlay && m_pSoundCom->Get_IsPause() == false && m_bBGMPlay == false)
+            {
+                m_bBGMPlay = true;
+                m_pGameInstance->Pause_BGM();
+            }
+        }
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     }
 }
@@ -173,6 +186,8 @@ void CSmallKey::Show(_float fTimeDelta)
         m_pSoundCom->Play_Sound(TEXT("4_Obj_Key_Dropped.wav"), 1.f);
         m_bShow = true;
     }
+
+  
 }
 
 CSmallKey* CSmallKey::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

@@ -57,6 +57,8 @@ private:
 	_bool		m_bShowAction = { false };
 	_bool		m_bAdd = { false };
 	_bool		m_bCameraAction = { false };
+	_bool		m_bGimmickSound = { false };
+	_bool		m_bBGMSound = { false };
 
 	_float		m_fOpenTimer = { 0.f };
 	_float		m_fBrightness = { 15.f };

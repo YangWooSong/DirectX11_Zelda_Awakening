@@ -85,7 +85,21 @@ void CTreasureBox::Update(_float fTimeDelta)
 
         //숨겨있던 상자가 활성화 될 때 셰이더 효과
         if (m_bShowAction)
+        {
             Set_Brightness(fTimeDelta);
+
+            if (m_fBrightness == 1.f && m_bGimmickSound == false)
+            {
+                m_bGimmickSound = true;
+                m_pGameInstance->Pause_BGM();
+                m_pSoundCom->Play_Sound(TEXT("5_GimmickSolve.wav"), 1.f);
+            }
+            else if (m_bGimmickSound && m_bBGMSound == false && m_pSoundCom->Get_IsPlaying() == false)
+            { 
+                m_bBGMSound = true;
+                m_pGameInstance->Pause_BGM();
+            }
+        }
 
 
         //153번 타일 상자의 카메라 세팅
@@ -313,7 +327,10 @@ void CTreasureBox::Play_Alarm()
 
 void CTreasureBox::Set_Brightness(_float fTimeDelta)
 {
-    m_fBrightness = max(1.f, m_fBrightness - fTimeDelta* 15.f );
+    if(m_fBrightness == 15.f)
+        m_pSoundCom->Play_Sound(TEXT("4_Obj_TreasureBoxShow.wav", 1.f));
+
+    m_fBrightness = max(1.f, m_fBrightness - fTimeDelta* 12.f );
 }
 
 CTreasureBox* CTreasureBox::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

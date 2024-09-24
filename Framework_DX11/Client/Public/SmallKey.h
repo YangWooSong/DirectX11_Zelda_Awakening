@@ -41,7 +41,10 @@ public:
 private:
 	_bool m_bShow = { false };
 	_bool m_bPlayFalling = { false };
+	_bool m_bGimmickSoundPlay = { false };
+	_bool m_bBGMPlay = { false };
 	_vector m_TargetPos = { -18.75f, 0.5f, 0.69f };
+	_float m_fTimer = { 0.f };
 
 private:
 	HRESULT Ready_Components();
