@@ -251,6 +251,42 @@ HRESULT CPhysX_Manager::SetUp_Player(CGameObject* pPlayer)
     return S_OK;
 }
 
+HRESULT CPhysX_Manager::Destroy_PhysXActor(CGameObject* pObject)
+{
+    if (nullptr == pObject)
+        return E_FAIL;
+
+    _vector vObjectPos = pObject->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+
+    _uint iObjectIndex = 0;
+    for (auto& pActor : m_StaticActors)
+    {
+        _vector vActorPos = XMVectorSet(pActor->getGlobalPose().p.x, pActor->getGlobalPose().p.y, pActor->getGlobalPose().p.z, 1.f);
+
+        _float fDistanceSquared = XMVectorGetX(XMVector3LengthSq(XMVectorSubtract(vObjectPos, vActorPos)));
+
+        if (fDistanceSquared < 0.0001f)
+            break;
+
+        ++iObjectIndex;
+    }
+
+    if (iObjectIndex >= m_StaticActors.size())
+        return E_FAIL;
+
+    PxTriangleMeshGeometry* pGeometry = m_ColMesheGeometries[iObjectIndex];
+    PhysX_RELEASE(pGeometry->triangleMesh);
+    Safe_Delete(pGeometry);
+
+    PxRigidStatic* pActor = m_StaticActors[iObjectIndex];
+    PhysX_RELEASE(pActor);
+
+    m_ColMesheGeometries.erase(m_ColMesheGeometries.begin() + iObjectIndex);
+    m_StaticActors.erase(m_StaticActors.begin() + iObjectIndex);
+
+    return S_OK;
+}
+
 void CPhysX_Manager::DeleteActors()
 {
     for (auto& Geometry : m_ColMesheGeometries)

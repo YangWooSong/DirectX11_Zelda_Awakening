@@ -140,6 +140,7 @@ public:
 #pragma region PhysX_MANAGER
 	HRESULT AddScene_ColMesh(class CGameObject* pObject, _wstring strModelName);
 	HRESULT SetUp_Player(class CGameObject* pPlayer);
+	HRESULT Destroy_PhysXActor(CGameObject* pObject);   //우송아 이거야
 	void	DeletePlayer();
 	void	DeleteActors();
 #pragma endregion
