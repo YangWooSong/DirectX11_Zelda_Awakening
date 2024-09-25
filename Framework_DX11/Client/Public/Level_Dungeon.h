@@ -37,9 +37,13 @@ private:
 	class CPlayer* m_pPlayer = { nullptr };
 
 	_bool	m_isPlayerGetCampus = { false };
+	_bool   m_bFirstInRoom10 = { true };
+	_bool   m_bCamZoomOut = { false };
 
 	_uint m_iBgmIndex = { 0 };
 	_uint m_iCurRoomNum = { 1 };
+
+	_float  m_fTimer = { 0.f };
 
 	vector<vector<_uint>> m_RoomNumList = {
 		{28},               // Room 1
@@ -72,7 +76,7 @@ private:
 
 private:
 	void Change_Room();
-	void Setting_Gimmick();
+	void Setting_Gimmick(_float fTimeDelta);
 
 public:
 	static CLevel_Dungeon* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

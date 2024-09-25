@@ -451,6 +451,12 @@
     <Filter Include="05.State\Link\Key">
       <UniqueIdentifier>{b61cbbaf-8d72-4024-aff1-b7e5b963af57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\RollingSpike">
+      <UniqueIdentifier>{1f22ed25-c744-46f4-903d-8a15970fa3b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\OnewayDoorReverse">
+      <UniqueIdentifier>{09cd779b-bd66-4b44-b15b-e22df431c108}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -828,6 +834,12 @@
     <ClInclude Include="..\Public\State_Link_Key.h">
       <Filter>05.State\Link\Key</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\RollingSpike.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\RollingSpike</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\OnewayDoorReverse.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\OnewayDoorReverse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1195,6 +1207,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Link_Key.cpp">
       <Filter>05.State\Link\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\RollingSpike.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\RollingSpike</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\OnewayDoorReverse.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\OnewayDoorReverse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

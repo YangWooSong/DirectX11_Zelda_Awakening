@@ -63,6 +63,8 @@
 #include "Vegas.h"
 #include "Rola.h"
 #include "Spark.h"
+#include "RollingSpike.h"
+#include "OnewayDoorReverse.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -766,6 +768,17 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_LockDoor"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/LockDoor/LockDoor.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_OnewayDoorReverse*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_OnewayDoorReverse"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/OnewayDoorReverse/OnewayDoorReverse.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_RollingSpike*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_RollingSpike"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/RollingSpike_Anim/RollingSpike_Anim.dat"))))
+		return E_FAIL;
+
 #pragma endregion
 	return S_OK;
 }
@@ -967,6 +980,16 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_LockDoor*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LockDoor"),
 		CLockDoor::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_OnewayDoorReverse*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_OnewayDoorReverse"),
+		COnewayDoorReverse::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_RollingSpike*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_RollingSpike"),
+		CRollingSpike::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 #pragma endregion

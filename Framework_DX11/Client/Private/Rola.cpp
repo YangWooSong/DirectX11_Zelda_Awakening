@@ -36,6 +36,9 @@ HRESULT CRola::Initialize(void* pArg)
 	if (FAILED(Ready_State()))
 		return E_FAIL;
 
+	MONSTER_DESC* pDesc = static_cast<MONSTER_DESC*>(pArg);
+	m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
+
 	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 	m_eObjType = CGameObject::ANIM_MONSTER;
@@ -169,10 +172,10 @@ HRESULT CRola::Ready_Components()
 
 	/* For.Com_Collider */
 	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
-	ColliderDesc.vExtents = _float3(0.5f, 0.5f, 0.5f);
+	ColliderDesc.vExtents = _float3(1.f, 1.f, 1.f);
 	ColliderDesc.vCenter = _float3(0.f, 0.3f, 0.f);
 
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_Sphere"),
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);

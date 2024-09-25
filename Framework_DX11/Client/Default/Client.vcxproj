@@ -190,12 +190,14 @@
     <ClInclude Include="..\Public\LockDoor.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
+    <ClInclude Include="..\Public\OnewayDoorReverse.h" />
     <ClInclude Include="..\Public\OwlStatue.h" />
     <ClInclude Include="..\Public\Particle_Explosion.h" />
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\PurpleQuartz.h" />
     <ClInclude Include="..\Public\Rola.h" />
+    <ClInclude Include="..\Public\RollingSpike.h" />
     <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\SmallKey.h" />
     <ClInclude Include="..\Public\Spark.h" />
@@ -331,6 +333,7 @@
     <ClCompile Include="..\Private\NonAnimModel.cpp" />
     <ClCompile Include="..\Private\Octorok.cpp" />
     <ClCompile Include="..\Private\OctorokRock.cpp" />
+    <ClCompile Include="..\Private\OnewayDoorReverse.cpp" />
     <ClCompile Include="..\Private\OwlStatue.cpp" />
     <ClCompile Include="..\Private\Particle_Explosion.cpp" />
     <ClCompile Include="..\Private\Particle_Snow.cpp" />
@@ -339,6 +342,7 @@
     <ClCompile Include="..\Private\PlayerCamera.cpp" />
     <ClCompile Include="..\Private\PurpleQuartz.cpp" />
     <ClCompile Include="..\Private\Rola.cpp" />
+    <ClCompile Include="..\Private\RollingSpike.cpp" />
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
     <ClCompile Include="..\Private\Shield.cpp" />
     <ClCompile Include="..\Private\SmallKey.cpp" />

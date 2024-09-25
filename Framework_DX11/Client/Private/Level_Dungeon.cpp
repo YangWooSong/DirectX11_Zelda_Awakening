@@ -15,6 +15,8 @@
 #include "ClosedPotDoor.h"
 #include "PurpleQuartz.h"
 #include "Vegas.h"
+#include "OnewayDoorReverse.h"
+#include "Rola.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -60,7 +62,7 @@ void CLevel_Dungeon::Update(_float fTimeDelta)
 	if(m_iCurRoomNum != m_pPlayer->Get_CurRoomNum())
 		Change_Room();
 
-	Setting_Gimmick();
+	Setting_Gimmick(fTimeDelta);
 }
 
 HRESULT CLevel_Dungeon::Render()
@@ -286,7 +288,7 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	}
 	else if (_strLyaerTag == "Layer_Rola")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Rola"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Rola"), TEXT("Prototype_GameObject_Rola"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;
@@ -331,6 +333,16 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 	else if (_strLyaerTag == "Layer_LockDoor")
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_LockDoor"), TEXT("Prototype_GameObject_LockDoor"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_RollingSpike_Anim")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_RollingSpike"), &pDesc)))
+			return E_FAIL;
+	}
+	else if (_strLyaerTag == "Layer_OnewayDoorReverse")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"), TEXT("Prototype_GameObject_OnewayDoorReverse"), &pDesc)))
 			return E_FAIL;
 	}
 	return S_OK;
@@ -473,8 +485,17 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
 	
-
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Vegas"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Rola"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{
@@ -613,10 +634,20 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
 
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
 #pragma endregion
 }
 
-void CLevel_Dungeon::Setting_Gimmick()
+void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 {
 	CLayer* pLayer = { nullptr };
 
@@ -725,7 +756,7 @@ void CLevel_Dungeon::Setting_Gimmick()
 	}
 #pragma endregion
 
-#pragma region ROOM_5
+#pragma region ROOM_9
 	if (m_iCurRoomNum == 9)
 	{
 		_int iTextureNum = -1;
@@ -783,6 +814,63 @@ void CLevel_Dungeon::Setting_Gimmick()
 					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
 					static_cast<CTreasureBox*>(*iter)->SetActive(true);
 				}
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region ROOM_10
+	if (m_iCurRoomNum == 10)
+	{
+		if (m_bFirstInRoom10)
+		{
+			if (XMVectorGetX(m_pPlayer->Get_Position()) > 40.f)
+			{
+				if(m_pPlayer->Get_Fsm()->Get_CurrentState() != CLink::IDLE)
+					m_pPlayer->Change_State(CLink::IDLE);
+
+				m_fTimer += fTimeDelta;
+
+				if(m_fTimer > 0.5f)
+				{
+					m_pPlayerCam->Zoom_In(1.1f, 60.f);
+
+					pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+
+					for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+					{
+						if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(false);
+
+					}
+
+					m_bFirstInRoom10 = false;
+				}
+			}
+		}
+		else
+		{
+
+			m_fTimer += fTimeDelta;
+
+			CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
+			
+
+			if (m_pRola->Get_Dead() == false && m_fTimer > 3.f)
+			{
+				if(m_bCamZoomOut == false)
+				{
+					m_bCamZoomOut = true;
+					m_pPlayerCam->Zoom_Out(1.1f, 60.f);
+				}
+
+				/*CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
+				m_fTimer += fTimeDelta;
+
+				if (m_pRola->Get_Dead() == false && m_fTimer > 1.f)
+				{
+					m_pRola->Change_State(CRola::PUSH);
+				}*/
 			}
 		}
 	}
