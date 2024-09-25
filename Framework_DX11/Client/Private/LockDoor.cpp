@@ -42,6 +42,7 @@ HRESULT CLockDoor::Initialize(void* pArg)
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
 
     Set_LayerTag(TEXT("Layer_Monster"));
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("Lockdoor"));
     return S_OK;
 }
 
@@ -63,7 +64,10 @@ void CLockDoor::Update(_float fTimeDelta)
     }
 
     if (m_bOpend)
+    {
+        m_pGameInstance->Destroy_PhysXActor(this);
         m_pColliderCom->Set_IsActive(false);
+    }
 }
 
 void CLockDoor::Late_Update(_float fTimeDelta)

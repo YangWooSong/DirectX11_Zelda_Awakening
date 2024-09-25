@@ -74,6 +74,8 @@ void CHousePot::Update(_float fTimeDelta)
 
         if (m_bCarried)
         {
+            m_pGameInstance->Destroy_PhysXActor(this);
+
             if (m_fTimer > 0.5f || m_pPlayerFsmCom->Get_CurrentState() != CLink::CARRY)
             {
                 _matrix		SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);

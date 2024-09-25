@@ -39,6 +39,8 @@ private:
 
     _uint   m_iTargetIndex = { 0 };
     _int m_iMonsterNum = { 0 };
+
+    class CLink* m_pPlayer = { nullptr };
 public:
     static CState_Spark_Idle* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

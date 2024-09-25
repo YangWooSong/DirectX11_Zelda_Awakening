@@ -34,6 +34,8 @@ HRESULT CPurpleQuartz::Initialize(void* pArg)
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("PurpleQuartz"));
+
     m_isActive = false;
 
     m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Expolosion"), nullptr);
@@ -49,6 +51,7 @@ void CPurpleQuartz::Update(_float fTimeDelta)
 {
     if (m_bBreak)
     {
+        m_pGameInstance->Destroy_PhysXActor(this);
         m_pColliderCom->Set_IsActive(false);
         m_pParticle->Update(fTimeDelta);
     }

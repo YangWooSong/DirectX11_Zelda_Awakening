@@ -34,6 +34,8 @@ HRESULT CCrackedWall::Initialize(void* pArg)
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("CrackedWall"));
+
     m_isActive = false;
     return S_OK;
 }
@@ -47,6 +49,12 @@ void CCrackedWall::Update(_float fTimeDelta)
     if (m_isActive && m_bCracked == false)
     {
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    }
+
+    if(m_bCracked)
+    {
+        m_pGameInstance->Destroy_PhysXActor(this);
+        m_pColliderCom->Set_IsActive(false);
     }
 }
 

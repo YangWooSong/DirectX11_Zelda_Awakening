@@ -35,6 +35,8 @@ HRESULT CLockBlock::Initialize(void* pArg)
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("LockBlock"));
+
     m_isActive = false;
     return S_OK;
 }
@@ -51,7 +53,10 @@ void CLockBlock::Update(_float fTimeDelta)
     }
 
     if (m_bOpened)
+    {
         m_pColliderCom->Set_IsActive(false);
+        m_pGameInstance->Destroy_PhysXActor(this);
+    }
 }
 
 void CLockBlock::Late_Update(_float fTimeDelta)

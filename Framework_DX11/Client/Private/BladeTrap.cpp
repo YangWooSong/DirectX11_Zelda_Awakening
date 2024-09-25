@@ -329,10 +329,10 @@ void CBladeTrap::Set_Dir()
     else if (m_bVerDetect)
     {
         _vector vPlayerPos = m_pGameInstance->Find_Player(LEVEL_DUNGEON)->Get_Transform()->Get_State(CTransform::STATE_POSITION);
-        _float fPlayerY = XMVectorGetY(vPlayerPos);
-        _float  fmyY = XMVectorGetY(m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+        _float fPlayerZ = XMVectorGetZ(vPlayerPos);
+        _float  fmyZ = XMVectorGetZ(m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 
-        if (fmyY < fPlayerY)
+        if (fmyZ < fPlayerZ)
             m_iDir = UP;
         else
             m_iDir = DOWN;

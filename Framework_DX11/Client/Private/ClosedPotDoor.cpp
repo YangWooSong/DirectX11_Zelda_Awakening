@@ -43,6 +43,8 @@ HRESULT CClosedPotDoor::Initialize(void* pArg)
     m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex);
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("ClosedPotDoor"));
+
     return S_OK;
 }
 
@@ -55,8 +57,12 @@ void CClosedPotDoor::Update(_float fTimeDelta)
     if (m_isActive)
     {
         if(m_bOpen)
+        {
+            m_pGameInstance->Destroy_PhysXActor(this);
             m_pModelCom->Play_Animation(fTimeDelta);
-        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+        }
+        else
+            m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     }
 }
 
