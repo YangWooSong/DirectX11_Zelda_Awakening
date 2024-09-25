@@ -25,7 +25,7 @@ private:
     class CMonster* m_pOwner = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
-
+    _uint*              m_pTargetIndex = { nullptr };
 public:
     static CState_Rola_Push* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

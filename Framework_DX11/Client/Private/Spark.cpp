@@ -57,9 +57,11 @@ void CSpark::Update(_float fTimeDelta)
 		m_pModelCom->Play_Animation(fTimeDelta);
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 		m_pMonsterSoundCom->Update(fTimeDelta);
-		
+
 		__super::Update(fTimeDelta);
 	}
+	else
+		m_pMonsterSoundCom->Stop();
 }
 
 void CSpark::Late_Update(_float fTimeDelta)

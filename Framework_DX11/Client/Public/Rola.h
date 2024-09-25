@@ -30,15 +30,23 @@ public:
 
 	void Reset_RedCount() { m_iRedCount = 2; }
 	void Set_Blink(_bool _bBlink) { m_bBlink = _bBlink; }
+	_int* Get_AddDir() { return &m_iAddDir; }
+	_uint* Get_TargetPosIndex() { return &m_iTargetPosIndex; }
+
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
 
 private:
 	_uint		m_iRedCount = { 0 };
+	_uint		m_iTargetPosIndex = { 1 };
+	_int		m_iAddDir = { -1 };			//인덱스 늘릴때 쓰는 방향 변수
+
 	_float		m_fTimer = { 0.f };
 	_float		m_fNonRedTimer = { 0.f };
 	_bool		m_bBlink = { false };
+
+
 public:
 	static CRola* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

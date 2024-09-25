@@ -45,6 +45,8 @@ HRESULT CRola::Initialize(void* pArg)
 
 	m_isActive = false;
 
+	m_iHp = 8;
+
 	return S_OK;
 }
 
@@ -65,6 +67,7 @@ void CRola::Update(_float fTimeDelta)
 		m_pMonsterSoundCom->Update(fTimeDelta);
 		m_pModelCom->Play_Animation(fTimeDelta);
 
+		
 		//맞으면 두번 깜빡임
 		if (m_bBlink == false)
 		{

@@ -27,10 +27,10 @@ HRESULT CState_Rola_Idle::Start_State()
 
 void CState_Rola_Idle::Update(_float fTimeDelta)
 {
-    if (KEY_AWAY(Z))
-    {
-        m_pOwner->Change_State(CRola::DEMAGE);
-    }
+    //if (KEY_AWAY(Z))
+    //{
+    //    m_pOwner->Change_State(CRola::DEMAGE);
+    //}
 }
 
 void CState_Rola_Idle::End_State()

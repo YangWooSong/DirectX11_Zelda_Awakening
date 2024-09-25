@@ -864,13 +864,15 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 					m_pPlayerCam->Zoom_Out(1.1f, 60.f);
 				}
 
-				/*CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
+				CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
 				m_fTimer += fTimeDelta;
 
-				if (m_pRola->Get_Dead() == false && m_fTimer > 1.f)
+				if (m_pRola->Get_Dead() == false && m_fTimer > 1.f && m_bChageBGM == false)
 				{
-					m_pRola->Change_State(CRola::PUSH);
-				}*/
+					m_bChageBGM = true;
+					m_pGameInstance->Play_BGM(TEXT("0_DungeonBoss_Middle.wav"), 0.8f);
+					m_pRola->Change_State(CRola::JUMP);
+				}
 			}
 		}
 	}

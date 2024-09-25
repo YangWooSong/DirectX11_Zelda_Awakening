@@ -31,7 +31,7 @@ void CState_Rola_Demage::Update(_float fTimeDelta)
 {
     if ( m_pOwner->Get_IsEnd_CurrentAnimation())
     {
-        m_pOwner->Change_State(CRola::IDLE);
+        m_pOwner->Change_State(CRola::JUMP);
     }
 
 }

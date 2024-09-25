@@ -39,6 +39,7 @@ private:
 	_bool	m_isPlayerGetCampus = { false };
 	_bool   m_bFirstInRoom10 = { true };
 	_bool   m_bCamZoomOut = { false };
+	_bool   m_bChageBGM = { false };
 
 	_uint m_iBgmIndex = { 0 };
 	_uint m_iCurRoomNum = { 1 };

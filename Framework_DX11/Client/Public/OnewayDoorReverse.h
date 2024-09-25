@@ -35,6 +35,7 @@ public:
 	{ 
 		m_bOpend = bOpen; 
 		m_fTimer = 0.f; 
+		m_bSoundPlay = false;
 	}
 public:
 	CShader* m_pShaderCom = { nullptr };
@@ -45,6 +46,8 @@ private:
 	HRESULT Ready_Components();
 
 	_bool		m_bOpend = { false };
+	_bool		m_bSoundPlay = { false };
+
 	_int m_iCurrentAnimIndex = { 0 };
 	_int m_iOpenAnimIndex = { 0 };
 	_int m_iCloseAnimIndex = { 0 };

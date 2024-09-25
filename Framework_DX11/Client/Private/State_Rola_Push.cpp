@@ -14,7 +14,7 @@ HRESULT CState_Rola_Push::Initialize(_uint iStateNum)
 {
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("push");
     m_iStateNum = iStateNum;
-
+    m_pTargetIndex = static_cast<CRola*>(m_pOwner)->Get_TargetPosIndex();
     return S_OK;
 }
 
@@ -27,8 +27,17 @@ HRESULT CState_Rola_Push::Start_State()
 
 void CState_Rola_Push::Update(_float fTimeDelta)
 {
-    if (KEY_AWAY(Z))
-    {
+    //if(*m_pTargetIndex == 0)
+    //{
+    //    m_pOwner->Get_Transform()->Turn_Lerp_Angle(m_pOwner->Get_Rotation(), _float3(0.f, 90.f, 0.f), fTimeDelta);
+    //}
+    //else if (*m_pTargetIndex == 4)
+    //{
+    //    m_pOwner->Get_Transform()->Turn_Lerp_Angle(m_pOwner->Get_Rotation(), _float3(0.f, -90.f, 0.f), fTimeDelta);
+    //}
+    //    
+    if(m_pOwner->Get_IsEnd_CurrentAnimation())
+    { 
         m_pOwner->Change_State(CRola::JUMP);
     }
 }

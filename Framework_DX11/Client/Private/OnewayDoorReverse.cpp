@@ -75,12 +75,19 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
         }
         else if (m_bOpend == false && m_fTimer == 0.f)
         {
-            m_pSoundCom->Play_Sound(TEXT("4_Obj_OnewayDoor_Close.wav"), 0.8f);
+          
             m_iCurrentAnimIndex = m_iCloseAnimIndex;
             m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, false);
         }
         m_fTimer += fTimeDelta;
         m_pModelCom->Play_Animation(fTimeDelta);
+
+        //닫히는 소리 재생
+        if (m_pModelCom->Get_CurrentTrackPosition() > 0.5f && m_iCurrentAnimIndex == m_iCloseAnimIndex && m_bSoundPlay == false)
+        {
+            m_bSoundPlay = true;
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_OnewayDoor_Close.wav"), 0.8f);
+        }
     }
 
     if (m_bOpend)
