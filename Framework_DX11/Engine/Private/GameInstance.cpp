@@ -562,6 +562,11 @@ HRESULT CGameInstance::SetUp_Player(CGameObject* pPlayer)
 	return m_pPhysX_Manager->SetUp_Player(pPlayer);
 }
 
+HRESULT CGameInstance::Destroy_PhysXActor(CGameObject* pObject)
+{
+	return m_pPhysX_Manager->Destroy_PhysXActor(pObject);
+}
+
 void CGameInstance::DeletePlayer()
 {
 	m_pPhysX_Manager->DeletePlayer();

@@ -288,6 +288,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			if (KEY_TAP(E))
 			{
 				m_pFsmCom->Change_State(CARRY);
+				m_pGameInstance->Destroy_PhysXActor(pOther);
 				m_pCarryitem = pOther;
 			}
 		}
