@@ -36,9 +36,6 @@
 #include "OctorokRock.h"
 #include "Detector.h"
 
-#include "Rola.h"
-#include "Spark.h"
-
 #include "Togezo.h"
 #include "Kuribo.h"
 
@@ -64,6 +61,8 @@
 #include "BladeTrap.h"
 #include "Lockdoor.h"
 #include "Vegas.h"
+#include "Rola.h"
+#include "Spark.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -594,10 +593,7 @@ HRESULT CLoader::Ready_Models_For_Test()
 
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 #pragma region MONSTER
-	/* For. Prototype_Component_Model_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Rola"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
-		return E_FAIL;
+
 
 
 	/* For. Prototype_Component_Model_Togezo*/
@@ -684,6 +680,13 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Vegas0"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Vegas/Vegas0.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Rola*/
+
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Rola"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
+		return E_FAIL;
+
 #pragma endregion
 
 #pragma region NONANIM_OBJ
@@ -825,10 +828,7 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 HRESULT CLoader::Ready_Prototype_For_Test()
 {
 #pragma region MONSTER
-	/* For. Prototype_GameObject_Rola*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
-		CRola::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	
 
 	/* For. Prototype_GameObject_Togezo*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
@@ -887,6 +887,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_Vegas*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Vegas"),
 		CVegas::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Rola*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
+		CRola::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 #pragma endregion

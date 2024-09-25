@@ -265,7 +265,7 @@ void CTransform::Go_World_Straight(_float fTimeDelta, _float fSpeed, class CNavi
 void CTransform::Go_World_Backward(_float fTimeDelta, _float fSpeed, class CNavigation* pNavigation, _bool* bIsMove)
 {
 	_vector		vPosition = Get_State(STATE_POSITION);
-	_float3     vDir = { 0.0f, 0.0f,-1.f };
+	_float3     vDir = { 0.0f, 0.0f, -1.f };
 	_vector     vLook = XMLoadFloat3(&vDir);
 
 	if (fSpeed <= 0.f)

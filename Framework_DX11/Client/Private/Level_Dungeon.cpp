@@ -284,6 +284,11 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Vegas"), TEXT("Prototype_GameObject_Vegas"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_Rola")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Rola"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 

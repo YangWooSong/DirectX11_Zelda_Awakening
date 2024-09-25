@@ -84,14 +84,14 @@ void CBladeTrap::Update(_float fTimeDelta)
 
         if (m_fStopCount == 3)
         {
-            m_fSpeed *= 0.5f;
+            m_fSpeed = 2.5f;
             m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 30.f);
             Move_Reverse(fTimeDelta);
             m_fStopCount++;
         }
         else if (m_fStopCount == 5)
         {
-            m_fSpeed *= 2.f;
+            m_fSpeed  = 5.f;
             m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
             m_iDir = DIR_END;
             m_fStopCount = 0;
@@ -251,7 +251,7 @@ HRESULT CBladeTrap::Ready_PartObjects()
     DetectDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
     DetectDesc.pDetect = &m_bVerDetect;
     DetectDesc.vOffset = _float3(0.f, 0.f, 0.f);
-    DetectDesc.vSize = _float3(0.5f, 0.5f, 5.f);
+    DetectDesc.vSize = _float3(0.5f, 0.5f, 4.f);
     if (FAILED(__super::Add_PartObject(PART_DETECTOR_VERTICAL, TEXT("Prototype_GameObject_Detector"), &DetectDesc)))
         return E_FAIL;
 
@@ -277,10 +277,10 @@ void CBladeTrap::Move(_float fTimeDelta)
         m_pTransformCom->Go_World_Left(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bMove);
         break;
     case UP:
-        m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bMove);
+        m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bMove);
         break;
     case DOWN:
-        m_pTransformCom->Go_World_Straight(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bMove);
+        m_pTransformCom->Go_World_Backward(fTimeDelta, m_fSpeed, m_pNavigationCom, &m_bMove);
         break;
     }
 
