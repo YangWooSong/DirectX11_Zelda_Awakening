@@ -94,6 +94,8 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
     {
         m_pGameInstance->Destroy_PhysXActor(this);
     }
+    else
+        m_pGameInstance->AddScene_ColMesh(this, TEXT("OnewayDoorReverse"));
 }
 
 void COnewayDoorReverse::Late_Update(_float fTimeDelta)

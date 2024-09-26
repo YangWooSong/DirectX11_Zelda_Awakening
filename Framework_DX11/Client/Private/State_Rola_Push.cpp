@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Model.h"
 #include "Rola.h"
+#include "RollingSpike.h"
 
 CState_Rola_Push::CState_Rola_Push(CFsm* pFsm, CMonster* pOwner)
     :CState{ pFsm }
@@ -14,29 +15,38 @@ HRESULT CState_Rola_Push::Initialize(_uint iStateNum)
 {
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("push");
     m_iStateNum = iStateNum;
-    m_pTargetIndex = static_cast<CRola*>(m_pOwner)->Get_TargetPosIndex();
+    m_pAddDir = static_cast<CRola*>(m_pOwner)->Get_AddDir();
+    m_pRollingSpike = static_cast<CRollingSpike*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_RollingSpike"), 0));
     return S_OK;
 }
 
 HRESULT CState_Rola_Push::Start_State()
 {
-    m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
+    m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
     return S_OK;
 }
 
 void CState_Rola_Push::Update(_float fTimeDelta)
 {
-    //if(*m_pTargetIndex == 0)
-    //{
-    //    m_pOwner->Get_Transform()->Turn_Lerp_Angle(m_pOwner->Get_Rotation(), _float3(0.f, 90.f, 0.f), fTimeDelta);
-    //}
-    //else if (*m_pTargetIndex == 4)
-    //{
-    //    m_pOwner->Get_Transform()->Turn_Lerp_Angle(m_pOwner->Get_Rotation(), _float3(0.f, -90.f, 0.f), fTimeDelta);
-    //}
-    //    
-    if(m_pOwner->Get_IsEnd_CurrentAnimation())
+    //È¸Àü
+    if(*m_pAddDir == 1)
+    {
+        m_pOwner->Get_Transform()->Turn_Lerp(_vector{-1.f, 0.f,0.f}, 5.f, fTimeDelta);
+    }
+    else if (*m_pAddDir == -1)
+    {
+        m_pOwner->Get_Transform()->Turn_Lerp(_vector{ 1.f, 0.f,0.f }, 5.f, fTimeDelta);
+    }
+        
+    if (m_pOwner->Get_Model()->Get_CurrentTrackPosition() > 35.f)
+    {
+        if (*m_pAddDir == -1)
+            m_pRollingSpike->Start_Move_Right();
+        else
+            m_pRollingSpike->Start_Move_Left();
+    }
+    if(strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "push") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
     { 
         m_pOwner->Change_State(CRola::JUMP);
     }

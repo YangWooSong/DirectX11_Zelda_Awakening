@@ -20,9 +20,12 @@ HRESULT CRollingSpike::Initialize_Prototype()
 HRESULT CRollingSpike::Initialize(void* pArg)
 {
     GAMEOBJECT_DESC* pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
+    pDesc->fRotationPerSec = 10.f;
+    m_fRotateSpeed = 10.f;
+    m_fMoveSpeed = 5.f;
 
     /* 직교퉁여을 위한 데이터들을 모두 셋. */
-    if (FAILED(__super::Initialize(pArg)))
+    if (FAILED(__super::Initialize(pDesc)))
         return E_FAIL;
 
     if (FAILED(Ready_Components()))
@@ -32,9 +35,10 @@ HRESULT CRollingSpike::Initialize(void* pArg)
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
     m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
+    
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
-
+    m_eObjType = CGameObject::ANIM_MONSTER;
     m_isActive = false;
 
     m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("dead");
@@ -54,9 +58,13 @@ void CRollingSpike::Update(_float fTimeDelta)
        m_pModelCom->Play_Animation(fTimeDelta);
        m_pSoundCom->Update(fTimeDelta);
        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+       if (m_bMoveLeft)
+           Move_Left(fTimeDelta);
+
+       if (m_bMoveRight)
+           Move_Right(fTimeDelta);
     }
-
-
 }
 
 void CRollingSpike::Late_Update(_float fTimeDelta)
@@ -112,18 +120,79 @@ void CRollingSpike::OnCollisionEnter(CGameObject* pOther)
 
 void CRollingSpike::OnCollisionStay(CGameObject* pOther)
 {
-    if (m_pColliderCom->Get_IsColl())
-    {
-        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
-        {
-           
-        }
-    }
-
 }
 
 void CRollingSpike::OnCollisionExit(CGameObject* pOther)
 {
+}
+
+void CRollingSpike::Move_Right(_float fTimeDelta)
+{
+
+    if (m_pSoundCom->Get_IsPlaying() == false)
+        m_pSoundCom->Play_Sound(TEXT("4_Obj_RollingSpike.wav"), 1.f);
+
+    _vector vTurn = { 0.f, 0.f, -1.f };
+    m_fMoveTimer += fTimeDelta;
+
+    //오른쪽 굴러가기
+    if (m_fMoveTimer < 1.8f)
+    {
+        m_pTransformCom->Turn(vTurn, fTimeDelta);
+        m_pTransformCom->Go_World_Right(fTimeDelta, 5.f);
+    }
+    else if (m_fMoveTimer < 2.8f)
+    {   
+        //벽 부딪히는 척 반대로 굴러가기 + 느려짐
+        m_fRotateSpeed = max(0.3f, m_fRotateSpeed -= 3.f * fTimeDelta);
+        m_pTransformCom->Set_RotationSpeed(m_fRotateSpeed);
+        m_pTransformCom->Turn(-vTurn, fTimeDelta);
+        m_pTransformCom->Go_World_Left(fTimeDelta, max(3.f, m_fMoveSpeed -= 6.f * fTimeDelta));
+    }
+    else
+    {
+        //초기화
+        m_fRotateSpeed = 10.f;
+        m_pTransformCom->Set_RotationSpeed(m_fRotateSpeed);
+        m_fMoveTimer = 0.f;
+        m_bMoveRight = false;
+        m_fMoveSpeed = 5.f;
+        m_pSoundCom->Stop();
+    }
+}
+
+void CRollingSpike::Move_Left(_float fTimeDelta)
+{
+    if (m_pSoundCom->Get_IsPlaying() == false)
+        m_pSoundCom->Play_Sound(TEXT("4_Obj_RollingSpike.wav"), 1.f);
+
+    _vector vTurn = { 0.f, 0.f, 1.f };
+    m_fMoveTimer += fTimeDelta;
+
+    //왼쪽 굴러가기
+    if (m_fMoveTimer < 1.8f)
+    {
+        m_pTransformCom->Turn(vTurn, fTimeDelta);
+        m_pTransformCom->Go_World_Left(fTimeDelta, 5.f);
+    }
+    else if(m_fMoveTimer < 2.8f)
+    {
+        //벽 부딪힌 척 반대로 굴러가기 + 느려지기
+        m_fRotateSpeed = max(0.3f, m_fRotateSpeed -= 3.f * fTimeDelta);
+        m_pTransformCom->Set_RotationSpeed(m_fRotateSpeed);
+        m_pTransformCom->Turn(-vTurn, fTimeDelta);
+       m_pTransformCom->Go_World_Right(fTimeDelta, max(3.f, m_fMoveSpeed -= 6.f * fTimeDelta));
+    }
+    else
+    {
+        //초기화
+        m_fRotateSpeed = 10.f;
+        m_pTransformCom->Set_RotationSpeed(m_fRotateSpeed);
+        m_fMoveTimer = 0.f;
+        m_bMoveLeft = false;
+        m_fMoveSpeed = 5.f;
+        m_pSoundCom->Stop();
+    }
 }
 
 HRESULT CRollingSpike::Ready_Components()

@@ -39,12 +39,15 @@ private:
 	_bool	m_isPlayerGetCampus = { false };
 	_bool   m_bFirstInRoom10 = { true };
 	_bool   m_bCamZoomOut = { false };
+	_bool   m_bCamZoomOut_Room10 = { false };
 	_bool   m_bChageBGM = { false };
+	_bool m_bRestartBgm = { false };
 
 	_uint m_iBgmIndex = { 0 };
 	_uint m_iCurRoomNum = { 1 };
 
 	_float  m_fTimer = { 0.f };
+	_float  m_fRolaDeadTimer = { 0.f };
 
 	vector<vector<_uint>> m_RoomNumList = {
 		{28},               // Room 1

@@ -25,6 +25,8 @@ private:
     class CMonster* m_pOwner = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
+    _vector  m_vNewLook = {};
+    _float          m_fTimer = { 0.f };
 
 public:
     static CState_Rola_Demage* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);

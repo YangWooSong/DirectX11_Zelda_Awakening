@@ -46,12 +46,6 @@ HRESULT CVegas::Initialize(void* pArg)
 	if (FAILED(Ready_State()))
 		return E_FAIL;
 
-	//Read한 정보 세팅
-	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
-	//m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
-	//m_vRot = pDesc->vRotation;
-	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Monster/Vegas/MI_body_alb.1.dds"), TEXTURE_TYPE::DIFFUSE, 0);
 	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Monster/Vegas/MI_body_alb.2.dds"), TEXTURE_TYPE::DIFFUSE, 0);
@@ -132,8 +126,6 @@ HRESULT CVegas::Render()
 {
 	if (m_isActive)
 	{
-		
-
 		if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
 			return E_FAIL;
 

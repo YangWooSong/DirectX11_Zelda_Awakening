@@ -17,23 +17,33 @@ HRESULT CState_Rola_Jump::Initialize(_uint iStateNum)
     m_iJumpEdAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("jump_ed");
     m_iCurrentAnimIndex = m_iJumpStAnimIndex;
     m_iStateNum = iStateNum;
+
     m_pAddDir = static_cast<CRola*>(m_pOwner)->Get_AddDir();
     m_pTargetIndex = static_cast<CRola*>(m_pOwner)->Get_TargetPosIndex();
+
     return S_OK;
 }
 
 HRESULT CState_Rola_Jump::Start_State()
 {
     m_iCurrentAnimIndex = m_iJumpStAnimIndex;
-    m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
+    m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
 
-    //Set_TargetPos();
+    m_bJumpEnd = false;
+
+
+   Set_TargetPos();
     return S_OK;
 }
 
 void CState_Rola_Jump::Update(_float fTimeDelta)
 {
+    //타겟 위치 바라보기
+    m_fTurnTimer += fTimeDelta;
+    if(m_fTurnTimer < 0.3f)
+        m_pOwner->Get_Transform()->Turn_Lerp(m_vTargetLook, 5.f, fTimeDelta);
+
     //Anim 연결 세팅
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump_st") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
@@ -41,57 +51,94 @@ void CState_Rola_Jump::Update(_float fTimeDelta)
         m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
     }
-  /*  if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
+    if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump") == 0 && m_fLerpSpeed > 0.5f)
     {
-       
-    }*/
-    if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump_ed") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
+        m_iCurrentAnimIndex = m_iJumpEdAnimIndex;
+        m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
+        m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+        if(m_bJumpSound == false)
+        {
+            m_bJumpSound = true;
+            m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Rola_Jump_End.wav"), 0.8f);
+        }
+    }
+    if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump_ed") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation() && m_bJumpEnd == false)
     {
+        m_bJumpEnd = true;
         if (*m_pTargetIndex == 0 || *m_pTargetIndex == 4)
         {
-            *m_pAddDir *= -1;
             m_pOwner->Change_State(CRola::PUSH);
         }
-
-        Set_TargetPos();
-
-        m_pOwner->Change_State(CRola::JUMP);
-    }
-
-
-    if (fabs(m_pOwner->Get_Pos().x - m_vTargetPos[*m_pTargetIndex].x) < 0.1
-        && fabs(m_pOwner->Get_Pos().y - m_vTargetPos[*m_pTargetIndex].y) < 0.1
-        && fabs(m_pOwner->Get_Pos().z - m_vTargetPos[*m_pTargetIndex].z) < 0.1)
-    {
-        if(m_iCurrentAnimIndex == m_iJumpAnimIndex)
+        else
         {
-            m_iCurrentAnimIndex = m_iJumpEdAnimIndex;
-            m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
-            m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+            m_pOwner->Change_State(CRola::JUMP);
         }
- 
+  
     }
 
     if(strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump") == 0)
     {
-        _float3 vTarget = m_vTargetPos[*m_pTargetIndex];
-        _float fLerpSpeed = min(1.f, fTimeDelta * 4.f);
-        _vector vChangePos = XMVectorLerp(m_pOwner->Get_Pos_vector(), XMLoadFloat3(&vTarget), fLerpSpeed);
+        m_fLerpSpeed = min(1.f, m_fLerpSpeed += fTimeDelta * 0.3f);
+        _vector vChangePos = XMVectorLerp(m_pOwner->Get_Pos_vector(), XMLoadFloat3(&m_vTargetPos[*m_pTargetIndex]), m_fLerpSpeed);
         m_pOwner->Get_Transform()->Set_State(CTransform::STATE_POSITION, vChangePos);
+
     }
 
 }
 
 void CState_Rola_Jump::End_State()
 {
-  
+    m_fLerpSpeed = 0.f;
+    m_fTurnTimer = 0.f;
+    if (*m_pTargetIndex == 0 || *m_pTargetIndex == 4)
+    {
+        *m_pAddDir *= -1;
+    }
+    m_bJumpSound = false;
+    m_iPreTargetPosIndex = *m_pTargetIndex;
 }
 
 void CState_Rola_Jump::Set_TargetPos()
 {
-    
+
 
     *m_pTargetIndex += *m_pAddDir;
+
+    if (*m_pTargetIndex > 4)
+        *m_pTargetIndex = 4;
+    if(*m_pTargetIndex < 0)
+        *m_pTargetIndex = 0;
+
+    m_vTargetLook = XMVector3Normalize(XMLoadFloat3(&m_vTargetPos[*m_pTargetIndex]) - m_pOwner->Get_Pos_vector());
+
+}
+
+void CState_Rola_Jump::Find_ClosestPos()
+{
+    _int CloseIndex = 0;
+    _float MinDistance = 100.f;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        if (*m_pAddDir == 1)
+        {
+            if (i < *m_pTargetIndex)
+                continue;
+        }
+        else
+        {
+            if (i > *m_pTargetIndex)
+                continue;
+        }
+
+        _float distance = XMVectorGetX(XMVector3Length((m_pOwner->Get_Pos_vector() - XMLoadFloat3(&m_vTargetPos[i]))));
+
+        if (distance < MinDistance)
+        {
+            MinDistance = distance;
+            CloseIndex = i;
+        }
+    }
 }
 
 CState_Rola_Jump* CState_Rola_Jump::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

@@ -686,7 +686,7 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	/* For. Prototype_Component_Model_Rola*/
 
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Rola"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat"))))
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 #pragma endregion

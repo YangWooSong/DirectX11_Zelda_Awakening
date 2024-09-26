@@ -32,6 +32,10 @@ public:
 	virtual void OnCollisionStay(CGameObject* pOther) override;
 	virtual void OnCollisionExit(CGameObject* pOther)  override;
 
+
+	void Start_Move_Right() { m_bMoveRight = true; }
+	void Start_Move_Left() { m_bMoveLeft = true; }
+
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
@@ -40,10 +44,16 @@ public:
 
 private:
 	_int m_iCurrentAnimIndex = { 0 };
-
+	_bool m_bMoveRight = { false };
+	_bool m_bMoveLeft = { false };
+	_float m_fMoveTimer = { 0.f };
+	_float m_fRotateSpeed = { 0.f };
+	_float m_fMoveSpeed = { 0.f };
 private:
 	HRESULT Ready_Components();
 
+	void Move_Right(_float fTimeDelta);
+	void Move_Left(_float fTimeDelta);
 public:
 	static CRollingSpike* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

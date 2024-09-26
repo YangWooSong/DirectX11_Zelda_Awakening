@@ -23,7 +23,8 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
-
+    _float m_fTimer = { 0.f };
+    _bool   m_bPlaySound = { false };
     _uint               m_iCurrentAnimIndex = {};
 
 public:

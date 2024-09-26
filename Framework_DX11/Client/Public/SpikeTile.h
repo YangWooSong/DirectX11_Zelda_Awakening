@@ -32,10 +32,11 @@ public:
 	class CCollider* m_pColliderCom = { nullptr };
 
 private:
+	_int m_iCurrentAnimIndex = { 0 };
+
+private:
 	HRESULT Ready_Components();
 
-
-	_int m_iCurrentAnimIndex = { 0 };
 public:
 	static CSpikeTile* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

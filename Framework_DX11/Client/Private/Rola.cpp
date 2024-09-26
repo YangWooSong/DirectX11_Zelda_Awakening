@@ -37,7 +37,8 @@ HRESULT CRola::Initialize(void* pArg)
 		return E_FAIL;
 
 	MONSTER_DESC* pDesc = static_cast<MONSTER_DESC*>(pArg);
-	m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
+	_float3 vRot = { 0.f, -90.f, 0.f };
+	m_pTransformCom->RotationThreeAxis(vRot);
 
 	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
@@ -102,6 +103,10 @@ void CRola::Update(_float fTimeDelta)
 			}
 		}
 
+		if (m_pFsmCom->Get_CurrentState() == DEMAGE)
+			m_pColliderCom->Set_IsActive(false);
+		else
+			m_pColliderCom->Set_IsActive(true);
 		__super::Update(fTimeDelta);
 	}
 }
@@ -132,6 +137,9 @@ HRESULT CRola::Render()
 		if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
 			return E_FAIL;
 
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &m_bBlink, sizeof(_bool))))
+			return E_FAIL;
+
 		_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
 		for (size_t i = 0; i < iNumMeshes; i++)
@@ -142,15 +150,39 @@ HRESULT CRola::Render()
 				return E_FAIL;
 
 
-			if (FAILED(m_pShaderCom->Begin(0)))
+			if (FAILED(m_pShaderCom->Begin(1)))
 				return E_FAIL;
 
 			if (FAILED(m_pModelCom->Render((_uint)i)))
 				return E_FAIL;
 		}
+
+		_bool bFalse = { false };
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
+			return E_FAIL;
 	}
 
 	return S_OK;
+}
+
+void CRola::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_LayerTag() == TEXT("Layer_Sword") )
+		{
+			if(m_iHp > 0)
+				Change_State(DEMAGE);
+		}
+	}
+}
+
+void CRola::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CRola::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 
