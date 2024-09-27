@@ -261,6 +261,16 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			}
 		}
 
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_BossDoor"))
+		{
+			if (m_bGetBossKey)
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(0);
+			}
+		}
+
 		if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue") && m_bBeak)
 		{
 
@@ -305,6 +315,20 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
+		if (pOther->Get_LayerTag() == TEXT("Layer_BossDoor") )
+		{
+			if (m_bGetBossKey)
+			{
+				if (KEY_AWAY(E))
+				{
+					m_bGetBossKey = false;
+
+					if (m_pFsmCom->Get_CurrentState() != KEY)
+						m_pFsmCom->Change_State(KEY);
+				}
+			}
+		}
+
 		if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue"))
 		{
 			if (KEY_TAP(E))
@@ -320,7 +344,8 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 
 	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox") || 
 		pOther->Get_LayerTag() == TEXT("Layer_LockDoor") ||
-		pOther->Get_LayerTag() == TEXT("Layer_LockBlock") 
+		pOther->Get_LayerTag() == TEXT("Layer_LockBlock") || 
+		pOther->Get_LayerTag() == TEXT("Layer_BossDoor")
 		)
 	{
 		m_PlayerUI[0]->SetActive(false);

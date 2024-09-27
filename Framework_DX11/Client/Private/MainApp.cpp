@@ -42,8 +42,10 @@ HRESULT CMainApp::Initialize()
 
 void CMainApp::Update(_float fTimeDelta)
 {
+#ifdef _DEBUG
 	if (KEY_TAP(ONE))
 		m_pGameInstance->Active_Debug_Renderer();
+#endif
 
 	m_pGameInstance->Update_Engine(fTimeDelta);
 }

@@ -41,7 +41,6 @@ HRESULT CLockDoor::Initialize(void* pArg)
     m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, false);
     m_pModelCom->Set_AnimationSpeed(m_iCurrentAnimIndex, 40);
 
-    Set_LayerTag(TEXT("Layer_Monster"));
     m_pGameInstance->AddScene_ColMesh(this, TEXT("Lockdoor"));
     return S_OK;
 }

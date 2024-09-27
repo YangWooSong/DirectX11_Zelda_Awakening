@@ -347,6 +347,11 @@ HRESULT CLevel_Dungeon::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _f
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"), TEXT("Prototype_GameObject_OnewayDoorReverse"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_BossDoor")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_BossDoor"), TEXT("Prototype_GameObject_BossDoor"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -647,6 +652,17 @@ void CLevel_Dungeon::Change_Room()
 	}
 
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_RollingSpike"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_BossDoor"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{

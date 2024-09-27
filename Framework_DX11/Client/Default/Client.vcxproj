@@ -172,6 +172,7 @@
     <ClInclude Include="..\Public\Bed.h" />
     <ClInclude Include="..\Public\BladeTrap.h" />
     <ClInclude Include="..\Public\Bomb.h" />
+    <ClInclude Include="..\public\BossDoor.h" />
     <ClInclude Include="..\Public\ClosedPotDoor.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="..\Private\Bed.cpp" />
     <ClCompile Include="..\Private\BladeTrap.cpp" />
     <ClCompile Include="..\Private\Bomb.cpp" />
+    <ClCompile Include="..\Private\BossDoor.cpp" />
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />

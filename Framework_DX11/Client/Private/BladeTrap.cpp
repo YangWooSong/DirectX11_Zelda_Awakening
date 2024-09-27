@@ -244,14 +244,14 @@ HRESULT CBladeTrap::Ready_PartObjects()
     DetectDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
     DetectDesc.pDetect = &m_bHoriDetect;
     DetectDesc.vOffset = _float3(0.f, 0.f, 0.f);
-    DetectDesc.vSize = _float3(5.f, 0.5f, 0.5f);
+    DetectDesc.vSize = _float3(5.f, 0.5f, 0.3f);
     if (FAILED(__super::Add_PartObject(PART_DETECTOR_HORIZON, TEXT("Prototype_GameObject_Detector"), &DetectDesc)))
         return E_FAIL;
 
     DetectDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
     DetectDesc.pDetect = &m_bVerDetect;
     DetectDesc.vOffset = _float3(0.f, 0.f, 0.f);
-    DetectDesc.vSize = _float3(0.5f, 0.5f, 4.f);
+    DetectDesc.vSize = _float3(0.3f, 0.5f, 4.f);
     if (FAILED(__super::Add_PartObject(PART_DETECTOR_VERTICAL, TEXT("Prototype_GameObject_Detector"), &DetectDesc)))
         return E_FAIL;
 

@@ -18,8 +18,11 @@ CCollider::CCollider(const CCollider& Prototype)
 	, m_pInputLayout{ Prototype.m_pInputLayout }
 #endif
 {
+#ifdef _DEBUG
 	Safe_AddRef(m_pInputLayout);
+#endif
 	m_eComponentType = COLLIDER;
+
 }
 
 HRESULT CCollider::Initialize_Prototype(TYPE eColliderType)
@@ -72,9 +75,10 @@ void CCollider::Update(const _float4x4* pWorldMatrix)
 	m_pBounding->Update(XMLoadFloat4x4(pWorldMatrix));
 }
 
+#ifdef _DEBUG
 HRESULT CCollider::Render()
 {
-#ifdef _DEBUG
+
 	if (m_isActive)
 	{
 		//m_pContext->GSSetShader(nullptr, nullptr, 0);
@@ -94,11 +98,11 @@ HRESULT CCollider::Render()
 		m_pBatch->End();
 	}
 
-#endif
+
 
 	return S_OK;
 }
-
+#endif
 _bool CCollider::Intersect(CCollider* pTargetCollider)
 {
 	return m_pBounding->Intersect(pTargetCollider->m_eColliderType, pTargetCollider->m_pBounding);

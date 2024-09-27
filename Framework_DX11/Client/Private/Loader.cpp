@@ -65,6 +65,7 @@
 #include "Spark.h"
 #include "RollingSpike.h"
 #include "OnewayDoorReverse.h"
+#include "BossDoor.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -779,6 +780,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/RollingSpike_Anim/RollingSpike_Anim.dat"))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Model_BossDoor*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_BossDoor"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/BossDoor/BossDoor.dat"))))
+		return E_FAIL;
+
 #pragma endregion
 	return S_OK;
 }
@@ -990,6 +996,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_RollingSpike*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_RollingSpike"),
 		CRollingSpike::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_BossDoor*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BossDoor"),
+		CBossDoor::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 #pragma endregion

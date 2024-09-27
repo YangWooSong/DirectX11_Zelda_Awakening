@@ -457,6 +457,9 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\OnewayDoorReverse">
       <UniqueIdentifier>{09cd779b-bd66-4b44-b15b-e22df431c108}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\BossDoor">
+      <UniqueIdentifier>{7739a8a4-ed0c-4460-b627-59211e19a36e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -840,6 +843,9 @@
     <ClInclude Include="..\Public\OnewayDoorReverse.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\OnewayDoorReverse</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\BossDoor.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\BossDoor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1213,6 +1219,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\OnewayDoorReverse.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\OnewayDoorReverse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BossDoor.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\Anim\BossDoor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
