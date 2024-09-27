@@ -34,9 +34,10 @@ public:
 
 	void	Zoom_In(_float fZoom, _float _fRotY);
 	void	Zoom_Out(_float fZoom, _float _fRotY);
-	void	Active_Shake(_float _fTime);
+	void    Stop_Shake() { m_bShake = false; }
 private:
 	HRESULT					Ready_Components();
+	void	Active_Shake(_float _fTime);
 
 private:
 	class CPlayer*			m_pPlayer = { nullptr };

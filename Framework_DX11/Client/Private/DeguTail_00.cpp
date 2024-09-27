@@ -164,9 +164,14 @@ HRESULT CDeguTail_00::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bRedBlink", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 
+		
+
 #ifdef _DEBUG
 		m_pColliderCom->Render();
 #endif	
+
+		/*if (m_bRenderText)
+			m_pGameInstance->Render_Text(TEXT("Font_BossName36"), TEXT("°Å´ë ²¿¸®¸®"), XMVectorSet(g_iWinSizeX / 2 - 20.f, g_iWinSizeY / 2 - 10, 0.f, 1.f));*/
 	}
 	return S_OK;
 }

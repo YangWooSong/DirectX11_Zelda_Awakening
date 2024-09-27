@@ -23,9 +23,12 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
+    class CPlayerCamera* m_pCamera = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
     _bool               m_bPlaySound = { false };
+    _bool               m_bCameraShake = { false };
+    _bool               m_bCarmeraSetting = { false };
 public:
     static CState_DeguTail_Appear* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

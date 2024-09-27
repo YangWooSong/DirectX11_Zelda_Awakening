@@ -40,7 +40,7 @@ HRESULT COnewayDoorReverse::Initialize(void* pArg)
     m_iOpenAnimIndex = m_pModelCom->Get_AnimationIndex("open1");
     m_iCloseAnimIndex = m_pModelCom->Get_AnimationIndex("close1");
 
-    if(m_iRoomNum == 10)
+    if(m_iRoomNum == 10 )
     {
         m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("open_wait1");
         m_bOpend = false;

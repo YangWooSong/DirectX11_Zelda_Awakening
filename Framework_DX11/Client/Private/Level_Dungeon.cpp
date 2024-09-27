@@ -268,7 +268,7 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	pDesc.iRoomNum = _iRoomNum;
 	if (_strLyaerTag == "Layer_DeguTail")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
 	else if (_strLyaerTag == "Layer_Pawn")
@@ -928,6 +928,29 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				{
 					m_bCamZoomOut_Room10 = true;
 					static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Zoom_Out(1.1f, 60.f);
+				}
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region ROOM_12
+	if (m_iCurRoomNum == 12)
+	{
+		CDeguTail_00* pDeguTail = static_cast<CDeguTail_00*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), 0));
+		if (m_bFirstInRoom12)
+		{
+			if (XMVectorGetZ(m_pPlayer->Get_Position()) > 43.f)
+			{
+				
+				m_pPlayer->Change_State(CLink::IDLE);
+
+				m_fTimer += fTimeDelta;
+
+				if (m_fTimer > 0.1f)
+				{
+					pDeguTail->SetActive(true);
+					m_bFirstInRoom12 = false;
 				}
 			}
 		}
