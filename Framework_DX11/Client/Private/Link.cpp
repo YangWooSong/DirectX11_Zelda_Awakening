@@ -278,6 +278,13 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			m_PlayerUI[INTERACT_UI]->Set_TextureNum(3);
 			
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_ConchHorn"))
+		{
+				m_PlayerUI[ITEM_ICON_UI]->SetActive(true);
+				m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(7);
+				m_pFsmCom->Change_State(GET_ITEM);
+		}
 	}
 }
 

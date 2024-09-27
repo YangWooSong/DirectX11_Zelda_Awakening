@@ -460,6 +460,9 @@
     <Filter Include="02.GameObjects\03.Objects\Dungeon\Anim\BossDoor">
       <UniqueIdentifier>{7739a8a4-ed0c-4460-b627-59211e19a36e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Dungeon\NonAnim\ConchHorn">
+      <UniqueIdentifier>{986b1788-49c7-4153-9176-1ffb5fb8f00c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -846,6 +849,9 @@
     <ClInclude Include="..\public\BossDoor.h">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\BossDoor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\ConchHorn.h">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\ConchHorn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1222,6 +1228,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\BossDoor.cpp">
       <Filter>02.GameObjects\03.Objects\Dungeon\Anim\BossDoor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ConchHorn.cpp">
+      <Filter>02.GameObjects\03.Objects\Dungeon\NonAnim\ConchHorn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

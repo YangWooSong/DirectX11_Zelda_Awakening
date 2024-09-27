@@ -160,6 +160,13 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), TEXT("Prototype_GameObject_SmallKey"), &ObjectDesc)))
 		return E_FAIL;
+
+	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
+	ObjectDesc.iRoomNum = 13;
+	ObjectDesc.vPosition = _float3(45.f, 2.f, 62.f);
+	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_ConchHorn"), TEXT("Prototype_GameObject_ConchHorn"), &ObjectDesc)))
+		return E_FAIL;
     return S_OK;
 }
 
@@ -597,6 +604,16 @@ void CLevel_Dungeon::Change_Room()
 		else
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_ConchHorn"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
 #pragma endregion
 
 #pragma region AnimObj
@@ -935,9 +952,11 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 #pragma endregion
 
 #pragma region ROOM_12
+	CDeguTail_00* pDeguTail = static_cast<CDeguTail_00*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), 0));
+
 	if (m_iCurRoomNum == 12)
 	{
-		CDeguTail_00* pDeguTail = static_cast<CDeguTail_00*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), 0));
+		
 		if (m_bFirstInRoom12)
 		{
 			if (XMVectorGetZ(m_pPlayer->Get_Position()) > 43.f)
@@ -955,6 +974,9 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 			}
 		}
 	}
+	else
+		pDeguTail->SetActive(false);
+
 #pragma endregion
 }
 

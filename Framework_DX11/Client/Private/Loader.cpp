@@ -66,6 +66,7 @@
 #include "RollingSpike.h"
 #include "OnewayDoorReverse.h"
 #include "BossDoor.h"
+#include "ConchHorn.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -218,7 +219,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 
 	/* For. Prototype_Component_Texture_ItemIcon */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIcon"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 7))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 8))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Particle */
@@ -737,6 +738,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_LockBlock"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/LockBlock/LockBlock.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_ConchHorn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_ConchHorn"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/ConchHorn/ConchHorn.dat"))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region ANIM_OBJ
@@ -954,6 +960,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_LockBlock*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LockBlock"),
 		CLockBlock::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_ConchHorn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ConchHorn"),
+		CConchHorn::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 
