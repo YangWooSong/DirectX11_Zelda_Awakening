@@ -143,11 +143,33 @@ _bool CNavigation::isMove(_fvector vPosition, _bool bMovecliff)
 				if (-1 == iNeighborIndex)
 					return false;
 
+				//플레이어가 아닌게 절벽 이동을 막음
 				if(m_iOwnerType == NONPLAYER && m_Cells[iNeighborIndex]->Get_CellType() != CCell::CELL_FLOOR && bMovecliff == false)
 					return false;
 				else
+				{
+					//이동할 좌표가 이웃셀 안에 있는가
 					if (true == m_Cells[iNeighborIndex]->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
 						break;
+					else
+					{
+						//정말 내가 이동할 좌표가 들어가는 셀이 없는지 한번 더 검사
+						int i = 0;
+						for (auto& iter : m_Cells)
+						{
+							
+							if (true == iter->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine))
+							{
+								iNeighborIndex = i;
+								break;
+							}
+							else
+								i++;
+						}
+						break;
+					}
+				}
+
 			}
 
 			m_iPreCellIndex = m_iCurrentCellIndex;
