@@ -159,27 +159,29 @@ void CSpark::Set_MonsterNum(void* pArg)
 	case 14:
 	{
 		{
-			if (pDesc->vPosition.x < -2.f)
+			if (pDesc->vPosition.x < -10.f)
 				m_iMonsterNum = 1;
-			else
+			else if (pDesc->vPosition.x < -2.f)
 				m_iMonsterNum = 2;
+			else
+				m_iMonsterNum = 3;
 		}
 	}
 		break;
 	case 7:
 	{
 		if (pDesc->vPosition.x < 0.f)
-			m_iMonsterNum = 3;
-		else
 			m_iMonsterNum = 4;
+		else
+			m_iMonsterNum = 5;
 	}
 		break;
 	case 8:
 	{
 		if (pDesc->vPosition.x < 30.f)
-			m_iMonsterNum = 5;
-		else
 			m_iMonsterNum = 6;
+		else
+			m_iMonsterNum = 7;
 	}
 		break;
 	default:

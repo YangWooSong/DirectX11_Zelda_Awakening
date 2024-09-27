@@ -25,6 +25,7 @@
 #include "State_Link_Bomb.h"
 #include "State_Link_Bomb.h"
 #include "State_Link_Key.h"
+#include "State_Link_Push.h"
 
 #include "Cell.h"
 #include "Sword.h"
@@ -33,6 +34,7 @@
 #include "TreasureBox.h"
 #include "ItemUI.h"
 #include "Bomb.h"
+#include "SquareBlock.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -285,6 +287,12 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 				m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(7);
 				m_pFsmCom->Change_State(GET_ITEM);
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_SquareBlock_Gimmick"))
+		{
+			if(static_cast<CSquareBlock*>(pOther)->Get_IsPushed() == false)
+				m_pFsmCom->Change_State(PUSH);
+		}
 	}
 }
 
@@ -503,6 +511,7 @@ HRESULT CLink::Ready_State()
 	m_pFsmCom->Add_State(CState_Link_Get_Item::Create(m_pFsmCom, this, GET_ITEM));
 	m_pFsmCom->Add_State(CState_Link_Bomb::Create(m_pFsmCom, this, BOMB));
 	m_pFsmCom->Add_State(CState_Link_Key::Create(m_pFsmCom, this, KEY));
+	m_pFsmCom->Add_State(CState_Link_Push::Create(m_pFsmCom, this, PUSH));
 
 	return S_OK;
 }

@@ -37,6 +37,7 @@ public:
 		m_fTimer = 0.f; 
 		m_bSoundPlay = false;
 	}
+	_bool Get_Opened() { return m_bOpend; }
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };

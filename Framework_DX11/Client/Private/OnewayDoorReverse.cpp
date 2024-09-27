@@ -43,12 +43,12 @@ HRESULT COnewayDoorReverse::Initialize(void* pArg)
     if(m_iRoomNum == 10 )
     {
         m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("open_wait1");
-        m_bOpend = false;
+        m_bOpend = true;
     }
     else
     {
         m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("close_wait1");
-        m_bOpend = true;
+        m_bOpend = false;
     }
 
     m_pModelCom->SetUp_Animation(m_iCurrentAnimIndex, false);
@@ -69,7 +69,6 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
     {
         if (m_bOpend == true && m_fTimer == 0.f)
         {
-        
             m_iCurrentAnimIndex = m_iOpenAnimIndex;
             m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, false);
         }

@@ -35,7 +35,7 @@ void CState_Spark_Idle::Update(_float fTimeDelta)
 			&& fabs(m_pOwner->Get_Pos().y - m_vTargetPos[m_iMonsterNum - 1][m_iTargetIndex].y) < 0.1
 			&& fabs(m_pOwner->Get_Pos().z - m_vTargetPos[m_iMonsterNum - 1][m_iTargetIndex].z) < 0.1)
 		{
-			if (m_iTargetIndex == 3)
+			if (m_iTargetIndex == m_TargetListSize[m_iMonsterNum - 1]-1)
 				m_iTargetIndex = 0;
 			else
 				m_iTargetIndex++;

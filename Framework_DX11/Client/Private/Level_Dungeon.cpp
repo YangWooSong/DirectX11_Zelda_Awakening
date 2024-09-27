@@ -17,6 +17,8 @@
 #include "Vegas.h"
 #include "OnewayDoorReverse.h"
 #include "Rola.h"
+#include "SquareBlock.h"
+
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -167,6 +169,16 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_ConchHorn"), TEXT("Prototype_GameObject_ConchHorn"), &ObjectDesc)))
 		return E_FAIL;
+
+	CSquareBlock::SQUARE_DESC SquareDesc;
+	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
+	ObjectDesc.iRoomNum = 14;
+	ObjectDesc.vPosition = _float3(-17.22f, 0.f, 48.72f);
+	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
+	SquareDesc.bActiveCollider = true;
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), TEXT("Prototype_GameObject_SquareBlock"), &ObjectDesc)))
+		return E_FAIL;
+
     return S_OK;
 }
 
@@ -390,7 +402,16 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 	}
 	else if (_strLyaerTag == "Layer_SquareBlock")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock"), TEXT("Prototype_GameObject_SquareBlock"), &pDesc)))
+		CSquareBlock::SQUARE_DESC pSqureDesc = {  };
+		pSqureDesc.bActiveCollider = false;
+		pSqureDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
+		pSqureDesc.listIndex = _index;
+
+		pSqureDesc.vPosition = _fPos;
+		pSqureDesc.vScale = _fScaled;
+		pSqureDesc.vRotation = _fRot;
+		pSqureDesc.iRoomNum = _iRoomNum;
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock"), TEXT("Prototype_GameObject_SquareBlock"), &pSqureDesc)))
 			return E_FAIL;
 	}
 	else if (_strLyaerTag == "Layer_StoneHinoxRock")
@@ -606,6 +627,16 @@ void CLevel_Dungeon::Change_Room()
 	}
 
 	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_ConchHorn"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"));
 
 	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 	{
@@ -933,7 +964,7 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 					for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 					{
 						if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
-							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
+							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(false);
 					}
 
 					m_bRestartBgm = true;
@@ -956,7 +987,6 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 
 	if (m_iCurRoomNum == 12)
 	{
-		
 		if (m_bFirstInRoom12)
 		{
 			if (XMVectorGetZ(m_pPlayer->Get_Position()) > 43.f)
@@ -976,6 +1006,29 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 	}
 	else
 		pDeguTail->SetActive(false);
+
+#pragma endregion
+
+#pragma region ROOM_14
+	CSquareBlock* pBlock = static_cast<CSquareBlock*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), 0));
+
+	if (m_iCurRoomNum == 14)
+	{
+		if (pBlock->Get_isStopMove() && pBlock->Get_IsPushed())
+		{
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+
+			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+			{
+				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+				{
+					if(static_cast<COnewayDoorReverse*>(*iter)->Get_Opened() == false)
+						static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
+				}
+
+			}
+		}
+	}
 
 #pragma endregion
 }
