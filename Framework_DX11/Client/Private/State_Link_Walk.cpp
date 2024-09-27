@@ -1,3 +1,4 @@
+
 #include "stdafx.h"
 #include "State_Link_Walk.h"
 #include "GameInstance.h"
@@ -93,6 +94,7 @@ void CState_Link_Walk::Update(_float fTimeDelta)
     {
         m_pPlayer->Set_Player_Dir(CPlayer::LEFT);
     }
+
 
     m_pPlayer->Go_Straight(fTimeDelta, m_fPlayerSpeed, m_pPlayer_Navigation);
 

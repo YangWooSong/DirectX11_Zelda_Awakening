@@ -893,7 +893,7 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 			{
 				m_fRolaDeadTimer += fTimeDelta;
 
-				if(m_bRestartBgm == false && m_fRolaDeadTimer > 0.2f)	//문열고 bgm전환
+				if(m_bRestartBgm == false && m_fRolaDeadTimer > 1.f)	//문열고 bgm전환
 				{
 					pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
 
@@ -908,7 +908,7 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				}
 
 				//필요한 연출 끝나고 줌 아웃
-				if (m_fRolaDeadTimer > 1.f && m_bCamZoomOut_Room10 == false)
+				if (m_fRolaDeadTimer > 2.5f && m_bCamZoomOut_Room10 == false)
 				{
 					m_bCamZoomOut_Room10 = true;
 					static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Zoom_Out(1.1f, 60.f);

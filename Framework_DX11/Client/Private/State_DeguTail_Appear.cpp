@@ -21,12 +21,17 @@ HRESULT CState_DeguTail_Appear::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
-    m_pOwner->Get_Sound()->Play_Sound(TEXT("2_DeguTail_Appear.wav"), 1.f);
+  
     return S_OK;
 }
 
 void CState_DeguTail_Appear::Update(_float fTimeDelta)
 {
+    if (m_bPlaySound)
+    {
+        m_bPlaySound = true;
+        m_pOwner->Get_Sound()->Play_Sound(TEXT("2_DeguTail_Appear.wav"), 1.f);
+    }
     if (m_pOwner->Get_IsEnd_CurrentAnimation())
         m_pOwner->Change_State(CDeguTail_00::WALK);
 }

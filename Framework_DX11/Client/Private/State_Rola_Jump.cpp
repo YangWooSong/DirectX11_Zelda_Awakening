@@ -54,8 +54,10 @@ void CState_Rola_Jump::Update(_float fTimeDelta)
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump") == 0 && m_fLerpSpeed > 0.5f)
     {
         m_iCurrentAnimIndex = m_iJumpEdAnimIndex;
-        m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
+        m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.05f);
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
+        *static_cast<CRola*>(m_pOwner)->Get_Arrived() = true;
+
         if(m_bJumpSound == false)
         {
             m_bJumpSound = true;
@@ -67,6 +69,7 @@ void CState_Rola_Jump::Update(_float fTimeDelta)
         m_bJumpEnd = true;
         if (*m_pTargetIndex == 0 || *m_pTargetIndex == 4)
         {
+           // m_baArrived = true;
             m_pOwner->Change_State(CRola::PUSH);
         }
         else
@@ -78,7 +81,7 @@ void CState_Rola_Jump::Update(_float fTimeDelta)
 
     if(strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "jump") == 0)
     {
-        m_fLerpSpeed = min(1.f, m_fLerpSpeed += fTimeDelta * 0.3f);
+        m_fLerpSpeed = min(1.f, m_fLerpSpeed += fTimeDelta * 0.4f);
         _vector vChangePos = XMVectorLerp(m_pOwner->Get_Pos_vector(), XMLoadFloat3(&m_vTargetPos[*m_pTargetIndex]), m_fLerpSpeed);
         m_pOwner->Get_Transform()->Set_State(CTransform::STATE_POSITION, vChangePos);
 
@@ -92,15 +95,19 @@ void CState_Rola_Jump::End_State()
     m_fTurnTimer = 0.f;
     if (*m_pTargetIndex == 0 || *m_pTargetIndex == 4)
     {
-        *m_pAddDir *= -1;
+       /* if(m_baArrived)
+        {
+            
+            m_baArrived = false;
+            *m_pAddDir *= -1;
+        }*/
     }
     m_bJumpSound = false;
-    m_iPreTargetPosIndex = *m_pTargetIndex;
+
 }
 
 void CState_Rola_Jump::Set_TargetPos()
 {
-
 
     *m_pTargetIndex += *m_pAddDir;
 

@@ -45,7 +45,7 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	if (FAILED(Ready_PartObjects()))
 		return E_FAIL;
 
-	m_pFsmCom->Set_State(WALK);
+	m_pFsmCom->Set_State(APPEAR);
 
 	m_iDir = (int)m_pGameInstance->Get_Random(0, 4);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));

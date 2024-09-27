@@ -69,7 +69,7 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
     {
         if (m_bOpend == true && m_fTimer == 0.f)
         {
-            m_pSoundCom->Play_Sound(TEXT("4_Obj_OnewayDoor_Open.wav"), 0.8f);
+        
             m_iCurrentAnimIndex = m_iOpenAnimIndex;
             m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, false);
         }
@@ -87,6 +87,11 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
         {
             m_bSoundPlay = true;
             m_pSoundCom->Play_Sound(TEXT("4_Obj_OnewayDoor_Close.wav"), 0.8f);
+        }
+        if (m_pModelCom->Get_CurrentTrackPosition() > 0.5f && m_iCurrentAnimIndex == m_iOpenAnimIndex && m_bSoundPlay == false)
+        {
+            m_bSoundPlay = true;
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_OnewayDoor_Open.wav"), 0.8f);
         }
     }
 

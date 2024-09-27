@@ -158,7 +158,24 @@ _bool CNavigation::isMove(_fvector vPosition, _bool bMovecliff)
 
 		/* 나간쪽에 이웃이 없다라면. */
 		else
+		{
+			_int i = 0;
+			for (auto& iter : m_Cells)
+			{
+				if(	iter->isIn(vLocalPos, &iNeighborIndex, &m_vOutLine) == true)
+				{
+					m_iPreCellIndex = m_iCurrentCellIndex;
+
+					m_iCurrentCellIndex = i;
+					m_iCurrentCelltype = iter->Get_CellType();
+					return true;
+				}
+				i++;
+
+			}
 			return false;
+		}
+			
 	}
 }
 

@@ -16,6 +16,8 @@ HRESULT CState_Rola_Push::Initialize(_uint iStateNum)
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("push");
     m_iStateNum = iStateNum;
     m_pAddDir = static_cast<CRola*>(m_pOwner)->Get_AddDir();
+    m_pARrived = static_cast<CRola*>(m_pOwner)->Get_Arrived();
+    m_pTargetIndex = static_cast<CRola*>(m_pOwner)->Get_TargetPosIndex();
     m_pRollingSpike = static_cast<CRollingSpike*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_RollingSpike"), 0));
     return S_OK;
 }
@@ -30,17 +32,22 @@ HRESULT CState_Rola_Push::Start_State()
 void CState_Rola_Push::Update(_float fTimeDelta)
 {
     //È¸Àü
-    if(*m_pAddDir == 1)
+    if(*m_pTargetIndex == 0)
     {
         m_pOwner->Get_Transform()->Turn_Lerp(_vector{-1.f, 0.f,0.f}, 5.f, fTimeDelta);
     }
-    else if (*m_pAddDir == -1)
+    else if (*m_pTargetIndex == 4)
     {
         m_pOwner->Get_Transform()->Turn_Lerp(_vector{ 1.f, 0.f,0.f }, 5.f, fTimeDelta);
     }
         
     if (m_pOwner->Get_Model()->Get_CurrentTrackPosition() > 35.f)
     {
+        if (*m_pARrived)
+        {
+            *m_pARrived = false;
+            *m_pAddDir *= -1;
+        }
         if (*m_pAddDir == -1)
             m_pRollingSpike->Start_Move_Right();
         else
@@ -54,6 +61,7 @@ void CState_Rola_Push::Update(_float fTimeDelta)
 
 void CState_Rola_Push::End_State()
 {
+    
 }
 
 CState_Rola_Push* CState_Rola_Push::Create(CFsm* pFsm, CMonster* pOwner, _uint iStateNum)

@@ -27,6 +27,8 @@ private:
 
     _uint               m_iCurrentAnimIndex = {};
     _int*               m_pAddDir = { nullptr };
+    _uint*               m_pTargetIndex = { nullptr };
+    _bool*               m_pARrived = { nullptr };
 
 public:
     static CState_Rola_Push* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);

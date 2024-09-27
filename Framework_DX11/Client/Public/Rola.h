@@ -47,7 +47,7 @@ private:
 private:
 	_uint		m_iRedCount = { 0 };
 	_uint		m_iTargetPosIndex = { 0 };
-	_int		m_iAddDir = { 1 };			//인덱스 늘릴때 쓰는 방향 변수 + -1은 오른쪽으로 이동, 1은 왼쪽으로 이동
+	_int		m_iAddDir = { -1 };			//인덱스 늘릴때 쓰는 방향 변수 + -1은 오른쪽으로 이동, 1은 왼쪽으로 이동
 
 	_float		m_fTimer = { 0.f };
 	_float		m_fNonRedTimer = { 0.f };

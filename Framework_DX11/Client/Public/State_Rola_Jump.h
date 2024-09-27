@@ -33,10 +33,10 @@ private:
     _float              m_fLerpSpeed = { 0.f };
     _float              m_fTurnTimer = { 0.f };
    
-    _int                m_iPreTargetPosIndex = { 0 };
     _int*               m_pAddDir = {nullptr};
     _bool               m_bJumpEnd = { false };
     _bool               m_bJumpSound = { false };
+  //  _bool               m_baArrived = { false };
 
     _vector             m_vTargetLook = {};
 
