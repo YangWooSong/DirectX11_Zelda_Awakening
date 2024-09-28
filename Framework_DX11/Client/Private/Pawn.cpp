@@ -136,7 +136,7 @@ void CPawn::OnCollisionStay(CGameObject* pOther)
 {
 	if (m_pColliderCom->Get_IsColl())
 	{
-		if (pOther->Get_LayerTag() == TEXT("Layer_Monster"))
+		if (pOther->Get_LayerTag() == TEXT("Layer_Pawn"))
 		{
 			_vector newLook = pOther->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
 			newLook = XMVector3Normalize(newLook);

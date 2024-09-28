@@ -15,6 +15,8 @@ HRESULT CState_Togezo_Idle::Initialize(_uint iStateNum)
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("wait");
     m_iStateNum = iStateNum;
 
+    m_bDetectHori = static_cast<CTogezo*>(m_pOwner)->Get_bDetectHor();
+    m_bDetectVer = static_cast<CTogezo*>(m_pOwner)->Get_bDetectVer();
     return S_OK;
 }
 
@@ -27,7 +29,7 @@ HRESULT CState_Togezo_Idle::Start_State()
 
 void CState_Togezo_Idle::Update(_float fTimeDelta)
 {
-    if (KEY_AWAY(Z))
+    if (*m_bDetectHori || *m_bDetectVer)
     {
         m_pOwner->Change_State(CTogezo::DISCOVER);
     }

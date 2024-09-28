@@ -208,9 +208,9 @@ HRESULT CRola::Ready_Components()
 	/* For.Com_Collider */
 	CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
 	ColliderDesc.vExtents = _float3(1.f, 1.f, 1.f);
-	ColliderDesc.vCenter = _float3(0.f, 0.3f, 0.f);
+	ColliderDesc.vCenter = _float3(0.f, 0.5f, 0.f);
 
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_Sphere"),
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);

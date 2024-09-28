@@ -25,7 +25,7 @@ private:
     class CMonster* m_pOwner = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
-
+    _bool               m_pPlaySound = { false };
 public:
     static CState_Togezo_Damage* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

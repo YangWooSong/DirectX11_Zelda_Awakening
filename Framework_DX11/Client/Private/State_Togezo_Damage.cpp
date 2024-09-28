@@ -22,6 +22,8 @@ HRESULT CState_Togezo_Damage::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
   //  m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
+    m_pOwner->Minus_Hp();
+
     return S_OK;
 }
 
@@ -29,7 +31,20 @@ void CState_Togezo_Damage::Update(_float fTimeDelta)
 {
     if (m_pOwner->Get_IsEnd_CurrentAnimation())
     {
-        m_pOwner->Change_State(CTogezo::REBOUND);
+        if (m_pOwner->Get_Hp() <= 0)
+        {
+            if (m_pPlaySound == false)
+            {
+                m_pPlaySound = true;
+                m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Explosion.wav"), 1.f);
+            }
+
+            m_pOwner->Set_Dead(true);
+            m_pOwner->SetActive(false);
+        }
+        else
+            m_pOwner->Change_State(CTogezo::REBOUND);
+
     }
 
 }

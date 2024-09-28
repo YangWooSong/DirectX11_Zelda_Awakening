@@ -5,6 +5,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Bl
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Bomb.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\Bomb.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\BossDoor.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\BossDoor.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\ClosedPotDoor.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\ClosedPotDoor.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\ConchHorn.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\ConchHorn.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\FootSwitch.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\FootSwitch.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\InteractUI.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\InteractUI.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\CollapseTile.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\CollapseTile.obj
@@ -73,6 +74,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\St
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_ItemB.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_ItemB.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Jump.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_Jump.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Key.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_Key.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Push.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_Push.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Shield.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_Shield.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Shield_Walk.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_Shield_Walk.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Slash.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Release\State_Link_Slash.obj

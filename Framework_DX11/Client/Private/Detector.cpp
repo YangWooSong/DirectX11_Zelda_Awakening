@@ -26,6 +26,10 @@ HRESULT CDetector::Initialize(void* pArg)
 	m_pDetect = pDesc->pDetect;
 	m_vSize = pDesc->vSize;
 	m_vOffset = pDesc->vOffset;
+	m_pOwnerTransform = pDesc->pTransform;
+	m_bOnlyPos = pDesc->onlyPos;
+
+	Safe_AddRef(m_pOwnerTransform);
 
 	/* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(pArg)))
@@ -46,7 +50,10 @@ void CDetector::Priority_Update(_float fTimeDelta)
 
 void CDetector::Update(_float fTimeDelta)
 {
-	m_pColliderCom->Update(m_pParentMatrix);
+	//if (m_bOnlyPos)
+	//	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pOwnerTransform->Get_State(CTransform::STATE_POSITION));
+	//else
+		m_pColliderCom->Update(m_pParentMatrix);
 }
 
 void CDetector::Late_Update(_float fTimeDelta)
@@ -144,5 +151,5 @@ void CDetector::Free()
 	__super::Free();
 
 	Safe_Release(m_pColliderCom);
-
+	Safe_Release(m_pOwnerTransform);
 }

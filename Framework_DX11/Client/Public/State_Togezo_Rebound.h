@@ -25,11 +25,11 @@ private:
     class CMonster* m_pOwner = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
-
     _uint               m_iReoundStIndex = { 0 };
     _uint               m_iReoundEdIndex = { 0 };
     _uint               m_iReoundLpIndex = { 0 };
 
+    _bool m_bPlaySound = { false };
 public:
     static CState_Togezo_Rebound* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;

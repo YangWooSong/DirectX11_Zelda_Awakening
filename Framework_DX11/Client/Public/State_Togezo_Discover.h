@@ -24,7 +24,15 @@ public:
 private:
     class CMonster* m_pOwner = { nullptr };
 
+    _bool* m_bDetectHori = { nullptr };
+    _bool* m_bDetectVer = { nullptr };
+
+    _vector m_vTarget = { };
+
     _uint               m_iCurrentAnimIndex = {};
+
+private:
+    void Set_Dir();
 
 public:
     static CState_Togezo_Discover* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);

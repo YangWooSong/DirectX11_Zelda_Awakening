@@ -17,6 +17,9 @@ public:
 		_bool* pDetect = { nullptr };
 		_float3 vSize = {};
 		_float3 vOffset= {};
+		class CTransform* pTransform = { nullptr };
+		_bool onlyPos = false;
+
 	}DETECTOR_DESC;
 
 private:
@@ -42,13 +45,15 @@ public:
 private:
 	CCollider* m_pColliderCom = { nullptr };
 	CFsm* m_pOwnerFsm = { nullptr };
+	CTransform* m_pOwnerTransform = { nullptr };
 
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
 	_bool* m_pDetect = { nullptr };
 	_float3 m_vOffset = { };
 	_float3 m_vSize = { };
-private:
+	_bool m_bOnlyPos = { false };
+ private:
 	HRESULT Ready_Components();
 
 public:

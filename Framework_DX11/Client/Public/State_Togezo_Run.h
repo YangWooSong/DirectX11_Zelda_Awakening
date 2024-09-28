@@ -27,6 +27,9 @@ private:
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iRunStAnimIndex = {};
     _uint               m_iRunLpAnimIndex = {};
+    _uint               m_iDir = {};
+
+    _bool               m_bMove = { true };
 
 public:
     static CState_Togezo_Run* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);

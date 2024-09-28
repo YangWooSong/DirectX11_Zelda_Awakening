@@ -54,6 +54,7 @@ private:
 	_int m_iCloseAnimIndex = { 0 };
 	_float m_fTimer = { 1.f };
 
+	_bool m_bAddActor = { false };
 public:
 	static COnewayDoorReverse* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

@@ -66,13 +66,8 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
 
     m_pOwner->Get_Transform()->Turn_Lerp(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_RIGHT)* m_iReflectDir, 2.f, fTimeDelta);
  
-    m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, m_fSpeed, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
-
-    if (KEY_AWAY(Q))
-        m_pOwner->Change_State(CDeguTail_00::HURT);
-
-    if (KEY_AWAY(E))
-        m_pOwner->Change_State(CDeguTail_00::GUARD);
+  //  m_pOwner->Go_Straight_in_Room_Reverse(fTimeDelta, m_fSpeed, &m_bReflect, m_pOwnerNavigation, &m_iStopCount);
+    m_pOwner->Go_Straight_in_Room(fTimeDelta, m_fSpeed, m_pOwnerNavigation);
 }
 
 void CState_DeguTail_Walk::End_State()

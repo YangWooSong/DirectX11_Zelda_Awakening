@@ -24,6 +24,9 @@ public:
 private:
     class CMonster* m_pOwner = { nullptr };
 
+    _bool* m_bDetectHori = { nullptr };
+    _bool* m_bDetectVer = { nullptr };
+
     _uint               m_iCurrentAnimIndex = {};
 
 public:

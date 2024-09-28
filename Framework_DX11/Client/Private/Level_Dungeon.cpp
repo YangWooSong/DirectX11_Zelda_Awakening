@@ -65,10 +65,23 @@ void CLevel_Dungeon::Update(_float fTimeDelta)
 		Change_Room();
 
 	Setting_Gimmick(fTimeDelta);
+
+	m_fFpsTimer += fTimeDelta;
+	m_fFrameCount++;
+
+	if (m_fFpsTimer >= 1.0f)  // 1초가 지났을 때
+	{
+		m_fFps = m_fFrameCount / m_fFpsTimer;
+		m_fFrameCount = 0;
+		m_fFpsTimer = 0.0f;
+	}
+
 }
 
 HRESULT CLevel_Dungeon::Render()
 {
+	// FPS를 화면에 출력하거나 로그에 기록
+	printf("FPS: %f\n", m_fFps);
     SetWindowText(g_hWnd, TEXT("Dungoen 레벨입니다."));
     return S_OK;
 }
@@ -310,6 +323,11 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Rola"), TEXT("Prototype_GameObject_Rola"), &pDesc)))
 			return E_FAIL;
 	}
+	else if (_strLyaerTag == "Layer_Togezo")
+	{
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Togezo"), TEXT("Prototype_GameObject_Togezo"), &pDesc)))
+			return E_FAIL;
+	}
 	return S_OK;
 }
 
@@ -540,6 +558,15 @@ void CLevel_Dungeon::Change_Room()
 			static_cast<CGameObject*>(*iter)->SetActive(false);
 	}
 	
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Togezo"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
 #pragma endregion
 
 #pragma region NonAnimObj
@@ -727,11 +754,12 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 {
 	CLayer* pLayer = { nullptr };
 
-#pragma region ROOM_2
-	if (m_iCurRoomNum == 2)
+	switch (m_iCurRoomNum)
+	{
+	case 2:
 	{
 		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
-		if(pKey->Get_Dead() == false)
+		if (pKey->Get_Dead() == false)
 		{
 			int iCountAlive = 0;
 
@@ -749,16 +777,8 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				pKey->SetActive(true);
 		}
 	}
-	else
-	{
-		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
-		pKey->SetActive(false);
-	}
-
-#pragma endregion
-
-#pragma region ROOM_4
-	if (m_iCurRoomNum == 4)
+		break;
+	case 4:
 	{
 		CFootSwitch* pSwitch = static_cast<CFootSwitch*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"), 0));
 		if (pSwitch->Get_IsOn())
@@ -774,12 +794,9 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				}
 			}
 		}
-		
 	}
-#pragma endregion
-
-#pragma region ROOM_5
-	if (m_iCurRoomNum == 5)
+		break;
+	case 5:
 	{
 		CClosedPotDoor* pDoor = static_cast<CClosedPotDoor*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"), 0));
 		if (pDoor->Get_Opend())
@@ -795,12 +812,9 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				}
 			}
 		}
-
 	}
-#pragma endregion
-
-#pragma region ROOM_7
-	if (m_iCurRoomNum == 7)
+		break;
+	case 7:
 	{
 		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_PurpleQuartz"));
 
@@ -813,7 +827,7 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				if (static_cast<CPurpleQuartz*>(*iter)->Get_isBreaked() == false)
 					iAliveCount++;
 			}
-			
+
 		}
 
 		if (iAliveCount == 0)
@@ -830,10 +844,8 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 			}
 		}
 	}
-#pragma endregion
-
-#pragma region ROOM_9
-	if (m_iCurRoomNum == 9)
+		break;
+	case 9:
 	{
 		_int iTextureNum = -1;
 		_int iDemageCount = 0;
@@ -869,7 +881,7 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 				static_cast<CVegas*>(*iter)->Get_Fsm()->Change_State(CVegas::IDLE);
 			}
 		}
-		else if(iDemageCount == 3 && bRestart == false)
+		else if (iDemageCount == 3 && bRestart == false)
 		{
 			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 			{
@@ -893,21 +905,19 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 			}
 		}
 	}
-#pragma endregion
-
-#pragma region ROOM_10
-	if (m_iCurRoomNum == 10)
+		break;
+	case 10:
 	{
 		if (m_bFirstInRoom10)
 		{
 			if (XMVectorGetX(m_pPlayer->Get_Position()) > 40.f)
 			{
-				if(m_pPlayer->Get_Fsm()->Get_CurrentState() != CLink::IDLE)
+				if (m_pPlayer->Get_Fsm()->Get_CurrentState() != CLink::IDLE)
 					m_pPlayer->Change_State(CLink::IDLE);
 
 				m_fTimer += fTimeDelta;
 
-				if(m_fTimer > 0.5f)
+				if (m_fTimer > 0.5f)
 				{
 					m_pPlayerCam->Zoom_In(1.1f, 60.f);
 
@@ -926,17 +936,17 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 		}
 		else
 		{
-			
+
 
 			CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
-			
+
 			if (m_pRola->Get_Dead() == false)
 				m_fTimer += fTimeDelta;
 
 			if (m_pRola->Get_Dead() == false && m_fTimer > 3.f)
 			{
 				//컷씬 기다리다 줌아웃
-				if(m_bCamZoomOut == false)
+				if (m_bCamZoomOut == false)
 				{
 					m_bCamZoomOut = true;
 					m_pPlayerCam->Zoom_Out(1.1f, 60.f);
@@ -953,18 +963,18 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 					m_pRola->Change_State(CRola::PUSH);
 				}
 			}
-			else if(m_pRola->Get_Dead()) //Rola죽으면
+			else if (m_pRola->Get_Dead()) //Rola죽으면
 			{
 				m_fRolaDeadTimer += fTimeDelta;
 
-				if(m_bRestartBgm == false && m_fRolaDeadTimer > 1.f)	//문열고 bgm전환
+				if (m_bRestartBgm == false && m_fRolaDeadTimer > 1.f)	//문열고 bgm전환
 				{
 					pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
 
 					for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 					{
 						if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
-							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(false);
+							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
 					}
 
 					m_bRestartBgm = true;
@@ -980,57 +990,431 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 			}
 		}
 	}
-#pragma endregion
-
-#pragma region ROOM_12
-	CDeguTail_00* pDeguTail = static_cast<CDeguTail_00*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), 0));
-
-	if (m_iCurRoomNum == 12)
+		break;
+	case 12:
 	{
-		if (m_bFirstInRoom12)
+		CDeguTail_00* pDeguTail = static_cast<CDeguTail_00*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), 0));
+
+		if (m_iCurRoomNum == 12)
 		{
-			if (XMVectorGetZ(m_pPlayer->Get_Position()) > 43.f)
+			if (m_bFirstInRoom12)
 			{
-				
-				m_pPlayer->Change_State(CLink::IDLE);
-
-				m_fTimer += fTimeDelta;
-
-				if (m_fTimer > 0.1f)
+				if (XMVectorGetZ(m_pPlayer->Get_Position()) > 43.f)
 				{
-					pDeguTail->SetActive(true);
-					m_bFirstInRoom12 = false;
+
+					m_pPlayer->Change_State(CLink::IDLE);
+
+					m_fTimer += fTimeDelta;
+
+					if (m_fTimer > 0.1f)
+					{
+						pDeguTail->SetActive(true);
+						m_bFirstInRoom12 = false;
+					}
 				}
 			}
 		}
+		else
+			pDeguTail->SetActive(false);
 	}
-	else
-		pDeguTail->SetActive(false);
-
-#pragma endregion
-
-#pragma region ROOM_14
-	CSquareBlock* pBlock = static_cast<CSquareBlock*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), 0));
-
-	if (m_iCurRoomNum == 14)
+		break;
+	case 14:
 	{
-		if (pBlock->Get_isStopMove() && pBlock->Get_IsPushed())
+		CSquareBlock* pBlock = static_cast<CSquareBlock*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), 0));
+
+		if (m_iCurRoomNum == 14)
 		{
-			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+			if (pBlock->Get_isStopMove() && pBlock->Get_IsPushed())
+			{
+				pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+
+				for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+				{
+					if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+					{
+						if (static_cast<COnewayDoorReverse*>(*iter)->Get_Opened() == false)
+							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
+					}
+
+				}
+			}
+		}
+
+	}
+		break;
+	case 15:
+	{
+		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Togezo"));
+
+		_int iAliveCount = 0;
+
+		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+		{
+			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+			{
+				if (static_cast<CMonster*>(*iter)->Get_Dead() == false)
+					iAliveCount++;
+			}
+
+		}
+
+		if (iAliveCount == 0)
+		{
+			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
 
 			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
 			{
-				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == 15)
 				{
-					if(static_cast<COnewayDoorReverse*>(*iter)->Get_Opened() == false)
-						static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
+					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+					static_cast<CTreasureBox*>(*iter)->SetActive(true);
 				}
-
 			}
 		}
 	}
+		break;
+	default:
+		break;
+	}
+//#pragma region ROOM_2
+//	if (m_iCurRoomNum == 2)
+//	{
+//		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
+//		if(pKey->Get_Dead() == false)
+//		{
+//			int iCountAlive = 0;
+//
+//			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Pawn"));
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//				{
+//					if (static_cast<CGameObject*>(*iter)->Get_Dead() == false)
+//						iCountAlive++;
+//				}
+//			}
+//
+//			if (iCountAlive == 0)
+//				pKey->SetActive(true);
+//		}
+//	}
+//	else
+//	{
+//		CGameObject* pKey = m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SmallKey"), 0);
+//		pKey->SetActive(false);
+//	}
+//
+//#pragma endregion
 
-#pragma endregion
+//#pragma region ROOM_4
+//	if (m_iCurRoomNum == 4)
+//	{
+//		CFootSwitch* pSwitch = static_cast<CFootSwitch*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_FootSwitch"), 0));
+//		if (pSwitch->Get_IsOn())
+//		{
+//			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+//
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//				{
+//					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+//					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+//				}
+//			}
+//		}
+//		
+//	}
+//#pragma endregion
+
+//#pragma region ROOM_5
+//	if (m_iCurRoomNum == 5)
+//	{
+//		CClosedPotDoor* pDoor = static_cast<CClosedPotDoor*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_ClosedPotDoor"), 0));
+//		if (pDoor->Get_Opend())
+//		{
+//			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+//
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//				{
+//					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+//					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+//				}
+//			}
+//		}
+//
+//	}
+//#pragma endregion
+
+//#pragma region ROOM_7
+//	if (m_iCurRoomNum == 7)
+//	{
+//		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_PurpleQuartz"));
+//
+//		_int iAliveCount = 0;
+//
+//		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//		{
+//			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//			{
+//				if (static_cast<CPurpleQuartz*>(*iter)->Get_isBreaked() == false)
+//					iAliveCount++;
+//			}
+//			
+//		}
+//
+//		if (iAliveCount == 0)
+//		{
+//			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+//
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (static_cast<CGameObject*>(*iter)->Get_CellNum() == 523)
+//				{
+//					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+//					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+//				}
+//			}
+//		}
+//	}
+//#pragma endregion
+
+//#pragma region ROOM_9
+//	if (m_iCurRoomNum == 9)
+//	{
+//		_int iTextureNum = -1;
+//		_int iDemageCount = 0;
+//		_bool bRestart = false;
+//
+//		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Vegas"));
+//
+//		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//		{
+//			if (static_cast<CVegas*>(*iter)->Get_Fsm()->Get_CurrentState() == CVegas::DAMAGE)
+//				iDemageCount++;
+//		}
+//
+//		if (iDemageCount == 3)	//전제가 다 멈춤 상태인지 확인
+//		{
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (iTextureNum == -1)
+//					iTextureNum = (int) static_cast<CVegas*>(*iter)->Get_TextureNum();
+//				else
+//				{
+//					if ((int) static_cast<CVegas*>(*iter)->Get_TextureNum() != iTextureNum)
+//						bRestart = true;	//모양이 하나라도 다르면 재시작
+//				}
+//			}
+//		}
+//
+//		//문양에 따라 초기화 or 죽이기
+//		if (bRestart)
+//		{
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				static_cast<CVegas*>(*iter)->Get_Fsm()->Change_State(CVegas::IDLE);
+//			}
+//		}
+//		else if(iDemageCount == 3 && bRestart == false)
+//		{
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				static_cast<CVegas*>(*iter)->Get_Fsm()->Change_State(CVegas::DEAD);
+//			}
+//		}
+//
+//		//다 죽으면 상자 활성화
+//		CVegas* pVegas = static_cast<CVegas*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Vegas"), 0));
+//		if (pVegas->Get_Dead() == true)
+//		{
+//			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+//
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//				{
+//					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+//					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+//				}
+//			}
+//		}
+//	}
+//#pragma endregion
+
+//#pragma region ROOM_10
+//	if (m_iCurRoomNum == 10)
+//	{
+//		if (m_bFirstInRoom10)
+//		{
+//			if (XMVectorGetX(m_pPlayer->Get_Position()) > 40.f)
+//			{
+//				if(m_pPlayer->Get_Fsm()->Get_CurrentState() != CLink::IDLE)
+//					m_pPlayer->Change_State(CLink::IDLE);
+//
+//				m_fTimer += fTimeDelta;
+//
+//				if(m_fTimer > 0.5f)
+//				{
+//					m_pPlayerCam->Zoom_In(1.1f, 60.f);
+//
+//					pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+//
+//					for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//					{
+//						if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(false);
+//
+//					}
+//
+//					m_bFirstInRoom10 = false;
+//				}
+//			}
+//		}
+//		else
+//		{
+//			
+//
+//			CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
+//			
+//			if (m_pRola->Get_Dead() == false)
+//				m_fTimer += fTimeDelta;
+//
+//			if (m_pRola->Get_Dead() == false && m_fTimer > 3.f)
+//			{
+//				//컷씬 기다리다 줌아웃
+//				if(m_bCamZoomOut == false)
+//				{
+//					m_bCamZoomOut = true;
+//					m_pPlayerCam->Zoom_Out(1.1f, 60.f);
+//				}
+//
+//				//패턴 시작
+//				CRola* m_pRola = static_cast<CRola*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_Rola"), 0));
+//				m_fTimer += fTimeDelta;
+//
+//				if (m_pRola->Get_Dead() == false && m_fTimer > 1.f && m_bChageBGM == false)
+//				{
+//					m_bChageBGM = true;
+//					m_pGameInstance->Play_BGM(TEXT("0_DungeonBoss_Middle.wav"), 0.8f);
+//					m_pRola->Change_State(CRola::PUSH);
+//				}
+//			}
+//			else if(m_pRola->Get_Dead()) //Rola죽으면
+//			{
+//				m_fRolaDeadTimer += fTimeDelta;
+//
+//				if(m_bRestartBgm == false && m_fRolaDeadTimer > 1.f)	//문열고 bgm전환
+//				{
+//					pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+//
+//					for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//					{
+//						if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//							static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
+//					}
+//
+//					m_bRestartBgm = true;
+//					m_pGameInstance->Play_BGM(TEXT("0_Dangeon1_TailCave"), 0.7f);
+//				}
+//
+//				//필요한 연출 끝나고 줌 아웃
+//				if (m_fRolaDeadTimer > 2.5f && m_bCamZoomOut_Room10 == false)
+//				{
+//					m_bCamZoomOut_Room10 = true;
+//					static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Zoom_Out(1.1f, 60.f);
+//				}
+//			}
+//		}
+//	}
+//#pragma endregion
+
+//#pragma region ROOM_12
+//	CDeguTail_00* pDeguTail = static_cast<CDeguTail_00*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), 0));
+//
+//	if (m_iCurRoomNum == 12)
+//	{
+//		if (m_bFirstInRoom12)
+//		{
+//			if (XMVectorGetZ(m_pPlayer->Get_Position()) > 43.f)
+//			{
+//				
+//				m_pPlayer->Change_State(CLink::IDLE);
+//
+//				m_fTimer += fTimeDelta;
+//
+//				if (m_fTimer > 0.1f)
+//				{
+//					pDeguTail->SetActive(true);
+//					m_bFirstInRoom12 = false;
+//				}
+//			}
+//		}
+//	}
+//	else
+//		pDeguTail->SetActive(false);
+//
+//#pragma endregion
+
+//#pragma region ROOM_14
+//CSquareBlock* pBlock = static_cast<CSquareBlock*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), 0));
+//
+//if (m_iCurRoomNum == 14)
+//{
+//	if (pBlock->Get_isStopMove() && pBlock->Get_IsPushed())
+//	{
+//		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_OnewayDoorReverse"));
+//
+//		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//		{
+//			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//			{
+//				if (static_cast<COnewayDoorReverse*>(*iter)->Get_Opened() == false)
+//					static_cast<COnewayDoorReverse*>(*iter)->Set_Open(true);
+//			}
+//
+//		}
+//	}
+//}
+//
+//#pragma endregion
+
+//#pragma region ROOM_15
+//
+//	if (m_iCurRoomNum == 15)
+//	{
+//		pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Togezo"));
+//
+//		_int iAliveCount = 0;
+//
+//		for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//		{
+//			if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+//			{
+//				if (static_cast<CMonster*>(*iter)->Get_Dead() == false)
+//					iAliveCount++;
+//			}
+//
+//		}
+//
+//		if (iAliveCount == 0)
+//		{
+//			pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_TreasureBox"));
+//
+//			for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+//			{
+//				if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == 15)
+//				{
+//					static_cast<CTreasureBox*>(*iter)->Set_bShow(true);
+//					static_cast<CTreasureBox*>(*iter)->SetActive(true);
+//				}
+//			}
+//		}
+//	}
+//
+//#pragma endregion
 }
 
 

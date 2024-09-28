@@ -49,7 +49,9 @@ private:
 
 	_float  m_fTimer = { 0.f };
 	_float  m_fRolaDeadTimer = { 0.f };
-
+	_float m_fFps = { 0.f };
+	_float m_fFpsTimer = { 0.f };
+	_float m_fFrameCount = { 0.f };
 	vector<vector<_uint>> m_RoomNumList = {
 		{28},               // Room 1
 		{27},               // Room 2

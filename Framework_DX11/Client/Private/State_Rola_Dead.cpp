@@ -24,6 +24,7 @@ HRESULT CState_Rola_Dead::Start_State()
     m_pGameInstance->Pause_BGM();
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
+    m_pOwner->Get_Collider()->Set_IsActive(false);
     static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Zoom_In(1.1f, 60.f);
     return S_OK;
 }

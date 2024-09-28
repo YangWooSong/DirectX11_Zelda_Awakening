@@ -14,6 +14,7 @@ class CTogezo :
 	public CMonster
 {
 public:
+	enum PARTID { PART_DETECTOR_HORIZON, PART_DETECTOR_VERTICAL, PART_END };
 	enum  TOGEZO_STATE { IDLE, RUN, REBOUND, DISCOVER, DAMAGE, STATE_END };
 private:
 	CTogezo(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -28,9 +29,23 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+public:
+	virtual void OnCollisionEnter(CGameObject* pOther) override;
+	virtual void OnCollisionStay(CGameObject* pOther) override;
+	virtual void OnCollisionExit(CGameObject* pOther) override;
+
+	_bool* Get_bDetectHor() { return &m_bHoriDetect; }
+	_bool* Get_bDetectVer() { return &m_bVerDetect; }
+
+private:
+	_bool m_bVerDetect = { false };
+	_bool m_bHoriDetect = { false };
+	_bool	m_bBodyRed = { false };
+	_float	m_fRedTimer = { false };
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
+	HRESULT Ready_PartObjects();
 
 public:
 	static CTogezo* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

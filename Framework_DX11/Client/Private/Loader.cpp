@@ -36,7 +36,6 @@
 #include "OctorokRock.h"
 #include "Detector.h"
 
-#include "Togezo.h"
 #include "Kuribo.h"
 
 #include "Particle_Explosion.h"
@@ -67,6 +66,7 @@
 #include "OnewayDoorReverse.h"
 #include "BossDoor.h"
 #include "ConchHorn.h"
+#include "Togezo.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
@@ -598,19 +598,10 @@ HRESULT CLoader::Ready_Models_For_Test()
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 #pragma region MONSTER
 
-
-
-	/* For. Prototype_Component_Model_Togezo*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Togezo"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Togezo/Togezo.dat", PreTransformMatrix))))
-		return E_FAIL;
-
 	/* For. Prototype_Component_Model_Kuribo*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_Kuribo"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Kuribo/Kuribo.dat"))))
 		return E_FAIL;
-
-
 
 	/* For. Prototype_Component_Model_StalfosGreen*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Model_StalfosGreen"),
@@ -689,6 +680,11 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Rola"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Rola/Rola.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Togezo*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Model_Togezo"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Monster/Togezo/Togezo.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 #pragma endregion
@@ -854,12 +850,6 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 {
 #pragma region MONSTER
 	
-
-	/* For. Prototype_GameObject_Togezo*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
-		CTogezo::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
 	/* For. Prototype_GameObject_Kuribo*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Kuribo"),
 		CKuribo::Create(m_pDevice, m_pContext))))
@@ -867,8 +857,6 @@ HRESULT CLoader::Ready_Prototype_For_Test()
 
 
 #pragma endregion
-
-
 
 	/* For. Prototype_GameObject_Particle_Snow */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Snow"),
@@ -917,6 +905,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_Rola*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola"),
 		CRola::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Togezo*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Togezo"),
+		CTogezo::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 #pragma endregion

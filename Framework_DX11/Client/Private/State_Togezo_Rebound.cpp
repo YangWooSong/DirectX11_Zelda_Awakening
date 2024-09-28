@@ -33,12 +33,18 @@ HRESULT CState_Togezo_Rebound::Start_State()
         m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
     }
+
+
     return S_OK;
 }
 
 void CState_Togezo_Rebound::Update(_float fTimeDelta)
 {
-
+    if (m_bPlaySound == false)
+    {
+        m_bPlaySound = true;
+        m_pOwner->Get_Sound()->Play_Sound(TEXT("4_Obj_BladeTrap.wav"), 0.5f);
+    }
     if (strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "rebound_st") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
         m_iCurrentAnimIndex = m_iReoundEdIndex;
