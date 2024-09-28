@@ -31,7 +31,7 @@ HRESULT CInteractUI::Initialize(void* pArg)
 
     m_isActive = false;
 
-    m_pTransformCom->Set_Scaled(1.2f, 1.f, 1.f);
+    m_pTransformCom->Set_Scaled(1.0f, 0.7f, 0.7f);
 
 
     return S_OK;
@@ -49,19 +49,21 @@ void CInteractUI::Update(_float fTimeDelta)
 
     XMStoreFloat3(&fPos, vPos);
 
-    fPos = { fPos.x + 0.5f ,0.f ,fPos.z - 0.5f };
+    fPos = { fPos.x + 0.7f ,fPos.y ,fPos.z - 0.6f };
 
     m_pTransformCom->Set_State(CTransform::STATE_POSITION,XMLoadFloat3(&fPos));
 
     if(m_iTextureNum == 3)
-        m_pTransformCom->Set_Scaled(2.4f, 2.f, 1.f);
+        m_pTransformCom->Set_Scaled(2.f, 0.9f, 0.9f);
+    else
+        m_pTransformCom->Set_Scaled(1.0f, 0.7f, 0.7f);
 }
 
 void CInteractUI::Late_Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-       // m_pTransformCom->BillBoard(static_cast<CLink*>(m_pParentGameObj)->Get_LevelIndex());
+        m_pTransformCom->BillBoard(static_cast<CLink*>(m_pParentGameObj)->Get_LevelIndex());
         m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
     }
 }

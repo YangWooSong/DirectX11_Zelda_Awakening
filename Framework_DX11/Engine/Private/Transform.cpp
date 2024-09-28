@@ -891,7 +891,11 @@ void CTransform::BillBoard(_uint iLevelIndex)
 
 	_vector		vPosition = Get_State(STATE_POSITION);
 
+
 	_vector		vLook = vPosition - static_cast<CCamera*>(m_pGameInstance->Find_Camera(iLevelIndex))->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+	// Y축 성분 제거 (Y축 회전을 방지)
+	vLook = XMVectorSet(0.f, XMVectorGetY(vLook), XMVectorGetZ(vLook), 0.f); // Y축 성분을 0으로 설정
+	vLook = XMVector3Normalize(vLook);  // Look 벡터 정규화
 
 	// Up 벡터와 Look 벡터를 외적하여 Right 벡터를 구함
 	_vector		vRight = XMVector3Cross(XMVectorSet(0.f, 1.f, 0.f, 0.f), vLook);

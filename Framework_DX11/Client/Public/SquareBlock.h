@@ -44,7 +44,8 @@ private:
 	_bool m_bColliderActive = { false };
 	_bool m_bPushed = { false };
 	_bool m_bStopMove = { false };
-
+	_bool m_bMoveActor = { false };
+	_bool m_bAddActor = { false };
 	_uint m_iDir = { 0 };
 	_float3 m_vTarget = { -18.72f, 0.f, 48.72f };
 

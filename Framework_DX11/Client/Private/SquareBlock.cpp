@@ -75,13 +75,17 @@ void CSquareBlock::Late_Update(_float fTimeDelta)
     {
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
-        if (m_bColliderActive)
-        {
+        if(m_pColliderCom != nullptr && m_bPushed == false)
             m_pGameInstance->Add_ColliderList(m_pColliderCom);
+
+       // if (m_bColliderActive)
+      //  {
+           // m_pGameInstance->Add_ColliderList(m_pColliderCom);
 #ifdef _DEBUG
+        if (m_pColliderCom != nullptr)
             m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
-        }
+       // }
     }
 
 }
@@ -146,6 +150,12 @@ HRESULT CSquareBlock::Ready_Components()
 
 void CSquareBlock::Move(_float fTimeDelta)
 {
+    if (m_bMoveActor == false)
+    {
+        m_bMoveActor = true;
+        m_pGameInstance->Destroy_PhysXActor(this);
+    }
+
     _float3 curPos = {};
     XMStoreFloat3(&curPos, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 

@@ -66,22 +66,22 @@ void CLevel_Dungeon::Update(_float fTimeDelta)
 
 	Setting_Gimmick(fTimeDelta);
 
-	m_fFpsTimer += fTimeDelta;
-	m_fFrameCount++;
+	//m_fFpsTimer += fTimeDelta;
+	//m_fFrameCount++;
 
-	if (m_fFpsTimer >= 1.0f)  // 1초가 지났을 때
-	{
-		m_fFps = m_fFrameCount / m_fFpsTimer;
-		m_fFrameCount = 0;
-		m_fFpsTimer = 0.0f;
-	}
+	//if (m_fFpsTimer >= 1.0f)  // 1초가 지났을 때
+	//{
+	//	m_fFps = m_fFrameCount / m_fFpsTimer;
+	//	m_fFrameCount = 0;
+	//	m_fFpsTimer = 0.0f;
+	//}
 
 }
 
 HRESULT CLevel_Dungeon::Render()
 {
 	// FPS를 화면에 출력하거나 로그에 기록
-	printf("FPS: %f\n", m_fFps);
+	//printf("FPS: %f\n", m_fFps);
     SetWindowText(g_hWnd, TEXT("Dungoen 레벨입니다."));
     return S_OK;
 }
