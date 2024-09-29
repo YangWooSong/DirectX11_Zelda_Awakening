@@ -21,6 +21,7 @@ public:
 	VTXMESH*		Get_Vertices() { return m_pVertices; }
 	VTXANIMMESH*	Get_AnimVertices() { return m_pAnimVertices; }
 	_uint*			Get_Indices() { return m_pIndices; }
+	_uint           Get_NumVertices() { return m_iNumVertices; }
 
 public:
 	virtual HRESULT Initialize_Prototype(HANDLE* pFile, const CModel* pModel, _fmatrix PreTransformMatrix);

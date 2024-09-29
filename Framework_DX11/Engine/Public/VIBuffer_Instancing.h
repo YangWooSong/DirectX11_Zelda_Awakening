@@ -16,7 +16,7 @@ public:
         _float2     vSize;      //객체 최소, 최대 사이즈
         _float2		vSpeed;     //이동 속도(최소, 최대)
         _float2		vLifeTime;
-        _bool		isLoop;
+        _bool		isLoop;		//반복되서 작동 하는지
 
     }INSTANCE_DESC;
 

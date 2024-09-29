@@ -176,6 +176,7 @@
     <ClInclude Include="..\Public\ClosedPotDoor.h" />
     <ClInclude Include="..\Public\ConchHorn.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
+    <ClInclude Include="..\Public\HousePot_Particle.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
     <ClInclude Include="..\Public\CrackedWall.h" />
@@ -308,6 +309,7 @@
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\ConchHorn.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
+    <ClCompile Include="..\Private\HousePot_Particle.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
     <ClCompile Include="..\Private\CrackedWall.cpp" />
@@ -450,6 +452,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxModelInstance.hlsl" />
     <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxNorTex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>

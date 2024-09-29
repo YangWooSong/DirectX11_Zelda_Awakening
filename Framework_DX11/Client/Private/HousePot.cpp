@@ -43,7 +43,7 @@ HRESULT CHousePot::Initialize(void* pArg)
     else
         m_isActive = true;
 
-    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Expolosion"), nullptr);
+    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_HousePot_Particle"), nullptr);
 
     return S_OK;
 }

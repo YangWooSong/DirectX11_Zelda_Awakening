@@ -14,11 +14,13 @@ protected:
 	virtual ~CVIBuffer() = default;
 
 public:
-	_float3*		Get_VerticesPos() { return m_pVerticesPos; }
+	_float3* Get_VerticesPos() { return m_pVerticesPos; }
 
 	_uint			Get_NumVertices() { return m_iNumVertices; }
 	_uint			Get_NumIndices() { return m_iNumIndices; }
 
+	ID3D11Buffer* Get_VB() { return m_pVB; }
+	ID3D11Buffer* Get_IB() { return m_pIB; }
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);

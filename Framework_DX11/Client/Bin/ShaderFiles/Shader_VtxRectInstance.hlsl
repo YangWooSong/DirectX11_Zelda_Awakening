@@ -21,7 +21,7 @@ struct VS_IN
 struct VS_OUT
 {
 	/* SV_ : ShaderValue */
-	/* 내가 해야할 연산은 모두 마쳐놓은 것이므로 이후 dx가 추가적으로 해야할 이릉ㄹ 해라. */
+	/* 내가 해야할 연산은 모두 마쳐놓은 것이므로 이후 dx가 추가적으로 해야할 일을 해라. */
     float4 vPosition : SV_POSITION;
     float2 vTexcoord : TEXCOORD0;
     float2 vLifeTime : TEXCOORD1;

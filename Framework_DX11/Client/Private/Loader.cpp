@@ -24,6 +24,7 @@
 #include "Sword.h"
 #include "Shield.h"
 #include "Bomb.h"
+#include "HousePot_Particle.h"
 
 #include "Lawn.h"
 #include "Grass.h"
@@ -238,6 +239,10 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Shader_VtxRectInstance */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxModelInstance"),
+		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxModelInstance.hlsl"), VTXMODELINSTANCE::Elements, VTXMODELINSTANCE::iNumElements))))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
 
@@ -271,6 +276,11 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
 		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		return E_FAIL;
+
+	ParticleDesc.iNumInstance = 50;
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
@@ -339,6 +349,13 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Detector"),
 		CDetector::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+
+	/* For. Prototype_GameObject_OctorokRock*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_HousePot_Particle"),
+		CHousePot_Particle::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -509,6 +526,11 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 	/* For. Prototype_Component_Model_Bomb*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Bomb"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bomb/Bomb.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_HousePot_Particle*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_HousePot_Particle"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/purplequartz_particle/purplequartz_particle.dat"))))
 		return E_FAIL;
 
 	return S_OK;
