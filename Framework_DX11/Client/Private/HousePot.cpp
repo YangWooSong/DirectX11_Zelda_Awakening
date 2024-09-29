@@ -184,7 +184,7 @@ HRESULT CHousePot::Ready_Components()
 
 
     /* FOR.Com_Model */
-    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_Obj_HousePot"),
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_HousePot_Particle"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
 

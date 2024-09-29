@@ -26,10 +26,10 @@ HRESULT CVIBuffer_Model_Instance::Initialize(void* pArg)
 
 	m_iNumVertexBuffers = 2;
 	m_iNumVertices = pDesc->iNumVertices;
-	m_iVertexStride = sizeof(VTXPOSTEX);
+	m_iVertexStride = sizeof(VTXMESH); // 여기 정보 잘못되어있었음
 	m_iNumIndices = pDesc->iNumIndices;
-	m_iIndexStride = 2;
-	m_eIndexFormat = DXGI_FORMAT_R16_UINT;
+	m_iIndexStride = 4;
+	m_eIndexFormat = DXGI_FORMAT_R32_UINT;	// 여기 16비트로 되어있었음
 	m_eTopology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	m_iInstanceStride = sizeof(VTXMODELINSTANCE);
 	m_iIndexCountPerInstance = m_iNumIndices;
@@ -47,6 +47,13 @@ HRESULT CVIBuffer_Model_Instance::Initialize(void* pArg)
 #pragma endregion
 
 #pragma region INSTANCE_BUFFER
+
+	//일단 이거 조절하는 곳이 필요함
+	m_vSize.x = 1.f;
+	m_vSize.y = 1.f;
+	m_isLoop = true;
+	m_iNumInstance = 1.f;
+
 
 	ZeroMemory(&m_InstanceBufferDesc, sizeof m_InstanceBufferDesc);
 	m_InstanceBufferDesc.ByteWidth = m_iInstanceStride * m_iNumInstance;
@@ -66,9 +73,9 @@ HRESULT CVIBuffer_Model_Instance::Initialize(void* pArg)
 		_float	fScale = m_pGameInstance->Get_Random(m_vSize.x, m_vSize.y);
 
 		//회전하면 큰일 남
-		pInstanceVertices[i].vRight = _float4(fScale, 0.f, 0.f, 0.f);
-		pInstanceVertices[i].vUp = _float4(0.f, fScale, 0.f, 0.f);
-		pInstanceVertices[i].vLook = _float4(0.f, 0.f, 1.f, 0.f);
+		pInstanceVertices[i].vRight = _float4(3.f, 0.f, 0.f, 0.f);
+		pInstanceVertices[i].vUp = _float4(0.f, 3.f, 0.f, 0.f);
+		pInstanceVertices[i].vLook = _float4(0.f, 0.f, 3.f, 0.f);
 		pInstanceVertices[i].vTranslation = _float4(
 			m_pGameInstance->Get_Random(m_vCenterPos.x - m_vRange.x * 0.5f, m_vCenterPos.x + m_vRange.x * 0.5f),
 			m_pGameInstance->Get_Random(m_vCenterPos.y - m_vRange.y * 0.5f, m_vCenterPos.y + m_vRange.y * 0.5f),

@@ -5,7 +5,7 @@
 
 BEGIN(Engine)
 class CShader;
-class CVIBuffer_Point_Instance;
+class CVIBuffer_Model_Instance;
 class CModel;
 END
 
@@ -28,7 +28,7 @@ public:
 
 public:
 	CShader* m_pShaderCom = { nullptr };
-	CVIBuffer_Point_Instance* m_pVIBufferCom = { nullptr };
+	CVIBuffer_Model_Instance* m_pVIBufferCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
 
 private:

@@ -39,7 +39,7 @@ void CHousePot_Particle::Priority_Update(_float fTimeDelta)
 
 void CHousePot_Particle::Update(_float fTimeDelta)
 {
-	m_pVIBufferCom->Spread(fTimeDelta);
+	//m_pVIBufferCom->Spread(fTimeDelta);
 
 }
 

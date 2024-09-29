@@ -37,6 +37,11 @@ VS_OUT VS_MAIN( /*정점*/VS_IN In)
 {
     VS_OUT Out = (VS_OUT) 0;
 
+    matrix matWV, matWVP;
+
+    matWV = mul(g_WorldMatrix, g_ViewMatrix);
+    matWVP = mul(matWV, g_ProjMatrix);
+    
 	/* 정점에 위치를 월드 뷰 투영변환한다.*/		
 	/* 클라이언트에서 곱셈연산을 수행하는 TrnasformCoord함수와는 다르게 */
 	/* mul함수의 경우에는 순수하게 행렬의 곱하기만 수행을 하고 w나누기연산자체는 수행하지 않는다. */
@@ -44,15 +49,10 @@ VS_OUT VS_MAIN( /*정점*/VS_IN In)
 
 	/* 로컬상태에서의 움직임 구현. */
     vector vPosition = mul(float4(In.vPosition, 1.f), TransformMatrix);
+    vector vNormal = normalize(mul(vector(In.vNormal, 0.f), TransformMatrix));
 
-	/* 월드에 특정 상태로 배치한다. */
-    vPosition = mul(vPosition, g_WorldMatrix);
-
-    vPosition = mul(vPosition, g_ViewMatrix);
-    vPosition = mul(vPosition, g_ProjMatrix);
-
-    Out.vPosition = vPosition;
-    Out.vNormal = normalize(mul(vector(In.vNormal, 0.f), g_WorldMatrix));
+    Out.vPosition = mul(vPosition, matWVP);
+    Out.vNormal = vNormal;
     Out.vTexcoord = In.vTexcoord;
     Out.vLifeTime = In.vLifeTime;
     Out.vProjPos = Out.vPosition;

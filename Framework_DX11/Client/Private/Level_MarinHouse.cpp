@@ -182,6 +182,8 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
 
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Player"), TEXT("Prototype_GameObject_HousePot_Particle"))))
+		return E_FAIL;
 
 	return S_OK;
 }
