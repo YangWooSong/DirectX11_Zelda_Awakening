@@ -2,6 +2,7 @@
 #include "HousePot.h"
 #include "GameInstance.h"
 #include "Link.h"
+#include"Particle_Model.h"
 
 CHousePot::CHousePot(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -43,7 +44,10 @@ HRESULT CHousePot::Initialize(void* pArg)
     else
         m_isActive = true;
 
-    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Expolosion"), nullptr);
+    CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
+    Desc.iParticleType = CParticle_Model::HOUSEPOT;
+
+    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
 
     return S_OK;
 }

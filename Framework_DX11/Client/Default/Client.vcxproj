@@ -195,6 +195,7 @@
     <ClInclude Include="..\Public\OnewayDoorReverse.h" />
     <ClInclude Include="..\Public\OwlStatue.h" />
     <ClInclude Include="..\Public\Particle_Explosion.h" />
+    <ClInclude Include="..\Public\Particle_Model.h" />
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\PurpleQuartz.h" />
@@ -333,6 +334,7 @@
     <ClCompile Include="..\Private\LockBlock.cpp" />
     <ClCompile Include="..\Private\LockDoor.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
+    <ClCompile Include="..\Private\Particle_Model.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\NavDataObj.cpp" />
     <ClCompile Include="..\Private\NonAnimModel.cpp" />
@@ -450,6 +452,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxModelInstance.hlsl" />
     <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxNorTex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>

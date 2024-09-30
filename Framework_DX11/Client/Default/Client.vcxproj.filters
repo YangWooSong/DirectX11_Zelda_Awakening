@@ -466,6 +466,9 @@
     <Filter Include="05.State\Link\Push">
       <UniqueIdentifier>{3e23b3ea-7aca-4ab0-a7bc-3045f288558d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\06.Particle\Particle_Model">
+      <UniqueIdentifier>{9a8fb791-cbc8-44a1-a675-0f1494969d15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -858,6 +861,9 @@
     <ClInclude Include="..\Public\State_Link_Push.h">
       <Filter>05.State\Link\Push</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Particle_Model.h">
+      <Filter>02.GameObjects\06.Particle\Particle_Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1241,6 +1247,9 @@
     <ClCompile Include="..\Private\State_Link_Push.cpp">
       <Filter>05.State\Link\Push</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\Particle_Model.cpp">
+      <Filter>02.GameObjects\06.Particle\Particle_Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -1277,6 +1286,9 @@
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxPointInstance.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_VtxModelInstance.hlsl">
       <Filter>97.ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

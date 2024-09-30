@@ -193,6 +193,9 @@
     <Filter Include="01.Utility\14.RenderTargets\Manager">
       <UniqueIdentifier>{109aee07-69cd-4c01-bc16-2a4b176a1f6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\VIBuffer\Instancing\Model">
+      <UniqueIdentifier>{b347d9c1-f058-43eb-9af2-fee2a40590b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -374,6 +377,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Target_Manager.cpp">
       <Filter>01.Utility\14.RenderTargets\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Model_Instance.cpp">
+      <Filter>01.Utility\03.Components\VIBuffer\Instancing\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,6 +578,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Target_Manager.h">
       <Filter>01.Utility\14.RenderTargets\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Model_Instance.h">
+      <Filter>01.Utility\03.Components\VIBuffer\Instancing\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -123,6 +123,19 @@ namespace Engine
 
 	}VTXPOINTINSTANCE;
 
+	typedef struct ENGINE_DLL
+	{
+		XMFLOAT4		vRight;
+		XMFLOAT4		vUp;
+		XMFLOAT4		vLook;
+		XMFLOAT4		vTranslation;
+		XMFLOAT2		vLifeTime;
+
+		static const unsigned int	iNumElements = 9;
+		static const D3D11_INPUT_ELEMENT_DESC	Elements[iNumElements];
+
+	}VTXMODELINSTANCE;
+
 	typedef struct
 	{
 		_uint	iNextAnimIndex;

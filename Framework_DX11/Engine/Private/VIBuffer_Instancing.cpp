@@ -21,6 +21,7 @@ CVIBuffer_Instancing::CVIBuffer_Instancing(const CVIBuffer_Instancing& Prototype
 	, m_pSpeed{ Prototype.m_pSpeed }
 	, m_vLifeTime{ Prototype.m_vLifeTime }
 	, m_isLoop{ Prototype.m_isLoop }
+	, m_vSize{ Prototype.m_vSize }
 
 {
 }

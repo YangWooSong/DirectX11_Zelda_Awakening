@@ -17,6 +17,7 @@ private:
 
 public:
 	vector<class CMesh*>&	Get_Meshes() { return m_Meshes; }
+	CMesh* Get_Mesh(_int _Index);
 
 	_uint					Get_NumMeshes() const { return (_uint)m_Meshes.size(); }
 

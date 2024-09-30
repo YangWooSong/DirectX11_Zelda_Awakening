@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PurpleQuartz.h"
 #include "GameInstance.h"
-
+#include "Particle_Model.h"
 CPurpleQuartz::CPurpleQuartz(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -38,7 +38,11 @@ HRESULT CPurpleQuartz::Initialize(void* pArg)
 
     m_isActive = false;
 
-    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Expolosion"), nullptr);
+
+    CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
+    Desc.iParticleType = CParticle_Model::PURPLEQUARTZ;
+
+    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
 
     return S_OK;
 }

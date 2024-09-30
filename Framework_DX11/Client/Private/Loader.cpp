@@ -40,6 +40,7 @@
 
 #include "Particle_Explosion.h"
 #include "Particle_Snow.h"
+#include "Particle_Model.h"
 
 #include "DeguTail_00.h"
 #include "DeguTail_01.h"
@@ -233,11 +234,15 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	
 	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
 
+	/* For. Prototype_Component_Shader_VtxModelInstance */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxModelInstance"),
+		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxModelInstance.hlsl"), VTXMODELINSTANCE::Elements, VTXMODELINSTANCE::iNumElements))))
+		return E_FAIL;
+
 	/* For. Prototype_Component_Shader_VtxRectInstance */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxRectInstance"),
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
 		return E_FAIL;
-
 
 	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
 
@@ -261,17 +266,29 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
 
 	ParticleDesc.iNumInstance = 200;
-	ParticleDesc.vCenter = _float3(0.f, 0.f, 0.f);
-	ParticleDesc.vRange = _float3(1.f, 1.f, 1.f);
+	ParticleDesc.vCenter = _float3(0.f, 1.f, 0.f);
+	ParticleDesc.vRange = _float3(1.f, 2.f, 1.f);
 	ParticleDesc.vSize = _float2(0.1f, 0.3f);
 	ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
-	ParticleDesc.vSpeed = _float2(1.f, 3.f);
-	ParticleDesc.vLifeTime = _float2(1.f, 2.f);
+	ParticleDesc.vSpeed = _float2(1.f, 1.5f);
+	ParticleDesc.vLifeTime = _float2(0.3f, 1.f);
 	ParticleDesc.isLoop = false;
 
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
 		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
 		return E_FAIL;
+
+	ParticleDesc.vPivot = _float3(0.f, 4.f, 0.f);
+	ParticleDesc.iNumInstance = 13;
+	ParticleDesc.vSize = _float2(0.5f, 1.2f);
+	ParticleDesc.vRange = _float3(0.6f, 2.f, 0.6f);
+	ParticleDesc.vSpeed = _float2(2.f, 5.f);
+	ParticleDesc.vCenter = _float3(0.f, 2.f, 0.f);
+	ParticleDesc.vLifeTime = _float2(0.5f, 1.f);
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
 
@@ -340,6 +357,11 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CDetector::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_Particle_Model*/
+
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Model"),
+		CParticle_Model::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
 	m_isFinished = true;
@@ -376,6 +398,8 @@ HRESULT CLoader::Ready_Resources_For_Test()
 
 
 
+	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
 	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
 	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
 
@@ -388,18 +412,15 @@ HRESULT CLoader::Ready_Resources_For_Test()
 	ParticleDesc.vLifeTime = _float2(4.f, 8.f);
 	ParticleDesc.isLoop = true;
 
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_VIBuffer_Particle_Snow"),
-		CVIBuffer_Point_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
+		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
 		return E_FAIL;
 
-
-	
-	/* For. Prototype_Component_Shader_VtxPointInstance */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Shader_VtxPointInstance"),
-		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxPointInstance.hlsl"), VTXPOINTINSTANCE::Elements, VTXPOINTINSTANCE::iNumElements))))
+	ParticleDesc.iNumInstance = 50;
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
 		return E_FAIL;
 
-	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
 
 	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
 
@@ -509,6 +530,17 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 	/* For. Prototype_Component_Model_Bomb*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Bomb"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bomb/Bomb.dat"))))
+		return E_FAIL;
+
+
+	/* For. Prototype_Component_Model_Purplequartz_Particle*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Purplequartz_Particle"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/purplequartz_particle/purplequartz_particle.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_HousePot_Particle*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_HousePot_Particle"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/pot_fragment/pot_fragment.dat"))))
 		return E_FAIL;
 
 	return S_OK;

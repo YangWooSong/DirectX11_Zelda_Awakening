@@ -43,6 +43,14 @@ CModel::CModel(const CModel& Prototype)
 
 }
 
+CMesh* CModel::Get_Mesh(_int _Index)
+{
+	if(m_Meshes[_Index] != nullptr)
+		return m_Meshes[_Index];
+
+	return nullptr;
+}
+
 _uint CModel::Get_BoneIndex(const _char* pBoneName) const
 {
 	_uint iBoneIndex = { 0 };
