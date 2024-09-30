@@ -30,9 +30,6 @@ HRESULT CState_DeguTail_Appear::Start_State()
 
 void CState_DeguTail_Appear::Update(_float fTimeDelta)
 {
-    _float a = m_pOwner->Get_Model()->Get_CurrentTrackPosition();
-    int b = 10;
-
     if (m_bPlaySound == false)
     {
         m_bPlaySound = true;

@@ -12,9 +12,9 @@ CVIBuffer_Model_Instance::CVIBuffer_Model_Instance(const CVIBuffer_Model_Instanc
 {
 }
 
-HRESULT CVIBuffer_Model_Instance::Initialize_Prototype(const CVIBuffer_Instancing::INSTANCE_DESC& Desc)
+HRESULT CVIBuffer_Model_Instance::Initialize_Prototype(void* pArg)
 {
-	if (FAILED(__super::Initialize_Prototype(Desc)))
+	if (FAILED(__super::Initialize_Prototype(pArg)))
 		return E_FAIL;
 
 	return S_OK;
@@ -22,6 +22,10 @@ HRESULT CVIBuffer_Model_Instance::Initialize_Prototype(const CVIBuffer_Instancin
 
 HRESULT CVIBuffer_Model_Instance::Initialize(void* pArg)
 {
+	if (FAILED(__super::Initialize(pArg)))
+		return E_FAIL;
+
+
 	MODEL_INSTANCE_DESC* pDesc = static_cast<MODEL_INSTANCE_DESC*>(pArg);
 
 	m_iNumVertexBuffers = 2;
@@ -85,7 +89,7 @@ HRESULT CVIBuffer_Model_Instance::Initialize(void* pArg)
 
 #pragma region INSTANCE_BUFFER
 
-	if (FAILED(__super::Initialize(pArg)))
+	if (FAILED(m_pDevice->CreateBuffer(&m_InstanceBufferDesc, &m_InstanceInitialData, &m_pVBInstance)))
 		return E_FAIL;
 
 #pragma endregion
@@ -187,9 +191,9 @@ void CVIBuffer_Model_Instance::PurpleQuartz_Spread(_float fTimeDelta)
 
 		///////////////회전
 
-		float fYaw = 0.f;
-		float fPitch = 0.f;
-		float fRoll = 0.f;
+		float fYaw = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
+		float fPitch = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
+		float fRoll = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
 		// 회전 각도 (Yaw, Pitch, Roll 값 조정 가능)
 
 		fYaw = fTimeDelta * m_pSpeed[i];  // Y축 회전 각도
@@ -253,18 +257,18 @@ void CVIBuffer_Model_Instance::HousePot_Spread(_float fTimeDelta, _float3 vTarge
 	for (size_t i = 0; i < m_iNumInstance; i++)
 	{
 		//이동
-		_vector		vMoveDir = -XMLoadFloat3(&vTarget);
+		_vector		vMoveDir = XMVectorSetW(XMLoadFloat4(&pVertices[i].vTranslation) - XMLoadFloat3(&m_vPivotPos), 0.f);
 
 		XMStoreFloat4(&pVertices[i].vTranslation,
 			XMLoadFloat4(&pVertices[i].vTranslation) + XMVector3Normalize(vMoveDir) * m_pSpeed[i] * fTimeDelta);
 
 		///////////////회전
 
-		float fYaw = XMConvertToRadians( m_pGameInstance->Get_Random(0.f, 360.f));
+		float fYaw = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
 		float fPitch = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
 		float fRoll = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
 		// 회전 각도 (Yaw, Pitch, Roll 값 조정 가능)
-		//fTimeDelta * m_pSpeed[i]
+
 		fYaw = fTimeDelta * m_pSpeed[i];  // Y축 회전 각도
 		fPitch = fTimeDelta * m_pSpeed[i];  // X축 회전 각도
 		fRoll = fTimeDelta * m_pSpeed[i];  // Z축 회전 각도
@@ -317,11 +321,11 @@ void CVIBuffer_Model_Instance::HousePot_Spread(_float fTimeDelta, _float3 vTarge
 
 
 
-CVIBuffer_Model_Instance* CVIBuffer_Model_Instance::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const CVIBuffer_Instancing::INSTANCE_DESC& Desc)
+CVIBuffer_Model_Instance* CVIBuffer_Model_Instance::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg)
 {
 	CVIBuffer_Model_Instance* pInstance = new CVIBuffer_Model_Instance(pDevice, pContext);
 
-	if (FAILED(pInstance->Initialize_Prototype(Desc)))
+	if (FAILED(pInstance->Initialize_Prototype(pArg)))
 	{
 		MSG_BOX(TEXT("Failed to Created : CVIBuffer_Model_Instance"));
 		Safe_Release(pInstance);

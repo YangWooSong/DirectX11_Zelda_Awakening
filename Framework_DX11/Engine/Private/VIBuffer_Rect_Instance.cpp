@@ -12,9 +12,17 @@ CVIBuffer_Rect_Instance::CVIBuffer_Rect_Instance(const CVIBuffer_Rect_Instance& 
 {
 }
 
-HRESULT CVIBuffer_Rect_Instance::Initialize_Prototype(const CVIBuffer_Instancing::INSTANCE_DESC& Desc)
+HRESULT CVIBuffer_Rect_Instance::Initialize_Prototype(void* pArg)
 {
-	if (FAILED(__super::Initialize_Prototype(Desc)))
+	if (FAILED(__super::Initialize_Prototype(pArg)))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+HRESULT CVIBuffer_Rect_Instance::Initialize(void* pArg)
+{
+	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 
 	m_iNumVertexBuffers = 2;
@@ -132,16 +140,9 @@ HRESULT CVIBuffer_Rect_Instance::Initialize_Prototype(const CVIBuffer_Instancing
 
 #pragma endregion
 
-
-
-	return S_OK;
-}
-
-HRESULT CVIBuffer_Rect_Instance::Initialize(void* pArg)
-{
 #pragma region INSTANCE_BUFFER
 
-	if (FAILED(__super::Initialize(pArg)))
+	if (FAILED(m_pDevice->CreateBuffer(&m_InstanceBufferDesc, &m_InstanceInitialData, &m_pVBInstance)))
 		return E_FAIL;
 
 #pragma endregion
@@ -183,11 +184,11 @@ void CVIBuffer_Rect_Instance::Drop(_float fTimeDelta)
 
 
 
-CVIBuffer_Rect_Instance* CVIBuffer_Rect_Instance::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const CVIBuffer_Instancing::INSTANCE_DESC& Desc)
+CVIBuffer_Rect_Instance* CVIBuffer_Rect_Instance::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg)
 {
 	CVIBuffer_Rect_Instance* pInstance = new CVIBuffer_Rect_Instance(pDevice, pContext);
 
-	if (FAILED(pInstance->Initialize_Prototype(Desc)))
+	if (FAILED(pInstance->Initialize_Prototype(pArg)))
 	{
 		MSG_BOX(TEXT("Failed to Created : CVIBuffer_Rect_Instance"));
 		Safe_Release(pInstance);

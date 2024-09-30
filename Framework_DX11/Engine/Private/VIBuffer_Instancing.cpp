@@ -26,29 +26,28 @@ CVIBuffer_Instancing::CVIBuffer_Instancing(const CVIBuffer_Instancing& Prototype
 {
 }
 
-HRESULT CVIBuffer_Instancing::Initialize_Prototype(const INSTANCE_DESC& Desc)
+HRESULT CVIBuffer_Instancing::Initialize_Prototype(void* pArg)
 {
-	m_iNumInstance = Desc.iNumInstance;
-	m_vCenterPos = Desc.vCenter;
-	m_vRange = Desc.vRange;
-	m_vSize = Desc.vSize;
-	m_vPivotPos = Desc.vPivot;
-	m_vLifeTime = Desc.vLifeTime;
-	m_isLoop = Desc.isLoop;
-
-	m_pSpeed = new _float[m_iNumInstance];
-
-	for (size_t i = 0; i < m_iNumInstance; i++)
-		m_pSpeed[i] = m_pGameInstance->Get_Random(Desc.vSpeed.x, Desc.vSpeed.y);
-
-
 	return S_OK;
 }
 
 HRESULT CVIBuffer_Instancing::Initialize(void* pArg)
 {
-	if (FAILED(m_pDevice->CreateBuffer(&m_InstanceBufferDesc, &m_InstanceInitialData, &m_pVBInstance)))
-		return E_FAIL;
+	INSTANCE_DESC* pDesc = static_cast<INSTANCE_DESC*>(pArg);
+
+	m_iNumInstance = pDesc->iNumInstance;
+	m_vCenterPos = pDesc->vCenter;
+	m_vRange = pDesc->vRange;
+	m_vSize = pDesc->vSize;
+	m_vPivotPos = pDesc->vPivot;
+	m_vLifeTime = pDesc->vLifeTime;
+	m_isLoop = pDesc->isLoop;
+
+	m_pSpeed = new _float[m_iNumInstance];
+
+	for (size_t i = 0; i < m_iNumInstance; i++)
+		m_pSpeed[i] = m_pGameInstance->Get_Random(pDesc->vSpeed.x, pDesc->vSpeed.y);
+
 
 	return S_OK;
 }

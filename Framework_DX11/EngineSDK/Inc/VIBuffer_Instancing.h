@@ -26,7 +26,7 @@ protected:
 	virtual ~CVIBuffer_Instancing() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype(const INSTANCE_DESC& Desc);
+	virtual HRESULT Initialize_Prototype(void* pArg);
 	virtual HRESULT Initialize(void* pArg) override;
 	virtual HRESULT Bind_Buffers() override;
 	virtual HRESULT Render() override;

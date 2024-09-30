@@ -51,9 +51,7 @@ void CParticle_Model::Update(_float fTimeDelta)
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
 	else if(m_iParticleType == HOUSEPOT)
 	{
-		_float3 vNewLook = {};
-		XMStoreFloat3(&vNewLook, m_pTransformCom->Get_State(CTransform::STATE_LOOK));
-		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->HousePot_Spread(fTimeDelta, vNewLook);
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
 	}
 
 }
@@ -110,6 +108,27 @@ HRESULT CParticle_Model::Ready_Components()
 		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_Purplequartz_Particle"),
 			TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
 			return E_FAIL;
+
+		CVIBuffer_Model_Instance::MODEL_INSTANCE_DESC Desc{};
+
+		Desc.iNumVertices = m_pModelCom->Get_Mesh(0)->Get_NumVertices();
+		Desc.iNumIndices = m_pModelCom->Get_Mesh(0)->Get_NumIndices();
+		Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
+		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
+
+		Desc.iNumInstance = 13;
+		Desc.vCenter = _float3(0.f, 2.f, 0.f);
+		Desc.vRange = _float3(0.6f, 2.f, 0.6f);
+		Desc.vSize = _float2(0.5f, 1.2f);
+		Desc.vPivot = _float3(0.f, 4.f, 0.f);
+		Desc.vSpeed = _float2(3.f, 5.f);
+		Desc.vLifeTime = _float2(0.5f, 1.f);
+		Desc.isLoop = false;
+
+		/* FOR.Com_VIBuffer */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+			return E_FAIL;
 	}
 	else if(m_iParticleType == HOUSEPOT)
 	{
@@ -117,19 +136,30 @@ HRESULT CParticle_Model::Ready_Components()
 		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_HousePot_Particle"),
 			TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
 			return E_FAIL;
+
+		CVIBuffer_Model_Instance::MODEL_INSTANCE_DESC Desc{};
+
+		Desc.iNumVertices = m_pModelCom->Get_Mesh(0)->Get_NumVertices();
+		Desc.iNumIndices = m_pModelCom->Get_Mesh(0)->Get_NumIndices();
+		Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
+		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
+
+		Desc.iNumInstance = 13;
+		Desc.vCenter = _float3(0.f, 1.5f, 0.f);
+		Desc.vRange = _float3(1.f, 2.f, 1.f);
+		Desc.vSize = _float2(0.2f, 0.8f);
+		Desc.vPivot = _float3(0.f, 4.f, 0.f);
+		Desc.vSpeed = _float2(3.f, 5.f);
+		Desc.vLifeTime = _float2(0.5f, 1.f);
+		Desc.isLoop = false;
+
+		/* FOR.Com_VIBuffer */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+			return E_FAIL;
 	}
 
-	CVIBuffer_Model_Instance::MODEL_INSTANCE_DESC Desc{};
-
-	Desc.iNumVertices = m_pModelCom->Get_Mesh(0)->Get_NumVertices();
-	Desc.iNumIndices = m_pModelCom->Get_Mesh(0)->Get_NumIndices();
-	Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
-	Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
-
-	/* FOR.Com_VIBuffer */
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
-		TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
-		return E_FAIL;
+	
 
 	return S_OK;
 }

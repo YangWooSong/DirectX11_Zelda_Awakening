@@ -275,7 +275,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	ParticleDesc.isLoop = false;
 
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
-		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	ParticleDesc.vPivot = _float3(0.f, 4.f, 0.f);
@@ -286,7 +286,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	ParticleDesc.vCenter = _float3(0.f, 2.f, 0.f);
 	ParticleDesc.vLifeTime = _float2(0.5f, 1.f);
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
-		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 
@@ -413,12 +413,12 @@ HRESULT CLoader::Ready_Resources_For_Test()
 	ParticleDesc.isLoop = true;
 
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
-		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	ParticleDesc.iNumInstance = 50;
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
-		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext, ParticleDesc))))
+		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 

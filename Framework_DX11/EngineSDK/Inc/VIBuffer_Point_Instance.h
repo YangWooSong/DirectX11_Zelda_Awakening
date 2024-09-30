@@ -12,7 +12,7 @@ private:
 	virtual ~CVIBuffer_Point_Instance() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype(const CVIBuffer_Instancing::INSTANCE_DESC& Desc) override;
+	virtual HRESULT Initialize_Prototype(void* pArg) override;
 	virtual HRESULT Initialize(void* pArg) override;
 
 public:
@@ -20,7 +20,7 @@ public:
 	virtual void Drop(_float fTimeDelta) override;
 
 public:
-	static CVIBuffer_Point_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const CVIBuffer_Instancing::INSTANCE_DESC& Desc);
+	static CVIBuffer_Point_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg = nullptr);
 	virtual CComponent* Clone(void* pArg) override;
 	virtual void Free() override;
 };

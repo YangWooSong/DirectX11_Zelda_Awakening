@@ -7,7 +7,7 @@ BEGIN(Engine)
 class ENGINE_DLL CVIBuffer_Model_Instance final : public CVIBuffer_Instancing
 {
 public:
-	typedef struct
+	typedef struct : public CVIBuffer_Instancing::INSTANCE_DESC
 	{
 		_uint iNumVertices;
 		_uint iNumIndices;
@@ -22,7 +22,7 @@ private:
 	virtual ~CVIBuffer_Model_Instance() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype(const CVIBuffer_Instancing::INSTANCE_DESC& Desc) override;
+	virtual HRESULT Initialize_Prototype(void* pArg);
 	virtual HRESULT Initialize(void* pArg) override;
 
 public:
@@ -32,7 +32,7 @@ public:
 	void HousePot_Spread(_float fTimeDelta, _float3 vTarget);
 
 public:
-	static CVIBuffer_Model_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const CVIBuffer_Instancing::INSTANCE_DESC& Desc);
+	static CVIBuffer_Model_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg = nullptr);
 	virtual CComponent* Clone(void* pArg) override;
 	virtual void Free() override;
 };
