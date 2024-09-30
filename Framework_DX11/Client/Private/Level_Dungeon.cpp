@@ -300,6 +300,8 @@ HRESULT CLevel_Dungeon::Read_AnimMonster(_int _type, _uint _index, _float3 _fPos
 	pDesc.iRoomNum = _iRoomNum;
 	if (_strLyaerTag == "Layer_DeguTail")
 	{
+		pDesc.vPosition.x -= 0.1f;
+		pDesc.iCellNum = 1138;
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DeguTail"), TEXT("Prototype_GameObject_DeguTail_00"), &pDesc)))
 			return E_FAIL;
 	}
@@ -405,6 +407,7 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 
 	if (_strLyaerTag == "Layer_DungeonCollapseTileLv01")
 	{
+		pDesc.iRoomNum = 12;
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_DungeonCollapseTileLv01"), TEXT("Prototype_GameObject_CollapseTile"), &pDesc)))
 			return E_FAIL;
 	}

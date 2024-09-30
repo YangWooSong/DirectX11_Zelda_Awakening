@@ -116,7 +116,7 @@ void CState_Link_Walk::Update(_float fTimeDelta)
         m_pPlayer->Set_Player_Dir(CPlayer::RIGHTBACK);
     }
     
-    if (KEY_TAP(KEY::O) )
+    if (KEY_TAP(KEY::I) )
     {
         m_pPlayer->Change_State(CLink::ITEMA);
     }
