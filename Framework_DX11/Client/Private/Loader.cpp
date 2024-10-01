@@ -543,6 +543,11 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/pot_fragment/pot_fragment.dat"))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Model_OctoRockRock_Particle*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_OctoRockRock_Particle"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/OctorockRock_Particle/stone_00.dat"))))
+		return E_FAIL;
+
 	return S_OK;
 }
 

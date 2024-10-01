@@ -4,6 +4,7 @@
 #include "Monster.h"
 #include "Octorok.h"
 #include "Detector.h"
+#include"Particle_Model.h"
 
 COctorokRock::COctorokRock(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CPartObject(pDevice, pContext)
@@ -43,12 +44,19 @@ HRESULT COctorokRock::Initialize(void* pArg)
 
     m_fSpeed = 7.f;
   //  m_isDead = true;
+
+
+
     return S_OK;
 }
 
 void COctorokRock::Priority_Update(_float fTimeDelta)
 {
- 
+    if (m_bActiveParticle)
+    {
+        if (m_pParticle != nullptr)
+            m_pParticle->Priority_Update(fTimeDelta);
+    }
 }
 
 void COctorokRock::Update(_float fTimeDelta)
@@ -77,6 +85,7 @@ void COctorokRock::Update(_float fTimeDelta)
     else
     {
         m_pColliderCom->Set_IsActive(true);
+    
 
         switch (m_iRockDir)
         {
@@ -97,9 +106,24 @@ void COctorokRock::Update(_float fTimeDelta)
         }
     }
 
-    if (m_bIsMove == false )
+    if (m_bIsMove == false)
     {
         Break();
+    }
+
+
+    if (m_bActiveParticle)
+    {
+        m_fParticleTimer += fTimeDelta;
+
+        if (m_fParticleTimer > 1.f)
+        {
+            m_fParticleTimer = 0.f;
+            m_fParticleTimer = false;
+        }
+
+        if (m_pParticle != nullptr)
+            m_pParticle->Update(fTimeDelta);
     }
 
     m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
@@ -111,6 +135,11 @@ void COctorokRock::Late_Update(_float fTimeDelta)
     m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
+    if (m_bActiveParticle)
+    {
+        if (m_pParticle != nullptr)
+             m_pParticle->Late_Update(fTimeDelta);
+    }
 #ifdef _DEBUG
     m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -143,6 +172,12 @@ HRESULT COctorokRock::Render()
               return E_FAIL;
       }
 
+  }
+
+  if (m_bActiveParticle)
+  {
+      if(m_pParticle != nullptr)
+         m_pParticle->Render();
   }
 
     return S_OK;
@@ -218,6 +253,17 @@ void COctorokRock::Break()
     m_bRender = false;
     m_bIsMove = true;
     m_isDead = false;
+
+    m_bActiveParticle = true;
+
+    if (m_pParticle != nullptr)
+        Safe_Release(m_pParticle);
+
+    CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
+    Desc.iParticleType = CParticle_Model::ROCK;
+
+    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
+    m_pParticle->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 }
 
 void COctorokRock::Set_StartState()
@@ -258,6 +304,8 @@ CGameObject* COctorokRock::Clone(void* pArg)
 void COctorokRock::Free()
 {
     __super::Free();
+
+    Safe_Release(m_pParticle);
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);

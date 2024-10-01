@@ -36,8 +36,6 @@ HRESULT CLand::Initialize(void* pArg)
 
    // m_pGameInstance->AddScene_ColMesh(this, TEXT("Land"));
 
-    m_isActive = true;
-
     return S_OK;
 }
 
@@ -128,6 +126,8 @@ HRESULT CLand::Add_Component_Dungeon()
 
 HRESULT CLand::Add_Component_Field()
 {
+    m_isActive = true; 
+
     _wstring sPath = TEXT("Prototype_Component_Level_Field_");
     _wstring finalName = sPath + m_FieldList[m_iListIndex];
 

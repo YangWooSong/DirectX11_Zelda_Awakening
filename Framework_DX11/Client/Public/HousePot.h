@@ -52,9 +52,9 @@ private:
 	_float m_fTimer = { 0.f };
 
 	const _float4x4* m_pSocketMatrix = { nullptr };
-	CGameObject* m_pPlayer = { nullptr };
 
-	class CGameObject* m_pParticle = { nullptr };
+	CGameObject* m_pPlayer = { nullptr };
+	CGameObject* m_pParticle = { nullptr };
 
 public:
 	static CHousePot* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

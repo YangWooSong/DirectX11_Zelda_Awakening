@@ -57,6 +57,7 @@ public:
 	void Set_Parent(CGameObject* pParent);
 private:
 	_float m_fSpeed = {  };
+	_float m_fParticleTimer = {0.f  };
 	_uint	m_iRockDir = { OCTOROKROCK_DIR_END };
 	_bool m_bShoot = { false };
 	_bool	m_bIsMove = { true };		//º®¿¡ ºÎµúÇû´ÂÁö
@@ -64,8 +65,10 @@ private:
 	_float3 m_fOffset = {};
 
 	_bool	m_bBreak = { false };
-	class CMonster* m_pParent = { nullptr };
+	_bool	m_bActiveParticle = { false };
 
+	class CMonster* m_pParent = { nullptr };
+	CGameObject* m_pParticle = { nullptr };
 private:
 	void Break();
 	void Set_StartState();
