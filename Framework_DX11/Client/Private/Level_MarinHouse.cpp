@@ -174,6 +174,7 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 	CPlayer::PLAYER_DESC PlayerDesc;
 	PlayerDesc.vPosition = _float3(0.f, 0.f, 0.f);
 	PlayerDesc.LevelIndex = LEVEL_MARINHOUSE;
+	PlayerDesc.iStartCellNum = 0;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 

@@ -23,6 +23,7 @@ public:
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
 		_uint LevelIndex;
+		_int iStartCellNum;
 	}PLAYER_DESC;
 	
 
@@ -113,6 +114,8 @@ protected:
 
 	_uint				m_ePlayer_Dir = { PLAYER_DIR_END };
 	_uint				m_iLevelIndex = { LEVEL_END };
+
+	_int            m_iStartCellNum = {};
 
 	_bool			m_bBodyRed = { false };
 	_bool			m_bBlink = { false };

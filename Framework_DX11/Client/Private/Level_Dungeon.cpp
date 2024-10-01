@@ -161,7 +161,7 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
     CPlayer::PLAYER_DESC PlayerDesc;
     PlayerDesc.vPosition = _float3(-0.032f, 0.048f, -5.052f);
     PlayerDesc.LevelIndex = LEVEL_DUNGEON;
-
+	PlayerDesc.iStartCellNum = 1;
     if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
         return E_FAIL;
 

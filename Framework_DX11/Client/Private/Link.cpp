@@ -425,10 +425,7 @@ HRESULT CLink::Ready_Components()
 		/* For.Com_Navigation */
 		CNavigation::NAVIGATION_DESC			NaviDesc{};
 
-		if(m_iLevelIndex == LEVEL_DUNGEON)
-			NaviDesc.iCurrentIndex =1;
-		else
-			NaviDesc.iCurrentIndex = 0;
+		NaviDesc.iCurrentIndex = m_iStartCellNum;
 		NaviDesc.iOwnerType = CNavigation::PLAYER;
 
 		if (FAILED(__super::Add_Component(m_iLevelIndex, TEXT("Prototype_Component_Navigation"),

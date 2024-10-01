@@ -38,8 +38,6 @@ HRESULT CLevel_Field::Initialize()
 
 void CLevel_Field::Update(_float fTimeDelta)
 {
-	if(XMVectorGetX(m_pPlayer->Get_Position()) < -2.8f)
-		
 	if (GetKeyState(VK_RETURN) & 0x8000)
 	{
 		m_pGameInstance->DeletePlayer();
@@ -141,8 +139,9 @@ HRESULT CLevel_Field::Ready_LandObjects()
 {
 
 	CPlayer::PLAYER_DESC PlayerDesc;
-	PlayerDesc.vPosition = _float3(3.f, 0.f, 3.f);
+	PlayerDesc.vPosition = _float3(43.976f, 8.232f, 20.432f);
 	PlayerDesc.LevelIndex = LEVEL_FIELD;
+	PlayerDesc.iStartCellNum = 112;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 	
