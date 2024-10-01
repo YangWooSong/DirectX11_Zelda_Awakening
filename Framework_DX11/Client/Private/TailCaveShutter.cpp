@@ -65,8 +65,6 @@ void CTailCaveShutter::Update(_float fTimeDelta)
 			m_bChangeAnim = true;
 			m_iCurrentAnimIndex = m_iOpenAnimIndex;
 			m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, false);
-
-		
 		}
 
 		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_pModelCom->Get_IsEnd_CurrentAnimation() && m_bPlaySound == false && m_pSoundCom->Get_IsPlaying() == false)

@@ -62,7 +62,7 @@ private:
 	CGameObject* m_pCarryitem = { nullptr };
 
 	_bool m_bActiveSheild = { true };
-	_bool m_bActiveSword = { false };
+	_bool m_bActiveSword = { true };
 
 	_float m_fBlinkTimer = { 0.f };
 	_int m_iBlinkCount = { 0};

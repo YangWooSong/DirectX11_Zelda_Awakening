@@ -45,13 +45,19 @@ void CGrass::Priority_Update(_float fTimeDelta)
 
 void CGrass::Update(_float fTimeDelta)
 {
-    m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+    if (m_bCut)
+        m_pColliderCom->Set_IsActive(false);
+    else
+        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
 void CGrass::Late_Update(_float fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
+    if (m_bCut == false)
+        m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
 #ifdef _DEBUG
     m_pGameInstance->Add_DebugObject(m_pColliderCom);
@@ -73,6 +79,11 @@ HRESULT CGrass::Render()
 
     for (size_t i = 0; i < iNumMeshes; i++)
     {
+        if (m_bCut)
+        {
+            if (i == 0)
+                continue;
+        }
         if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
             return E_FAIL;
 
@@ -84,6 +95,25 @@ HRESULT CGrass::Render()
     }
 
     return S_OK;
+}
+
+void CGrass::OnCollisionEnter(CGameObject* pOther)
+{
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
+        {
+            m_bCut = true;
+        }
+    }
+}
+
+void CGrass::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CGrass::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 HRESULT CGrass::Ready_Components()
