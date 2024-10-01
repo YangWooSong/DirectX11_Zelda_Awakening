@@ -133,7 +133,7 @@ HRESULT CLevel_Dungeon::Ready_Layer_Camera()
 	Desc.fSpeedPerSec = 30.f;
 	Desc.fRotationPerSec = XMConvertToRadians(90.0f);
 	Desc.fDefaultAngle = 60.f;
-
+	Desc.fOffest = _float3(0.0f, 20.0f, -11.f);
 	Desc.fSpeed = 4.f;
 	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON));
 	Desc.bFollowPlayer = false;

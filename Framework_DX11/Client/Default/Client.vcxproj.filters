@@ -469,6 +469,9 @@
     <Filter Include="02.GameObjects\06.Particle\Particle_Model">
       <UniqueIdentifier>{9a8fb791-cbc8-44a1-a675-0f1494969d15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\06.SinkingSword">
+      <UniqueIdentifier>{7b680b93-dd1a-44e5-9c93-56b1d80b48da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -864,6 +867,9 @@
     <ClInclude Include="..\Public\Particle_Model.h">
       <Filter>02.GameObjects\06.Particle\Particle_Model</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\SinkingSword.h">
+      <Filter>02.GameObjects\03.Objects\Field\06.SinkingSword</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1249,6 +1255,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Particle_Model.cpp">
       <Filter>02.GameObjects\06.Particle\Particle_Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SinkingSword.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\06.SinkingSword</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

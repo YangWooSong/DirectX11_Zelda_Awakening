@@ -49,16 +49,21 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 		m_pPlayer->Change_State(CLink::BOMB);
 	}
 
-	//검 공격
-	if (KEY_AWAY(KEY::P))
+	if (static_cast<CLink*>(m_pPlayer)->Get_ActiveSword())
 	{
-		m_pPlayer->Change_State(CLink::ITEMB);
-	}
-	else if (KEY_HOLD(KEY::P))
-	{
-		m_fPressTime += fTimeDelta;
-		if(m_fPressTime > 0.2f)
-			m_pPlayer->Change_State(CLink::SLASH_HOLD);
+		//검 공격
+		if (KEY_AWAY(KEY::P))
+		{
+			m_pPlayer->Change_State(CLink::ITEMB);
+		}
+		else if (KEY_HOLD(KEY::P))
+		{
+			{
+				m_fPressTime += fTimeDelta;
+				if (m_fPressTime > 0.2f)
+					m_pPlayer->Change_State(CLink::SLASH_HOLD);
+			}
+		}
 	}
 
 	if (KEY_HOLD(KEY::LSHIFT))

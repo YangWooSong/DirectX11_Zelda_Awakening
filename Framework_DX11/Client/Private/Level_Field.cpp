@@ -38,6 +38,8 @@ HRESULT CLevel_Field::Initialize()
 
 void CLevel_Field::Update(_float fTimeDelta)
 {
+	if(XMVectorGetX(m_pPlayer->Get_Position()) < -2.8f)
+		
 	if (GetKeyState(VK_RETURN) & 0x8000)
 	{
 		m_pGameInstance->DeletePlayer();
@@ -74,37 +76,39 @@ HRESULT CLevel_Field::Ready_Lights()
 
 HRESULT CLevel_Field::Ready_Layer_Camera()
 {
-	CFreeCamera::CAMERA_FREE_DESC		Desc{};
+	//CFreeCamera::CAMERA_FREE_DESC		Desc{};
 
-	Desc.fSensor = 0.2f;
-	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
-	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
-	Desc.fFovy = XMConvertToRadians(60.0f);
-	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
-	Desc.fNear = 0.1f;
-	Desc.fFar = 1000.f;
-	Desc.fSpeedPerSec = 30.f;
-	Desc.fRotationPerSec = XMConvertToRadians(90.0f);
-
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
-		return E_FAIL;
-
-	//CPlayerCamera::CAMERA_PLAYER_DESC	Desc{};
-
+	//Desc.fSensor = 0.2f;
 	//Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
 	//Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
 	//Desc.fFovy = XMConvertToRadians(60.0f);
-	//Desc.fAspect = g_iWinSizeX / g_iWinSizeY;
+	//Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
 	//Desc.fNear = 0.1f;
 	//Desc.fFar = 1000.f;
 	//Desc.fSpeedPerSec = 30.f;
 	//Desc.fRotationPerSec = XMConvertToRadians(90.0f);
 
-	//Desc.fSpeed = 4.f;
-	//Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_MARINHOUSE));
-
-	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
+	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
 	//	return E_FAIL;
+
+	CPlayerCamera::CAMERA_PLAYER_DESC	Desc{};
+
+	Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
+	Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
+	Desc.fFovy = XMConvertToRadians(30.f);
+	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
+	Desc.fNear = 0.1f;
+	Desc.fFar = 1000.f;
+	Desc.fSpeedPerSec = 30.f;
+	Desc.fRotationPerSec = XMConvertToRadians(90.0f);
+	Desc.fOffest = _float3(0.0f, 17.0f, -17.f);
+	Desc.fSpeed = 4.f;
+	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_FIELD));
+	Desc.bFollowPlayer = true;
+	Desc.bUseMinMaxXY = true;
+	Desc.fMinMaxXY = _float4(0.f, 100.f, 0.f, 100.f );
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -142,10 +146,22 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 	
+	m_pPlayer = static_cast<CPlayer*>( m_pGameInstance->Find_Player(LEVEL_FIELD));
+	Safe_AddRef(m_pPlayer);
+
 	CNavDataObj::NAVOBJ_DESC NavDes;
 	NavDes.iLevelNum = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
+
+	CGameObject::GAMEOBJECT_DESC ObjectDesc;
+	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
+	ObjectDesc.iRoomNum = 0;
+	ObjectDesc.vPosition = _float3(30.f, 3.7f, 0.4f);
+	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SinkingSword"), TEXT("Prototype_GameObject_SinkingSword"), &ObjectDesc)))
+		return E_FAIL;
+
 
 	return S_OK;
 }
@@ -359,4 +375,5 @@ void CLevel_Field::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pPlayer);
 }

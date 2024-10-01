@@ -32,6 +32,10 @@ HRESULT CPlayerCamera::Initialize(void* pArg)
 	vTarget.z = pDesc->vEye.z;
 	m_vTargetPos = XMLoadFloat3(&vTarget);
 	m_vOriginTargetPos = XMLoadFloat3(&vTarget);
+	m_vOffset = pDesc->fOffest;
+	m_fMinMaxXZ = pDesc->fMinMaxXY;
+	m_bUseMinMaxXZ = pDesc->bUseMinMaxXY;
+
 	if (FAILED(__super::Initialize(pDesc)))
 		return E_FAIL;
 
@@ -105,7 +109,12 @@ void CPlayerCamera::Update(_float fTimeDelta)
 	//플레이어 따라 다니기
 	if (m_bFollowPlayer)
 	{
-		m_vTargetPos = m_pPlayer->Get_Position() + XMLoadFloat3(&m_vOffset);
+		if (m_bUseMinMaxXZ) //플레이어를 따라가는 범위 제한이 있음
+		{
+			Camera_MinMaxXZ();
+		}
+		else
+			m_vTargetPos = m_pPlayer->Get_Position() + XMLoadFloat3(&m_vOffset);
 	}
 	else
 		m_vTargetPos = m_vOriginTargetPos;
@@ -175,6 +184,25 @@ void CPlayerCamera::Active_Shake(_float _fTime)
 		m_fShakeTime = 0;
 		m_bShake = false;
 	}
+}
+
+void CPlayerCamera::Camera_MinMaxXZ()
+{
+	m_vTargetPos = m_pPlayer->Get_Position() + XMLoadFloat3(&m_vOffset);
+	_float3 m_fTarget;
+	XMStoreFloat3(&m_fTarget, m_vTargetPos);
+
+	if (XMVectorGetX(m_pPlayer->Get_Position()) <= m_fMinMaxXZ.x)
+		m_fTarget.x = m_fMinMaxXZ.x + m_vOffset.x;
+	else if (XMVectorGetX(m_pPlayer->Get_Position()) >= m_fMinMaxXZ.y)
+		m_fTarget.x = m_fMinMaxXZ.y + m_vOffset.x;
+
+	if(XMVectorGetZ(m_pPlayer->Get_Position()) <= m_fMinMaxXZ.z)
+		m_fTarget.z = m_fMinMaxXZ.z + m_vOffset.z;
+	else if (XMVectorGetZ(m_pPlayer->Get_Position()) >= m_fMinMaxXZ.w)
+		m_fTarget.z = m_fMinMaxXZ.w + m_vOffset.z;
+
+	m_vTargetPos = XMLoadFloat3(&m_fTarget);
 }
 
 HRESULT CPlayerCamera::Ready_Components()

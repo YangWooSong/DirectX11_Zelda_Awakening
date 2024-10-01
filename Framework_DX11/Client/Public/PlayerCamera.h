@@ -13,6 +13,9 @@ public:
 		_float			fSpeed = {};
 		_bool			bFollowPlayer = {};
 		_float			fDefaultAngle = {45.f};
+		_float3			fOffest = _float3{0.f,0.f,0.f};
+		_float4			fMinMaxXY = {};
+		_bool			bUseMinMaxXY = {false};
 	}CAMERA_PLAYER_DESC;
 private:
 	CPlayerCamera(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -35,9 +38,6 @@ public:
 	void	Zoom_In(_float fZoom, _float _fRotY);
 	void	Zoom_Out(_float fZoom, _float _fRotY);
 	void    Stop_Shake() { m_bShake = false; }
-private:
-	HRESULT					Ready_Components();
-	void	Active_Shake(_float _fTime);
 
 private:
 	class CPlayer*			m_pPlayer = { nullptr };
@@ -55,14 +55,21 @@ private:
 	
 	_float3					m_vOffset = { 0.0f, 20.0f, -11.f };
 
+	_float4					m_fMinMaxXZ = { };
+
 	_bool					m_bShake = { false };
 	_bool					m_bZoomIn = { false };
 	_bool					m_bZoomOut = { false };
 	_bool					m_bFollowPlayer = {true};
+	_bool					m_bUseMinMaxXZ = {true};
 
 	_vector					m_vTargetPos = {};
 	_vector					m_vOriginTargetPos = {};
 
+private:
+	HRESULT					Ready_Components();
+	void	Active_Shake(_float _fTime);
+	void	Camera_MinMaxXZ();
 public:
 	static CPlayerCamera* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

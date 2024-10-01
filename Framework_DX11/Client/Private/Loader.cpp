@@ -35,6 +35,7 @@
 #include "Octorok.h"
 #include "OctorokRock.h"
 #include "Detector.h"
+#include "SinkingSword.h"
 
 #include "Kuribo.h"
 
@@ -220,7 +221,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 
 	/* For. Prototype_Component_Texture_ItemIcon */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIcon"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 8))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 9))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Particle */
@@ -607,6 +608,11 @@ HRESULT CLoader::Ready_Models_For_Field()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/TailCaveShutter/TailCaveShutter.dat"))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Model_SinkingSword*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_SinkingSword"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/SinkingSword/SinkingSword.dat", PreTransformMatrix))))
+		return E_FAIL;
+
 #pragma endregion
 
 #pragma region MONSTER
@@ -859,6 +865,11 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 	/* For. Prototype_GameObject_TailCaveShutter*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_TailCaveShutter"),
 		CTailCaveShutter::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_SinkingSword*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SinkingSword"),
+		CSinkingSword::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 

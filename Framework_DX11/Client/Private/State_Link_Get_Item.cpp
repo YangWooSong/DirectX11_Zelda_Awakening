@@ -30,7 +30,11 @@ HRESULT CState_Link_Get_Item::Start_State()
 	//m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 80.f);
 
 	m_pCamera->Set_FollowPlayer(true);
-	m_pCamera->Zoom_In(1.5f, 60.f);
+
+	if(m_pPlayer->Get_LevelIndex() == LEVEL_DUNGEON)
+		m_pCamera->Zoom_In(1.5f, 60.f);
+	if (m_pPlayer->Get_LevelIndex() == LEVEL_FIELD)
+		m_pCamera->Zoom_In(1.5f, 45.f);
 
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSheild(false);
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(false);
@@ -83,9 +87,15 @@ void CState_Link_Get_Item::End_State()
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSheild(true);
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(true);
 	m_fLoopTimer = 0.f;
-	if(m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 7 && m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 14 && m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 16)
-		m_pCamera->Set_FollowPlayer(false);
-	m_pCamera->Zoom_Out(1.5f, 60.f);
+	if(m_pPlayer->Get_LevelIndex() == LEVEL_DUNGEON)
+	{
+		if (m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 7 && m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 14 && m_pPlayer->Get_Navigation()->Get_CurrentCell_RoomNum() != 16)
+			m_pCamera->Set_FollowPlayer(false);
+		m_pCamera->Zoom_Out(1.5f, 60.f);
+	}
+	else
+		m_pCamera->Zoom_Out(1.5f, 45.f);
+
 }
 
 CState_Link_Get_Item* CState_Link_Get_Item::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

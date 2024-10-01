@@ -43,6 +43,7 @@ public:
 	CGameObject* Get_CarryItem() { return m_pCarryitem; }
 	void Set_CarryItem(CGameObject* pObject) { m_pCarryitem = pObject; }
 
+	_bool Get_ActiveSword() { return m_bActiveSword; }
 	void Set_ActiveSword(_bool bActive) { m_bActiveSword = bActive; }
 	void Set_ActiveSheild(_bool bActive) { m_bActiveSheild = bActive; }
 	void Get_Item(_uint iItemIndex);
@@ -61,7 +62,7 @@ private:
 	CGameObject* m_pCarryitem = { nullptr };
 
 	_bool m_bActiveSheild = { true };
-	_bool m_bActiveSword = { true };
+	_bool m_bActiveSword = { false };
 
 	_float m_fBlinkTimer = { 0.f };
 	_int m_iBlinkCount = { 0};

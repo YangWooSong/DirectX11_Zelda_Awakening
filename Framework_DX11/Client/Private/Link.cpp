@@ -294,6 +294,13 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			if(static_cast<CSquareBlock*>(pOther)->Get_IsPushed() == false)
 				m_pFsmCom->Change_State(PUSH);
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_SinkingSword"))
+		{
+			m_PlayerUI[ITEM_ICON_UI]->SetActive(true);
+			m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(8);
+			m_pFsmCom->Change_State(GET_ITEM);
+		}
 	}
 }
 

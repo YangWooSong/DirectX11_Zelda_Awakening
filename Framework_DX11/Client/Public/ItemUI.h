@@ -13,7 +13,7 @@ class CItemUI :
 	public CUIObject
 {
 public:
-	enum ITEMINDEX { STONEBEAK, CAMPUS, SMALLKEY, MAP, LUPEE, FEATHER, BOSSKEY, CONCHHORN, ITEM_END };
+	enum ITEMINDEX { STONEBEAK, CAMPUS, SMALLKEY, MAP, LUPEE, FEATHER, BOSSKEY, CONCHHORN,SWORD, ITEM_END };
 private:
 	CItemUI(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CItemUI(const CItemUI& Prototype);

@@ -87,13 +87,10 @@ HRESULT CVIBuffer_Instancing::Render()
 void CVIBuffer_Instancing::Free()
 {
 	__super::Free();
-
-	if (false == m_isCloned)
-	{
-		Safe_Delete_Array(m_pSpeed);
-		Safe_Delete_Array(m_pInstanceVertices);
-	}
-
+	
+	Safe_Delete_Array(m_pSpeed);
+	Safe_Delete_Array(m_pInstanceVertices);
+	
 	Safe_Release(m_pVBInstance);
 }
 

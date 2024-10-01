@@ -202,6 +202,7 @@
     <ClInclude Include="..\Public\Rola.h" />
     <ClInclude Include="..\Public\RollingSpike.h" />
     <ClInclude Include="..\Public\Shield.h" />
+    <ClInclude Include="..\Public\SinkingSword.h" />
     <ClInclude Include="..\Public\SmallKey.h" />
     <ClInclude Include="..\Public\Spark.h" />
     <ClInclude Include="..\Public\SpikeTile.h" />
@@ -352,6 +353,7 @@
     <ClCompile Include="..\Private\RollingSpike.cpp" />
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
     <ClCompile Include="..\Private\Shield.cpp" />
+    <ClCompile Include="..\Private\SinkingSword.cpp" />
     <ClCompile Include="..\Private\SmallKey.cpp" />
     <ClCompile Include="..\Private\Spark.cpp" />
     <ClCompile Include="..\Private\SpikeTile.cpp" />
