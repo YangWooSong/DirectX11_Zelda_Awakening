@@ -158,7 +158,9 @@ void CDeguTail_04::OnCollisionEnter(CGameObject* pOther)
     {
         if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
         {
-            m_pHeadFsm->Change_State(CDeguTail_00::HURT);
+            //두번 공격당하는거 방지
+            if(m_pHeadFsm->Get_CurrentState() != CDeguTail_00::HURT)
+                m_pHeadFsm->Change_State(CDeguTail_00::HURT);
         }
     }
 }

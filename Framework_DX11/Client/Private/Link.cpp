@@ -76,6 +76,7 @@ HRESULT CLink::Initialize(void* pArg)
 
 	m_ePlayer_Dir = FRONT;
 	m_iLevelIndex = pDesc->LevelIndex;
+
 //	m_pGameInstance->SetUp_Player(this);
 
 	return S_OK;
@@ -411,13 +412,16 @@ HRESULT CLink::Ready_Components()
 {
 	__super::Ready_Components();
 
-	if(m_iLevelIndex != LEVEL_TEST )
+	if(m_iLevelIndex != LEVEL_TEST)
 
 	{
 		/* For.Com_Navigation */
 		CNavigation::NAVIGATION_DESC			NaviDesc{};
 
-		NaviDesc.iCurrentIndex = 0;
+		if(m_iLevelIndex == LEVEL_DUNGEON)
+			NaviDesc.iCurrentIndex =1;
+		else
+			NaviDesc.iCurrentIndex = 0;
 		NaviDesc.iOwnerType = CNavigation::PLAYER;
 
 		if (FAILED(__super::Add_Component(m_iLevelIndex, TEXT("Prototype_Component_Navigation"),

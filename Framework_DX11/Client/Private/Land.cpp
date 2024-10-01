@@ -36,6 +36,8 @@ HRESULT CLand::Initialize(void* pArg)
 
    // m_pGameInstance->AddScene_ColMesh(this, TEXT("Land"));
 
+    m_isActive = true;
+
     return S_OK;
 }
 

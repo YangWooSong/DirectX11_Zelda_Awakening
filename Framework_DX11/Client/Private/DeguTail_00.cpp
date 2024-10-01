@@ -83,7 +83,7 @@ void CDeguTail_00::Update(_float fTimeDelta)
 
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 
-		if (m_iHp == 0)
+		if (m_iHp <= 0 && m_bBodyRed == false)
 		{
 			m_iHp--;
 			m_bBodyRed = true;

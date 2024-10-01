@@ -172,6 +172,9 @@ _bool CNavigation::isMove(_fvector vPosition, _bool bMovecliff)
 
 			}
 
+			if (-1 == iNeighborIndex)
+				return false;
+
 			m_iPreCellIndex = m_iCurrentCellIndex;
 			m_iCurrentCellIndex = iNeighborIndex;
 			m_iCurrentCelltype = m_Cells[iNeighborIndex]->Get_CellType();

@@ -106,20 +106,20 @@ HRESULT CLevel_Dungeon::Ready_Lights()
 
 HRESULT CLevel_Dungeon::Ready_Layer_Camera()
 {
-  /*  CFreeCamera::CAMERA_FREE_DESC		Desc{};
+    //CFreeCamera::CAMERA_FREE_DESC		Desc{};
 
-    Desc.fSensor = 0.2f;
-    Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
-    Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
-    Desc.fFovy = XMConvertToRadians(60.0f);
-    Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
-    Desc.fNear = 0.1f;
-    Desc.fFar = 1000.f;
-    Desc.fSpeedPerSec = 30.f;
-    Desc.fRotationPerSec = XMConvertToRadians(90.0f);
+    //Desc.fSensor = 0.2f;
+    //Desc.vEye = _float4(0.f, 10.f, -10.f, 1.f);
+    //Desc.vAt = _float4(0.f, 0.f, 0.f, 1.f);
+    //Desc.fFovy = XMConvertToRadians(60.0f);
+    //Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
+    //Desc.fNear = 0.1f;
+    //Desc.fFar = 1000.f;
+    //Desc.fSpeedPerSec = 30.f;
+    //Desc.fRotationPerSec = XMConvertToRadians(90.0f);
 
-    if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
-        return E_FAIL;*/
+    //if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_FreeCamera"), &Desc)))
+    //    return E_FAIL;
 
 
 	CPlayerCamera::CAMERA_PLAYER_DESC	Desc{};
@@ -142,6 +142,7 @@ HRESULT CLevel_Dungeon::Ready_Layer_Camera()
 		return E_FAIL;
 
 	m_pPlayerCam = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON));
+
     return S_OK;
 }
 
@@ -158,8 +159,9 @@ HRESULT CLevel_Dungeon::Ready_Layer_Effect()
 HRESULT CLevel_Dungeon::Ready_LandObjects()
 {
     CPlayer::PLAYER_DESC PlayerDesc;
-    PlayerDesc.vPosition = _float3(0.f, 0.f, 0.f);
+    PlayerDesc.vPosition = _float3(-0.032f, 0.048f, -5.052f);
     PlayerDesc.LevelIndex = LEVEL_DUNGEON;
+
     if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
         return E_FAIL;
 
