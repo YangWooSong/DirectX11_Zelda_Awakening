@@ -41,6 +41,7 @@ public:
 private:
 	_bool m_bOpened = { false };
 
+
 private:
 	HRESULT Ready_Components();
 

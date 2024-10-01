@@ -89,7 +89,7 @@ void CPlayerCamera::Update(_float fTimeDelta)
 	//ÁÜÀÎ
 	if (m_bZoomIn && m_fFovy > m_fTargetFovy)
 	{
-		m_fFovy -= 0.02f;
+		m_fFovy -= 0.015f;
 		if (m_fFovy < 0)
 			m_fFovy = 0.01f;
 	}
@@ -98,7 +98,7 @@ void CPlayerCamera::Update(_float fTimeDelta)
 
 	//ÁÜ ¾Æ¿ô
 	if (m_bZoomOut && m_fFovy < m_fTargetFovy)
-		m_fFovy += 0.02f;
+		m_fFovy += 0.015f;
 	else
 		m_bZoomOut = false;
 #pragma endregion

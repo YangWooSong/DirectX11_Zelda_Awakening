@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TailCaveShutter.h"
 #include "GameInstance.h"
+#include "PlayerCamera.h"
 
 CTailCaveShutter::CTailCaveShutter(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CGameObject{ pDevice, pContext }
@@ -30,7 +31,8 @@ HRESULT CTailCaveShutter::Initialize(void* pArg)
 
 
 	m_iCurrentAnimIndex = m_pModelCom->Get_AnimationIndex("close_wait");
-	m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, true);
+	m_iOpenAnimIndex = m_pModelCom->Get_AnimationIndex("open");
+	m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, false);
 
 	//Read한 정보 세팅
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
@@ -46,7 +48,35 @@ void CTailCaveShutter::Priority_Update(_float fTimeDelta)
 
 void CTailCaveShutter::Update(_float fTimeDelta)
 {
+	if (m_bOpen)
+	{
+		m_fOpenedTimer += fTimeDelta;
+
+		if (m_bPlaySound && m_pSoundCom->Get_IsPlaying() == false && m_bCameraBackOrigin == false)
+			Camera_Set_to_Origin();
+
+		if (m_bCameraSetting == false)
+		{
+			Camera_Set();
+		}
+
+		if (m_iCurrentAnimIndex != m_iOpenAnimIndex &&  m_fOpenedTimer > 1.f) //문 열리는 애니메이션으로 변경
+		{
+			m_bChangeAnim = true;
+			m_iCurrentAnimIndex = m_iOpenAnimIndex;
+			m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, false);
+
+		
+		}
+
+		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_pModelCom->Get_IsEnd_CurrentAnimation() && m_bPlaySound == false && m_pSoundCom->Get_IsPlaying() == false)
+		{
+			m_bPlaySound = true;
+			m_pSoundCom->Play_Sound(TEXT("5_GimmickSolve.wav"), 0.8f);
+		}
+	}
 	m_pModelCom->Play_Animation(fTimeDelta);
+	m_pSoundCom->Update(fTimeDelta);
 }
 
 void CTailCaveShutter::Late_Update(_float fTimeDelta)
@@ -97,7 +127,35 @@ HRESULT CTailCaveShutter::Ready_Components()
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
 		return E_FAIL;
 
+	/* FOR.Com_Sound */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+		return E_FAIL;
+	m_pSoundCom->Set_Owner(this);
+
 	return S_OK;
+}
+
+void CTailCaveShutter::Camera_Set()
+{
+	m_pSoundCom->Play_Sound(TEXT("4_Obj_TailCaveShutter_Open.wav"), 1.f);
+
+	m_bCameraSetting = true;
+
+	CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
+	pCamera->Set_FollowPlayer(false);
+	pCamera->Set_TargetToOtherPos(m_pTransformCom->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&pCamera->Get_Offset()));
+
+}
+
+void CTailCaveShutter::Camera_Set_to_Origin()
+{
+	m_bCameraBackOrigin = true;
+	m_pGameInstance->Pause_BGM();
+
+	CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
+	pCamera->Set_FollowPlayer(true);
+	pCamera->Zoom_Out(1.3f, 45.f);
 }
 
 
@@ -133,6 +191,7 @@ void CTailCaveShutter::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pSoundCom);
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);
 }

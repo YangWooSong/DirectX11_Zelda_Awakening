@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CShader;
 class CModel;
+class CSound;
 END
 
 BEGIN(Client)
@@ -25,15 +26,26 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+	void Set_Open(_bool bOpen) { m_bOpen = bOpen; }
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
+	CSound* m_pSoundCom = { nullptr };
+private:
+	_int m_iCurrentAnimIndex = { 0 };
+	_int m_iOpenAnimIndex = { 0 };
+
+	_float m_fOpenedTimer = {0.f};
+	_bool m_bOpen = { false };
+	_bool m_bChangeAnim = { false };
+	_bool m_bCameraSetting = { false };
+	_bool m_bCameraBackOrigin = { false };
+	_bool m_bPlaySound = { false };
 
 private:
 	HRESULT Ready_Components();
-
-	_int m_iCurrentAnimIndex = { 0 };
-
+	void Camera_Set();
+	void Camera_Set_to_Origin();
 public:
 	static CTailCaveShutter* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

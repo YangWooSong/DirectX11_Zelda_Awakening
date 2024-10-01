@@ -104,7 +104,7 @@ HRESULT CLevel_Field::Ready_Layer_Camera()
 	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_FIELD));
 	Desc.bFollowPlayer = true;
 	Desc.bUseMinMaxXY = true;
-	Desc.fMinMaxXY = _float4(0.f, 100.f, 0.f, 100.f );
+	Desc.fMinMaxXY = _float4(0.5f, 100.f, 0.f, 100.f );
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
 		return E_FAIL;
 

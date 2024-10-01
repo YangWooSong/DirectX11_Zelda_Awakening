@@ -21,8 +21,7 @@ bool g_bIsRed = false, g_bOutBodyIsRed = false, g_bRedBlink = false;
 bool g_bChangeColor = false;
 float g_fRed = 1.f;
 float g_fBrightness = 1.f;
-
-
+float g_fAlpha = 1.f;
 
 struct VS_IN
 {
@@ -197,6 +196,24 @@ PS_OUT PS_MAIN_TREASUREBOX(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_CHAGNEALPHA(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    vector vMtrlDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+
+    vMtrlDiffuse.a = g_fAlpha;
+    
+     if (0.f > vMtrlDiffuse.a)
+        discard;
+    
+    Out.vDiffuse = vMtrlDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f); //1000.f는 커메라 far
+    
+    return Out;
+}
+
 technique11 DefaultTechnique
 {
     pass AnimModel
@@ -254,5 +271,17 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_TREASUREBOX();
+    } 
+
+    pass ChangeAlpha
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_CHAGNEALPHA();
     }
+
 }

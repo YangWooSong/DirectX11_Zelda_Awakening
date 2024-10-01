@@ -248,6 +248,15 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 				m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
 			}
 		}
+		
+		if (pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue"))
+		{		
+			if(m_bDungeonKey)
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(0);
+			}
+		}
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_SmallKey"))
 		{
@@ -359,6 +368,17 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 				m_PlayerUI[INTERACT_UI]->SetActive(false);
 			}
 		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue"))
+		{
+			if (m_bDungeonKey && KEY_TAP(E))
+			{
+				if (m_pFsmCom->Get_CurrentState() != KEY)
+					m_pFsmCom->Change_State(KEY);
+				m_PlayerUI[INTERACT_UI]->SetActive(false);
+				m_bDungeonKey = false;
+			}
+		}
 	}
 }
 
@@ -368,6 +388,7 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox") || 
 		pOther->Get_LayerTag() == TEXT("Layer_LockDoor") ||
 		pOther->Get_LayerTag() == TEXT("Layer_LockBlock") || 
+		pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue") || 
 		pOther->Get_LayerTag() == TEXT("Layer_BossDoor")
 		)
 	{

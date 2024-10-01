@@ -69,7 +69,7 @@ private:
 	
 	_int m_iLupee = { 0 };
 	_int m_iSmallKeyCount = { 0 };
-	_bool m_bDungoneKey = { false };
+	_bool m_bDungeonKey = { true };
 	_bool m_bGetBossKey = { false };
 	_bool m_bCampus = { false };
 	_bool m_bBeak = { true };

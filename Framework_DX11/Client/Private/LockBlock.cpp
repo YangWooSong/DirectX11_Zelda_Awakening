@@ -89,6 +89,8 @@ HRESULT CLockBlock::Render()
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
+
+
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
                 return E_FAIL;
 

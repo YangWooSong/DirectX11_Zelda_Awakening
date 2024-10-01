@@ -39,6 +39,7 @@ public:
 	void	Zoom_Out(_float fZoom, _float _fRotY);
 	void    Stop_Shake() { m_bShake = false; }
 
+	_float3 Get_Offset() { return m_vOffset; }
 private:
 	class CPlayer*			m_pPlayer = { nullptr };
 
