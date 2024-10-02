@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CCollider;
+class CSound;
 END
 
 
@@ -35,9 +36,13 @@ public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
+	CSound* m_pSoundCom = { nullptr };
 
 private:
 	_bool	m_bCut = { false };
+	_bool m_bPlaySound = { false };
+
+	CGameObject* m_pParticle = { nullptr };
 
 private:
 	HRESULT Ready_Components();

@@ -245,9 +245,8 @@ void CVIBuffer_Model_Instance::PurpleQuartz_Spread(_float fTimeDelta)
 	m_pContext->Unmap(m_pVBInstance, 0);
 }
 
-void CVIBuffer_Model_Instance::HousePot_Spread(_float fTimeDelta, _float3 vTarget)
+void CVIBuffer_Model_Instance::Grass_Spread(_float fTimeDelta, _float fFallTime, _float fFallSpeed)
 {
-
 	D3D11_MAPPED_SUBRESOURCE	SubResource{};
 
 	m_pContext->Map(m_pVBInstance, 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &SubResource);
@@ -256,50 +255,52 @@ void CVIBuffer_Model_Instance::HousePot_Spread(_float fTimeDelta, _float3 vTarge
 
 	for (size_t i = 0; i < m_iNumInstance; i++)
 	{
-		//이동
-		_vector		vMoveDir = XMVectorSetW(XMLoadFloat4(&pVertices[i].vTranslation) - XMLoadFloat3(&m_vPivotPos), 0.f);
-
-		XMStoreFloat4(&pVertices[i].vTranslation,
-			XMLoadFloat4(&pVertices[i].vTranslation) + XMVector3Normalize(vMoveDir) * m_pSpeed[i] * fTimeDelta);
-
-		///////////////회전
-
-		float fYaw = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
-		float fPitch = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
-		float fRoll = XMConvertToRadians(m_pGameInstance->Get_Random(0.f, 360.f));
-		// 회전 각도 (Yaw, Pitch, Roll 값 조정 가능)
-
-		fYaw = fTimeDelta * m_pSpeed[i];  // Y축 회전 각도
-		fPitch = fTimeDelta * m_pSpeed[i];  // X축 회전 각도
-		fRoll = fTimeDelta * m_pSpeed[i];  // Z축 회전 각도
-
-		if (i % 3 == 0)
+		//처음 회전 세팅
+		if(fTimer == 0.f)
 		{
-			fPitch = -fTimeDelta * m_pSpeed[i];
+			// 회전 각도 (Yaw, Pitch, Roll 값 조정 가능)
+			float fYaw = XMConvertToRadians(0.f);// Y축 회전 각도
+			float fPitch = XMConvertToRadians(80.f); // X축 회전 각도
+			float fRoll = XMConvertToRadians(0.f); // Z축 회전 각도
+
+			if (i % 3 == 0)
+			{
+				fRoll = -fTimeDelta * m_pSpeed[i];
+			}
+
+			// 회전 행렬 생성
+			XMMATRIX matRotationYaw = XMMatrixRotationY(fYaw);
+			XMMATRIX matRotationPitch = XMMatrixRotationX(fPitch);
+			XMMATRIX matRotationRoll = XMMatrixRotationZ(fRoll);
+
+			// 회전 행렬 적용 (Yaw -> Pitch -> Roll 순서)
+			XMMATRIX matRotation = matRotationYaw * matRotationPitch * matRotationRoll;
+
+			// 각 인스턴스의 Look, Right, Up 벡터에 회전 적용
+			XMVECTOR vRight = XMLoadFloat4(&pVertices[i].vRight);
+			XMVECTOR vUp = XMLoadFloat4(&pVertices[i].vUp);
+			XMVECTOR vLook = XMLoadFloat4(&pVertices[i].vLook);
+
+			vRight = XMVector3TransformNormal(vRight, matRotation);
+			vUp = XMVector3TransformNormal(vUp, matRotation);
+			vLook = XMVector3TransformNormal(vLook, matRotation);
+
+			XMStoreFloat4(&pVertices[i].vRight, vRight);
+			XMStoreFloat4(&pVertices[i].vUp, vUp);
+			XMStoreFloat4(&pVertices[i].vLook, vLook);
+
 		}
 
-		// 회전 행렬 생성
-		XMMATRIX matRotationYaw = XMMatrixRotationY(fYaw);
-		XMMATRIX matRotationPitch = XMMatrixRotationX(fPitch);
-		XMMATRIX matRotationRoll = XMMatrixRotationZ(fRoll);
+		if (fTimer < fFallTime)
+		{
+			//이동
+			_vector		vMoveDir = XMVectorSetW(XMLoadFloat4(&pVertices[i].vTranslation) - XMLoadFloat3(&m_vPivotPos), 0.f);
 
-		// 회전 행렬 적용 (Yaw -> Pitch -> Roll 순서)
-		XMMATRIX matRotation = matRotationYaw * matRotationPitch * matRotationRoll;
-
-		// 각 인스턴스의 Look, Right, Up 벡터에 회전 적용
-		XMVECTOR vRight = XMLoadFloat4(&pVertices[i].vRight);
-		XMVECTOR vUp = XMLoadFloat4(&pVertices[i].vUp);
-		XMVECTOR vLook = XMLoadFloat4(&pVertices[i].vLook);
-
-		vRight = XMVector3TransformNormal(vRight, matRotation);
-		vUp = XMVector3TransformNormal(vUp, matRotation);
-		vLook = XMVector3TransformNormal(vLook, matRotation);
-
-		XMStoreFloat4(&pVertices[i].vRight, vRight);
-		XMStoreFloat4(&pVertices[i].vUp, vUp);
-		XMStoreFloat4(&pVertices[i].vLook, vLook);
-
-
+			XMStoreFloat4(&pVertices[i].vTranslation,
+				XMLoadFloat4(&pVertices[i].vTranslation) + XMVector3Normalize(vMoveDir) * m_pSpeed[i] * fTimeDelta);
+		}
+		else
+			pVertices[i].vTranslation.y -= fTimeDelta * fFallSpeed;
 
 		//y축 제한
 		if (pVertices[i].vTranslation.y <= 0)
@@ -313,6 +314,8 @@ void CVIBuffer_Model_Instance::HousePot_Spread(_float fTimeDelta, _float3 vTarge
 			pVertices[i].vTranslation = static_cast<VTXMODELINSTANCE*>(m_pInstanceVertices)[i].vTranslation;
 			pVertices[i].vLifeTime.y = 0.f;
 		}
+
+		fTimer += fTimeDelta;
 	}
 
 	m_pContext->Unmap(m_pVBInstance, 0);

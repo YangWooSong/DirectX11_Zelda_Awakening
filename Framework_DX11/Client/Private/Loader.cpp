@@ -533,7 +533,7 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bomb/Bomb.dat"))))
 		return E_FAIL;
 
-
+#pragma region PARTICLE
 	/* For. Prototype_Component_Model_Purplequartz_Particle*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Purplequartz_Particle"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/purplequartz_particle/purplequartz_particle.dat"))))
@@ -549,6 +549,16 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/OctorockRock_Particle/stone_00.dat"))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Model_Grass_Particle*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Grass_Particle"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/leaf/leaf.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_cut_lawn_Particle*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_cut_lawn_Particle"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/cut_lawn/cut_lawn.dat"))))
+		return E_FAIL;
+#pragma endregion
 	return S_OK;
 }
 

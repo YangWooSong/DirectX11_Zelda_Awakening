@@ -43,7 +43,7 @@ private:
 	HRESULT Ready_Components();
 
 private:
-	class CGameObject* m_pParticle = { nullptr };
+	CGameObject* m_pParticle = { nullptr };
 
 	_bool m_bBreak = { false };
 

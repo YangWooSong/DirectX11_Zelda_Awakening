@@ -29,7 +29,10 @@ public:
 	virtual void Spread(_float fTimeDelta) override;
 	virtual void Drop(_float fTimeDelta) override;
 	void PurpleQuartz_Spread(_float fTimeDelta);
-	void HousePot_Spread(_float fTimeDelta, _float3 vTarget);
+	void Grass_Spread(_float fTimeDelta, _float fFallTime, _float fFallSpeed);
+
+private:
+	_float fTimer = { 0.f };
 
 public:
 	static CVIBuffer_Model_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg = nullptr);

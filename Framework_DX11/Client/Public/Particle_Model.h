@@ -14,7 +14,7 @@ BEGIN(Client)
 class CParticle_Model final : public CGameObject
 {
 public:
-	enum PARTICLE_TYPE{PURPLEQUARTZ, HOUSEPOT, ROCK, TYPE_END};
+	enum PARTICLE_TYPE{PURPLEQUARTZ, HOUSEPOT, ROCK, GRASS, LAWN, TYPE_END};
 
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{

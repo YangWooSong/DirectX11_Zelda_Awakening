@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Grass.h"
 #include "GameInstance.h"
+#include "Particle_Model.h"
 
 CGrass::CGrass(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -34,7 +35,10 @@ HRESULT CGrass::Initialize(void* pArg)
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
 
-    // m_pGameInstance->AddScene_ColMesh(this, TEXT("Land"));
+    CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
+    Desc.iParticleType = CParticle_Model::GRASS;
+
+    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
 
     return S_OK;
 }
@@ -46,9 +50,19 @@ void CGrass::Priority_Update(_float fTimeDelta)
 void CGrass::Update(_float fTimeDelta)
 {
     if (m_bCut)
+    {
+        if (m_bPlaySound == false)
+        {
+            m_bPlaySound = true;
+            m_pSoundCom->Play_Sound(TEXT("4_Obj_Cut_Grass.wav"), 0.6f);
+        }
         m_pColliderCom->Set_IsActive(false);
+        m_pParticle->Update(fTimeDelta);
+    }
     else
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+    m_pParticle->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 }
 
 void CGrass::Late_Update(_float fTimeDelta)
@@ -57,7 +71,9 @@ void CGrass::Late_Update(_float fTimeDelta)
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
     if (m_bCut == false)
-        m_pGameInstance->Add_ColliderList(m_pColliderCom);
+       m_pGameInstance->Add_ColliderList(m_pColliderCom);
+    else
+        m_pParticle->Late_Update(fTimeDelta);
 
 #ifdef _DEBUG
     m_pGameInstance->Add_DebugObject(m_pColliderCom);
@@ -94,6 +110,10 @@ HRESULT CGrass::Render()
             return E_FAIL;
     }
 
+
+    if (m_bCut)
+        m_pParticle->Render();
+
     return S_OK;
 }
 
@@ -127,6 +147,12 @@ HRESULT CGrass::Ready_Components()
     if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Grass"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
+
+    /* FOR.Com_Sound */
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
+        TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
+        return E_FAIL;
+    m_pSoundCom->Set_Owner(this);
 
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
@@ -171,6 +197,9 @@ void CGrass::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pParticle);
+
+    Safe_Release(m_pSoundCom);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

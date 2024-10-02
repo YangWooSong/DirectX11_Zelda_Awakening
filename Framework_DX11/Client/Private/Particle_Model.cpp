@@ -47,16 +47,20 @@ void CParticle_Model::Priority_Update(_float fTimeDelta)
 
 void CParticle_Model::Update(_float fTimeDelta)
 {
-	if(m_iParticleType == PURPLEQUARTZ)
-		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
-	else if(m_iParticleType == HOUSEPOT)
+	switch (m_iParticleType)
 	{
+	case PURPLEQUARTZ:
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
-	}
-	else 
-	{
+		break;
+	case HOUSEPOT:
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
+		break;
+	case GRASS:
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Grass_Spread(fTimeDelta, 0.5f, 1.f);
+	default:
+		break;
 	}
+	
 }
 
 void CParticle_Model::Late_Update(_float fTimeDelta)
@@ -189,6 +193,62 @@ HRESULT CParticle_Model::Ready_Components()
 			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
 			return E_FAIL;
 	}
+	else if (m_iParticleType == GRASS)
+	{
+		/* FOR.Com_Model */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_Grass_Particle"),
+			TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+			return E_FAIL;
+
+		CVIBuffer_Model_Instance::MODEL_INSTANCE_DESC Desc{};
+
+		Desc.iNumVertices = m_pModelCom->Get_Mesh(0)->Get_NumVertices();
+		Desc.iNumIndices = m_pModelCom->Get_Mesh(0)->Get_NumIndices();
+		Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
+		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
+
+		Desc.iNumInstance = 10;
+		Desc.vCenter = _float3(0.f, 0.5f, 0.f);
+		Desc.vRange = _float3(1.f, 2.f, 1.f);
+		Desc.vSize = _float2(0.3f, 1.f);
+		Desc.vPivot = _float3(0.f, 0.5f, 0.f);
+		Desc.vSpeed = _float2(1.f, 3.f);
+		Desc.vLifeTime = _float2(0.3f, 1.f);
+		Desc.isLoop = false;
+
+		/* FOR.Com_VIBuffer */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+			return E_FAIL;
+	}
+	else if (m_iParticleType == LAWN)
+	{
+		/* FOR.Com_Model */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_cut_lawn_Particle"),
+			TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+			return E_FAIL;
+
+		CVIBuffer_Model_Instance::MODEL_INSTANCE_DESC Desc{};
+
+		Desc.iNumVertices = m_pModelCom->Get_Mesh(0)->Get_NumVertices();
+		Desc.iNumIndices = m_pModelCom->Get_Mesh(0)->Get_NumIndices();
+		Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
+		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
+
+		Desc.iNumInstance = 4;
+		Desc.vCenter = _float3(0.f, 0.5f, 0.f);
+		Desc.vRange = _float3(0.5f, 0.5f, 0.5f);
+		Desc.vSize = _float2(0.1f, 0.1f);
+		Desc.vPivot = _float3(0.f, 4.f, 0.f);
+		Desc.vSpeed = _float2(1.f, 3.f);
+		Desc.vLifeTime = _float2(0.3f, 1.f);
+		Desc.isLoop = false;
+
+		/* FOR.Com_VIBuffer */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+			return E_FAIL;
+			}
 	
 
 	return S_OK;
