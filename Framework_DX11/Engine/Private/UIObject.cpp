@@ -72,26 +72,6 @@ HRESULT CUIObject::Render()
 	return S_OK;
 }
 
-
-void CUIObject::MouseOnCheck()
-{
-	POINT vMousePos = m_pGameInstance->Get_MosePos();
-
-	RECT tUIRect;
-	SetRect(&tUIRect, int(m_fX - m_fSizeX * 0.5f), int(m_fY - m_fSizeY * 0.5f),
-		int(m_fX + m_fSizeX * 0.5f), int(m_fY + m_fSizeY * 0.5f));
-
-	if (vMousePos.x > tUIRect.left
-		&& vMousePos.x < tUIRect.right
-		&& vMousePos.y > tUIRect.top
-		&& vMousePos.y < tUIRect.bottom)
-	{
-		m_bMouseOn = true;
-	}
-	else
-		m_bMouseOn = false;
-}
-
 void CUIObject::Free()
 {
 	__super::Free();

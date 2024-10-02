@@ -156,6 +156,7 @@ void CLink::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+	m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
 
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
@@ -204,6 +205,7 @@ HRESULT CLink::Render()
 
 			if (FAILED(m_pShaderCom->Begin(1)))
 				return E_FAIL;
+			
 
 			if (FAILED(m_pModelCom->Render((_uint)i)))
 				return E_FAIL;
@@ -216,6 +218,41 @@ HRESULT CLink::Render()
 
 		for (auto& pPlayerUI : m_PlayerUI)
 			pPlayerUI->Render();
+	}
+
+	return S_OK;
+}
+
+HRESULT CLink::Render_LightDepth()
+{
+
+	if (FAILED(m_pShaderCom->Bind_Matrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix_Ptr())))
+		return E_FAIL;
+
+	_float4x4		ViewMatrix;
+	XMStoreFloat4x4(&ViewMatrix, XMMatrixLookAtLH(XMVectorSet(0.f, 20.f, -15.f, 1.f), XMVectorSet(0.f, 0.f, 0.f, 1.f), XMVectorSet(0.f, 1.f, 0.f, 0.f)));
+
+	if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &ViewMatrix)))
+		return E_FAIL;
+	if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+		return E_FAIL;
+
+	_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+	for (size_t i = 0; i < iNumMeshes; i++)
+	{
+		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", i);
+
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+			return E_FAIL;
+		/*if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", aiTextureType_NORMALS, i)))
+		return E_FAIL;*/
+
+		if (FAILED(m_pShaderCom->Begin(6)))
+			return E_FAIL;
+
+		if (FAILED(m_pModelCom->Render(i)))
+			return E_FAIL;
 	}
 
 	return S_OK;
@@ -556,8 +593,8 @@ HRESULT CLink::Ready_PlayerUI()
 		pDesc.fX = 640.f;
 		pDesc.fY = 360.f;
 
-		CUIObject*  m_pInteractUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
-		m_pInteractUI ->Set_ParentObj(this);
+		CUIObject* m_pInteractUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+		m_pInteractUI->Set_ParentObj(this);
 		m_PlayerUI.push_back(m_pInteractUI);
 	}
 

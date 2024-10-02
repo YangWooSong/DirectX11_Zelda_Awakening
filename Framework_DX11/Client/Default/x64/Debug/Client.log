@@ -1,8 +1,19 @@
-﻿  Grass.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Grass.cpp(103,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Grass.cpp'을(를) 컴파일하는 중)
+﻿  HousePot.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\HousePot.cpp(133,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/HousePot.cpp'을(를) 컴파일하는 중)
   
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Grass.cpp(109,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Grass.cpp'을(를) 컴파일하는 중)
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\HousePot.cpp(139,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/HousePot.cpp'을(를) 컴파일하는 중)
   
+  Link.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Link.cpp(244,70): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Link.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Link.cpp(246,7): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Link.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Link.cpp(254,7): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Link.cpp'을(를) 컴파일하는 중)
+  
+  코드를 생성하고 있습니다...
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

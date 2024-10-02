@@ -12,7 +12,7 @@ class CRenderer final : public CBase
 {
 public:
 	//RG_NONBLEND: ºû¿¬»êÀ» »ç¿ëÇÏ´Â °´Ã¼
-	enum RENDERGROUP { RG_PRIORITY, RG_NONBLEND, RG_NONLIGHT, RG_BLEND, RG_UI, RG_END };
+	enum RENDERGROUP { RG_PRIORITY, RG_SHADOWOBJ, RG_NONBLEND, RG_NONLIGHT, RG_BLEND, RG_UI, RG_END };
 private:
 	CRenderer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual ~CRenderer() = default;
@@ -39,6 +39,7 @@ public:
 private:
 	ID3D11Device*				m_pDevice = { nullptr };
 	ID3D11DeviceContext*		m_pContext = { nullptr };
+	ID3D11DepthStencilView* m_pLightDepthStencilView = { nullptr };
 	list<class CGameObject*>	m_RenderObjects[RG_END];
 	class CGameInstance*		m_pGameInstance = { nullptr };
 
@@ -56,12 +57,16 @@ private:
 
 private:
 	HRESULT Render_Priority();
+	HRESULT Render_ShadowObj();
 	HRESULT Render_NonBlend();
 	HRESULT Render_Lights();
 	HRESULT Render_Deferred();
 	HRESULT Render_NonLights();
 	HRESULT Render_Blend();
 	HRESULT Render_UI();
+
+private:
+	HRESULT Ready_LightDepthStencilView();
 
 #ifdef _DEBUG
 private:

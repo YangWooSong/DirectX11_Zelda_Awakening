@@ -214,6 +214,23 @@ PS_OUT PS_MAIN_CHAGNEALPHA(PS_IN In)
     return Out;
 }
 
+struct PS_OUT_LIGHTDEPTH
+{
+    vector vLightDepth : SV_TARGET0;
+};
+
+PS_OUT_LIGHTDEPTH PS_MAIN_LIGHTDEPTH(PS_IN In)
+{
+    PS_OUT_LIGHTDEPTH Out = (PS_OUT_LIGHTDEPTH) 0;
+
+    Out.vLightDepth = vector(In.vProjPos.w / 1000.f, 0.f, 0.f, 0.f);
+
+
+    return Out;
+}
+
+
+
 technique11 DefaultTechnique
 {
     pass AnimModel
@@ -282,6 +299,18 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_CHAGNEALPHA();
+    }
+
+
+    pass LightDepth
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_LIGHTDEPTH();
     }
 
 }

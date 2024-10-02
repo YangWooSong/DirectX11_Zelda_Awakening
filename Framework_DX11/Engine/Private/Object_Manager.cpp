@@ -43,7 +43,8 @@ HRESULT CObject_Manager::Add_CloneObject_ToLayer(_uint iLevelIndex, const _wstri
 		return E_FAIL;
 
 	/* 그 원형을 복제하여 사본 객체를 생성한다. */
-	CGameObject* pGameObject = pPrototype->Clone(pArg);
+	CGameObject* pGameObject = nullptr;
+	pGameObject =	pPrototype->Clone(pArg);
 	if (nullptr == pGameObject)
 		return E_FAIL;
 

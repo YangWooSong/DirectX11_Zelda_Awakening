@@ -78,7 +78,6 @@ protected:
 	list<CUIObject*>	m_childUI_List;
 
 protected:
-	virtual void MouseOnCheck();				// 모든 자식 UI들은 부모꺼를 쓸거임
 
 	virtual void MouseLBtnDown() {};
 	virtual void MouseLBtnUp() {};

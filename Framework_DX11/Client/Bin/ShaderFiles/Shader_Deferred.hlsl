@@ -2,6 +2,7 @@
 
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 matrix g_ViewMatrixInv, g_ProjMatrixInv;
+matrix g_LightViewMatrix, g_LightProjMatrix;
 texture2D g_Texture;
 
 vector g_vLightDir;
@@ -19,6 +20,7 @@ vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
 texture2D g_ShadeTexture;
 texture2D g_DepthTexture;
 texture2D g_SpecularTexture;
+texture2D g_LightDepthTexture;
 
 vector g_vCamPosition;
 
@@ -188,6 +190,43 @@ PS_OUT PS_MAIN_DEFERRED(PS_IN In)
     
 
     Out.vColor = vDiffuse * vShade + vSpecular;
+
+    
+    vector vDepthDesc = g_DepthTexture.Sample(PointSampler, In.vTexcoord);
+    float fViewZ = vDepthDesc.y * 1000.f;
+
+	/* 1. 현재 그려내는 픽셀을 광원기준의 위치로 변환하기위해서 우선 월드로 역치환하여 월드위치를 구한다. */
+    vector vPosition = (vector) 0;
+
+	/* 투영공간상의 화면에 그려지는 픽셀의 위치를 구한다. */
+	/* 로컬위치 * 월드행렬 * 뷰행렬 * 투영행렬 / w */
+    vPosition.x = In.vTexcoord.x * 2.f - 1.f;
+    vPosition.y = In.vTexcoord.y * -2.f + 1.f;
+    vPosition.z = vDepthDesc.x;
+    vPosition.w = 1.f;
+
+	/* 뷰스페이스 상의 화면에 그려지는 픽셀의 위치를 구한다.*/
+	/* 로컬위치 * 월드행렬 * 뷰행렬  */
+    vPosition = vPosition * fViewZ;
+    vPosition = mul(vPosition, g_ProjMatrixInv);
+
+	/* 월드 상의 화면에 그려지는 픽셀의 위치를 구한다.*/
+    vPosition = mul(vPosition, g_ViewMatrixInv);
+
+	/* 2. 월드상의 픽셀 위치에다가 광원기준으로 만들어진 뷰행렬을 곱하여 광원기준의 스페이스로 변환한다. */
+    vector vOldPos = mul(vPosition, g_LightViewMatrix);
+    vOldPos = mul(vOldPos, g_LightProjMatrix);
+	
+    float fLightDepth = vOldPos.w;
+
+    float2 vTexcoord;
+    vTexcoord.x = (vOldPos.x / vOldPos.w) * 0.5f + 0.5f;
+    vTexcoord.y = (vOldPos.y / vOldPos.w) * -0.5f + 0.5f;
+
+    float fOldLightDepth = g_LightDepthTexture.Sample(LinearSampler, vTexcoord).r * 1000.f;
+
+    if (fLightDepth - 0.1f > fOldLightDepth)
+        Out.vColor = vector(Out.vColor.rgb * 0.6f, Out.vColor.a);
 
 
     return Out;
