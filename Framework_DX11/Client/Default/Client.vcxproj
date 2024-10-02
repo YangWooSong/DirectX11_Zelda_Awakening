@@ -186,6 +186,7 @@
     <ClInclude Include="..\Public\Grass.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
     <ClInclude Include="..\Public\Level_Dungeon.h" />
+    <ClInclude Include="..\Public\Level_Store.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
     <ClInclude Include="..\Public\LockBlock.h" />
     <ClInclude Include="..\Public\LockDoor.h" />
@@ -285,6 +286,7 @@
     <ClInclude Include="..\Public\State_Vegas_Walk_l.h" />
     <ClInclude Include="..\Public\State_Vegas_Walk_r.h" />
     <ClInclude Include="..\Public\StoneHinoxRock.h" />
+    <ClInclude Include="..\Public\Store_Item.h" />
     <ClInclude Include="..\Public\Sword.h" />
     <ClInclude Include="..\Public\TailCaveShutter.h" />
     <ClInclude Include="..\Public\TailLockStatue.h" />
@@ -327,6 +329,7 @@
     <ClCompile Include="..\Private\Level_MarinHouse.cpp" />
     <ClCompile Include="..\Private\Level_Loading.cpp" />
     <ClCompile Include="..\Private\Level_Logo.cpp" />
+    <ClCompile Include="..\Private\Level_Store.cpp" />
     <ClCompile Include="..\Private\Level_Test.cpp" />
     <ClCompile Include="..\Private\Link.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
@@ -417,6 +420,7 @@
     <ClCompile Include="..\Private\State_Vegas_Walk_l.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Walk_r.cpp" />
     <ClCompile Include="..\Private\StoneHinoxRock.cpp" />
+    <ClCompile Include="..\Private\Store_Item.cpp" />
     <ClCompile Include="..\Private\Sword.cpp" />
     <ClCompile Include="..\Private\TailCaveShutter.cpp" />
     <ClCompile Include="..\Private\TailLockStatue.cpp" />

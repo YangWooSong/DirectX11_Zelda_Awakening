@@ -37,20 +37,13 @@ HRESULT CLevel_MarinHouse::Initialize()
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-
-
-	CPlayerCamera* pCamera = dynamic_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_MARINHOUSE));
-
-	//if (KEY_AWAY(Q))
-		//pCamera->Start_Shake(2.f, 0.3f, 1.f);
-
 	if (GetKeyState(VK_RETURN) & 0x8000)
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pGameInstance->Reset_Lights();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_FIELD))))
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_STORE))))
 			return;
 	}
 
@@ -143,7 +136,7 @@ HRESULT CLevel_MarinHouse::Ready_Layer_BackGround()
 	Desc.fX = g_iWinSizeX  / 2;
 	Desc.fY = g_iWinSizeY / 2;
 
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_BackGround"),
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STATIC, TEXT("Layer_BackGround"),
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))
 		return E_FAIL;
 

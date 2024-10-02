@@ -55,6 +55,9 @@ HRESULT CLink::Initialize(void* pArg)
 {
 	PLAYER_DESC* pDesc = static_cast<PLAYER_DESC*>(pArg);
 
+	m_iLevelIndex = pDesc->LevelIndex;
+	m_iStartCellNum = pDesc->iStartCellNum;
+
 	/* 직교투영을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(pDesc)))
 		return E_FAIL;
@@ -75,7 +78,6 @@ HRESULT CLink::Initialize(void* pArg)
 	m_pFsmCom->Set_State(IDLE);
 
 	m_ePlayer_Dir = FRONT;
-	m_iLevelIndex = pDesc->LevelIndex;
 
 //	m_pGameInstance->SetUp_Player(this);
 
@@ -94,8 +96,6 @@ void CLink::Priority_Update(_float fTimeDelta)
 
 void CLink::Update(_float fTimeDelta)
 {
-	int a = m_pNavigationCom->Get_CurrentCellIndex();
-
 	//점프일때는 자동으로 땅 타지 않도록
 	if (m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr && m_bFall == false)
 		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
@@ -241,6 +241,21 @@ HRESULT CLink::Render_LightDepth()
 
 	for (size_t i = 0; i < iNumMeshes; i++)
 	{
+		if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 13 || i == 14 || i == 17 || i == 18)
+			continue;
+
+		if (m_bActiveSheild == false)
+		{
+			if (i == 7)
+				continue;
+		}
+
+		if (m_bActiveSword == false)
+		{
+			if (i == 10 || i == 15)
+				continue;
+		}
+
 		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", i);
 
 		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
@@ -414,6 +429,15 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 					m_pFsmCom->Change_State(KEY);
 				m_PlayerUI[INTERACT_UI]->SetActive(false);
 				m_bDungeonKey = false;
+			}
+		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_Store_Item"))
+		{
+			if (KEY_TAP(E))
+			{
+				Change_State(CARRY);
+				m_pCarryitem = pOther;
 			}
 		}
 	}

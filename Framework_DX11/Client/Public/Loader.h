@@ -34,16 +34,19 @@ private:
 	HRESULT Ready_Resources_For_Test();
 	HRESULT Ready_Resources_For_Field();
 	HRESULT Ready_Resources_For_Dungeon();
+	HRESULT Ready_Resources_For_Store();
 
 	HRESULT Ready_Models_For_MarinHouse();
 	HRESULT Ready_Models_For_Field();
 	HRESULT Ready_Models_For_Test();
 	HRESULT Ready_Models_For_Dungeon();
+	HRESULT Ready_Models_For_Store();
 
 
 	HRESULT Ready_Prototype_For_Field();
 	HRESULT Ready_Prototype_For_Test();
 	HRESULT Ready_Prototype_For_Dungeon();
+	HRESULT Ready_Prototype_For_Store();
 
 private:
 	ID3D11Device* m_pDevice = { nullptr };

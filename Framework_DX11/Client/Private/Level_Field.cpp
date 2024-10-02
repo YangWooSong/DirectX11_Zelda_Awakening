@@ -138,11 +138,20 @@ HRESULT CLevel_Field::Ready_Layer_Effect()
 
 HRESULT CLevel_Field::Ready_LandObjects()
 {
-
 	CPlayer::PLAYER_DESC PlayerDesc;
-	PlayerDesc.vPosition = _float3(36.438f, 10.491f, 52.748f);
-	PlayerDesc.LevelIndex = LEVEL_FIELD;
-	PlayerDesc.iStartCellNum = 222;
+
+	if (m_pGameInstance->Get_PreLevelIndex() == LEVEL_MARINHOUSE)
+	{
+		PlayerDesc.vPosition = _float3(30.864f, 10.407f, 57.572f);
+		PlayerDesc.LevelIndex = LEVEL_FIELD;
+		PlayerDesc.iStartCellNum = 214;
+	}
+	else if (m_pGameInstance->Get_PreLevelIndex() == LEVEL_STORE)
+	{
+		PlayerDesc.vPosition = _float3(44.207f, 10.491f, 68.704f);
+		PlayerDesc.LevelIndex = LEVEL_FIELD;
+		PlayerDesc.iStartCellNum = 251;
+	}
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 	

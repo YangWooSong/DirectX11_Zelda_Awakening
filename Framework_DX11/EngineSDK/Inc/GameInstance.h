@@ -47,6 +47,7 @@ public:
 	HRESULT Change_Level(_uint iLevelIndex, class CLevel* pNextLevel);
 	class CLevel* Get_CurLevel();
 	_uint   Get_CurLevelIndex();
+	_uint   Get_PreLevelIndex();
 #pragma endregion
 
 #pragma region OBJECT_MANAGER

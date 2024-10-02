@@ -158,7 +158,7 @@ HRESULT CBackGround::Ready_Components()
 			return E_FAIL;
 		break;
 	case Client::CBackGround::HOUSE_BACKGROUND:
-		if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Texture_House_Background"),
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_House_Background"),
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
 		break;

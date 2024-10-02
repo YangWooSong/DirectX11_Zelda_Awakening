@@ -151,7 +151,7 @@ HRESULT CLand::Add_Component_SingleMap()
         break;
     case 3:
         /* FOR.Com_Model */
-        if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Level_Shop"),
+        if (FAILED(__super::Add_Component(LEVEL_STORE, TEXT("Prototype_Component_Level_Shop"),
             TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
             return E_FAIL;
         break;

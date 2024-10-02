@@ -469,6 +469,12 @@
     <Filter Include="02.GameObjects\03.Objects\Field\06.SinkingSword">
       <UniqueIdentifier>{7b680b93-dd1a-44e5-9c93-56b1d80b48da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Levels\GamePlay\04.Store">
+      <UniqueIdentifier>{ff4d4680-ab72-4af8-9f14-d38c01e1f72a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Store_Item">
+      <UniqueIdentifier>{f8819151-8f4c-48df-bd21-d31c6cc839d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -864,6 +870,12 @@
     <ClInclude Include="..\Public\SinkingSword.h">
       <Filter>02.GameObjects\03.Objects\Field\06.SinkingSword</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Level_Store.h">
+      <Filter>01.Levels\GamePlay\04.Store</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Store_Item.h">
+      <Filter>02.GameObjects\03.Objects\Store_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1249,6 +1261,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\SinkingSword.cpp">
       <Filter>02.GameObjects\03.Objects\Field\06.SinkingSword</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Store.cpp">
+      <Filter>01.Levels\GamePlay\04.Store</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Store_Item.cpp">
+      <Filter>02.GameObjects\03.Objects\Store_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

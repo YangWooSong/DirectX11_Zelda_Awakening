@@ -228,6 +228,11 @@ _uint CGameInstance::Get_CurLevelIndex()
 	return m_pLevel_Manager->Get_CurLevelIndex();
 }
 
+_uint CGameInstance::Get_PreLevelIndex()
+{
+	return m_pLevel_Manager->Get_PreLevelIndex();
+}
+
 #pragma endregion
 
 #pragma region OBJECT_MANAGER

@@ -69,6 +69,8 @@
 #include "ConchHorn.h"
 #include "Togezo.h"
 
+#include "Store_Item.h"
+
 #include "InteractUI.h"
 #include "ItemUI.h"
 
@@ -135,6 +137,9 @@ HRESULT CLoader::Loading()
 		break;
 	case LEVEL_DUNGEON:
 		hr = Ready_Resources_For_Dungeon();
+		break;
+	case LEVEL_STORE:
+		hr = Ready_Resources_For_Store();
 		break;
 	}
 
@@ -209,7 +214,7 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
 
 	/* For. Prototype_Component_Texture_House_Background */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Texture_House_Background"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_House_Background"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/House_Background.dds"), 1))))
 		return E_FAIL;
 
@@ -487,6 +492,36 @@ HRESULT CLoader::Ready_Resources_For_Dungeon()
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
 
 	Ready_Prototype_For_Dungeon();
+
+	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Resources_For_Store()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
+
+	Ready_Models_For_Store();
+
+	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
+
+	/* For.Prototype_Component_Navigation */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Navigation"),
+		CNavigation::Create(m_pDevice, m_pContext, TEXT("../Bin/Nav_Data/Store_Nav_Data.dat")))))
+		return E_FAIL;
+
+	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
+
+	Ready_Prototype_For_Store();
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -843,6 +878,26 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 	return S_OK;
 }
 
+HRESULT CLoader::Ready_Models_For_Store()
+{
+	/* For. Prototype_Component_Level_Shop*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Level_Shop"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/Shop/Shop_01A.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_HeartContainer*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Model_HeartContainer"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/HeartContainer/HeartContainer.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_SoldOutPlate*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Model_SoldOutPlate"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/SoldOutPlate/SoldOutPlate.dat"))))
+		return E_FAIL;
+
+	return S_OK;
+}
+
 HRESULT CLoader::Ready_Prototype_For_Field()
 {
 #pragma region OBJECT
@@ -1060,6 +1115,16 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 		return E_FAIL;
 
 #pragma endregion
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Prototype_For_Store()
+{
+	/* For. Prototype_GameObject_Store_Item*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Store_Item"),
+		CStore_Item::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 	return S_OK;
 }
 

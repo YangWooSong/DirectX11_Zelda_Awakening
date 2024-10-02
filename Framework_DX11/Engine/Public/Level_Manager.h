@@ -17,6 +17,7 @@ private:
 public:
 	class CLevel* Get_CurLevel() { return m_pCurrentLevel; }
 	_uint Get_CurLevelIndex() { return m_iLevelIndex; }
+	_uint Get_PreLevelIndex() { return m_iPreLevelIndex; }
 
 public:
 	HRESULT Initialize();
@@ -29,6 +30,7 @@ private:
 	class CGameInstance*	m_pGameInstance = { nullptr };
 
 	_uint					m_iLevelIndex = {};
+	_uint					m_iPreLevelIndex = {};
 
 public:
 	static CLevel_Manager* Create();
