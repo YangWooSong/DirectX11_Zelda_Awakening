@@ -57,6 +57,8 @@ void CParticle_Model::Update(_float fTimeDelta)
 		break;
 	case GRASS:
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Grass_Spread(fTimeDelta, 0.5f, 1.f);
+	case LAWN:
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Grass_Spread(fTimeDelta, 0.5f, 1.f);
 	default:
 		break;
 	}
@@ -235,10 +237,10 @@ HRESULT CParticle_Model::Ready_Components()
 		Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
 		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
 
-		Desc.iNumInstance = 4;
+		Desc.iNumInstance = 10;
 		Desc.vCenter = _float3(0.f, 0.5f, 0.f);
-		Desc.vRange = _float3(0.5f, 0.5f, 0.5f);
-		Desc.vSize = _float2(0.1f, 0.1f);
+		Desc.vRange = _float3(1.f,1.f, 1.f);
+		Desc.vSize = _float2(0.5f, 1.f);
 		Desc.vPivot = _float3(0.f, 4.f, 0.f);
 		Desc.vSpeed = _float2(1.f, 3.f);
 		Desc.vLifeTime = _float2(0.3f, 1.f);

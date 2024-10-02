@@ -9,6 +9,7 @@
 #include <fstream>
 #include "NavDataObj.h"
 #include "Monster.h"
+#include "Grass.h"
 
 CLevel_Field::CLevel_Field(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -336,7 +337,7 @@ HRESULT CLevel_Field::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _flo
 
 HRESULT CLevel_Field::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
 {
-	CGameObject::GAMEOBJECT_DESC pDesc = { };
+	CGrass::GRASS_DESC pDesc = {};
 	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
 	pDesc.listIndex = _index;
 
@@ -346,11 +347,14 @@ HRESULT CLevel_Field::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _
 
 	if (_strLyaerTag == "Layer_Lawn")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Lawn"), TEXT("Prototype_GameObject_Lawn"), &pDesc)))
+		pDesc.iGrassType = CGrass::LAWN;
+
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Grass"), TEXT("Prototype_GameObject_Grass"), &pDesc)))
 			return E_FAIL;
 	}
 	else if (_strLyaerTag == "Layer_Grass")
 	{
+		pDesc.iGrassType = CGrass::GRASS;
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Grass"), TEXT("Prototype_GameObject_Grass"), &pDesc)))
 			return E_FAIL;
 	}

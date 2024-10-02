@@ -277,9 +277,6 @@
     <Filter Include="02.GameObjects\03.Objects\Field\00.Grass">
       <UniqueIdentifier>{41d6c7ff-d07a-4239-bc30-a4d777bd442f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\03.Objects\Field\01.Lawn">
-      <UniqueIdentifier>{1b7d0c4d-f3ec-45f1-b69f-2c5a43be382c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\03.Objects\Field\02.Tree">
       <UniqueIdentifier>{bf06a8ce-380e-40b0-9575-e67fc98f44ef}</UniqueIdentifier>
     </Filter>
@@ -711,9 +708,6 @@
     <ClInclude Include="..\Public\NavDataObj.h">
       <Filter>02.GameObjects\04.Land\NavDataObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Lawn.h">
-      <Filter>02.GameObjects\03.Objects\Field\01.Lawn</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Grass.h">
       <Filter>02.GameObjects\03.Objects\Field\00.Grass</Filter>
     </ClInclude>
@@ -1099,9 +1093,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\NavDataObj.cpp">
       <Filter>02.GameObjects\04.Land\NavDataObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Lawn.cpp">
-      <Filter>02.GameObjects\03.Objects\Field\01.Lawn</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Grass.cpp">
       <Filter>02.GameObjects\03.Objects\Field\00.Grass</Filter>

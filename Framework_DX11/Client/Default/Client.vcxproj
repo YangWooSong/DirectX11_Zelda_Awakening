@@ -185,7 +185,6 @@
     <ClInclude Include="..\Public\Detector.h" />
     <ClInclude Include="..\Public\Grass.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
-    <ClInclude Include="..\Public\Lawn.h" />
     <ClInclude Include="..\Public\Level_Dungeon.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
     <ClInclude Include="..\Public\LockBlock.h" />
@@ -323,7 +322,6 @@
     <ClCompile Include="..\Private\ItemUI.cpp" />
     <ClCompile Include="..\Private\Kuribo.cpp" />
     <ClCompile Include="..\Private\Land.cpp" />
-    <ClCompile Include="..\Private\Lawn.cpp" />
     <ClCompile Include="..\Private\Level_Dungeon.cpp" />
     <ClCompile Include="..\Private\Level_Field.cpp" />
     <ClCompile Include="..\Private\Level_MarinHouse.cpp" />

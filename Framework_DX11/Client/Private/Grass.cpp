@@ -2,6 +2,7 @@
 #include "Grass.h"
 #include "GameInstance.h"
 #include "Particle_Model.h"
+#include "Player.h"
 
 CGrass::CGrass(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -22,11 +23,17 @@ HRESULT CGrass::Initialize(void* pArg)
 {
     GAMEOBJECT_DESC* pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
 
+    GRASS_DESC* pGrassDesc = static_cast<GRASS_DESC*>(pArg);
+    m_iGrassType = pGrassDesc->iGrassType;
+
     /* 직교퉁여을 위한 데이터들을 모두 셋. */
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
     if (FAILED(Ready_Components()))
+        return E_FAIL;
+    
+    if (FAILED(Ready_Particle()))
         return E_FAIL;
 
     //Read한 정보 세팅
@@ -35,10 +42,8 @@ HRESULT CGrass::Initialize(void* pArg)
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
 
-    CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
-    Desc.iParticleType = CParticle_Model::GRASS;
-
-    m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
+    m_pPlayer = static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_FIELD));
+    Safe_AddRef(m_pPlayer);
 
     return S_OK;
 }
@@ -59,9 +64,10 @@ void CGrass::Update(_float fTimeDelta)
         m_pColliderCom->Set_IsActive(false);
         m_pParticle->Update(fTimeDelta);
     }
-    else
+    else if(m_pColliderCom->IsActive())
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 
+    Culculate_Distance_Player();
     m_pParticle->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 }
 
@@ -70,9 +76,9 @@ void CGrass::Late_Update(_float fTimeDelta)
     __super::Late_Update(fTimeDelta);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
-    if (m_bCut == false)
+    if (m_bCut == false && m_bAddColliderList)
        m_pGameInstance->Add_ColliderList(m_pColliderCom);
-    else
+    else if(m_bCut)
         m_pParticle->Late_Update(fTimeDelta);
 
 #ifdef _DEBUG
@@ -144,9 +150,18 @@ HRESULT CGrass::Ready_Components()
         return E_FAIL;
 
     /* FOR.Com_Model */
-    if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Grass"),
-        TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
-        return E_FAIL;
+    if (m_iGrassType == GRASS)
+    {
+        if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Grass"),
+            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+            return E_FAIL;
+    }
+    else if (m_iGrassType == LAWN)
+    {
+        if (FAILED(__super::Add_Component(LEVEL_FIELD, TEXT("Prototype_Component_Model_Lawn"),
+            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+            return E_FAIL;
+    }
 
     /* FOR.Com_Sound */
     if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Sound"),
@@ -156,8 +171,17 @@ HRESULT CGrass::Ready_Components()
 
     /* For.Com_Collider */
     CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
-    ColliderDesc.vExtents = _float3(0.5f, 0.5f, 0.5f);
-    ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+
+    if(m_iGrassType == GRASS)
+    {
+        ColliderDesc.vExtents = _float3(0.5f, 0.5f, 0.5f);
+        ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+    }
+    else if (m_iGrassType == LAWN)
+    {
+        ColliderDesc.vExtents = _float3(1.f, 0.5f, 1.f);
+        ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
+    }
 
     if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
         TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
@@ -165,6 +189,46 @@ HRESULT CGrass::Ready_Components()
     m_pColliderCom->Set_Owner(this);
 
     return S_OK;
+}
+
+HRESULT CGrass::Ready_Particle()
+{
+    switch (m_iGrassType)
+    {
+    case GRASS:
+    {
+
+        CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
+        Desc.iParticleType = CParticle_Model::GRASS;
+
+        m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
+    }
+        break;
+    case LAWN:   
+    {
+
+        CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
+        Desc.iParticleType = CParticle_Model::LAWN;
+
+        m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
+    }
+            break;
+    default:
+        break;
+    }
+    return S_OK;
+}
+
+void CGrass::Culculate_Distance_Player()
+{
+    _vector vPlayerPos = m_pPlayer->Get_Position();
+
+    _float fDistance = XMVectorGetX(XMVector3Length(vPlayerPos - m_pTransformCom->Get_State(CTransform::STATE_POSITION)));
+
+    if (fabs(fDistance) < 2.f)
+        m_bAddColliderList = true;
+    else
+        m_bAddColliderList = false;
 }
 
 CGrass* CGrass::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -198,6 +262,7 @@ void CGrass::Free()
     __super::Free();
 
     Safe_Release(m_pParticle);
+    Safe_Release(m_pPlayer);
 
     Safe_Release(m_pSoundCom);
     Safe_Release(m_pShaderCom);

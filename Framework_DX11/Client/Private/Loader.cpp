@@ -25,7 +25,6 @@
 #include "Shield.h"
 #include "Bomb.h"
 
-#include "Lawn.h"
 #include "Grass.h"
 #include "Tree.h"
 #include "Weathercock.h"
@@ -847,11 +846,6 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 HRESULT CLoader::Ready_Prototype_For_Field()
 {
 #pragma region OBJECT
-	/* For. Prototype_GameObject_Land*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Lawn"),
-		CLawn::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
 	/* For. Prototype_GameObject_Grass*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Grass"),
 		CGrass::Create(m_pDevice, m_pContext))))

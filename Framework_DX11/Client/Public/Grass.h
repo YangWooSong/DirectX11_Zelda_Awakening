@@ -14,6 +14,12 @@ BEGIN(Client)
 class CGrass :
 	public CGameObject
 {
+public:
+	enum GRASS_TYPE{GRASS, LAWN, GRASS_TYPE_END};
+	typedef struct : public CGameObject::GAMEOBJECT_DESC
+	{
+		_uint iGrassType = 0;
+	} GRASS_DESC;
 private:
 	CGrass(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CGrass(const CGrass& Prototype);
@@ -39,13 +45,18 @@ public:
 	CSound* m_pSoundCom = { nullptr };
 
 private:
+	_uint m_iGrassType = { GRASS_TYPE_END };
+
 	_bool	m_bCut = { false };
+	_bool   m_bAddColliderList = { false };
 	_bool m_bPlaySound = { false };
 
 	CGameObject* m_pParticle = { nullptr };
-
+	class CPlayer* m_pPlayer = { nullptr };
 private:
 	HRESULT Ready_Components();
+	HRESULT Ready_Particle();
+	void Culculate_Distance_Player();
 
 public:
 	static CGrass* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
