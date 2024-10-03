@@ -2,7 +2,7 @@
 #include "State_Link_Carry.h"
 #include "GameInstance.h"
 #include "Link.h"
-
+#include "Store_Item.h"
 CState_Link_Carry::CState_Link_Carry(CFsm* pFsm, CPlayer* pPlayer)
 	:CState{ pFsm }
 	, m_pPlayer{ pPlayer }
@@ -25,7 +25,7 @@ HRESULT CState_Link_Carry::Start_State()
 	else
 		m_iCurrentAnimIndex = m_iCarryStartAnimIndex;
 
-	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f, 0);
+	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, 0);
 
 	if(m_iCurrentAnimIndex == m_iCarryStartAnimIndex)
 	{
@@ -52,22 +52,27 @@ void CState_Link_Carry::Update(_float fTimeDelta)
 	//방향키가 눌린게 없어야 Idle로 전환 (W,A,S,D 순서)
 	if ((GetAsyncKeyState(0x57) & 0x8000) || (GetAsyncKeyState(0x41) & 0x8000) || (GetAsyncKeyState(0x53) & 0x8000) || (GetAsyncKeyState(0x44) & 0x8000))
 	{
-		m_pPlayer->Change_State(CLink::CARRY_WALK);
-		return;
+		if(static_cast<CLink*>(m_pPlayer)->Get_isTalk() == false )
+			m_pPlayer->Change_State(CLink::CARRY_WALK);
 	}
-	/*else
-	{
-		if (m_iCurrentAnimIndex != m_iCarryIdleAnimIndex)
-		{
-			m_iCurrentAnimIndex = m_iCarryIdleAnimIndex;
-			m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f, true);
-			m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 30.f);
-		}
-	}*/
 
 	if (KEY_TAP(KEY::E))
 	{
-		m_pPlayer->Change_State(CLink::THROW);
+		if(static_cast<CLink*>(m_pPlayer)->Get_CarryItem()->Get_LayerTag() == TEXT("Layer_Store_Item") &&  static_cast<CLink*>(m_pPlayer)->Get_isTalk())
+		{
+			CGameObject* pObject = static_cast<CLink*>(m_pPlayer)->Get_CarryItem();
+			//pObject->SetActive(false);
+			//static_cast<CStore_Item*>(pObject)->Set_Picked(false);
+			static_cast<CLink*>(m_pPlayer)->Set_CarryItem(nullptr);
+			static_cast<CLink*>(m_pPlayer)->Set_Talk(false);
+			static_cast<CLink*>(m_pPlayer)->Set_ActiveSheild(true);
+			static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(true);
+			m_pPlayer->Change_State(CLink::IDLE);
+			return;
+		}
+
+		if(static_cast<CLink*>(m_pPlayer)->Get_CarryItem()->Get_LayerTag() != TEXT("Layer_Store_Item"))
+			m_pPlayer->Change_State(CLink::THROW);
 	}
 
 }

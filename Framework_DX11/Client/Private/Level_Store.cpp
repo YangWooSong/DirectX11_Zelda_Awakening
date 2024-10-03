@@ -107,7 +107,7 @@ HRESULT CLevel_Store::Ready_Layer_Camera()
 
 	Desc.vEye = _float4(0.f, 15.f, -14.f, 1.f);
 	Desc.vAt = _float4(0.f, 0.f, -8.f, 1.f);
-	Desc.fFovy = XMConvertToRadians(30.f);
+	Desc.fFovy = XMConvertToRadians(28.f);
 	Desc.fAspect = (_float)g_iWinSizeX / (_float)g_iWinSizeY;
 	Desc.fNear = 0.1f;
 	Desc.fFar = 1000.f;
@@ -117,6 +117,7 @@ HRESULT CLevel_Store::Ready_Layer_Camera()
 	Desc.fSpeed = 4.f;
 	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_STORE));
 	Desc.bFollowPlayer = false;
+	Desc.fDefaultAngle = 43.f;
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_Camera"), TEXT("Prototype_GameObject_PlayerCamera"), &Desc)))
 		return E_FAIL;
@@ -224,8 +225,8 @@ HRESULT CLevel_Store::Read()
 
 			if (strLayerTag == "Layer_Land")
 				Read_LandObjects(iObjectType, iObjectListIndex, fPos, fScaled, fRot);
-			else if (iObjectType == CGameObject::NONANIM_OBJ)
-				Read_NonAnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
+			else if (iObjectType == CGameObject::ANIM_NPC)
+				Read_AnimNPC(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 			else if (iObjectType == CGameObject::ANIM_OBJ)
 				Read_AnimObj(iObjectType, iObjectListIndex, fPos, fScaled, fRot, strLayerTag);
 		}
@@ -313,6 +314,7 @@ HRESULT CLevel_Store::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _flo
 
 	if (_strLyaerTag == "Layer_Bomb")
 	{
+		pDesc.vPosition.y += 0.2f;
 		pDesc.vPosition.x -= 2.f;
 		pDesc.iItemType = CStore_Item::SOLD_OUT;
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_Store_Item"), TEXT("Prototype_GameObject_Store_Item"), &pDesc)))
@@ -342,7 +344,7 @@ HRESULT CLevel_Store::Read_AnimObj(_int _type, _uint _index, _float3 _fPos, _flo
 	return S_OK;
 }
 
-HRESULT CLevel_Store::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
+HRESULT CLevel_Store::Read_AnimNPC(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag)
 {
 	CGameObject::GAMEOBJECT_DESC pDesc = { };
 	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(_type);
@@ -352,9 +354,9 @@ HRESULT CLevel_Store::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _
 	pDesc.vScale = _fScaled;
 	pDesc.vRotation = _fRot;
 
-	if (_strLyaerTag == "Layer_Bomb")
+	if (_strLyaerTag == "Layer_ToolShopkeeper")
 	{
-		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_Store_Item"), TEXT("Prototype_GameObject_Store_Item"), &pDesc)))
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_NPC"), TEXT("Prototype_GameObject_ToolShopkeeper"), &pDesc)))
 			return E_FAIL;
 	}
 

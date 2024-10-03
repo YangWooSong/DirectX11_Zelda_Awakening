@@ -76,4 +76,9 @@ void CUIObject::Free()
 {
 	__super::Free();
 
+	for (auto& pChild : m_childUI_List)
+		Safe_Release(pChild);
+
+	m_childUI_List.clear();
+
 }

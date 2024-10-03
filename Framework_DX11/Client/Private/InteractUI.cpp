@@ -84,7 +84,7 @@ HRESULT CInteractUI::Render()
         if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", m_iTextureNum)))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(2)))
+        if (FAILED(m_pShaderCom->Begin(3)))
             return E_FAIL;
 
         if (FAILED(m_pVIBufferCom->Bind_Buffers()))

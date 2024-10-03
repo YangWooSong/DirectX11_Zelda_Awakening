@@ -173,8 +173,10 @@
     <ClInclude Include="..\Public\BladeTrap.h" />
     <ClInclude Include="..\Public\Bomb.h" />
     <ClInclude Include="..\public\BossDoor.h" />
+    <ClInclude Include="..\Public\ChoiceBtn.h" />
     <ClInclude Include="..\Public\ClosedPotDoor.h" />
     <ClInclude Include="..\Public\ConchHorn.h" />
+    <ClInclude Include="..\Public\DialogueUI.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
@@ -191,6 +193,7 @@
     <ClInclude Include="..\Public\LockBlock.h" />
     <ClInclude Include="..\Public\LockDoor.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
+    <ClInclude Include="..\Public\NPC.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\OnewayDoorReverse.h" />
     <ClInclude Include="..\Public\OwlStatue.h" />
@@ -278,6 +281,9 @@
     <ClInclude Include="..\Public\State_Togezo_Idle.h" />
     <ClInclude Include="..\Public\State_Togezo_Rebound.h" />
     <ClInclude Include="..\Public\State_Togezo_Run.h" />
+    <ClInclude Include="..\Public\State_ToolShopkeeper_Attack.h" />
+    <ClInclude Include="..\Public\State_ToolShopkeeper_Talk.h" />
+    <ClInclude Include="..\Public\State_ToolShopkeeper_Idle.h" />
     <ClInclude Include="..\Public\State_Vegas_Damage.h" />
     <ClInclude Include="..\Public\State_Vegas_Dead.h" />
     <ClInclude Include="..\Public\State_Vegas_Idle.h" />
@@ -292,6 +298,7 @@
     <ClInclude Include="..\Public\TailLockStatue.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Togezo.h" />
+    <ClInclude Include="..\Public\ToolShopkeeper.h" />
     <ClInclude Include="..\Public\TreasureBox.h" />
     <ClInclude Include="..\Public\Tree.h" />
     <ClInclude Include="..\Public\Vegas.h" />
@@ -308,8 +315,10 @@
     <ClCompile Include="..\Private\BladeTrap.cpp" />
     <ClCompile Include="..\Private\Bomb.cpp" />
     <ClCompile Include="..\Private\BossDoor.cpp" />
+    <ClCompile Include="..\Private\ChoiceBtn.cpp" />
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\ConchHorn.cpp" />
+    <ClCompile Include="..\Private\DialogueUI.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
@@ -336,6 +345,7 @@
     <ClCompile Include="..\Private\LockBlock.cpp" />
     <ClCompile Include="..\Private\LockDoor.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
+    <ClCompile Include="..\Private\NPC.cpp" />
     <ClCompile Include="..\Private\Particle_Model.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\NavDataObj.cpp" />
@@ -412,6 +422,9 @@
     <ClCompile Include="..\Private\State_Togezo_Idle.cpp" />
     <ClCompile Include="..\Private\State_Togezo_Rebound.cpp" />
     <ClCompile Include="..\Private\State_Togezo_Run.cpp" />
+    <ClCompile Include="..\Private\State_ToolShopkeeper_Attack.cpp" />
+    <ClCompile Include="..\Private\State_ToolShopkeeper_Talk.cpp" />
+    <ClCompile Include="..\Private\State_ToolShopkeeper_Idle.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Damage.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Dead.cpp" />
     <ClCompile Include="..\Private\State_Vegas_Idle.cpp" />
@@ -430,6 +443,7 @@
     <ClCompile Include="..\Private\Tree.cpp" />
     <ClCompile Include="..\Private\Vegas.cpp" />
     <ClCompile Include="..\Private\Weathercock.cpp" />
+    <ClCompile Include="..\Public\ToolShopkeeper.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -35,6 +35,8 @@
 #include "ItemUI.h"
 #include "Bomb.h"
 #include "SquareBlock.h"
+#include "NPC.h"
+#include "ToolShopkeeper.h"
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -277,9 +279,6 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 {
 	if (m_pColliderCom->Get_IsColl())
 	{
-		/*if(pOther->Get_ObjType() ==CGameObject::ANIM_MONSTER)
-			Change_State(DAMAGE_FRONT);*/
-
 		if (pOther->Get_LayerTag() == TEXT("Layer_Monster") || pOther->Get_ObjType() == CGameObject::ANIM_MONSTER)
 			Change_State(DAMAGE_FRONT);
 
@@ -362,6 +361,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(8);
 			m_pFsmCom->Change_State(GET_ITEM);
 		}
+		
 	}
 }
 
@@ -434,11 +434,43 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_Store_Item"))
 		{
+			if (m_pCarryitem == nullptr)
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(2);
+			}
+			else
+				m_PlayerUI[INTERACT_UI]->SetActive(false);
 			if (KEY_TAP(E))
 			{
+				m_PlayerUI[INTERACT_UI]->SetActive(false);
 				Change_State(CARRY);
 				m_pCarryitem = pOther;
 			}
+		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_NPC"))
+		{
+			if (static_cast<CNPC*>(pOther)->Get_Talk() == false)
+			{
+				m_PlayerUI[INTERACT_UI]->SetActive(true);
+				m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+
+				if (KEY_TAP(KEY::E))
+				{
+					if(dynamic_cast<CToolShopkeeper*>(pOther) != nullptr)
+					{
+						if(dynamic_cast<CToolShopkeeper*>(pOther)->Get_Fsm()->Get_PrevState() != CToolShopkeeper::TALK)
+						{
+							static_cast<CNPC*>(pOther)->Set_Talk(true);
+							m_bTalk = true;
+						}
+					}
+
+				}
+			}
+			else
+				m_PlayerUI[INTERACT_UI]->SetActive(false);
 		}
 	}
 }
@@ -464,6 +496,16 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 	if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue"))
 	{
 		m_PlayerUI[0]->SetActive(false);
+	}
+
+	if (pOther->Get_LayerTag() == TEXT("Layer_Store_Item"))
+	{
+		m_PlayerUI[INTERACT_UI]->SetActive(false);
+	}
+
+	if (pOther->Get_LayerTag() == TEXT("Layer_NPC"))
+	{
+		m_PlayerUI[INTERACT_UI]->SetActive(false);
 	}
 }
 

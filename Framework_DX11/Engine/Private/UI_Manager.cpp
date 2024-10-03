@@ -108,7 +108,7 @@ CUIObject* CUI_Manager::Get_FocusUI()
 				}
 
 				// 그 부모 pUI의 자식UI벡터를 vecChild한테 줌
-				const list<CUIObject*>& ChildUIList = pUI->Get_ChildUIList();
+				const vector<CUIObject*>& ChildUIList = pUI->Get_ChildUIList();
 
 				// queue에 자식 UI추가
 				for (auto& iter : ChildUIList)
@@ -184,7 +184,7 @@ CUIObject* CUI_Manager::Get_TargetUI(CUIObject* _pFocusUI)
 		}
 
 
-		const list<CUIObject*>& ChildUIList = pUI->Get_ChildUIList();
+		const vector<CUIObject*>& ChildUIList = pUI->Get_ChildUIList();
 
 		for (auto& iter : ChildUIList)
 		{

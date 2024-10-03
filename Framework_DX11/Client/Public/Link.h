@@ -52,6 +52,17 @@ public:
 	_int Get_SmallKeyCount() { return m_iSmallKeyCount; }
 	void Minus_SmallKeyCount() {  m_iSmallKeyCount--; }
 	_bool Get_isGetBeak() { return m_bBeak; }
+
+	void Set_Talk(_bool bTalk) { m_bTalk = bTalk; }
+	_bool Get_isTalk() { return m_bTalk; }
+
+	void Set_Bomb(_bool bBomb) { m_bBomb = bBomb; }
+	_bool Get_Bomb() {return m_bBomb;	}
+
+	_int Get_Lupee() { return m_iLupee; }
+	void Add_Lupee(_int iNum) { m_iLupee += iNum; }
+
+	void Add_MaxHp() { m_iMaxHp++; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();
@@ -63,19 +74,24 @@ private:
 	CGameObject* m_pCarryitem = { nullptr };
 
 	_bool m_bActiveSheild = { true };
-	_bool m_bActiveSword = { true };
+	_bool m_bActiveSword = { false };
 
 	_float m_fBlinkTimer = { 0.f };
 	_int m_iBlinkCount = { 0};
 	
-	_int m_iLupee = { 0 };
+	_int m_iMaxHp = {8};
+	_int m_iCurrentHP = {6};
+	_int m_iLupee = { 5 };
 	_int m_iSmallKeyCount = { 0 };
+
 	_bool m_bDungeonKey = { true };
 	_bool m_bGetBossKey = { false };
 	_bool m_bCampus = { false };
 	_bool m_bBeak = { true };
 	_bool m_bFeather = { false };
 	_bool m_bMap = { false };
+	_bool m_bTalk = { false };
+	_bool m_bBomb = { false };
 
 	//class CInteractUI* m_pInteractUI = { nullptr };
 	//class CItemUI* m_pItemtUI = { nullptr };

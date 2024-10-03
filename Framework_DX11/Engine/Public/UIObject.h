@@ -48,10 +48,15 @@ public:
 	_float		Get_fSizeY() { return m_fSizeY; }
 
 	CUIObject*			Get_ParentUI() { return m_pParentUI; }
+	CUIObject* Get_ChildUI(_int iIndex) { return m_childUI_List[iIndex]; }
+
 	CGameObject*			Get_ParentGameObj() { return m_pParentGameObj; }
-	list<CUIObject*>&	Get_ChildUIList() { return m_childUI_List; }
+	vector<CUIObject*>&	Get_ChildUIList() { return m_childUI_List; }
 
 	_uint Get_Depth() { return m_iDepth; }
+
+	_bool Get_Selected() { return m_bSelected; }
+	void Set_Selected(_bool bSelect) { m_bSelected = bSelect; }
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -72,10 +77,11 @@ protected:
 	_bool				m_bMovement = {};     // UI가 움직일수 있는지?
 	_bool				m_bMouseOn = {};	 // UI 위에 마우스가 있는지
 	_bool				m_bLbtnDown = {};	 // UI에 왼쪽버튼이 눌러져 있는지
+	_bool				m_bSelected = {};	 
 
 	CUIObject*			m_pParentUI = { nullptr };	 // 부모 UI가 있니
 	CGameObject*			m_pParentGameObj = { nullptr };	 // 부모 UI가 있니
-	list<CUIObject*>	m_childUI_List;
+	vector<CUIObject*>	m_childUI_List;
 
 protected:
 

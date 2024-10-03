@@ -35,8 +35,11 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 {
 	if ((GetAsyncKeyState(0x57) & 0x8000) || (GetAsyncKeyState(0x41) & 0x8000) || (GetAsyncKeyState(0x53) & 0x8000) || (GetAsyncKeyState(0x44) & 0x8000))
 	{
-		m_pPlayer->Change_State(CLink::WALK);
-		return;
+		if (static_cast<CLink*>(m_pPlayer)->Get_isTalk() == false)
+		{
+			m_pPlayer->Change_State(CLink::WALK);
+			return;
+		}
 	}
 
 	if (KEY_HOLD(KEY::I))
@@ -46,7 +49,8 @@ void CState_Link_Idle::Update(_float fTimeDelta)
 
 	if (KEY_HOLD(KEY::O))
 	{
-		m_pPlayer->Change_State(CLink::BOMB);
+		if(static_cast<CLink*>(m_pPlayer)->Get_Bomb())
+			m_pPlayer->Change_State(CLink::BOMB);
 	}
 
 	if (static_cast<CLink*>(m_pPlayer)->Get_ActiveSword())

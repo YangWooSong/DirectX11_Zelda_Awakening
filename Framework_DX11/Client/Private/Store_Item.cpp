@@ -34,6 +34,7 @@ HRESULT CStore_Item::Initialize(void* pArg)
     m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(_float3(0.f, 0.f, 0.f));
     m_vRot = pDesc->vRotation;
+    m_vOriginPos = pDesc->vPosition;
 
     m_isActive = true;
 
@@ -52,11 +53,17 @@ void CStore_Item::Update(_float fTimeDelta)
 {
     if (m_bPicked == false)
     {
-        m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+        m_fTimer = 0.f;
+
+        if(m_pColliderCom != nullptr)
+            m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+        if (m_pColliderCom != nullptr && m_pColliderCom->IsActive() == false)
+            m_pColliderCom->Set_IsActive(true);
     }
     else
     {
-        if (m_pColliderCom->IsActive())
+        if (m_pColliderCom != nullptr && m_pColliderCom->IsActive())
             m_pColliderCom->Set_IsActive(false);
 
         if (m_fTimer > 0.5f)
@@ -75,11 +82,12 @@ void CStore_Item::Late_Update(_float fTimeDelta)
         __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
-        if(m_bPicked == false)
+        if(m_pColliderCom != nullptr && m_bPicked == false)
             m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
 #ifdef _DEBUG
-        m_pGameInstance->Add_DebugObject(m_pColliderCom);
+        if(m_pColliderCom != nullptr)
+            m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
     }
 }
@@ -122,7 +130,7 @@ void CStore_Item::OnCollisionEnter(CGameObject* pOther)
 
 void CStore_Item::OnCollisionStay(CGameObject* pOther)
 {
-    if (m_pColliderCom->Get_IsColl())
+    if (m_pColliderCom != nullptr &&  m_pColliderCom->Get_IsColl())
     {
         if (pOther->Get_LayerTag() == TEXT("Layer_Player") && m_bPicked == false)
         {
@@ -134,6 +142,14 @@ void CStore_Item::OnCollisionStay(CGameObject* pOther)
 
 void CStore_Item::OnCollisionExit(CGameObject* pOther)
 {
+}
+
+void CStore_Item::Go_Back_OriginPos()
+{
+    m_bPicked = false;
+    m_isActive = true;
+    m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&m_vOriginPos));
+    m_pTransformCom->RotationThreeAxis(_float3(0.f, 0.f,0.f));
 }
 
 HRESULT CStore_Item::Ready_Components()
@@ -166,15 +182,18 @@ HRESULT CStore_Item::Ready_Components()
     }
  
 
-    /* For.Com_Collider */
-    CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
-    ColliderDesc.vExtents = _float3(0.6f, 1.f, 2.f);
-    ColliderDesc.vCenter = _float3(0.f, -1.f, 1.f);
+    if(m_iItemType != SOLD_OUT)
+    {
+        /* For.Com_Collider */
+        CBounding_AABB::BOUNDING_AABB_DESC			ColliderDesc{};
+        ColliderDesc.vExtents = _float3(0.5f, 1.f, 1.f);
+        ColliderDesc.vCenter = _float3(0.f, 0.f, 0.f);
 
-    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
-        TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
-        return E_FAIL;
-    m_pColliderCom->Set_Owner(this);
+        if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Collider_AABB"),
+            TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
+            return E_FAIL;
+        m_pColliderCom->Set_Owner(this);
+    }
 
     return S_OK;
 }

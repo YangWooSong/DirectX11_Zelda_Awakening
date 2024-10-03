@@ -77,10 +77,13 @@ HRESULT CMainApp::Ready_Font()
 {
 	//cmd창 명령어 (각종 성분 세팅->사이즈는 고정된다.
 	/* MakeSpriteFont "글꼴 이름 넣는 곳" /FontSize:10 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 내가 정하는 이름.spritefont */
-	/* MakeSpriteFont "휴먼옛체" /FontSize:36 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 BossName36.spritefont */
+	/* MakeSpriteFont "굴림" /FontSize:24 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 Gullim24.spritefont */
 
 	//Font_Gulim : 이건 레이어 이름 마냥 내가 정한다.
-	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim"), TEXT("../Bin/Resources/Fonts/Gulim.spritefont"))))
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim24"), TEXT("../Bin/Resources/Fonts/Gullim24.spritefont"))))
+		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim36"), TEXT("../Bin/Resources/Fonts/Gullim36.spritefont"))))
 		return E_FAIL;
 
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_BossName36"), TEXT("../Bin/Resources/Fonts/BossName36.spritefont"))))

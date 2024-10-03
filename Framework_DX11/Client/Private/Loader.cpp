@@ -70,9 +70,12 @@
 #include "Togezo.h"
 
 #include "Store_Item.h"
+#include "ToolShopkeeper.h"
 
 #include "InteractUI.h"
 #include "ItemUI.h"
+#include "DialogueUI.h"
+#include "ChoiceBtn.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -233,6 +236,21 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Snow/Snow.png"), 1))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_Dialogue */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Dialogue"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Dialogue.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_ChoiceBtn */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ChoiceBtn"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/ChoiceBT_%d.dds"), 2))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_ChoiceBtn_Selected */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ChoiceBtn_Selected"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Button/ChoiceBT_Selected_%d.dds"), 2))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
 	Ready_Models_For_MarinHouse();
@@ -350,6 +368,16 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	/* For. Prototype_GameObject_ItemtUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ItemtUI"),
 		CItemUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_DialogueUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_DialogueUI"),
+		CDialogueUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_ChoiceBtn*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ChoiceBtn"),
+		CChoiceBtn::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	/* For. Prototype_GameObject_Particle_Expolosion */
@@ -880,6 +908,10 @@ HRESULT CLoader::Ready_Models_For_Dungeon()
 
 HRESULT CLoader::Ready_Models_For_Store()
 {
+	_matrix		PreTransformMatrix = XMMatrixIdentity();
+
+	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
+
 	/* For. Prototype_Component_Level_Shop*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Level_Shop"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/Shop/Shop_01A.dat"))))
@@ -893,6 +925,11 @@ HRESULT CLoader::Ready_Models_For_Store()
 	/* For. Prototype_Component_Model_SoldOutPlate*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Model_SoldOutPlate"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/SoldOutPlate/SoldOutPlate.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_NPC_ToolShopkeeper*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Model_NPC_ToolShopkeeper"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/NPC/ToolShopkeeper/ToolShopkeeper.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 	return S_OK;
@@ -1123,6 +1160,11 @@ HRESULT CLoader::Ready_Prototype_For_Store()
 	/* For. Prototype_GameObject_Store_Item*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Store_Item"),
 		CStore_Item::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_ToolShopkeeper*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ToolShopkeeper"),
+		CToolShopkeeper::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	return S_OK;

@@ -42,7 +42,7 @@ void CState_DeguTail_Walk::Update(_float fTimeDelta)
 
     if (m_iStopCount == m_iRandomStopCount || m_fTimer > 1.f)
     {
-        m_iRandomStopCount = m_pGameInstance->Get_Random(2,3);
+        m_iRandomStopCount = (int)m_pGameInstance->Get_Random(2,3);
         m_fTimer = 0.f;
         m_iStopCount = 0;
         m_iReflectDir *= -1.f;

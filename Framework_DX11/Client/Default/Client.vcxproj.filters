@@ -412,9 +412,6 @@
     <Filter Include="02.GameObjects\07.UI\Player\Interact">
       <UniqueIdentifier>{41ffd962-005b-4c02-8506-2e4fe7a46269}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\07.UI\Object">
-      <UniqueIdentifier>{0eb528cf-200d-4bb7-9677-4bd24492045f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\07.UI\Player\ItemUI">
       <UniqueIdentifier>{06328f33-e3fd-4ce3-808b-0b29c113adc9}</UniqueIdentifier>
     </Filter>
@@ -474,6 +471,33 @@
     </Filter>
     <Filter Include="02.GameObjects\03.Objects\Store_Item">
       <UniqueIdentifier>{f8819151-8f4c-48df-bd21-d31c6cc839d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.NPC">
+      <UniqueIdentifier>{ebaf7977-270b-4f88-8991-6cf6e38f9292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.NPC\ToolShopkeeper">
+      <UniqueIdentifier>{437bbc75-4125-466f-94c9-4ae44fe39c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC">
+      <UniqueIdentifier>{bb2999a9-eb84-401b-96c3-ec114b50d62c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\ToolShopkeeper">
+      <UniqueIdentifier>{452fb98e-e8e2-4527-a255-457daba1b29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\ToolShopkeeper\Idle">
+      <UniqueIdentifier>{3c31cbd5-0d30-484d-b02f-3d7e5f5b70e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\ToolShopkeeper\Talk">
+      <UniqueIdentifier>{c067edd2-6d68-41df-8549-b7414a7869ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\ToolShopkeeper\Attack">
+      <UniqueIdentifier>{d52fd3c4-db61-4f23-9c2d-b1f570105263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\DialogueUI">
+      <UniqueIdentifier>{87596725-47ec-478b-b84c-b5c5de94c138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\ChoiceBtn">
+      <UniqueIdentifier>{4b0aca3a-f38e-4459-9c92-4d625115221a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -876,6 +900,27 @@
     <ClInclude Include="..\Public\Store_Item.h">
       <Filter>02.GameObjects\03.Objects\Store_Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\NPC.h">
+      <Filter>02.GameObjects\08.NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ToolShopkeeper.h">
+      <Filter>02.GameObjects\08.NPC\ToolShopkeeper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_ToolShopkeeper_Idle.h">
+      <Filter>05.State\NPC\ToolShopkeeper\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_ToolShopkeeper_Talk.h">
+      <Filter>05.State\NPC\ToolShopkeeper\Talk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_ToolShopkeeper_Attack.h">
+      <Filter>05.State\NPC\ToolShopkeeper\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\DialogueUI.h">
+      <Filter>02.GameObjects\07.UI\DialogueUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ChoiceBtn.h">
+      <Filter>02.GameObjects\07.UI\ChoiceBtn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1267,6 +1312,27 @@
     </ClCompile>
     <ClCompile Include="..\Private\Store_Item.cpp">
       <Filter>02.GameObjects\03.Objects\Store_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\NPC.cpp">
+      <Filter>02.GameObjects\08.NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\ToolShopkeeper.cpp">
+      <Filter>02.GameObjects\08.NPC\ToolShopkeeper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_ToolShopkeeper_Idle.cpp">
+      <Filter>05.State\NPC\ToolShopkeeper\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_ToolShopkeeper_Talk.cpp">
+      <Filter>05.State\NPC\ToolShopkeeper\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_ToolShopkeeper_Attack.cpp">
+      <Filter>05.State\NPC\ToolShopkeeper\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\DialogueUI.cpp">
+      <Filter>02.GameObjects\07.UI\DialogueUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ChoiceBtn.cpp">
+      <Filter>02.GameObjects\07.UI\ChoiceBtn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

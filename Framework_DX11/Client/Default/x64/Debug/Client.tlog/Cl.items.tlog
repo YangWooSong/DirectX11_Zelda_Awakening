@@ -4,8 +4,10 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Be
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\BladeTrap.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\BladeTrap.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Bomb.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Bomb.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\BossDoor.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\BossDoor.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\ChoiceBtn.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\ChoiceBtn.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\ClosedPotDoor.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\ClosedPotDoor.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\ConchHorn.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\ConchHorn.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\DialogueUI.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\DialogueUI.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\FootSwitch.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\FootSwitch.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\InteractUI.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\InteractUI.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\CollapseTile.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\CollapseTile.obj
@@ -32,6 +34,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\private\Lo
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LockBlock.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\LockBlock.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LockDoor.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\LockDoor.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MainApp.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\MainApp.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\NPC.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\NPC.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Particle_Model.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Particle_Model.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Monster.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Monster.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\NavDataObj.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\NavDataObj.obj
@@ -108,6 +111,9 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\St
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Togezo_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Togezo_Idle.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Togezo_Rebound.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Togezo_Rebound.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Togezo_Run.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Togezo_Run.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_ToolShopkeeper_Attack.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_ToolShopkeeper_Attack.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_ToolShopkeeper_Talk.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_ToolShopkeeper_Talk.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_ToolShopkeeper_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_ToolShopkeeper_Idle.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Vegas_Damage.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Vegas_Damage.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Vegas_Dead.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Vegas_Dead.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Vegas_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Vegas_Idle.obj
@@ -126,5 +132,6 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Tr
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Tree.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Tree.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Vegas.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Vegas.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Weathercock.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Weathercock.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Public\ToolShopkeeper.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\ToolShopkeeper.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\Client.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Client.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\stdafx.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\stdafx.obj

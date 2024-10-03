@@ -44,10 +44,17 @@ public:
 	CModel* m_pModelCom = {nullptr};
 	CCollider* m_pColliderCom = { nullptr };
 
+public:
+	_uint Get_ItemType() { return m_iItemType; }
+	void Go_Back_OriginPos();
+
+public:
+	void Set_Picked(_bool bPick) { m_bPicked = bPick; }
 private:
 	_bool m_bPicked = { false };
 	_float m_fTimer = { 0.f };
 	_uint m_iItemType = { ITEM_TYPE_END };
+	_float3 m_vOriginPos = {};
 
 	const _float4x4* m_pSocketMatrix = { nullptr };
 	class CLink* m_pPlayer = { nullptr };
