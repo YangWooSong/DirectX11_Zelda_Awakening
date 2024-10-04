@@ -50,13 +50,14 @@ private:
 	_bool	m_bCut = { false };
 	_bool   m_bAddColliderList = { false };
 	_bool m_bPlaySound = { false };
-
+	_bool m_bCreate_Lupee = { false };
 	CGameObject* m_pParticle = { nullptr };
 	class CPlayer* m_pPlayer = { nullptr };
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_Particle();
 	void Culculate_Distance_Player();
+	HRESULT Drop_Lupee();
 
 public:
 	static CGrass* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

@@ -14,6 +14,7 @@ BEGIN(Client)
 class CLupee :
 	public CGameObject
 {
+
 private:
 	CLupee(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CLupee(const CLupee& Prototype);
@@ -37,9 +38,14 @@ public:
 	CModel* m_pModelCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
 	CSound* m_pSoundCom = { nullptr };
+
+private:
+	_bool m_bShow = { true };
+	_float m_fTimer = { 0.f };
+
 private:
 	HRESULT Ready_Components();
-
+	void Show_Move(_float fTimeDelta);
 public:
 	static CLupee* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

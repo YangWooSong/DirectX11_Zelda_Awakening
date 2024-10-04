@@ -3,6 +3,8 @@
 #include "GameInstance.h"
 #include "Particle_Model.h"
 #include "Player.h"
+#include "Lupee.h"
+
 
 CGrass::CGrass(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -63,6 +65,9 @@ void CGrass::Update(_float fTimeDelta)
         }
         m_pColliderCom->Set_IsActive(false);
         m_pParticle->Update(fTimeDelta);
+
+        if(m_bCreate_Lupee == false)
+            Drop_Lupee();
     }
     else if(m_pColliderCom->IsActive())
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
@@ -229,6 +234,26 @@ void CGrass::Culculate_Distance_Player()
         m_bAddColliderList = true;
     else
         m_bAddColliderList = false;
+}
+
+HRESULT CGrass::Drop_Lupee()
+{
+    m_bCreate_Lupee = true;
+    _int iRandom = (int)m_pGameInstance->Get_Random(0, 10);
+
+    if (iRandom == 3)
+    {
+        CGameObject::GAMEOBJECT_DESC Desc{};
+
+        _float3 vPos;
+        XMStoreFloat3(&vPos, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+        vPos.y += 0.5f;
+        Desc.vPosition = vPos;
+        Desc.vScale = _float3(1.f,1.f,1.f);
+
+        if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Lupee"), TEXT("Prototype_GameObject_Lupee"), &Desc)))
+            return E_FAIL;
+    }
 }
 
 CGrass* CGrass::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

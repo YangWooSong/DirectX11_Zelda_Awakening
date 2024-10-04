@@ -973,6 +973,11 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_SinkingSword"),
 		CSinkingSword::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+	/* For. Prototype_GameObject_SinkingSword*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Lupee"),
+		CLupee::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 #pragma endregion
 
 #pragma region MONSTER

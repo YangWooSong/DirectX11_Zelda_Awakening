@@ -39,7 +39,7 @@
 #include "ToolShopkeeper.h"
 
  _bool CLink::m_bActiveSheild = true;
- _bool CLink::m_bActiveSword = false;
+ _bool CLink::m_bActiveSword = true;
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
@@ -477,6 +477,11 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 			else
 				m_PlayerUI[INTERACT_UI]->SetActive(false);
+		}
+
+		if (pOther->Get_LayerTag() == TEXT("Layer_Lupee"))
+		{
+			m_iLupee += 5.f;
 		}
 	}
 }

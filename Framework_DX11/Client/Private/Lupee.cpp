@@ -50,8 +50,10 @@ void CLupee::Update(_float fTimeDelta)
     {
         m_pSoundCom->Update(fTimeDelta);
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
-    }
 
+        if (m_bShow)
+            Show_Move(fTimeDelta);
+    }
 }
 
 void CLupee::Late_Update(_float fTimeDelta)
@@ -149,6 +151,18 @@ HRESULT CLupee::Ready_Components()
     return S_OK;
 }
 
+void CLupee::Show_Move(_float fTimeDelta)
+{
+    m_fTimer += fTimeDelta;
+
+    if (m_fTimer <  0.4f)
+        m_pTransformCom->Go_World_Up(fTimeDelta, 1.8f);
+    else  if (m_fTimer < 0.8f)
+        m_pTransformCom->Go_World_Up(fTimeDelta, -1.9f);
+    else
+        m_bShow = false;
+}
+
 CLupee* CLupee::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
     CLupee* pInstance = new CLupee(pDevice, pContext);
@@ -179,6 +193,7 @@ void CLupee::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pSoundCom);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);
