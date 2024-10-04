@@ -508,6 +508,9 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\LupeeUI">
       <UniqueIdentifier>{6746693c-8bed-4184-b533-7522157f57c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Teleport">
+      <UniqueIdentifier>{7d471800-93bb-4cb8-9cb7-27188e76f7f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -939,6 +942,9 @@
     <ClInclude Include="..\Public\LupeeUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\LupeeUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Teleport.h">
+      <Filter>02.GameObjects\03.Objects\Teleport</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1360,6 +1366,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\LupeeUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\LupeeUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Teleport.cpp">
+      <Filter>02.GameObjects\03.Objects\Teleport</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

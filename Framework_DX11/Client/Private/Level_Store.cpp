@@ -10,6 +10,7 @@
 #include "BackGround.h"
 #include "Store_Item.h"
 #include "MainUI.h"
+#include "Teleport.h"
 #include <fstream>
 CLevel_Store::CLevel_Store(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -33,19 +34,20 @@ HRESULT CLevel_Store::Initialize()
 	Read();
 
 	m_pGameInstance->Play_BGM(TEXT("0_Shop.wav"), 0.8f);
+	m_pTeleportObj = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_STORE, TEXT("Layer_Teleport"), 0));
 
 	return S_OK;
 }
 
 void CLevel_Store::Update(_float fTimeDelta)
 {
-	if (GetKeyState(VK_RETURN) & 0x8000)
+	if (m_pTeleportObj->Get_Change_Level() || GetKeyState(VK_RETURN) & 0x8000)
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pGameInstance->Reset_Lights();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_FIELD))))
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj->Get_NextLevel()))))
 			return;
 	}
 
@@ -153,14 +155,14 @@ HRESULT CLevel_Store::Ready_Layer_Effect()
 HRESULT CLevel_Store::Ready_LandObjects()
 {
 
-	CPlayer::PLAYER_DESC PlayerDesc;
+	CPlayer::PLAYER_DESC PlayerDesc{};
 	PlayerDesc.vPosition = _float3(-0.062f, -0.094f, -1.704f);
 	PlayerDesc.LevelIndex = LEVEL_STORE;
 	PlayerDesc.iStartCellNum = 4;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 
-	CNavDataObj::NAVOBJ_DESC NavDes;
+	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_STORE;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
@@ -176,6 +178,14 @@ HRESULT CLevel_Store::Ready_LandObjects()
 		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
 		return E_FAIL;
 
+	CTeleport::TELEPORT_DESC TeleportDesc{};
+	TeleportDesc.iNextLevelIndex = LEVEL_FIELD;
+	TeleportDesc.vPosition = { 0.f, 0.5f, -3.6f };
+	TeleportDesc.vScale = { 1.5f,0.5f,0.5f };
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_Teleport"),
+		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
+		return E_FAIL;
 
 	return S_OK;
 }

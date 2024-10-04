@@ -38,6 +38,7 @@ private:
 
 	HRESULT Ready_Textures_For_static();
 
+	HRESULT Ready_Models_For_Static();
 	HRESULT Ready_Models_For_MarinHouse();
 	HRESULT Ready_Models_For_Field();
 	HRESULT Ready_Models_For_Test();

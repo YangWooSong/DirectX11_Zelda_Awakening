@@ -35,6 +35,7 @@ public:
 private:
 	class CNavigation* m_pNavigationCom = { nullptr };
 	class CPlayer* m_pPlayer = { nullptr };
+	class CPlayerCamera* m_pPlayerCam = { nullptr };
 
 	_bool	m_isPlayerGetCampus = { false };
 	_bool   m_bFirstInRoom10 = { true };
@@ -78,8 +79,6 @@ private:
 		_float4(30.f, 20.f, 25.f, 1.f),_float4(45.f, 20.f, 13.f, 1.f),_float4(45.f, 20.f, 25.f, 1.f),_float4(45.f, 20.f, 37.f, 1.f),
 		_float4(45.f, 20.f, 49.f, 1.f),_float4(-15.f, 0.f, 37.f, 1.f),_float4(-30.f, 20.f, 37.f, 1.f),_float4(-45.f, -45.f, -11.f, 1.f),
 	};
-
-	class CPlayerCamera* m_pPlayerCam = { nullptr };
 
 private:
 	void Change_Room();

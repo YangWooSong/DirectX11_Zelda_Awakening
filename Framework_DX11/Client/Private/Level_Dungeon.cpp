@@ -158,19 +158,19 @@ HRESULT CLevel_Dungeon::Ready_Layer_Effect()
 
 HRESULT CLevel_Dungeon::Ready_LandObjects()
 {
-    CPlayer::PLAYER_DESC PlayerDesc;
+	CPlayer::PLAYER_DESC PlayerDesc{};
     PlayerDesc.vPosition = _float3(-0.032f, 0.048f, -5.052f);
     PlayerDesc.LevelIndex = LEVEL_DUNGEON;
 	PlayerDesc.iStartCellNum = 1;
     if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
         return E_FAIL;
 
-	CNavDataObj::NAVOBJ_DESC NavDes;
+	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_DUNGEON;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
 
-	CGameObject::GAMEOBJECT_DESC ObjectDesc;
+	CGameObject::GAMEOBJECT_DESC ObjectDesc{};
 	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
 	ObjectDesc.iRoomNum = 2;
 	ObjectDesc.vPosition = _float3(-18.75f, 10.f, 0.69f);
@@ -185,7 +185,7 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_ConchHorn"), TEXT("Prototype_GameObject_ConchHorn"), &ObjectDesc)))
 		return E_FAIL;
 
-	CSquareBlock::SQUARE_DESC SquareDesc;
+	CSquareBlock::SQUARE_DESC SquareDesc{};
 	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
 	ObjectDesc.iRoomNum = 14;
 	ObjectDesc.vPosition = _float3(-17.22f, 0.f, 48.72f);

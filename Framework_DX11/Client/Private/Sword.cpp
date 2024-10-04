@@ -35,7 +35,7 @@ HRESULT CSword::Initialize(void* pArg)
 		return E_FAIL;
 
 	m_pTransformCom->Set_Scaled(1.f, 1.f, 2.f);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, -0.4f, 1.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, -0.6f, 1.f));
 	
 	Set_LayerTag(TEXT("Layer_Sword"));
 

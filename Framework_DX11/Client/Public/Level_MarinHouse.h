@@ -36,6 +36,7 @@ public:
 
 private:
 	class CNavigation* m_pNavigationCom = { nullptr };
+	class CTeleport* m_pTeleportObj = { nullptr };
 
 public:
 	static CLevel_MarinHouse* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

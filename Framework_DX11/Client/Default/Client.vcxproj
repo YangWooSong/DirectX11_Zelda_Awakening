@@ -299,6 +299,7 @@
     <ClInclude Include="..\Public\Sword.h" />
     <ClInclude Include="..\Public\TailCaveShutter.h" />
     <ClInclude Include="..\Public\TailLockStatue.h" />
+    <ClInclude Include="..\Public\Teleport.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Togezo.h" />
     <ClInclude Include="..\Public\ToolShopkeeper.h" />
@@ -443,6 +444,7 @@
     <ClCompile Include="..\Private\Sword.cpp" />
     <ClCompile Include="..\Private\TailCaveShutter.cpp" />
     <ClCompile Include="..\Private\TailLockStatue.cpp" />
+    <ClCompile Include="..\Private\Teleport.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Togezo.cpp" />
     <ClCompile Include="..\Private\TreasureBox.cpp" />

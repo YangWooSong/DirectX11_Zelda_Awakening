@@ -11,6 +11,7 @@
 #include "Monster.h"
 #include "Grass.h"
 #include "MainUI.h"
+#include "Teleport.h"
 
 CLevel_Field::CLevel_Field(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -34,12 +35,32 @@ HRESULT CLevel_Field::Initialize()
 	Read();
 
 	m_pGameInstance->Play_BGM(TEXT("0_Field_Normal.wav"), 0.6f);
+	m_pTeleportObj_0 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"), 0));
+	m_pTeleportObj_1 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"), 1));
 
 	return S_OK;
 }
 
 void CLevel_Field::Update(_float fTimeDelta)
 {
+	if (m_pTeleportObj_0->Get_Change_Level() )
+	{
+		m_pGameInstance->DeletePlayer();
+		m_pGameInstance->DeleteActors();
+		m_pGameInstance->Stop_BGM();
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_0->Get_NextLevel()))))
+			return;
+	}
+
+	if (m_pTeleportObj_1->Get_Change_Level())
+	{
+		m_pGameInstance->DeletePlayer();
+		m_pGameInstance->DeleteActors();
+		m_pGameInstance->Stop_BGM();
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_1->Get_NextLevel()))))
+			return;
+	}
+
 	if (GetKeyState(VK_RETURN) & 0x8000)
 	{
 		m_pGameInstance->DeletePlayer();
@@ -139,11 +160,11 @@ HRESULT CLevel_Field::Ready_Layer_Effect()
 
 HRESULT CLevel_Field::Ready_LandObjects()
 {
-	CPlayer::PLAYER_DESC PlayerDesc;
+	CPlayer::PLAYER_DESC PlayerDesc{};
 
 	if (m_pGameInstance->Get_PreLevelIndex() == LEVEL_MARINHOUSE)
 	{
-		PlayerDesc.vPosition = _float3(30.864f, 10.407f, 57.572f);
+		PlayerDesc.vPosition = _float3(30.864f, 10.407f, 57.f);
 		PlayerDesc.LevelIndex = LEVEL_FIELD;
 		PlayerDesc.iStartCellNum = 214;
 	}
@@ -153,18 +174,20 @@ HRESULT CLevel_Field::Ready_LandObjects()
 		PlayerDesc.LevelIndex = LEVEL_FIELD;
 		PlayerDesc.iStartCellNum = 251;
 	}
+	PlayerDesc.vRotation = _float3(0.f, 180.f, 0.f);
+	
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 	
 	m_pPlayer = static_cast<CPlayer*>( m_pGameInstance->Find_Player(LEVEL_FIELD));
 	Safe_AddRef(m_pPlayer);
 
-	CNavDataObj::NAVOBJ_DESC NavDes;
+	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
 
-	CGameObject::GAMEOBJECT_DESC ObjectDesc;
+	CGameObject::GAMEOBJECT_DESC ObjectDesc{};
 	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
 	ObjectDesc.iRoomNum = 0;
 	ObjectDesc.vPosition = _float3(30.f, 3.7f, 0.4f);
@@ -181,6 +204,23 @@ HRESULT CLevel_Field::Ready_LandObjects()
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_MainUI"),
 		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
+		return E_FAIL;
+
+	CTeleport::TELEPORT_DESC TeleportDesc{};
+	TeleportDesc.iNextLevelIndex = LEVEL_MARINHOUSE;
+	TeleportDesc.vPosition = _float3(30.864f, 10.407f, 58.5f);
+	TeleportDesc.vScale = { 0.5f,0.5f,0.5f };
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),
+		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
+		return E_FAIL;
+
+	TeleportDesc.iNextLevelIndex = LEVEL_STORE;
+	TeleportDesc.vPosition = _float3(44.207f, 10.491f, 69.5f);
+	TeleportDesc.vScale = { 0.5f,0.5f,0.5f };
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),
+		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
 		return E_FAIL;
 
 	return S_OK;

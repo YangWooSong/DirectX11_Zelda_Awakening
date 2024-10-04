@@ -19,6 +19,7 @@
 #include "PlayerCamera.h"
 #include "Land.h"
 
+#include "Teleport.h"
 #include "HousePot.h"
 #include "Bed.h"
 #include "Sword.h"
@@ -204,28 +205,10 @@ HRESULT CLoader::Ready_Resources_For_LogoLevel()
 
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
+	Ready_Models_For_Static();
 
 	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
 
-
-	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
-	
-	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
-
-	m_isFinished = true;
-
-	return S_OK;
-}
-
-HRESULT CLoader::Ready_Resources_For_MarinHouse()
-{
-	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
-
-	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
-
-
-	Ready_Models_For_MarinHouse();
-	
 	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
 
 	/* For. Prototype_Component_Shader_VtxModelInstance */
@@ -237,21 +220,6 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxRectInstance"),
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
 		return E_FAIL;
-
-	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
-
-	/* For.Prototype_Component_Navigation */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Navigation"),
-		CNavigation::Create(m_pDevice, m_pContext, TEXT("../Bin/Nav_Data/MarinHouse_Nav_Data.dat")))))
-		return E_FAIL;
-
-	/* For. Prototype_GameObject_NavDataObj*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_NavDataObj"),
-		CNavDataObj::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
-
-	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
 
 	lstrcpy(m_szLoadingText, TEXT("파티클을(를) 로딩중입니다."));
 
@@ -283,10 +251,48 @@ HRESULT CLoader::Ready_Resources_For_MarinHouse()
 		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
+	
+	Ready_Prototype_For_MarinHouse();
+	Ready_Prototype_For_Store();
+	Ready_Prototype_For_Field();
+	Ready_Prototype_For_Dungeon();
+
+	/* For. Prototype_GameObject_NavDataObj*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_NavDataObj"),
+		CNavDataObj::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Resources_For_MarinHouse()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
+
+	Ready_Models_For_MarinHouse();
+	
+	lstrcpy(m_szLoadingText, TEXT("셰이더을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("네비게이션을(를) 로딩중입니다."));
+
+	/* For.Prototype_Component_Navigation */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Navigation"),
+		CNavigation::Create(m_pDevice, m_pContext, TEXT("../Bin/Nav_Data/MarinHouse_Nav_Data.dat")))))
+		return E_FAIL;
+
+	lstrcpy(m_szLoadingText, TEXT("사운드을(를) 로딩중입니다."));
+
+	lstrcpy(m_szLoadingText, TEXT("파티클을(를) 로딩중입니다."));
+
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
-
-	Ready_Prototype_For_MarinHouse();
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -303,8 +309,6 @@ HRESULT CLoader::Ready_Resources_For_Test()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_TEST, TEXT("Prototype_Component_Texture_Terrain"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Terrain/Grass_%d.dds"), 2))))
 		return E_FAIL;
-
-
 
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
@@ -381,8 +385,6 @@ HRESULT CLoader::Ready_Resources_For_Field()
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
-	
-	Ready_Prototype_For_Field();
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -412,8 +414,6 @@ HRESULT CLoader::Ready_Resources_For_Dungeon()
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
 
-	Ready_Prototype_For_Dungeon();
-
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
 	m_isFinished = true;
@@ -441,8 +441,6 @@ HRESULT CLoader::Ready_Resources_For_Store()
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
-
-	Ready_Prototype_For_Store();
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
@@ -497,41 +495,29 @@ HRESULT CLoader::Ready_Textures_For_static()
 }
 
 
-HRESULT CLoader::Ready_Models_For_MarinHouse()
+HRESULT CLoader::Ready_Models_For_Static()
 {
-	/* For. Prototype_Component_VIBuffer_Terrain*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_VIBuffer_Terrain"),
-		CVIBuffer_Terrain::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Terrain/Height.bmp")))))
-		return E_FAIL;
-
 	_matrix		PreTransformMatrix = XMMatrixIdentity();
-
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
 
 	/* For. Prototype_Component_Model_Link*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Link"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Link/Link.dat", PreTransformMatrix))))
 		return E_FAIL;
-
-	/* For. Prototype_Component_Model_MarinHouse*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Level_MarinHouse"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/MarinHouse/MarinHouse.dat"))))
+#pragma region AnimObject
+	/* For. Prototype_Component_Model_Bomb*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Bomb"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bomb/Bomb.dat"))))
 		return E_FAIL;
+#pragma endregion
 
+#pragma region NonAnimObj
 	/* For. Prototype_Component_Model_Obj_HousePot*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Obj_HousePot"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/HousePot/HousePot.dat"))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_Obj_Bed*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_Bed"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bed/Bed.dat"))))
-		return E_FAIL;
-
-	/* For. Prototype_Component_Model_Bomb*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_Bomb"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bomb/Bomb.dat"))))
-		return E_FAIL;
+#pragma endregion
 
 #pragma region PARTICLE
 	/* For. Prototype_Component_Model_Purplequartz_Particle*/
@@ -559,6 +545,31 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/cut_lawn/cut_lawn.dat"))))
 		return E_FAIL;
 #pragma endregion
+
+	return S_OK;
+}
+
+HRESULT CLoader::Ready_Models_For_MarinHouse()
+{
+	/* For. Prototype_Component_VIBuffer_Terrain*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_VIBuffer_Terrain"),
+		CVIBuffer_Terrain::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Terrain/Height.bmp")))))
+		return E_FAIL;
+
+	_matrix		PreTransformMatrix = XMMatrixIdentity();
+
+	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
+
+	/* For. Prototype_Component_Model_MarinHouse*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Level_MarinHouse"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Level/MarinHouse/MarinHouse.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_Obj_Bed*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_Obj_Bed"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bed/Bed.dat"))))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -968,6 +979,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_CMainUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LupeeUI"),
 		CLupeeUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Teleport*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Teleport"),
+		CTeleport::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	return S_OK;

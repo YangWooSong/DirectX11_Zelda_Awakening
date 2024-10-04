@@ -9,6 +9,7 @@
 #include "NavDataObj.h"
 #include "BackGround.h"
 #include "MainUI.h"
+#include "Teleport.h"
 
 #include <fstream>
 CLevel_MarinHouse::CLevel_MarinHouse(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -33,19 +34,20 @@ HRESULT CLevel_MarinHouse::Initialize()
 	Read();
 
 	m_pGameInstance->Play_BGM(TEXT("0_House_Inside.wav"), 0.8f);
-
+	m_pTeleportObj = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"), 0));
+	
 	return S_OK;
 }
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-	if (GetKeyState(VK_RETURN) & 0x8000)
+	if (m_pTeleportObj->Get_Change_Level() || GetKeyState(VK_RETURN) & 0x8000)
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pGameInstance->Reset_Lights();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_FIELD))))
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj->Get_NextLevel()))))
 			return;
 	}
 
@@ -148,27 +150,20 @@ HRESULT CLevel_MarinHouse::Ready_Layer_BackGround()
 
 HRESULT CLevel_MarinHouse::Ready_Layer_Effect()
 {
-	//for (size_t i = 0; i < 50; i++)
-	//{
-	//	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Prototype_GameObject_Effect"))))
-	//		return E_FAIL;
-	//}
-	
-
 	return S_OK;
 }
 
 HRESULT CLevel_MarinHouse::Ready_LandObjects()
 {
 
-	CPlayer::PLAYER_DESC PlayerDesc;
+	CPlayer::PLAYER_DESC PlayerDesc{};
 	PlayerDesc.vPosition = _float3(0.f, 0.f, 0.f);
 	PlayerDesc.LevelIndex = LEVEL_MARINHOUSE;
 	PlayerDesc.iStartCellNum = 0;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
 		return E_FAIL;
 
-	CNavDataObj::NAVOBJ_DESC NavDes;
+	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_MARINHOUSE; 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
@@ -184,28 +179,17 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
 		return E_FAIL;
 
+	CTeleport::TELEPORT_DESC TeleportDesc{};
+	TeleportDesc.iNextLevelIndex = LEVEL_FIELD;
+	TeleportDesc.vPosition = {0.f, 0.5f, -4.2f};
+	TeleportDesc.vScale = {1.5f,0.5f,0.5f};
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),
+		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
+		return E_FAIL;
+
 	return S_OK;
 }
-
-//HRESULT CLevel_MarinHouse::Ready_Layer_Player(CLandObject::LANDOBJECT_DESC& LandObjectDesc)
-//{
-//	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player"), &LandObjectDesc)))
-//		return E_FAIL;
-//
-//	return S_OK;
-//}
-
-//
-//HRESULT CLevel_MarinHouse::Ready_Layer_Monster(CLandObject::LANDOBJECT_DESC& LandObjectDesc)
-//{
-//	for (size_t i = 0; i < 20; i++)
-//	{
-//		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Monster"), &LandObjectDesc)))
-//			return E_FAIL;
-//	}
-//
-//	return S_OK;
-//}
 
 HRESULT CLevel_MarinHouse::Read()
 {
