@@ -48,6 +48,7 @@ private:
 	_uint m_iGrassType = { GRASS_TYPE_END };
 
 	_bool	m_bCut = { false };
+	_bool	m_bShake = { false };
 	_bool   m_bAddColliderList = { false };
 	_bool m_bPlaySound = { false };
 	_bool m_bCreate_Lupee = { false };
@@ -58,6 +59,7 @@ private:
 	HRESULT Ready_Particle();
 	void Culculate_Distance_Player();
 	HRESULT Drop_Lupee();
+	void Shake(_float fTimeDelta);
 
 public:
 	static CGrass* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

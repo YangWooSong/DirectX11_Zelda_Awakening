@@ -72,6 +72,9 @@ void CGrass::Update(_float fTimeDelta)
     else if(m_pColliderCom->IsActive())
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 
+ 
+    Shake(fTimeDelta);
+
     Culculate_Distance_Player();
     m_pParticle->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 }
@@ -141,10 +144,21 @@ void CGrass::OnCollisionEnter(CGameObject* pOther)
 
 void CGrass::OnCollisionStay(CGameObject* pOther)
 {
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+        {
+            m_bShake = true;
+        }
+    }
 }
 
 void CGrass::OnCollisionExit(CGameObject* pOther)
 {
+    if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+    {
+        m_bShake = false;
+    }
 }
 
 HRESULT CGrass::Ready_Components()
@@ -184,7 +198,7 @@ HRESULT CGrass::Ready_Components()
     }
     else if (m_iGrassType == LAWN)
     {
-        ColliderDesc.vExtents = _float3(1.f, 0.5f, 1.f);
+        ColliderDesc.vExtents = _float3(0.8f, 0.5f, 0.8f);
         ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
     }
 
@@ -202,7 +216,6 @@ HRESULT CGrass::Ready_Particle()
     {
     case GRASS:
     {
-
         CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
         Desc.iParticleType = CParticle_Model::GRASS;
 
@@ -211,7 +224,6 @@ HRESULT CGrass::Ready_Particle()
         break;
     case LAWN:   
     {
-
         CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
         Desc.iParticleType = CParticle_Model::LAWN;
 
@@ -253,6 +265,29 @@ HRESULT CGrass::Drop_Lupee()
 
         if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Lupee"), TEXT("Prototype_GameObject_Lupee"), &Desc)))
             return E_FAIL;
+    }
+}
+
+void CGrass::Shake(_float fTimeDelta)
+{
+    _float fPlayerX = XMVectorGetX(m_pPlayer->Get_Position());
+    _float fCurPosX = XMVectorGetX(m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+
+    if (m_bShake == false )
+    {
+        if(m_pTransformCom->Get_Rot().x != 0 ||
+            m_pTransformCom->Get_Rot().y != 0 ||
+            m_pTransformCom->Get_Rot().z != 0  )
+        m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f,0.f,0.f), fTimeDelta);
+    }
+    else
+    {
+        if (fPlayerX < fCurPosX) //오른쪽으로 회전
+        {
+            m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f, 0.f, -10.f), fTimeDelta);
+        }
+        else
+            m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f, 0.f, 10.f), fTimeDelta);
     }
 }
 
