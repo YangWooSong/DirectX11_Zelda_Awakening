@@ -88,7 +88,7 @@ HRESULT CSword::Ready_Components()
 {
 	/* FOR.Com_Collider */
 	CBounding_OBB::BOUNDING_OBB_DESC			ColliderDesc{};
-	ColliderDesc.vExtents = _float3(0.1f, 0.1f, 0.5f);
+	ColliderDesc.vExtents = _float3(0.1f, 0.1f, 0.6f);
 	ColliderDesc.vCenter = _float3(0.f, ColliderDesc.vExtents.y, 0.f);
 	ColliderDesc.vAngles = _float3(0.f, 0.f, 0.f);
 

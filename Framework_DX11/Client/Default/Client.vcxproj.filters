@@ -499,6 +499,9 @@
     <Filter Include="02.GameObjects\07.UI\ChoiceBtn">
       <UniqueIdentifier>{4b0aca3a-f38e-4459-9c92-4d625115221a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Objects\Field\Lupee">
+      <UniqueIdentifier>{ddb4ab15-1568-49d6-9765-9f918fa16a08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -921,6 +924,9 @@
     <ClInclude Include="..\Public\ChoiceBtn.h">
       <Filter>02.GameObjects\07.UI\ChoiceBtn</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Lupee.h">
+      <Filter>02.GameObjects\03.Objects\Field\Lupee</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1333,6 +1339,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\ChoiceBtn.cpp">
       <Filter>02.GameObjects\07.UI\ChoiceBtn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Lupee.cpp">
+      <Filter>02.GameObjects\03.Objects\Field\Lupee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

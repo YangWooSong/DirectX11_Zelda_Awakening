@@ -55,6 +55,9 @@ void CParticle_Model::Update(_float fTimeDelta)
 	case HOUSEPOT:
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
 		break;
+	case ROCK:
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
+		break;
 	case GRASS:
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Grass_Spread(fTimeDelta, 0.5f, 1.f);
 	case LAWN:

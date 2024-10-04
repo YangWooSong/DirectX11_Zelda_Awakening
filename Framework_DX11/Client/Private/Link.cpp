@@ -38,6 +38,9 @@
 #include "NPC.h"
 #include "ToolShopkeeper.h"
 
+ _bool CLink::m_bActiveSheild = true;
+ _bool CLink::m_bActiveSword = false;
+
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
 {

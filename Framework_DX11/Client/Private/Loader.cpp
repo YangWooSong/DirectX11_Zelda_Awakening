@@ -35,6 +35,7 @@
 #include "OctorokRock.h"
 #include "Detector.h"
 #include "SinkingSword.h"
+#include "Lupee.h"
 
 #include "Kuribo.h"
 
@@ -683,6 +684,11 @@ HRESULT CLoader::Ready_Models_For_Field()
 	/* For. Prototype_Component_Model_SinkingSword*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_SinkingSword"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/SinkingSword/SinkingSword.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_SinkingSword*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Lupee"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/RupeeGreen/RupeeGreen.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 #pragma endregion

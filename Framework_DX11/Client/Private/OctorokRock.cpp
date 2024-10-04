@@ -123,7 +123,7 @@ void COctorokRock::Update(_float fTimeDelta)
         }
 
         if (m_pParticle != nullptr)
-            m_pParticle->Update(fTimeDelta);
+           m_pParticle->Update(fTimeDelta);
     }
 
     m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());

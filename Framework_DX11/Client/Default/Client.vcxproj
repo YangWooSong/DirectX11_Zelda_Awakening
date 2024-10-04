@@ -192,6 +192,7 @@
     <ClInclude Include="..\Public\Level_Test.h" />
     <ClInclude Include="..\Public\LockBlock.h" />
     <ClInclude Include="..\Public\LockDoor.h" />
+    <ClInclude Include="..\Public\Lupee.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\NPC.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
@@ -344,6 +345,7 @@
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\Private\LockBlock.cpp" />
     <ClCompile Include="..\Private\LockDoor.cpp" />
+    <ClCompile Include="..\Private\Lupee.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\NPC.cpp" />
     <ClCompile Include="..\Private\Particle_Model.cpp" />

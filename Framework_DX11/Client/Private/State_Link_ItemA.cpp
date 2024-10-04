@@ -28,7 +28,6 @@ void CState_Link_ItemA::Update(_float fTimeDelta)
 {
 	if(m_pPlayer_ItemA == nullptr)
 	{
-		//m_pPlayer->Change_State(CLink::IDLE);
 		m_pPlayer->Change_State(CLink::JUMP);
 	}
 
