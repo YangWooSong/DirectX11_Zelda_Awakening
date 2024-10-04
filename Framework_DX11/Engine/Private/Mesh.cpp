@@ -110,6 +110,10 @@ HRESULT CMesh::Ready_VertexBuffer_NonAnim(HANDLE* pFile, _fmatrix PreTransformMa
 
 		// 이 PreTransformMatrix까지 저장할지 말지는 나중에 고민하기 일단 여기서 따로 받아오도록 함
 		XMStoreFloat3(&m_pVertices[i].vPosition, XMVector3TransformCoord(XMLoadFloat3(&m_pVertices[i].vPosition), PreTransformMatrix));
+
+		XMStoreFloat3(&m_pVertices[i].vNormal, XMVector3TransformCoord(XMLoadFloat3(&m_pVertices[i].vNormal), PreTransformMatrix));
+
+		XMStoreFloat3(&m_pVertices[i].vTangent, XMVector3TransformCoord(XMLoadFloat3(&m_pVertices[i].vTangent), PreTransformMatrix));
 	}
 
 	ZeroMemory(&m_InitialData, sizeof m_InitialData);
