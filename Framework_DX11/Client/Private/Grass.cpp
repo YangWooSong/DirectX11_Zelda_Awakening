@@ -230,7 +230,7 @@ void CGrass::Culculate_Distance_Player()
 
     _float fDistance = XMVectorGetX(XMVector3Length(vPlayerPos - m_pTransformCom->Get_State(CTransform::STATE_POSITION)));
 
-    if (fabs(fDistance) < 2.f)
+    if (fabs(fDistance) < 3.f)
         m_bAddColliderList = true;
     else
         m_bAddColliderList = false;

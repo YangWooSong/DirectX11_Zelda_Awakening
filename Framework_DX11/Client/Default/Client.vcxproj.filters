@@ -502,6 +502,12 @@
     <Filter Include="02.GameObjects\03.Objects\Field\Lupee">
       <UniqueIdentifier>{ddb4ab15-1568-49d6-9765-9f918fa16a08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI">
+      <UniqueIdentifier>{5ef23852-f4ec-45d6-aff1-6ad2f12d6b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\LupeeUI">
+      <UniqueIdentifier>{6746693c-8bed-4184-b533-7522157f57c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -927,6 +933,12 @@
     <ClInclude Include="..\Public\Lupee.h">
       <Filter>02.GameObjects\03.Objects\Field\Lupee</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\MainUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\LupeeUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\LupeeUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1342,6 +1354,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Lupee.cpp">
       <Filter>02.GameObjects\03.Objects\Field\Lupee</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MainUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\LupeeUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\LupeeUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

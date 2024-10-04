@@ -10,6 +10,7 @@
 #include "NavDataObj.h"
 #include "Monster.h"
 #include "Grass.h"
+#include "MainUI.h"
 
 CLevel_Field::CLevel_Field(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -168,9 +169,19 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	ObjectDesc.iRoomNum = 0;
 	ObjectDesc.vPosition = _float3(30.f, 3.7f, 0.4f);
 	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SinkingSword"), TEXT("Prototype_GameObject_SinkingSword"), &ObjectDesc)))
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_SinkingSword"), TEXT("Prototype_GameObject_SinkingSword"), &ObjectDesc)))
 		return E_FAIL;
 
+	CMainUI::MAINUI_DESC MainDesc{};
+	MainDesc.iLevelIndex = LEVEL_FIELD;
+	MainDesc.fSizeX = g_iWinSizeX;
+	MainDesc.fSizeY = g_iWinSizeY;
+	MainDesc.fX = g_iWinSizeX / 2;
+	MainDesc.fY = g_iWinSizeY / 2;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_MainUI"),
+		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
+		return E_FAIL;
 
 	return S_OK;
 }

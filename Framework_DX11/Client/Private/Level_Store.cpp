@@ -9,6 +9,7 @@
 #include "NavDataObj.h"
 #include "BackGround.h"
 #include "Store_Item.h"
+#include "MainUI.h"
 #include <fstream>
 CLevel_Store::CLevel_Store(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -162,6 +163,17 @@ HRESULT CLevel_Store::Ready_LandObjects()
 	CNavDataObj::NAVOBJ_DESC NavDes;
 	NavDes.iLevelNum = LEVEL_STORE;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
+		return E_FAIL;
+
+	CMainUI::MAINUI_DESC MainDesc{};
+	MainDesc.iLevelIndex = LEVEL_STORE;
+	MainDesc.fSizeX = g_iWinSizeX;
+	MainDesc.fSizeY = g_iWinSizeY;
+	MainDesc.fX = g_iWinSizeX / 2;
+	MainDesc.fY = g_iWinSizeY / 2;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_MainUI"),
+		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
 		return E_FAIL;
 
 

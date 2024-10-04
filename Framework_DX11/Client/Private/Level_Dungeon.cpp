@@ -18,7 +18,7 @@
 #include "OnewayDoorReverse.h"
 #include "Rola.h"
 #include "SquareBlock.h"
-
+#include "MainUI.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -192,6 +192,17 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
 	SquareDesc.bActiveCollider = true;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), TEXT("Prototype_GameObject_SquareBlock"), &ObjectDesc)))
+		return E_FAIL;
+
+	CMainUI::MAINUI_DESC MainDesc{};
+	MainDesc.iLevelIndex = LEVEL_DUNGEON;
+	MainDesc.fSizeX = g_iWinSizeX;
+	MainDesc.fSizeY = g_iWinSizeY;
+	MainDesc.fX = g_iWinSizeX / 2;
+	MainDesc.fY = g_iWinSizeY / 2;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_MainUI"),
+		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
 		return E_FAIL;
 
     return S_OK;

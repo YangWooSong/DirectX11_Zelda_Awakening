@@ -21,4 +21,5 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Re
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Renderer.cpp(41,6): warning C4244: '인수': 'FLOAT'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 'x64/Debug/unity_I7TIUARVLE9JV7LL.cpp'을(를) 컴파일하는 중)
   
+     ..\Bin\Engine.lib 라이브러리 및 ..\Bin\Engine.exp 개체를 생성하고 있습니다.
   Engine.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Engine.dll

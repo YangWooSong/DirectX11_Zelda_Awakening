@@ -40,6 +40,7 @@
 
  _bool CLink::m_bActiveSheild = true;
  _bool CLink::m_bActiveSword = true;
+ _int CLink::m_iLupee = 5;
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }

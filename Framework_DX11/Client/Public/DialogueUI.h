@@ -31,7 +31,6 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-
 public:
 	void Set_LineNum(_int iIndex) { iLineIndex = iIndex; }
 private:

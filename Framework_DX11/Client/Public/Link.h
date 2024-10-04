@@ -81,7 +81,7 @@ private:
 	
 	_int m_iMaxHp = {8};
 	_int m_iCurrentHP = {6};
-	_int m_iLupee = { 5 };
+	static _int m_iLupee ;
 	_int m_iSmallKeyCount = { 0 };
 
 	_bool m_bDungeonKey = { true };

@@ -26,6 +26,7 @@ HRESULT CUIObject::Initialize(void * pArg)
 	m_fY = pDesc->fY;
 	m_fSizeX = pDesc->fSizeX;
 	m_fSizeY = pDesc->fSizeY;
+	m_pParentUI = pDesc->pParent;
 
 	_uint		iNumView = { 1 };
 	D3D11_VIEWPORT		ViewportDesc{};

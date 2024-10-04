@@ -36,13 +36,15 @@ private:
 	HRESULT Ready_Resources_For_Dungeon();
 	HRESULT Ready_Resources_For_Store();
 
+	HRESULT Ready_Textures_For_static();
+
 	HRESULT Ready_Models_For_MarinHouse();
 	HRESULT Ready_Models_For_Field();
 	HRESULT Ready_Models_For_Test();
 	HRESULT Ready_Models_For_Dungeon();
 	HRESULT Ready_Models_For_Store();
-
-
+	
+	HRESULT Ready_Prototype_For_MarinHouse();
 	HRESULT Ready_Prototype_For_Field();
 	HRESULT Ready_Prototype_For_Test();
 	HRESULT Ready_Prototype_For_Dungeon();

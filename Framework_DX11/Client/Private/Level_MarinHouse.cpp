@@ -8,6 +8,8 @@
 #include "Link.h"
 #include "NavDataObj.h"
 #include "BackGround.h"
+#include "MainUI.h"
+
 #include <fstream>
 CLevel_MarinHouse::CLevel_MarinHouse(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -140,11 +142,6 @@ HRESULT CLevel_MarinHouse::Ready_Layer_BackGround()
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))
 		return E_FAIL;
 
-	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Prototype_GameObject_Terrain"))))
-	//	return E_FAIL;
-
-	//if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Prototype_GameObject_Sky"))))
-	//	return E_FAIL;
 
 	return S_OK;
 }
@@ -176,6 +173,16 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
 		return E_FAIL;
 
+	CMainUI::MAINUI_DESC MainDesc{};
+	MainDesc.iLevelIndex = LEVEL_MARINHOUSE;
+	MainDesc.fSizeX = g_iWinSizeX;
+	MainDesc.fSizeY = g_iWinSizeY;
+	MainDesc.fX = g_iWinSizeX / 2;
+	MainDesc.fY = g_iWinSizeY / 2;
+
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_MainUI"),
+		TEXT("Prototype_GameObject_MainUI"), &MainDesc)))
+		return E_FAIL;
 
 	return S_OK;
 }

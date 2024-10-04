@@ -12,6 +12,7 @@ public:
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
 		_float	fX{}, fY{}, fSizeX{}, fSizeY{};
+		CUIObject* pParent = { nullptr };
 	} UI_DESC;
 
 protected:
