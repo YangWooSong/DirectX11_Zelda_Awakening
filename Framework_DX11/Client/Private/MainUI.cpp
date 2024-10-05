@@ -122,6 +122,20 @@ HRESULT CMainUI::Ready_Child_UI()
         CUIObject* m_pKeyUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pKeyUI);
     }
+    
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_CampusUI"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.fSizeX = 83.f;
+        pDesc.fSizeY = 83.f;
+        pDesc.fX = g_iWinSizeX * 0.97f;
+        pDesc.fY = g_iWinSizeY * 0.2f;
+        pDesc.pParent = this;
+
+        CUIObject* m_pKeyUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+        m_childUI_List.push_back(m_pKeyUI);
+    }
 
     return S_OK;
 }

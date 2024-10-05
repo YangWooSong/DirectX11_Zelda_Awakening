@@ -213,7 +213,7 @@ HRESULT CLink::Render()
 			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
 				return E_FAIL;
 
-			if (FAILED(m_pShaderCom->Begin(7)))
+			if (FAILED(m_pShaderCom->Begin(1)))
 				return E_FAIL;
 			
 
@@ -271,10 +271,10 @@ HRESULT CLink::Render_LightDepth()
 		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
 			return E_FAIL;
 
-	/*	if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
-			return E_FAIL;*/
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+			return E_FAIL;
 
-		if (FAILED(m_pShaderCom->Begin(1)))
+		if (FAILED(m_pShaderCom->Begin(6)))
 			return E_FAIL;
 
 		if (FAILED(m_pModelCom->Render(i)))

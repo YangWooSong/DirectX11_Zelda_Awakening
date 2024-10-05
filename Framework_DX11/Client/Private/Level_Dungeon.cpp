@@ -65,9 +65,6 @@ void CLevel_Dungeon::Update(_float fTimeDelta)
 		Change_Room();
 
 	Setting_Gimmick(fTimeDelta);
-
-
-
 }
 
 HRESULT CLevel_Dungeon::Render()

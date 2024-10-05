@@ -173,6 +173,7 @@
     <ClInclude Include="..\Public\BladeTrap.h" />
     <ClInclude Include="..\Public\Bomb.h" />
     <ClInclude Include="..\public\BossDoor.h" />
+    <ClInclude Include="..\Public\CampusUI.h" />
     <ClInclude Include="..\Public\ChoiceBtn.h" />
     <ClInclude Include="..\Public\ClosedPotDoor.h" />
     <ClInclude Include="..\Public\ConchHorn.h" />
@@ -323,6 +324,7 @@
     <ClCompile Include="..\Private\BladeTrap.cpp" />
     <ClCompile Include="..\Private\Bomb.cpp" />
     <ClCompile Include="..\Private\BossDoor.cpp" />
+    <ClCompile Include="..\Private\CampusUI.cpp" />
     <ClCompile Include="..\Private\ChoiceBtn.cpp" />
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\ConchHorn.cpp" />

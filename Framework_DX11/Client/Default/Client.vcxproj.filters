@@ -523,6 +523,9 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\ItemIconUI">
       <UniqueIdentifier>{4cda1015-21b2-4184-9269-f0fe6cb71646}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\Campus">
+      <UniqueIdentifier>{7a15ef6e-acc2-445e-848a-cb1bfeb89955}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -969,6 +972,9 @@
     <ClInclude Include="..\Public\ItemIconUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\ItemIconUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\CampusUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\Campus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1405,6 +1411,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\ItemIconUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\ItemIconUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CampusUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\Campus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

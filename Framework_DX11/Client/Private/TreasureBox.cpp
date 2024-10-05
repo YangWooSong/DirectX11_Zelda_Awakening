@@ -4,6 +4,7 @@
 #include "Link.h"
 #include "ItemUI.h"
 #include "PlayerCamera.h"
+#include "MainUI.h"
 
 CTreasureBox::CTreasureBox(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -322,7 +323,11 @@ void CTreasureBox::Play_Alarm()
     {
         m_pSoundCom->Play_Sound(TEXT("5_UI_Campus_Alarm.wav", 1.f));
         m_bPlayAlarm = true;
+        CUIObject* pMainUI = static_cast<CUIObject*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0));
+        static_cast<CMainUI*>(pMainUI)->SEt_Active_Campus(true);
     }
+
+   
 }
 
 void CTreasureBox::Set_Brightness(_float fTimeDelta)

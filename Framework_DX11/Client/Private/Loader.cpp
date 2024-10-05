@@ -84,6 +84,7 @@
 #include "HeartUI.h"
 #include "ItemIconUI.h"
 #include "KeyUI.h"
+#include "CampusUI.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -1019,6 +1020,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_Teleport*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Teleport"),
 		CTeleport::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_CampusUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CampusUI"),
+		CCampusUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	return S_OK;
