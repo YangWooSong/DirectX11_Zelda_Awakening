@@ -39,8 +39,8 @@ void CState_Pawn_Walk::Update(_float fTimeDelta)
 
 
     XMStoreFloat3(&m_vPlayerPos, m_pPlayer->Get_Transform()->Get_State(CTransform::STATE_POSITION));
-    m_pOwner->Get_Transform()->Go_Lerp(m_pOwner->Get_Pos(), m_vPlayerPos, 0.02f, false, m_pOwner->Get_NavigationCom());
-    m_pOwner->Get_Transform()->Go_Lerp(m_pOwner->Get_Pos(), m_vPlayerPos, 0.02f, false, m_pOwner->Get_NavigationCom());
+    m_pOwner->Get_Transform()->Go_Lerp(m_pOwner->Get_Pos(), m_vPlayerPos, 0.01f, false, m_pOwner->Get_NavigationCom());
+    m_pOwner->Get_Transform()->Go_Lerp(m_pOwner->Get_Pos(), m_vPlayerPos, 0.01f, false, m_pOwner->Get_NavigationCom());
 
 
     //멀어지면 상태 변환

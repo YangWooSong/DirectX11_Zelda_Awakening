@@ -65,6 +65,7 @@ public:
 	_int Get_Player_MaxHP() {	return m_iMaxHp	;	}
 	_int Get_Player_CurrHP() {	return m_iCurrentHP;	}
 	void Add_MaxHp() { m_iMaxHp++; m_iCurrentHP = m_iMaxHp; }
+	_bool Get_isGet_BossKey() { return  m_bGetBossKey; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();

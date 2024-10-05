@@ -82,6 +82,8 @@
 #include "LupeeUI.h"
 #include "HPUI.h"
 #include "HeartUI.h"
+#include "ItemIconUI.h"
+#include "KeyUI.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -496,6 +498,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 	/* For. Prototype_Component_Texture_HeartUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_HeartUI"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/HP/Hp_%d.dds"), 2))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_ItemIconUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIconUI"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/ItemIcon/Item_%d.dds"), 2))))
 		return E_FAIL;
 
 	return S_OK;
@@ -996,6 +1003,16 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_HeartUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_HeartUI"),
 		CHeartUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_ItemIconUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ItemIconUI"),
+		CItemIconUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_KeyUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_KeyUI"),
+		CKeyUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 

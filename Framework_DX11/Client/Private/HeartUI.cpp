@@ -33,6 +33,7 @@ HRESULT CHeartUI::Initialize(void* pArg)
 
     if (m_bNew)
     {
+        m_fOri_Sizex = m_fSizeX;
         m_fSizeX = 0.1f;
         m_fSizeY = 0.1f;
     }
@@ -66,11 +67,11 @@ void CHeartUI::Update(_float fTimeDelta)
 
     if (m_bNew)
     {
-        if (m_fSizeX == 36.f)
+        if (m_fSizeX == m_fOri_Sizex)
             m_bNew = false;
 
-        m_fSizeX = min(36.f, m_fSizeX += 10.f * fTimeDelta);
-        m_fSizeY = min(36.f, m_fSizeX += 10.f * fTimeDelta);
+        m_fSizeX = min(m_fOri_Sizex, m_fSizeX += 10.f * fTimeDelta);
+        m_fSizeY = min(m_fOri_Sizex, m_fSizeX += 10.f * fTimeDelta);
     }
 }
 

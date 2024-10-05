@@ -517,6 +517,12 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\HPUI\Heart">
       <UniqueIdentifier>{309d9c82-3dc1-4737-81b4-0dfbe2d0f954}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\KeyUI">
+      <UniqueIdentifier>{348f19a0-c840-49e2-a41e-0346a5d71dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\ItemIconUI">
+      <UniqueIdentifier>{4cda1015-21b2-4184-9269-f0fe6cb71646}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -957,6 +963,12 @@
     <ClInclude Include="..\Public\HeartUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\HPUI\Heart</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\KeyUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\KeyUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ItemIconUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\ItemIconUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1387,6 +1399,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\HeartUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\HPUI\Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\KeyUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\KeyUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ItemIconUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\ItemIconUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

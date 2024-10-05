@@ -48,6 +48,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
+		m_pTeleportObj_0->Set_Change_Level(false);
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_0->Get_NextLevel()))))
 			return;
 	}
@@ -57,6 +58,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
+		m_pTeleportObj_1->Set_Change_Level(false);
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_1->Get_NextLevel()))))
 			return;
 	}
@@ -216,7 +218,7 @@ HRESULT CLevel_Field::Ready_LandObjects()
 		return E_FAIL;
 
 	TeleportDesc.iNextLevelIndex = LEVEL_STORE;
-	TeleportDesc.vPosition = _float3(44.207f, 10.491f, 69.5f);
+	TeleportDesc.vPosition = _float3(44.207f, 10.491f, 70.f);
 	TeleportDesc.vScale = { 0.5f,0.5f,0.5f };
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),

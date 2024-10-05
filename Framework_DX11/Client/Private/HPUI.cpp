@@ -81,8 +81,8 @@ HRESULT CHPUI::Ready_ChildUI()
 
     if (pGameObj != nullptr)
     {
-        pDesc.fSizeX = 38.f;
-        pDesc.fSizeY = 38.f;
+        pDesc.fSizeX = 30.f;
+        pDesc.fSizeY = 30.f;
         pDesc.fX = g_iWinSizeX * 0.06f;
         pDesc.fY = g_iWinSizeY * 0.06f;
         pDesc.pParent = this;
@@ -94,12 +94,7 @@ HRESULT CHPUI::Ready_ChildUI()
         CUIObject* m_pLupeeUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pLupeeUI);
 
-        pDesc.fX += 35.f;
-        if (i == 4)
-        {
-            pDesc.fX = g_iWinSizeX * 0.06f;
-            pDesc.fY = g_iWinSizeY * 0.12f;
-        }
+        pDesc.fX += 28.f;
     }
   
     return S_OK;
@@ -112,10 +107,10 @@ void CHPUI::Add_Hp()
 
     if (pGameObj != nullptr)
     {
-        pDesc.fSizeX = 36.f;
-        pDesc.fSizeY = 36.f;
-        pDesc.fX = g_iWinSizeX * 0.06f + 37.f * 3.f;
-        pDesc.fY = g_iWinSizeY * 0.12f;
+        pDesc.fSizeX = 30.f;
+        pDesc.fSizeY = 30.f;
+        pDesc.fX = g_iWinSizeX * 0.06f + 224.f ;
+        pDesc.fY = g_iWinSizeY * 0.06f;
         pDesc.pParent = this;
         pDesc.bNew = true;
 

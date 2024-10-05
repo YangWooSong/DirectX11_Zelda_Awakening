@@ -41,7 +41,7 @@ HRESULT CLevel_MarinHouse::Initialize()
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-	if (m_pTeleportObj->Get_Change_Level() || GetKeyState(VK_RETURN) & 0x8000)
+	if (m_pTeleportObj->Get_Change_Level() )
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
@@ -51,6 +51,15 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 			return;
 	}
 
+	if (GetKeyState(VK_RETURN) & 0x8000)
+	{
+		m_pGameInstance->DeletePlayer();
+		m_pGameInstance->DeleteActors();
+		m_pGameInstance->Stop_BGM();
+		m_pGameInstance->Reset_Lights();
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
+			return;
+	}
 }
 
 HRESULT CLevel_MarinHouse::Render()
@@ -140,7 +149,7 @@ HRESULT CLevel_MarinHouse::Ready_Layer_BackGround()
 	Desc.fX = g_iWinSizeX  / 2;
 	Desc.fY = g_iWinSizeY / 2;
 
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STATIC, TEXT("Layer_BackGround"),
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_BackGround"),
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))
 		return E_FAIL;
 

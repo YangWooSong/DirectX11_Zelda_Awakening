@@ -77,6 +77,16 @@ _int CMainUI::Get_Player_CurHp()
     return m_pPlayer->Get_Player_CurrHP();
 }
 
+_int CMainUI::Get_Player_KeyCount()
+{
+    return m_pPlayer->Get_SmallKeyCount();
+}
+
+_bool CMainUI::Get_Player_Get_BossKey()
+{
+    return m_pPlayer->Get_isGet_BossKey();
+}
+
 HRESULT CMainUI::Ready_Child_UI()
 {
     CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_LupeeUI"));
@@ -101,6 +111,16 @@ HRESULT CMainUI::Ready_Child_UI()
 
         CUIObject* m_pHPUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pHPUI);
+    }
+
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_KeyUI"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.pParent = this;
+
+        CUIObject* m_pKeyUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+        m_childUI_List.push_back(m_pKeyUI);
     }
 
     return S_OK;

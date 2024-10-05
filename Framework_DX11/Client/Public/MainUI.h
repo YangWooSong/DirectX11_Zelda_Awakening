@@ -7,7 +7,7 @@ class CMainUI :
 	public CUIObject
 {
 public:
-	enum CHILD_INDEX { LUPEE,HP, CHILD_END };
+	enum CHILD_INDEX { LUPEE,HP, KEY, CHILD_END };
 
 	typedef struct : public CUIObject::UI_DESC
 	{
@@ -29,6 +29,8 @@ public:
 	_int  Get_Player_Lupee();
 	_int Get_Player_MaxHP();
 	_int Get_Player_CurHp();
+	_int Get_Player_KeyCount();
+	_bool Get_Player_Get_BossKey();
 	_uint Get_LevelIndex() { return m_iLevelIndex; }
 
 private:

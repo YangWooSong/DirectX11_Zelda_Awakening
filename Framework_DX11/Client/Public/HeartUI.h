@@ -45,6 +45,7 @@ private:
 	_bool m_bStartIncrease= { false };
 	_bool m_bNew = { false };
 
+	_float m_fOri_Sizex = { 1.f };
 	_float m_fInvisibleAngle = { 0.f };
 private:
 	HRESULT Ready_Components();

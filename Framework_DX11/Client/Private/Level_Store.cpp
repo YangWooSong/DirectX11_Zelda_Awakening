@@ -139,7 +139,7 @@ HRESULT CLevel_Store::Ready_Layer_BackGround()
 	Desc.fX = g_iWinSizeX / 2;
 	Desc.fY = g_iWinSizeY / 2;
 
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STATIC, TEXT("Layer_BackGround"),
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_BackGround"),
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))
 		return E_FAIL;
 

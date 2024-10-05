@@ -37,6 +37,7 @@ public:
 
 public:
 	_bool Get_Change_Level() { return m_bChangeScene; }
+	void Set_Change_Level(_bool vActive) { m_bChangeScene = vActive; }
 	_uint Get_NextLevel() { return m_iNextLevelIndex; }
 private:
 	CCollider* m_pColliderCom = { nullptr };
