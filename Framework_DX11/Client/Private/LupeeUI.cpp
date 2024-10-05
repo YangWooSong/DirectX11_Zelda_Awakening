@@ -129,7 +129,7 @@ HRESULT CLupeeUI::Render()
 
         _tchar szText[64];  // 출력할 텍스트를 저장할 버퍼
         swprintf_s(szText, TEXT("%d"), m_iPlayerLupee);  // m_iPlayerLupee 값을 문자열로 변환
-        m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), szText, XMVectorSet(m_fX + 9.f, m_fY - 9.f , 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+        m_pGameInstance->Render_Text(TEXT("Font_Number24"), szText, XMVectorSet(m_fX + 9.f, m_fY - 20.f , 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
         
 
     }

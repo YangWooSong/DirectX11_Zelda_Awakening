@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\LupeeUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\LupeeUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\MainUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\MainUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -42,11 +46,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "LupeeUI.cpp",
+              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\LupeeUI.cpp",
+              "RelativeDocumentMoniker": "Client\\Private\\LupeeUI.cpp",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\LupeeUI.cpp*",
+              "RelativeToolTip": "Client\\Private\\LupeeUI.cpp*",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAAIMAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-05T03:45:25.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Shader_VtxAnimModel.hlsl",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Bin\\ShaderFiles\\Shader_VtxAnimModel.hlsl",
               "RelativeDocumentMoniker": "Client\\Bin\\ShaderFiles\\Shader_VtxAnimModel.hlsl",
@@ -54,12 +71,11 @@
               "RelativeToolTip": "Client\\Bin\\ShaderFiles\\Shader_VtxAnimModel.hlsl",
               "ViewState": "AgIAAHYBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
-              "WhenOpened": "2024-10-05T03:28:10.239Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T03:28:10.239Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Link.cpp",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Link.cpp",
               "RelativeDocumentMoniker": "Client\\Private\\Link.cpp",
@@ -67,12 +83,11 @@
               "RelativeToolTip": "Client\\Private\\Link.cpp",
               "ViewState": "AgIAAMMAAAAAAAAAAAAAANQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-05T03:27:18.979Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T03:27:18.979Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Level_Dungeon.h",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Level_Dungeon.h",
               "RelativeDocumentMoniker": "Client\\Public\\Level_Dungeon.h",
@@ -80,12 +95,11 @@
               "RelativeToolTip": "Client\\Public\\Level_Dungeon.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-05T02:53:16.802Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T02:53:16.802Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Level_Dungeon.cpp",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Level_Dungeon.cpp",
               "RelativeDocumentMoniker": "Client\\Private\\Level_Dungeon.cpp",
@@ -93,12 +107,11 @@
               "RelativeToolTip": "Client\\Private\\Level_Dungeon.cpp",
               "ViewState": "AgIAACwAAAAAAAAAAAAgwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-05T02:52:49.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T02:52:49.465Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "MainUI.h",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\MainUI.h",
               "RelativeDocumentMoniker": "Client\\Public\\MainUI.h",
@@ -106,12 +119,11 @@
               "RelativeToolTip": "Client\\Public\\MainUI.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAACMAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-05T02:51:01.77Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T02:51:01.77Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "CampusUI.cpp",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\CampusUI.cpp",
               "RelativeDocumentMoniker": "Client\\Private\\CampusUI.cpp",
@@ -119,12 +131,11 @@
               "RelativeToolTip": "Client\\Private\\CampusUI.cpp",
               "ViewState": "AgIAAHsAAAAAAAAAAAAAAIsAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-05T02:44:35.886Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T02:44:35.886Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CampusUI.h",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\CampusUI.h",
               "RelativeDocumentMoniker": "Client\\Public\\CampusUI.h",
@@ -132,18 +143,17 @@
               "RelativeToolTip": "Client\\Public\\CampusUI.h",
               "ViewState": "AgIAABMAAAAAAAAAAIAwwCoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-05T02:32:32.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T02:32:32.723Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainUI.cpp",
               "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\MainUI.cpp",
               "RelativeDocumentMoniker": "Client\\Private\\MainUI.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\MainUI.cpp*",
-              "RelativeToolTip": "Client\\Private\\MainUI.cpp*",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAAwIMAAAAlAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\MainUI.cpp",
+              "RelativeToolTip": "Client\\Private\\MainUI.cpp",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAwIwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-05T03:00:27.388Z",
               "EditorCaption": ""
