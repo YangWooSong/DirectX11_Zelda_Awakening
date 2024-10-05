@@ -12,6 +12,7 @@
 #include "Grass.h"
 #include "MainUI.h"
 #include "Teleport.h"
+#include "TailCaveShutter.h"
 
 CLevel_Field::CLevel_Field(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CLevel{ pDevice, pContext }
@@ -35,42 +36,49 @@ HRESULT CLevel_Field::Initialize()
 	Read();
 
 	m_pGameInstance->Play_BGM(TEXT("0_Field_Normal.wav"), 0.6f);
-	m_pTeleportObj_0 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"), 0));
-	m_pTeleportObj_1 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"), 1));
+	m_pTeleportObj_0 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 0));
+	m_pTeleportObj_1 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 1));
 
 	return S_OK;
 }
 
 void CLevel_Field::Update(_float fTimeDelta)
 {
-	if (m_pTeleportObj_0->Get_Change_Level() )
+ 	if (m_pTeleportObj_0->Get_Change_Level() )
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pTeleportObj_0->Set_Change_Level(false);
+		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_0->Get_NextLevel()))))
 			return;
 	}
 
-	if (m_pTeleportObj_1->Get_Change_Level())
+	else if (m_pTeleportObj_1->Get_Change_Level())
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pTeleportObj_1->Set_Change_Level(false);
+		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_1->Get_NextLevel()))))
 			return;
 	}
 
-	if (GetKeyState(VK_RETURN) & 0x8000)
+	else if (m_pTeleportObj_2 != nullptr && m_pTeleportObj_2->Get_Change_Level())
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_STORE))))
+		m_pTeleportObj_1->Set_Change_Level(false);
+		m_pGameInstance->Reset_Lights();
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_2->Get_NextLevel()))))
 			return;
 	}
+
+	Setting_Gimmick();
+	
 }
 
 HRESULT CLevel_Field::Render()
@@ -213,7 +221,7 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	TeleportDesc.vPosition = _float3(30.864f, 10.407f, 58.5f);
 	TeleportDesc.vScale = { 0.5f,0.5f,0.5f };
 
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Teleport"),
 		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
 		return E_FAIL;
 
@@ -221,32 +229,13 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	TeleportDesc.vPosition = _float3(44.207f, 10.491f, 70.f);
 	TeleportDesc.vScale = { 0.5f,0.5f,0.5f };
 
-	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Teleport"),
 		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
 		return E_FAIL;
 
 	return S_OK;
 }
 
-//HRESULT CLevel_Field::Ready_Layer_Player(CLandObject::LANDOBJECT_DESC& LandObjectDesc)
-//{
-//	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player"), &LandObjectDesc)))
-//		return E_FAIL;
-//
-//	return S_OK;
-//}
-
-//
-//HRESULT CLevel_Field::Ready_Layer_Monster(CLandObject::LANDOBJECT_DESC& LandObjectDesc)
-//{
-//	for (size_t i = 0; i < 20; i++)
-//	{
-//		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_GAMEPLAY, TEXT("Layer_Monster"), TEXT("Prototype_GameObject_Monster"), &LandObjectDesc)))
-//			return E_FAIL;
-//	}
-//
-//	return S_OK;
-//}
 
 HRESULT CLevel_Field::Read()
 {
@@ -421,6 +410,28 @@ HRESULT CLevel_Field::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos, _
 			return E_FAIL;
 	}
 	return S_OK;
+}
+
+void CLevel_Field::Setting_Gimmick()
+{
+	if(m_pTeleportObj_2 == nullptr)
+	{
+		CTailCaveShutter* m_pShutter = static_cast<CTailCaveShutter*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_TailCaveShutter"), 0));
+
+		if (m_pShutter->Get_Open())
+		{
+			CTeleport::TELEPORT_DESC TeleportDesc{};
+			TeleportDesc.iNextLevelIndex = LEVEL_DUNGEON;
+			TeleportDesc.vPosition = _float3(47.16f, 8.23f, 26.47f);
+			TeleportDesc.vScale = { 0.5f,0.5f,0.5f };
+
+			if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Teleport"),
+				TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
+				return;
+
+			m_pTeleportObj_2 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 2));
+		}
+	}
 }
 
 CLevel_Field* CLevel_Field::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

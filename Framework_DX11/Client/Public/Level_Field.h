@@ -35,7 +35,10 @@ private:
 	class CPlayer* m_pPlayer = { nullptr };
 	class CTeleport* m_pTeleportObj_0 = { nullptr };
 	class CTeleport* m_pTeleportObj_1 = { nullptr };
+	class CTeleport* m_pTeleportObj_2 = { nullptr };
 
+private:
+	void Setting_Gimmick();
 public:
 	static CLevel_Field* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual void Free() override;

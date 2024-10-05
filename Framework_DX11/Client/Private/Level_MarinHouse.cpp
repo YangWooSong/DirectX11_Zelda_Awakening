@@ -47,6 +47,7 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pGameInstance->Reset_Lights();
+		m_pTeleportObj->Set_Change_Level(false);
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj->Get_NextLevel()))))
 			return;
 	}

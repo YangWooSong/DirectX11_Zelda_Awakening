@@ -27,6 +27,7 @@ public:
 	virtual HRESULT Render() override;
 
 	void Set_Open(_bool bOpen) { m_bOpen = bOpen; }
+	_bool Get_Open() { return m_bOpen; }
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };

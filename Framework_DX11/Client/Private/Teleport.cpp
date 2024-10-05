@@ -64,6 +64,11 @@ HRESULT CTeleport::Render()
 
 void CTeleport::OnCollisionEnter(CGameObject* pOther)
 {
+
+}
+
+void CTeleport::OnCollisionStay(CGameObject* pOther)
+{
 	if (m_pColliderCom->Get_IsColl())
 	{
 		if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
@@ -73,12 +78,12 @@ void CTeleport::OnCollisionEnter(CGameObject* pOther)
 	}
 }
 
-void CTeleport::OnCollisionStay(CGameObject* pOther)
-{
-}
-
 void CTeleport::OnCollisionExit(CGameObject* pOther)
 {
+	if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
+	{
+		m_bChangeScene = false;
+	}
 }
 
 HRESULT CTeleport::Ready_Components()

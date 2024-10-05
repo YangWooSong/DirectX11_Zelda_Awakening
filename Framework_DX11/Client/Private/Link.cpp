@@ -43,8 +43,8 @@
  _int CLink::m_iLupee = 5;
   _int  CLink::m_iMaxHp = { 8 };
   _int  CLink::m_iCurrentHP = { m_iMaxHp };
-  _bool  CLink::m_bBomb = true;
-  _bool  CLink::m_bFeather = true;
+  _bool  CLink::m_bBomb = false;
+  _bool  CLink::m_bFeather = false;
 
 CLink::CLink(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CPlayer{ pDevice, pContext }
