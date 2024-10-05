@@ -507,7 +507,7 @@ HRESULT CLoader::Ready_Textures_For_static()
 
 	/* For. Prototype_Component_Texture_ItemIconUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIconUI"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/ItemIcon/Item_%d.dds"), 4))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/ItemIcon/Item_%d.dds"), 5))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Map_Background*/

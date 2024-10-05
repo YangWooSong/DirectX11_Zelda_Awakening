@@ -4,6 +4,7 @@
 #include "MainUI.h"
 #include "MapBackGround.h"
 #include "MapUI.h"
+#include"ItemIconUI.h"
 
 CMiniMap::CMiniMap(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CUIObject(pDevice, pContext)
@@ -195,8 +196,23 @@ HRESULT CMiniMap::Ready_ChildUI()
         MapDesc.iMapNum = 26;
         pMapUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&MapDesc));
         m_childUI_List.push_back(pMapUI);
-
     }
+
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_ItemIconUI"));
+    CItemIconUI::ITEM_ICON_DESC IconDesc{};
+
+    if (pGameObj != nullptr)
+    {
+        IconDesc.fSizeX = 30.f;
+        IconDesc.fSizeY = 30.f;
+        IconDesc.fX = 320.f;
+        IconDesc.fY = 560.f;
+        IconDesc.pParent = this;
+        IconDesc.iItemType = CItemIconUI::LINK;
+        CUIObject* m_pItemIconUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&IconDesc));
+        m_childUI_List.push_back(m_pItemIconUI);
+    }
+
     return S_OK;
 }
 

@@ -31,7 +31,10 @@ HRESULT CItemIconUI::Initialize(void* pArg)
     ITEM_ICON_DESC* pDesc = static_cast<ITEM_ICON_DESC*>(pArg);
     m_iIconType = pDesc->iItemType;
 
-    m_isActive = false;
+    if(m_iIconType == LINK)
+        m_isActive = true;
+    else
+        m_isActive = false;
 
     return S_OK;
 }
