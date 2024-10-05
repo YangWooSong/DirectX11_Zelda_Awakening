@@ -41,13 +41,23 @@ HRESULT CLevel_Store::Initialize()
 
 void CLevel_Store::Update(_float fTimeDelta)
 {
-	if (m_pTeleportObj->Get_Change_Level() || GetKeyState(VK_RETURN) & 0x8000)
+	if (m_pTeleportObj->Get_Change_Level() )
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
 		m_pGameInstance->Stop_BGM();
 		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj->Get_NextLevel()))))
+			return;
+	}
+
+	if (GetKeyState(VK_RETURN) & 0x8000)
+	{
+		m_pGameInstance->DeletePlayer();
+		m_pGameInstance->DeleteActors();
+		m_pGameInstance->Stop_BGM();
+		m_pGameInstance->Reset_Lights();
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
 			return;
 	}
 

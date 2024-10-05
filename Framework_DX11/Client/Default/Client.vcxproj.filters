@@ -526,6 +526,9 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\Campus">
       <UniqueIdentifier>{7a15ef6e-acc2-445e-848a-cb1bfeb89955}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\InvenUI">
+      <UniqueIdentifier>{c39b0444-12f3-44c2-99ec-0282097545ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -975,6 +978,9 @@
     <ClInclude Include="..\Public\CampusUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\Campus</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\InvenUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\InvenUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1414,6 +1420,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\CampusUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\Campus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\InvenUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\InvenUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

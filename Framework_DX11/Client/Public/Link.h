@@ -66,6 +66,7 @@ public:
 	_int Get_Player_CurrHP() {	return m_iCurrentHP;	}
 	void Add_MaxHp() { m_iMaxHp++; m_iCurrentHP = m_iMaxHp; }
 	_bool Get_isGet_BossKey() { return  m_bGetBossKey; }
+	_bool Get_Feather() { return  m_bFeather; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();
@@ -91,11 +92,10 @@ private:
 	_bool m_bGetBossKey = { false };
 	_bool m_bCampus = { false };
 	_bool m_bBeak = { true };
-	_bool m_bFeather = { false };
 	_bool m_bMap = { false };
 	_bool m_bTalk = { false };
-	_bool m_bBomb = { false };
-
+	static _bool m_bBomb;
+	static _bool m_bFeather ;
 	//class CInteractUI* m_pInteractUI = { nullptr };
 	//class CItemUI* m_pItemtUI = { nullptr };
 

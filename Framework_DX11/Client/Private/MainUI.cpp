@@ -87,6 +87,16 @@ _bool CMainUI::Get_Player_Get_BossKey()
     return m_pPlayer->Get_isGet_BossKey();
 }
 
+_bool CMainUI::Get_Bomb()
+{
+    return m_pPlayer->Get_Bomb();
+}
+
+_bool CMainUI::Get_Feather()
+{
+    return m_pPlayer->Get_Feather();
+}
+
 HRESULT CMainUI::Ready_Child_UI()
 {
     CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_LupeeUI"));
@@ -135,6 +145,16 @@ HRESULT CMainUI::Ready_Child_UI()
 
         CUIObject* m_pKeyUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pKeyUI);
+    }
+
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_InvenUI"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.pParent = this;
+
+        CUIObject* m_pInvenUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+        m_childUI_List.push_back(m_pInvenUI);
     }
 
     return S_OK;

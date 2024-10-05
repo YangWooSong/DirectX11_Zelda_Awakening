@@ -85,6 +85,7 @@
 #include "ItemIconUI.h"
 #include "KeyUI.h"
 #include "CampusUI.h"
+#include "InvenUI.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -503,7 +504,7 @@ HRESULT CLoader::Ready_Textures_For_static()
 
 	/* For. Prototype_Component_Texture_ItemIconUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIconUI"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/ItemIcon/Item_%d.dds"), 2))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/ItemIcon/Item_%d.dds"), 4))))
 		return E_FAIL;
 
 	return S_OK;
@@ -1025,6 +1026,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_CampusUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CampusUI"),
 		CCampusUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_InvenUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_InvenUI"),
+		CInvenUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	return S_OK;

@@ -14,7 +14,7 @@ class CItemIconUI :
 {
 public:
 public:
-	enum ITEM_TYPE { SMALL_KEY, BOSS_KEY, TYPE_END };
+	enum ITEM_TYPE { SMALL_KEY, BOSS_KEY, INVEN_FEATHER, INVEN_BOMB, TYPE_END };
 	typedef struct : public CUIObject::UI_DESC
 	{
 		_uint iItemType = { TYPE_END };

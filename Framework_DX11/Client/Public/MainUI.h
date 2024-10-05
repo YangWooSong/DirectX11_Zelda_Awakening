@@ -7,7 +7,7 @@ class CMainUI :
 	public CUIObject
 {
 public:
-	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, CHILD_END };
+	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, CHILD_END };
 
 	typedef struct : public CUIObject::UI_DESC
 	{
@@ -31,9 +31,13 @@ public:
 	_int Get_Player_CurHp();
 	_int Get_Player_KeyCount();
 	_bool Get_Player_Get_BossKey();
+	_bool Get_Bomb();
+	_bool Get_Feather();
+
 	_uint Get_LevelIndex() { return m_iLevelIndex; }
 	void SEt_Active_Campus(_bool m_bActive) { m_bActive_Campus = m_bActive; }
 	_bool Get_Active_Campus() { return m_bActive_Campus; }
+
 private:
 	class CLink* m_pPlayer = { nullptr };
 

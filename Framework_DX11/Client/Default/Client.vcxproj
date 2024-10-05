@@ -189,6 +189,7 @@
     <ClInclude Include="..\Public\DeguTail_04.h" />
     <ClInclude Include="..\Public\Detector.h" />
     <ClInclude Include="..\Public\Grass.h" />
+    <ClInclude Include="..\Public\InvenUI.h" />
     <ClInclude Include="..\Public\ItemIconUI.h" />
     <ClInclude Include="..\Public\KeyUI.h" />
     <ClInclude Include="..\Public\Kuribo.h" />
@@ -342,6 +343,7 @@
     <ClCompile Include="..\Private\FreeCamera.cpp" />
     <ClCompile Include="..\Private\Grass.cpp" />
     <ClCompile Include="..\Private\HousePot.cpp" />
+    <ClCompile Include="..\Private\InvenUI.cpp" />
     <ClCompile Include="..\Private\ItemIconUI.cpp" />
     <ClCompile Include="..\Private\ItemUI.cpp" />
     <ClCompile Include="..\Private\KeyUI.cpp" />
