@@ -50,6 +50,10 @@ void CMainUI::Update(_float fTimeDelta)
 
 void CMainUI::Late_Update(_float fTimeDelta)
 {
+
+    __super::Late_Update(fTimeDelta);
+    m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
+    
     for (auto& pChild : m_childUI_List)
         pChild->Late_Update(fTimeDelta);
 }
@@ -95,6 +99,11 @@ _bool CMainUI::Get_Bomb()
 _bool CMainUI::Get_Feather()
 {
     return m_pPlayer->Get_Feather();
+}
+
+_bool CMainUI::Get_Map()
+{
+    return m_pPlayer->Get_Map();
 }
 
 HRESULT CMainUI::Ready_Child_UI()
@@ -148,6 +157,16 @@ HRESULT CMainUI::Ready_Child_UI()
     }
 
     pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_InvenUI"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.pParent = this;
+
+        CUIObject* m_pInvenUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+        m_childUI_List.push_back(m_pInvenUI);
+    }
+    
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MiniMap"));
     if (pGameObj != nullptr)
     {
         CUIObject::UI_DESC pDesc{};

@@ -67,6 +67,7 @@ public:
 	void Add_MaxHp() { m_iMaxHp++; m_iCurrentHP = m_iMaxHp; }
 	_bool Get_isGet_BossKey() { return  m_bGetBossKey; }
 	_bool Get_Feather() { return  m_bFeather; }
+	_bool Get_Map() { return m_bMap; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();
@@ -92,7 +93,7 @@ private:
 	_bool m_bGetBossKey = { false };
 	_bool m_bCampus = { false };
 	_bool m_bBeak = { true };
-	_bool m_bMap = { false };
+	_bool m_bMap = { true };
 	_bool m_bTalk = { false };
 	static _bool m_bBomb;
 	static _bool m_bFeather ;

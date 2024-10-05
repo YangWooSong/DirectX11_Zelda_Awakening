@@ -529,6 +529,15 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\InvenUI">
       <UniqueIdentifier>{c39b0444-12f3-44c2-99ec-0282097545ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\MiniMap">
+      <UniqueIdentifier>{af206eb0-ce13-4c44-97ff-f5219d8906be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\MiniMap\MapBackGround">
+      <UniqueIdentifier>{ef8f9da3-15b8-408d-86fc-79f73c610739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\MiniMap\MapUI">
+      <UniqueIdentifier>{15f88881-b0e5-4125-80a9-ea4e4bf50e4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -981,6 +990,15 @@
     <ClInclude Include="..\Public\InvenUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\InvenUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\MiniMap.h">
+      <Filter>02.GameObjects\07.UI\MainUI\MiniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MapBackGround.h">
+      <Filter>02.GameObjects\07.UI\MainUI\MiniMap\MapBackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MapUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\MiniMap\MapUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1423,6 +1441,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\InvenUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\InvenUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MiniMap.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\MiniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MapBackGround.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\MiniMap\MapBackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MapUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\MiniMap\MapUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

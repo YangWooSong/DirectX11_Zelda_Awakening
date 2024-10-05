@@ -201,6 +201,9 @@
     <ClInclude Include="..\Public\Lupee.h" />
     <ClInclude Include="..\Public\LupeeUI.h" />
     <ClInclude Include="..\Public\MainUI.h" />
+    <ClInclude Include="..\Public\MapBackGround.h" />
+    <ClInclude Include="..\Public\MapUI.h" />
+    <ClInclude Include="..\Public\MiniMap.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\NPC.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
@@ -364,6 +367,9 @@
     <ClCompile Include="..\Private\LupeeUI.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\MainUI.cpp" />
+    <ClCompile Include="..\Private\MapBackGround.cpp" />
+    <ClCompile Include="..\Private\MapUI.cpp" />
+    <ClCompile Include="..\Private\MiniMap.cpp" />
     <ClCompile Include="..\Private\NPC.cpp" />
     <ClCompile Include="..\Private\Particle_Model.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />

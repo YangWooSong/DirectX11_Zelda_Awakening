@@ -57,7 +57,7 @@ void CLupeeUI::Update(_float fTimeDelta)
     else
     {
         //금액에 변동이 있으면 활성화
-        if (m_iPlayerLupee != static_cast<CMainUI*>(m_pParentUI)->Get_Player_Lupee() || KEY_TAP(KEY::Q))
+        if (m_iPlayerLupee != static_cast<CMainUI*>(m_pParentUI)->Get_Player_Lupee() )
         {
             m_iPlayerLupee = static_cast<CMainUI*>(m_pParentUI)->Get_Player_Lupee();
             m_isActive = true;

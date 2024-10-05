@@ -86,6 +86,9 @@
 #include "KeyUI.h"
 #include "CampusUI.h"
 #include "InvenUI.h"
+#include "MapBackGround.h"
+#include "MiniMap.h"
+#include "MapUI.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -505,6 +508,26 @@ HRESULT CLoader::Ready_Textures_For_static()
 	/* For. Prototype_Component_Texture_ItemIconUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIconUI"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/UI/ItemIcon/Item_%d.dds"), 4))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_Map_Background*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Map_Background"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Map/Map_Background.png"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_DgnMapGrid*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_DgnMapGrid"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Map/DgnMapGrid.png"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_MapReveal*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_MapReveal"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Map/Reveal/Map_Reveal_%d.dds"), 27))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_MapMask*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_MapMask"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Map/Mask/Map_Mask_%d.dds"), 27))))
 		return E_FAIL;
 
 	return S_OK;
@@ -1031,6 +1054,21 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_InvenUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_InvenUI"),
 		CInvenUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_MiniMap*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MiniMap"),
+		CMiniMap::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_MapBackGround*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MapBackGround"),
+		CMapBackGround::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_MapUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MapUI"),
+		CMapUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	return S_OK;
