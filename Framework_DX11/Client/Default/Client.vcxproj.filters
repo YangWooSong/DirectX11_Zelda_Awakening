@@ -511,6 +511,12 @@
     <Filter Include="02.GameObjects\03.Objects\Teleport">
       <UniqueIdentifier>{7d471800-93bb-4cb8-9cb7-27188e76f7f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\HPUI">
+      <UniqueIdentifier>{5b89bf0e-2a77-49b3-8daa-11e029b8fae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\HPUI\Heart">
+      <UniqueIdentifier>{309d9c82-3dc1-4737-81b4-0dfbe2d0f954}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -945,6 +951,12 @@
     <ClInclude Include="..\Public\Teleport.h">
       <Filter>02.GameObjects\03.Objects\Teleport</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\HPUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\HPUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\HeartUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\HPUI\Heart</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1369,6 +1381,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Teleport.cpp">
       <Filter>02.GameObjects\03.Objects\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\HPUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\HPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\HeartUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\HPUI\Heart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

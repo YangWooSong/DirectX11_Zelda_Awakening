@@ -7,7 +7,7 @@ class CMainUI :
 	public CUIObject
 {
 public:
-	enum CHILD_INDEX { LUPEE, CHILD_END };
+	enum CHILD_INDEX { LUPEE,HP, CHILD_END };
 
 	typedef struct : public CUIObject::UI_DESC
 	{
@@ -27,6 +27,8 @@ public:
 	virtual HRESULT Render() override;
 
 	_int  Get_Player_Lupee();
+	_int Get_Player_MaxHP();
+	_int Get_Player_CurHp();
 	_uint Get_LevelIndex() { return m_iLevelIndex; }
 
 private:

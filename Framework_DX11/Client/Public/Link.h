@@ -62,7 +62,9 @@ public:
 	_int Get_Lupee() { return m_iLupee; }
 	void Add_Lupee(_int iNum) { m_iLupee += iNum; }
 
-	void Add_MaxHp() { m_iMaxHp++; }
+	_int Get_Player_MaxHP() {	return m_iMaxHp	;	}
+	_int Get_Player_CurrHP() {	return m_iCurrentHP;	}
+	void Add_MaxHp() { m_iMaxHp++; m_iCurrentHP = m_iMaxHp; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_PartObjects();
@@ -79,8 +81,8 @@ private:
 	_float m_fBlinkTimer = { 0.f };
 	_int m_iBlinkCount = { 0};
 	
-	_int m_iMaxHp = {8};
-	_int m_iCurrentHP = {6};
+	static _int m_iMaxHp ;
+	static _int m_iCurrentHP ;
 	static _int m_iLupee ;
 	_int m_iSmallKeyCount = { 0 };
 

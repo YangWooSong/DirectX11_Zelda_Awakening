@@ -67,12 +67,22 @@ _int CMainUI::Get_Player_Lupee()
     return m_pPlayer->Get_Lupee(); 
 }
 
+_int CMainUI::Get_Player_MaxHP()
+{
+    return m_pPlayer->Get_Player_MaxHP();
+}
+
+_int CMainUI::Get_Player_CurHp()
+{
+    return m_pPlayer->Get_Player_CurrHP();
+}
+
 HRESULT CMainUI::Ready_Child_UI()
 {
     CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_LupeeUI"));
     if (pGameObj != nullptr)
     {
-        CUIObject::UI_DESC pDesc;
+        CUIObject::UI_DESC pDesc{};
         pDesc.fSizeX = 30.f ;
         pDesc.fSizeY = 45.f ;
         pDesc.fX = g_iWinSizeX * 0.9f;
@@ -81,6 +91,16 @@ HRESULT CMainUI::Ready_Child_UI()
 
         CUIObject* m_pLupeeUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pLupeeUI);
+    } 
+    
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_HPUI"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.pParent = this;
+
+        CUIObject* m_pHPUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+        m_childUI_List.push_back(m_pHPUI);
     }
 
     return S_OK;

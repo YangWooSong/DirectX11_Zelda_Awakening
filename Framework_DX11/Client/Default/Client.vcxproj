@@ -178,6 +178,8 @@
     <ClInclude Include="..\Public\ConchHorn.h" />
     <ClInclude Include="..\Public\DialogueUI.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
+    <ClInclude Include="..\Public\HeartUI.h" />
+    <ClInclude Include="..\Public\HPUI.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
     <ClInclude Include="..\Public\CollapseTile.h" />
     <ClInclude Include="..\Public\CrackedWall.h" />
@@ -324,6 +326,8 @@
     <ClCompile Include="..\Private\ConchHorn.cpp" />
     <ClCompile Include="..\Private\DialogueUI.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
+    <ClCompile Include="..\Private\HeartUI.cpp" />
+    <ClCompile Include="..\Private\HPUI.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />
     <ClCompile Include="..\Private\CollapseTile.cpp" />
     <ClCompile Include="..\Private\CrackedWall.cpp" />

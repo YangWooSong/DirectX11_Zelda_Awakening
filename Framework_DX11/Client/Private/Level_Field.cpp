@@ -170,7 +170,7 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	}
 	else if (m_pGameInstance->Get_PreLevelIndex() == LEVEL_STORE)
 	{
-		PlayerDesc.vPosition = _float3(44.207f, 10.491f, 68.704f);
+		PlayerDesc.vPosition = _float3(44.207f, 10.491f, 68.f);
 		PlayerDesc.LevelIndex = LEVEL_FIELD;
 		PlayerDesc.iStartCellNum = 251;
 	}

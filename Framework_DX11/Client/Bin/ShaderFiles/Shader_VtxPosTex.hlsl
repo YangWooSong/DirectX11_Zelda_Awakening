@@ -16,6 +16,8 @@ texture2D g_Texture;
 bool g_bBlink = false;
 float g_fBrightness = 1.f;
 float g_fAlpha = 1.f;
+float g_fAngle = 0.f;
+
 struct VS_IN
 {
     float3 vPosition : POSITION;
@@ -117,6 +119,47 @@ PS_OUT PS_MAIN_CHANGEALPHA(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_HP(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+
+    if (Out.vColor.a <= 0.2f)
+        discard;
+    
+    float2 uv = In.vTexcoord;
+    float2 center = (0.5f,0.5f);
+    
+    // 상대 좌표 계산
+    float2 relativePos = uv - center;
+    
+    float angle = -atan2(relativePos.x, relativePos.y);
+    
+    ////angle을 0에서 360사이로 변환
+    //if (angle < 0.0f)
+    //{
+    //    angle += 2.0f * 3.14159f; // 360°에 해당하는 2π를 더해줍니다.
+    //}
+    
+    ////라디안 변환해서 비교 (angle은 라디안)
+    //if (angle < g_fAngle * (3.14159f / 180.f))
+    //    Out.vColor.rgb *= 1.f;
+    //else
+    //    Out.vColor.rgb *= 3.f;
+    
+    float ResultAngle = (angle + 3.14159f) / (3.14159f * 2);
+    
+    if (ResultAngle < g_fAngle / 360.f)
+        Out.vColor.rgb *= 1.f;
+    else
+        Out.vColor.rgb *= 3.f;
+    
+
+    
+    return Out;
+}
+
 technique11 DefaultTechnique
 {
 	/* 빛연산 + 림라이트 + ssao + 노멀맵핑 + pbr*/
@@ -169,12 +212,17 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_CHANGEALPHA();
+    } 
+
+    pass HP //5
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_None, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_HP();
     }
 
-	/* 디스토션 + 블렌딩 */
-	//pass Effect
-	//{
-	//	VertexShader = compile vs_5_0 VS_MAIN_Special();
-	//	PixelShader = compile ps_5_0 PS_MAIN_Special();
-	//}
+	
 }
