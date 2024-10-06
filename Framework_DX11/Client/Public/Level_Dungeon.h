@@ -23,9 +23,7 @@ public:
 	HRESULT Ready_Layer_Effect();
 
 	HRESULT Ready_LandObjects();
-	//HRESULT Ready_Layer_Player(CLandObject::LANDOBJECT_DESC& LandObjectDesc);
-	//HRESULT Ready_Layer_Monster(CLandObject::LANDOBJECT_DESC& LandObjectDesc);
-
+	
 	HRESULT Read();
 	HRESULT Read_LandObjects(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot);
 	HRESULT Read_AnimMonster(_int _type, _uint _index, _float3 _fPos, _float3 _fScaled, _float3 _fRot, string _strLyaerTag, _int _iCellNum, _uint _iRoomNum);
@@ -36,6 +34,7 @@ private:
 	class CNavigation* m_pNavigationCom = { nullptr };
 	class CPlayer* m_pPlayer = { nullptr };
 	class CPlayerCamera* m_pPlayerCam = { nullptr };
+	class CMiniMap* m_pMiniMapUI = { nullptr };
 
 	_bool	m_isPlayerGetCampus = { false };
 	_bool   m_bFirstInRoom10 = { true };
@@ -69,7 +68,7 @@ private:
 		{5},                // Room 15
 		{9, 15, 22}        // Room 16
 	};
-
+	list<_uint> m_ArrivedRoomNum;
 	_float4  m_CameraRoomPos[16] =
 	{
 		_float4(0.f, 20.f, -11.f, 1.f), _float4(-15.f, 20.f, -11.f, 1.f),_float4(-30.f, 20.f, -11.f, 1.f),_float4(0.f, 20.f, 1.f, 1.f),
@@ -81,6 +80,7 @@ private:
 private:
 	void Change_Room();
 	void Setting_Gimmick(_float fTimeDelta);
+	void Set_MiniMap(_uint iRoomNum);
 
 public:
 	static CLevel_Dungeon* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

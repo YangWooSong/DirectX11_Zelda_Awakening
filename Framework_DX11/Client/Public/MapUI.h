@@ -35,14 +35,20 @@ public:
 	virtual HRESULT Render() override;
 
 public:
+	_uint Get_RoomNum() { return m_iRoomNum; }
+	void Set_Reveal() { m_iMapType = REVEAL; }
+public:
 	CShader* m_pShaderCom = { nullptr };
 	CTexture* m_pTextureCom[2] = {nullptr};
 	CVIBuffer_Rect* m_pVIBufferCom = { nullptr };
 
-
 private:
 	_uint m_iMapNUm = { 0 };
 	_uint m_iMapType = { TYPE_END };
+	_uint m_iRoomNum = {0};
+
+private:
+	void Set_RoomNum();
 private:
 	HRESULT Ready_Components();
 

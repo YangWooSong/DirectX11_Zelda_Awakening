@@ -74,8 +74,10 @@ HRESULT CMapBackGround::Render()
         if (FAILED(m_pVIBufferCom->Render()))
             return E_FAIL;
 
-    
-    return S_OK;
+        if(m_iBackType == GRID_MAP)
+            m_pGameInstance->Render_Text(TEXT("Font_BossName36"), TEXT("Áöµµ"), XMVectorSet(g_iWinSizeX * 0.5f - 50.f, 100.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+   
+        return S_OK;
 }
 
 HRESULT CMapBackGround::Ready_Components()

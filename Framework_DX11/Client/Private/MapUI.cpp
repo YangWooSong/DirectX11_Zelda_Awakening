@@ -33,6 +33,9 @@ HRESULT CMapUI::Initialize(void* pArg)
 
     m_isActive = false;
     m_iDepth = 1;
+
+    Set_RoomNum();
+
     return S_OK;
 }
 
@@ -85,6 +88,64 @@ HRESULT CMapUI::Render()
 
 
     return S_OK;
+}
+
+void CMapUI::Set_RoomNum()
+{
+    switch (m_iMapNUm)
+    {
+    case 0:
+        m_iRoomNum = 13;
+        break;
+    case 1:
+        m_iRoomNum = 15;
+        break;
+    case 2:
+    case 3:
+        m_iRoomNum =14;
+        break;
+    case 4:
+        m_iRoomNum =12;
+        break;
+    case 7:
+    case 8:
+    case 9:
+    case 15:
+    case 16:
+    case 17:
+        m_iRoomNum = 7;
+        break;
+    case 10:
+        m_iRoomNum = 9;
+        break;
+    case 11:
+        m_iRoomNum = 11;
+        break;
+    case 18:
+        m_iRoomNum = 8;
+        break;
+    case 19:
+        m_iRoomNum = 10;
+        break;
+    case 22:
+        m_iRoomNum = 4;
+        break;
+    case 23:
+        m_iRoomNum = 5;
+        break;
+    case 24:
+        m_iRoomNum = 3;
+        break;
+    case 25:
+        m_iRoomNum = 2;
+        break;
+    case 26:
+        m_iRoomNum = 1;
+        m_iMapType = REVEAL;
+        break;
+    default:
+        break;
+    }
 }
 
 HRESULT CMapUI::Ready_Components()

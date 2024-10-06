@@ -19,6 +19,8 @@
 #include "Rola.h"
 #include "SquareBlock.h"
 #include "MainUI.h"
+#include "MiniMap.h"
+#include "MapUI.h"
 
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -44,6 +46,10 @@ HRESULT CLevel_Dungeon::Initialize()
 
    m_pGameInstance->Play_BGM(TEXT("0_Dangeon1_TailCave.wav"), 0.7f);
    m_pPlayer = static_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_DUNGEON));
+   CMainUI* pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"),0));
+   m_pMiniMapUI = static_cast<CMiniMap*>(pMainUI->Get_ChildUI(CMainUI::MAP));
+   Safe_AddRef(m_pPlayer);
+   Safe_AddRef(m_pMiniMapUI);
 
    //처음 땅 활성화
    CLayer* pLandLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Land"));
@@ -461,6 +467,22 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 void CLevel_Dungeon::Change_Room()
 {
 	m_iCurRoomNum = m_pPlayer->Get_CurRoomNum();
+
+	//도착했던 방인지 검사, 도착한 적 없으면 리스트에 넣음
+	_bool bArrived = { false };
+	for (auto& iter : m_ArrivedRoomNum)
+	{
+		if (m_iCurRoomNum == iter)
+			bArrived = true;
+	}
+
+	if(bArrived == false)
+	{
+		m_ArrivedRoomNum.push_back(m_iCurRoomNum);
+		Set_MiniMap(m_iCurRoomNum);
+	}
+
+	//기믹 세팅
 	CLayer* pLayer = { nullptr };
 
 	_float3 vNewCamPos = { m_CameraRoomPos[m_iCurRoomNum - 1].x, m_CameraRoomPos[m_iCurRoomNum - 1].y, m_CameraRoomPos[m_iCurRoomNum - 1].z };
@@ -1420,6 +1442,18 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 //#pragma endregion
 }
 
+void CLevel_Dungeon::Set_MiniMap(_uint iRoomNum)
+{
+	for (auto& mapUI : m_pMiniMapUI->Get_ChildUIList())
+	{
+		if (dynamic_cast<CMapUI*>(mapUI) != nullptr)
+		{
+			if (dynamic_cast<CMapUI*>(mapUI)->Get_RoomNum() == iRoomNum)
+				dynamic_cast<CMapUI*>(mapUI)->Set_Reveal();
+		}
+	}
+}
+
 
 CLevel_Dungeon* CLevel_Dungeon::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
@@ -1437,4 +1471,6 @@ void CLevel_Dungeon::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pPlayer);
+	Safe_Release(m_pMiniMapUI);
 }
