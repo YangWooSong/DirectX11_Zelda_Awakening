@@ -26,6 +26,7 @@ private:
 private:
 	HRESULT Ready_ChildUI();
 	void Add_Hp();
+	void Set_HeartUI();
 public:
 	static CHPUI* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg) override;

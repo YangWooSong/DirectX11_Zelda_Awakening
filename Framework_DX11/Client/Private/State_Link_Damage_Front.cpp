@@ -24,6 +24,7 @@ HRESULT CState_Link_Damage_Front::Start_State()
 	m_pPlayer->Set_bBodyRed(true);
 	m_pPlayer->Get_Collider()->Set_IsActive(false);
 	m_pPlayer->Get_PlayerSound()->Play_Sound(TEXT("1_Link_Damage.wav"), 1.f);
+	static_cast<CLink*>(m_pPlayer)->Minus_HP();
 	return S_OK;
 }
 

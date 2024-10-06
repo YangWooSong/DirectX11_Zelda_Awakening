@@ -62,6 +62,8 @@ public:
 	_int Get_Lupee() { return m_iLupee; }
 	void Add_Lupee(_int iNum) { m_iLupee += iNum; }
 
+	void Minus_HP() { m_iCurrentHP--; }
+
 	_int Get_Player_MaxHP() {	return m_iMaxHp	;	}
 	_int Get_Player_CurrHP() {	return m_iCurrentHP;	}
 	void Add_MaxHp() { m_iMaxHp++; m_iCurrentHP = m_iMaxHp; }

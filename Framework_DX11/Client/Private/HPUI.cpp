@@ -34,6 +34,8 @@ HRESULT CHPUI::Initialize(void* pArg)
     if (FAILED(Ready_ChildUI()))
         return E_FAIL;
 
+    Set_HeartUI();
+
     return S_OK;
 }
 
@@ -127,6 +129,21 @@ void CHPUI::Add_Hp()
     }
   
 
+}
+
+void CHPUI::Set_HeartUI()
+{
+    if (m_iCurHp != m_iMaxHP)
+    {
+        int i = 0;
+
+        for (auto& ui : m_childUI_List)
+        {
+            i++;
+            if (i > m_iCurHp)
+                static_cast<CHeartUI*>(ui)->Set_Decrease(true);
+        }
+    }
 }
 
 
