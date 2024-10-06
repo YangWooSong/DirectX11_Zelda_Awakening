@@ -57,6 +57,8 @@ void CMiniMap::Update(_float fTimeDelta)
 
     if (m_isActive)
     {
+        Culculate_PlayerIconPos();
+
         for (auto& pChild : m_childUI_List)
             pChild->Update(fTimeDelta);
     }
@@ -83,7 +85,26 @@ HRESULT CMiniMap::Render()
 
 HRESULT CMiniMap::Ready_ChildUI()
 {
-    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MapBackGround"));
+    //플레이어 아이콘
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_ItemIconUI"));
+    CItemIconUI::ITEM_ICON_DESC IconDesc{};
+
+    if (pGameObj != nullptr)
+    {
+        IconDesc.fSizeX = 30.f;
+        IconDesc.fSizeY = 30.f;
+        IconDesc.fX = 320.f;
+        IconDesc.fY = 560.f;
+        IconDesc.pParent = this;
+        IconDesc.iItemType = CItemIconUI::LINK;
+        CUIObject* m_pItemIconUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&IconDesc));
+        m_childUI_List.push_back(m_pItemIconUI);
+    }
+
+
+    //미니맵 배경
+    
+     pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MapBackGround"));
     CMapBackGround::MAP_BACK_DESC pDesc{};
 
     if (pGameObj != nullptr)
@@ -105,6 +126,8 @@ HRESULT CMiniMap::Ready_ChildUI()
         m_childUI_List.push_back(m_pItemIconUI);
 
     }
+
+#pragma region MiniMap
 
   pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MapUI"));
     CMapUI::MAP_DESC MapDesc{};
@@ -198,22 +221,22 @@ HRESULT CMiniMap::Ready_ChildUI()
         m_childUI_List.push_back(pMapUI);
     }
 
-    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_ItemIconUI"));
-    CItemIconUI::ITEM_ICON_DESC IconDesc{};
 
-    if (pGameObj != nullptr)
-    {
-        IconDesc.fSizeX = 30.f;
-        IconDesc.fSizeY = 30.f;
-        IconDesc.fX = 320.f;
-        IconDesc.fY = 560.f;
-        IconDesc.pParent = this;
-        IconDesc.iItemType = CItemIconUI::LINK;
-        CUIObject* m_pItemIconUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&IconDesc));
-        m_childUI_List.push_back(m_pItemIconUI);
-    }
+
+#pragma endregion
 
     return S_OK;
+}
+
+void CMiniMap::Culculate_PlayerIconPos()
+{
+    _float3 fPlayerPos = static_cast<CMainUI*>(m_pParentUI)->Get_PlayerPos_Float3();
+
+    _float fNewPosX = 320 + 640 * ((fPlayerPos.x + 36) / 87);
+    _float fNewPosY = 560 + (-410) * ((fPlayerPos.z + 4.5) / 69.5);
+
+    m_childUI_List[0]->Set_fX(fNewPosX);
+    m_childUI_List[0]->Set_fY(fNewPosY);
 }
 
 CMiniMap* CMiniMap::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

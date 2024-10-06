@@ -106,6 +106,14 @@ _bool CMainUI::Get_Map()
     return m_pPlayer->Get_Map();
 }
 
+_float3 CMainUI::Get_PlayerPos_Float3()
+{
+    _float3 fPos{};
+
+    XMStoreFloat3(&fPos, m_pPlayer->Get_Position());
+    return fPos;
+}
+
 HRESULT CMainUI::Ready_Child_UI()
 {
     CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_LupeeUI"));

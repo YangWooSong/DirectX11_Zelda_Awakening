@@ -30,14 +30,18 @@ public:
 	_int Get_Player_MaxHP();
 	_int Get_Player_CurHp();
 	_int Get_Player_KeyCount();
+
 	_bool Get_Player_Get_BossKey();
 	_bool Get_Bomb();
 	_bool Get_Feather();
-
-	_uint Get_LevelIndex() { return m_iLevelIndex; }
-	void SEt_Active_Campus(_bool m_bActive) { m_bActive_Campus = m_bActive; }
 	_bool Get_Active_Campus() { return m_bActive_Campus; }
 	_bool Get_Map();
+
+	_uint Get_LevelIndex() { return m_iLevelIndex; }
+
+	_float3 Get_PlayerPos_Float3();
+
+	void SEt_Active_Campus(_bool m_bActive) { m_bActive_Campus = m_bActive; }
 
 private:
 	class CLink* m_pPlayer = { nullptr };

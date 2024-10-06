@@ -325,7 +325,7 @@ HRESULT CRenderer::Render_Blend()
 
 HRESULT CRenderer::Render_UI()
 {
-	//정렬 큰게 먼저 그려진다.
+	//depth가 작을 수록 앞쪽에 (나중에).
 	m_RenderObjects[RG_UI].sort([](CGameObject* pSour, CGameObject* pDest)->_bool
 		{
 			return dynamic_cast<CUIObject*>(pSour)->Get_Depth() < dynamic_cast<CUIObject*>(pDest)->Get_Depth();

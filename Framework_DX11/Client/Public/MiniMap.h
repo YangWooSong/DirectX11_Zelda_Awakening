@@ -24,7 +24,7 @@ public:
 
 private:
 	HRESULT Ready_ChildUI();
-
+	void Culculate_PlayerIconPos();
 public:
 	static CMiniMap* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg) override;
