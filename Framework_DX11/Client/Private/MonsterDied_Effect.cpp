@@ -43,8 +43,6 @@ void CMonsterDied_Effect::Priority_Update(_float fTimeDelta)
 
 		for (auto& iter : m_Child_List)
 			iter->Priority_Update(fTimeDelta);
-
-		m_pParticle->Priority_Update(fTimeDelta);
 	}
 }
 
@@ -53,14 +51,11 @@ void CMonsterDied_Effect::Update(_float fTimeDelta)
 	_vector vParentPos = m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION);
 	vParentPos = XMVectorSetZ(vParentPos, (XMVectorGetZ(vParentPos) + 1.f));
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vParentPos);
-	m_pParticle->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 
 	if (m_isActive)
 	{
 		for (auto& iter : m_Child_List)
 			iter->Update(fTimeDelta);
-
-		m_pParticle->Update(fTimeDelta);
 	}
 }
 
@@ -70,8 +65,6 @@ void CMonsterDied_Effect::Late_Update(_float fTimeDelta)
 	{
 		for (auto& iter : m_Child_List)
 			iter->Late_Update(fTimeDelta);
-
-		m_pParticle->Late_Update(fTimeDelta);
 	}
 }
 
@@ -118,11 +111,6 @@ HRESULT CMonsterDied_Effect::Ready_Child()
 		m_Child_List.push_back(m_pEffect);
 
 	}
-
-	CParticle_Image::IMAGE_PARTICLE_DESC Desc = {};
-	Desc.iParticleType = CParticle_Image::CROSS_MINI;
-
-	m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Image"), &Desc);
 
 	return S_OK;
 }

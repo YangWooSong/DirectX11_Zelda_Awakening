@@ -48,6 +48,7 @@ private:
 
 	_bool	m_bBodyRed = { false };
 	_bool	m_bRender = { true };
+	_bool	m_bEffect = { false };
 public:
 	static CSeaUrchin* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

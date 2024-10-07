@@ -7,7 +7,7 @@
 #include "State_SeaUrchin_Idle.h"
 #include "State_SeaUrchin_Pushed.h"
 #include "State_SeaUrchin_Dead.h"
-
+#include "2DEffects.h"
 CSeaUrchin::CSeaUrchin(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
 {
@@ -36,13 +36,6 @@ HRESULT CSeaUrchin::Initialize(void* pArg)
 	if (FAILED(Ready_State()))
 		return E_FAIL;
 
-	//Read한 정보 세팅
-	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
-	//m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
-	//m_vRot = pDesc->vRotation;
-
-	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 
 	m_fOrginScale = m_pTransformCom->Get_Scaled();
@@ -58,6 +51,7 @@ HRESULT CSeaUrchin::Initialize(void* pArg)
 void CSeaUrchin::Priority_Update(_float fTimeDelta)
 {
 	__super::Priority_Update(fTimeDelta);
+	m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CSeaUrchin::Update(_float fTimeDelta)
@@ -70,12 +64,18 @@ void CSeaUrchin::Update(_float fTimeDelta)
 	{
 		Shrink(fTimeDelta);
 		m_bBodyRed = true;
+		
 	}
 	else
 		m_pTransformCom->Set_Scaled(m_fOrginScale.x, m_fOrginScale.y, m_fOrginScale.z);
 
+	if(m_bEffect == false && m_bRender == false)
+	{
+		m_bEffect = true;
+		m_pEffect->SetActive(true);
+	}
 	__super::Update(fTimeDelta);
-
+	m_pEffect->Update(fTimeDelta);
 	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
@@ -85,7 +85,10 @@ void CSeaUrchin::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-
+	if (m_bEffect)
+	{
+		m_pEffect->Late_Update(fTimeDelta);
+	}
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -211,6 +214,18 @@ HRESULT CSeaUrchin::Ready_Components()
 		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pMonsterSoundCom))))
 		return E_FAIL;
 	m_pMonsterSoundCom->Set_Owner(this);
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_FIELD;
+		Desc.pParent = this;
+		Desc.iEffectType = C2DEffects::MONSTER_DIED;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect = pEffect;
+	}
 
 	return S_OK;
 }

@@ -98,15 +98,12 @@ HRESULT CParticle_Image::Ready_Components()
 		TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
 		return E_FAIL;
 
-
-
 	if (m_iParticleType == CROSS_MINI)
 	{
 		/* FOR.Com_Texture */
 		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Cross_Mini"),
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
-
 
 		CVIBuffer_Instancing::INSTANCE_DESC Desc{};
 
