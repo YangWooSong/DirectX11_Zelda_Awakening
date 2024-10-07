@@ -31,12 +31,11 @@ private:
 	HRESULT Ready_Prototype_Component_Static();
 	HRESULT Open_Level(LEVELID eStartLevelID);
 
-#ifdef _DEBUG
 private:
 	_float m_fFps = { 0.f };
 	_float m_fFpsTimer = { 0.f };
 	_float m_fFrameCount = { 0.f };
-#endif
+
 
 public:
 	static CMainApp* Create();

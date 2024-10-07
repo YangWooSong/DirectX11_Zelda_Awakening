@@ -13,6 +13,9 @@
       <FullPath>C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModel.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModelInstance.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxNorTex.cso</FullPath>
     </ContentFile>
     <ContentFile>

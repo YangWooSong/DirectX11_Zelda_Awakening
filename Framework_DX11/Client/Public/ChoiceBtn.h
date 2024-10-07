@@ -40,7 +40,7 @@ public:
 	CVIBuffer_Rect* m_pVIBufferCom = { nullptr };
 
 private:
-	_int m_iTextureNum;
+	_int m_iTextureNum = {0};
 	_float m_fAlpha = {0.f};
 
 public:

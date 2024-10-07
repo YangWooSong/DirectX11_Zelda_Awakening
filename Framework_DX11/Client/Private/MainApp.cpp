@@ -42,22 +42,23 @@ HRESULT CMainApp::Initialize()
 
 void CMainApp::Update(_float fTimeDelta)
 {
-#ifdef _DEBUG
-	if (KEY_TAP(ONE))
-		m_pGameInstance->Active_Debug_Renderer();
-
-
 	m_pGameInstance->Update_Engine(fTimeDelta);
 
 	m_fFpsTimer += fTimeDelta;
 	m_fFrameCount++;
-	
+
 	if (m_fFpsTimer >= 1.0f)  // 1초가 지났을 때
 	{
 		m_fFps = m_fFrameCount / m_fFpsTimer;
 		m_fFrameCount = 0;
 		m_fFpsTimer = 0.0f;
 	}
+
+#ifdef _DEBUG
+	if (KEY_TAP(ONE))
+		m_pGameInstance->Active_Debug_Renderer();
+
+	
 #endif
 }
 
@@ -74,12 +75,10 @@ HRESULT CMainApp::Render()
 	//m_pGameInstance->Render_Text(TEXT("Font_Gulim"), TEXT("담배 하나 피자."), XMVectorSet(0.f, 0.f, 0.f, 1.f));
 	// 
 	
-#ifdef _DEBUG
 	// FPS를 화면에 출력하거나 로그에 기록
 	 _tchar szText[64]; 
 	swprintf_s(szText, TEXT("%d"), (_int)m_fFps);
 	m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), szText, XMVectorSet(0.f, 0.f, 0.f, 1.f));
-#endif
 
 	m_pGameInstance->Render_End();
 
