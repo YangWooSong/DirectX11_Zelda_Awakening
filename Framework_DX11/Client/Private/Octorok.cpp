@@ -9,6 +9,7 @@
 #include "State_Octorok_Walk.h"
 #include "OctorokRock.h"
 #include "Detector.h"
+#include "2DEffects.h"
 
 COctorok::COctorok(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
@@ -53,6 +54,7 @@ HRESULT COctorok::Initialize(void* pArg)
 void COctorok::Priority_Update(_float fTimeDelta)
 {
 	__super::Priority_Update(fTimeDelta);
+	m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void COctorok::Update(_float fTimeDelta)
@@ -62,6 +64,7 @@ void COctorok::Update(_float fTimeDelta)
 		m_bRender = false;
 		m_bBodyRed = false;
 		m_pColliderCom->Set_IsActive(false);
+		m_pEffect->SetActive(true);
 	}
 	else
 	{
@@ -88,6 +91,8 @@ void COctorok::Update(_float fTimeDelta)
 
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 	}
+
+	m_pEffect->Update(fTimeDelta);
 }
 
 void COctorok::Late_Update(_float fTimeDelta)
@@ -96,7 +101,7 @@ void COctorok::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-
+	m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -138,7 +143,7 @@ HRESULT COctorok::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 	}
-
+	
 	return S_OK;
 }
 
@@ -234,6 +239,17 @@ HRESULT COctorok::Ready_PartObjects()
 	if (FAILED(__super::Add_PartObject(PART_DETECTOR, TEXT("Prototype_GameObject_Detector"), &DetectDesc)))
 		return E_FAIL;
 
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_FIELD;
+		Desc.pParent = this;
+		Desc.iEffectType = C2DEffects::MONSTER_DIED;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect = pEffect;
+	}
 	return S_OK;
 }
 

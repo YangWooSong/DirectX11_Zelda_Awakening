@@ -43,6 +43,7 @@
 #include "Particle_Explosion.h"
 #include "Particle_Snow.h"
 #include "Particle_Model.h"
+#include "Particle_Image.h"
 
 #include "DeguTail_00.h"
 #include "DeguTail_01.h"
@@ -89,6 +90,11 @@
 #include "MapBackGround.h"
 #include "MiniMap.h"
 #include "MapUI.h"
+
+#include "Glow_Effect.h"
+#include "Cross_Effect.h"
+#include "Smoke_Effect.h"
+#include "MonsterDied_Effect.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -236,28 +242,32 @@ HRESULT CLoader::Ready_Resources_For_LogoLevel()
 	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
 	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
 
-	ParticleDesc.iNumInstance = 200;
-	ParticleDesc.vCenter = _float3(0.f, 1.f, 0.f);
-	ParticleDesc.vRange = _float3(1.f, 2.f, 1.f);
-	ParticleDesc.vSize = _float2(0.1f, 0.3f);
-	ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
-	ParticleDesc.vSpeed = _float2(1.f, 1.5f);
-	ParticleDesc.vLifeTime = _float2(0.3f, 1.f);
-	ParticleDesc.isLoop = false;
+	//ParticleDesc.iNumInstance = 200;
+	//ParticleDesc.vCenter = _float3(0.f, 1.f, 0.f);
+	//ParticleDesc.vRange = _float3(1.f, 2.f, 1.f);
+	//ParticleDesc.vSize = _float2(0.1f, 0.3f);
+	//ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
+	//ParticleDesc.vSpeed = _float2(1.f, 1.5f);
+	//ParticleDesc.vLifeTime = _float2(0.3f, 1.f);
+	//ParticleDesc.isLoop = false;
 
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
-		CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
+	//if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
+	//	CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext))))
+	//	return E_FAIL;
 
-	ParticleDesc.vPivot = _float3(0.f, 4.f, 0.f);
-	ParticleDesc.iNumInstance = 13;
-	ParticleDesc.vSize = _float2(0.5f, 1.2f);
-	ParticleDesc.vRange = _float3(0.6f, 2.f, 0.6f);
-	ParticleDesc.vSpeed = _float2(2.f, 5.f);
-	ParticleDesc.vCenter = _float3(0.f, 2.f, 0.f);
-	ParticleDesc.vLifeTime = _float2(0.5f, 1.f);
+	//ParticleDesc.vPivot = _float3(0.f, 4.f, 0.f);
+	//ParticleDesc.iNumInstance = 13;
+	//ParticleDesc.vSize = _float2(0.5f, 1.2f);
+	//ParticleDesc.vRange = _float3(0.6f, 2.f, 0.6f);
+	//ParticleDesc.vSpeed = _float2(2.f, 5.f);
+	//ParticleDesc.vCenter = _float3(0.f, 2.f, 0.f);
+	//ParticleDesc.vLifeTime = _float2(0.5f, 1.f);
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
 		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),
+		CVIBuffer_Point_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
@@ -530,6 +540,31 @@ HRESULT CLoader::Ready_Textures_For_static()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Map/Mask/Map_Mask_%d.dds"), 27))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_Effect_Glow*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Glow"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/glow_00.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_Effect_Cross_Color*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Cross_Color"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/glow_01.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_Effect_Smoke*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Smoke"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/smoke_00.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_Effect_Dissolve*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Dissolve"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/dissolve_02.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_ChoiceBtn_Selected */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Cross_Mini"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/cross_00.dds"), 1))))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -583,6 +618,7 @@ HRESULT CLoader::Ready_Models_For_Static()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_cut_lawn_Particle"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Particle/cut_lawn/cut_lawn.dat"))))
 		return E_FAIL;
+
 #pragma endregion
 
 	return S_OK;
@@ -930,6 +966,7 @@ HRESULT CLoader::Ready_Models_For_Store()
 
 HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 {
+#pragma region Camera
 	/* For. Prototype_GameObject_FreeCamera */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FreeCamera"),
 		CFreeCamera::Create(m_pDevice, m_pContext))))
@@ -939,7 +976,9 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_PlayerCamera"),
 		CPlayerCamera::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+#pragma endregion
 
+#pragma region Object
 	/* For. Prototype_GameObject_PLayer_Link */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_Link"),
 		CLink::Create(m_pDevice, m_pContext))))
@@ -975,6 +1014,14 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 		CBomb::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_Teleport*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Teleport"),
+		CTeleport::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+#pragma endregion
+
+#pragma region UI
 	/* For. Prototype_GameObject_InteractUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_InteractUI"),
 		CInteractUI::Create(m_pDevice, m_pContext))))
@@ -1009,6 +1056,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Model"),
 		CParticle_Model::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+	/* For. Prototype_GameObject_Particle_Image*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Particle_Image"),
+		CParticle_Image::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 	
 	/* For. Prototype_GameObject_MainUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MainUI"),
@@ -1041,11 +1093,6 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 		return E_FAIL;
 
 
-	/* For. Prototype_GameObject_Teleport*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Teleport"),
-		CTeleport::Create(m_pDevice, m_pContext))))
-		return E_FAIL;
-
 	/* For. Prototype_GameObject_CampusUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CampusUI"),
 		CCampusUI::Create(m_pDevice, m_pContext))))
@@ -1070,7 +1117,26 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MapUI"),
 		CMapUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+#pragma endregion
 
+#pragma region Effect
+	/* For. Prototype_GameObject_Glow_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Glow_Effect"),
+		CGlow_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For. Prototype_GameObject_Cross_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Cross_Effect"),
+		CCross_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For. Prototype_GameObject_Smoke_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Smoke_Effect"),
+		CSmoke_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For. Prototype_GameObject_MonsterDied_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"),
+		CMonsterDied_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+#pragma endregion
 	return S_OK;
 }
 

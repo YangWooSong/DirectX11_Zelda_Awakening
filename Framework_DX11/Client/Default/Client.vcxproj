@@ -167,6 +167,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Public\2DEffects.h" />
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
@@ -177,8 +178,10 @@
     <ClInclude Include="..\Public\ChoiceBtn.h" />
     <ClInclude Include="..\Public\ClosedPotDoor.h" />
     <ClInclude Include="..\Public\ConchHorn.h" />
+    <ClInclude Include="..\Public\Cross_Effect.h" />
     <ClInclude Include="..\Public\DialogueUI.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
+    <ClInclude Include="..\Public\Glow_Effect.h" />
     <ClInclude Include="..\Public\HeartUI.h" />
     <ClInclude Include="..\Public\HPUI.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
@@ -204,12 +207,14 @@
     <ClInclude Include="..\Public\MapBackGround.h" />
     <ClInclude Include="..\Public\MapUI.h" />
     <ClInclude Include="..\Public\MiniMap.h" />
+    <ClInclude Include="..\Public\MonsterDied_Effect.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
     <ClInclude Include="..\Public\NPC.h" />
     <ClInclude Include="..\Public\OctorokRock.h" />
     <ClInclude Include="..\Public\OnewayDoorReverse.h" />
     <ClInclude Include="..\Public\OwlStatue.h" />
     <ClInclude Include="..\Public\Particle_Explosion.h" />
+    <ClInclude Include="..\Public\Particle_Image.h" />
     <ClInclude Include="..\Public\Particle_Model.h" />
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
@@ -219,6 +224,7 @@
     <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\SinkingSword.h" />
     <ClInclude Include="..\Public\SmallKey.h" />
+    <ClInclude Include="..\Public\Smoke_Effect.h" />
     <ClInclude Include="..\Public\Spark.h" />
     <ClInclude Include="..\Public\SpikeTile.h" />
     <ClInclude Include="..\Public\SquareBlock.h" />
@@ -322,6 +328,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\2DEffects.cpp" />
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
@@ -332,8 +339,10 @@
     <ClCompile Include="..\Private\ChoiceBtn.cpp" />
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\ConchHorn.cpp" />
+    <ClCompile Include="..\Private\Cross_Effect.cpp" />
     <ClCompile Include="..\Private\DialogueUI.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
+    <ClCompile Include="..\Private\Glow_Effect.cpp" />
     <ClCompile Include="..\Private\HeartUI.cpp" />
     <ClCompile Include="..\Private\HPUI.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />
@@ -370,7 +379,9 @@
     <ClCompile Include="..\Private\MapBackGround.cpp" />
     <ClCompile Include="..\Private\MapUI.cpp" />
     <ClCompile Include="..\Private\MiniMap.cpp" />
+    <ClCompile Include="..\Private\MonsterDied_Effect.cpp" />
     <ClCompile Include="..\Private\NPC.cpp" />
+    <ClCompile Include="..\Private\Particle_Image.cpp" />
     <ClCompile Include="..\Private\Particle_Model.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\NavDataObj.cpp" />
@@ -391,6 +402,7 @@
     <ClCompile Include="..\Private\Shield.cpp" />
     <ClCompile Include="..\Private\SinkingSword.cpp" />
     <ClCompile Include="..\Private\SmallKey.cpp" />
+    <ClCompile Include="..\Private\Smoke_Effect.cpp" />
     <ClCompile Include="..\Private\Spark.cpp" />
     <ClCompile Include="..\Private\SpikeTile.cpp" />
     <ClCompile Include="..\Private\SquareBlock.cpp" />

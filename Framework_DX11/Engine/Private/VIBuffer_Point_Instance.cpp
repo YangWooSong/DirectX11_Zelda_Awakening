@@ -22,6 +22,8 @@ HRESULT CVIBuffer_Point_Instance::Initialize_Prototype(void* pArg)
 
 HRESULT CVIBuffer_Point_Instance::Initialize(void* pArg)
 {
+	__super::Initialize(pArg);
+
 	m_iNumVertexBuffers = 2;
 	m_iNumVertices = 1;
 	m_iVertexStride = sizeof(VTXPOINT);

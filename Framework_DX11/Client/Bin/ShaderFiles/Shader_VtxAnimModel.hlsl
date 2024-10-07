@@ -14,6 +14,7 @@ vector g_vMtrlAmbient = vector(0.4f, 0.4f, 0.4f, 1.0f);
 vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
 
 vector g_vCamPosition;
+bool g_bLowAlpha = false;
 
 /* 뼈행렬들(내 모델 전체의 뼈행렬들(x), 현재 그리는 메시에게 영향을 주는 뼈행렬들(o) */
 matrix g_BoneMatrices[512];
@@ -154,6 +155,9 @@ PS_OUT PS_MAIN_CHANGE_RED(PS_IN In)
     if (0.3f >= vMtrlDiffuse.a)
         discard;
 
+    if (g_bLowAlpha)
+        vMtrlDiffuse.r = 1.f;
+    
     if (g_bIsRed)
     {
         vMtrlDiffuse.r *= 2.3f;

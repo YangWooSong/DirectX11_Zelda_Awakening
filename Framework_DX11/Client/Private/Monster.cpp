@@ -47,6 +47,7 @@ void CMonster::Priority_Update(_float fTimeDelta)
 {
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Priority_Update(fTimeDelta);
+
 }
 
 void CMonster::Update(_float fTimeDelta)
@@ -54,6 +55,7 @@ void CMonster::Update(_float fTimeDelta)
 
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Update(fTimeDelta);
+
 }
 
 void CMonster::Late_Update(_float fTimeDelta)
@@ -61,10 +63,12 @@ void CMonster::Late_Update(_float fTimeDelta)
 	/* 직교투영을 위한 월드행렬까지 셋팅하게 된다. */
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Late_Update(fTimeDelta);
+	
 }
 
 HRESULT CMonster::Render()
 {
+	
     return S_OK;
 }
 
@@ -182,6 +186,7 @@ void CMonster::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pEffect);
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);
 	Safe_Release(m_pNavigationCom);

@@ -91,7 +91,7 @@ protected:
 	CNavigation* m_pNavigationCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
 	CSound* m_pMonsterSoundCom = { nullptr };
-
+	CGameObject* m_pEffect = { nullptr };
 protected:
 	_float				m_fMoveSpeed = { 3.f };
 	_uint				m_iDir = { BACK };	

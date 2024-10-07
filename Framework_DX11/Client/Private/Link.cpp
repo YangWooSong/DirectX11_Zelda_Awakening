@@ -39,7 +39,7 @@
 #include "ToolShopkeeper.h"
 
 _bool CLink::m_bActiveSheild = { true };
-_bool CLink::m_bActiveSword = { false };
+_bool CLink::m_bActiveSword = { true };
 _bool  CLink::m_bDungeonKey = { true };
  _int CLink::m_iLupee = { 5 };
   _int  CLink::m_iMaxHp = { 8 };
@@ -141,7 +141,8 @@ void CLink::Update(_float fTimeDelta)
 
 			if (m_fBlinkTimer > 0.3f)
 			{
-				m_bRender = !m_bRender;
+				//m_bRender = !m_bRender;
+				m_bLowAlpha = !m_bLowAlpha;
 				m_fBlinkTimer = 0.f;
 				m_iBlinkCount++;
 			}
@@ -188,6 +189,9 @@ HRESULT CLink::Render()
 
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &m_bBodyRed, sizeof(_bool))))
 			return E_FAIL;
+		
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bLowAlpha", &m_bLowAlpha, sizeof(_bool))))
+			return E_FAIL;
 
 		_uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
@@ -228,9 +232,12 @@ HRESULT CLink::Render()
 
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_bLowAlpha", &bFalse, sizeof(_bool))))
+			return E_FAIL;
 
 		for (auto& pPlayerUI : m_PlayerUI)
 			pPlayerUI->Render();
+	
 	}
 
 	return S_OK;

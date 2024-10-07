@@ -97,6 +97,7 @@ private:
 	_bool m_bBeak = { false };
 	_bool m_bMap = { false };
 	_bool m_bTalk = { false };
+	_bool m_bLowAlpha = { false };	//아프면 희미해지자
 	static _bool m_bBomb;
 	static _bool m_bFeather ;
 	//class CInteractUI* m_pInteractUI = { nullptr };

@@ -538,6 +538,27 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\MiniMap\MapUI">
       <UniqueIdentifier>{15f88881-b0e5-4125-80a9-ea4e4bf50e4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects">
+      <UniqueIdentifier>{b9770d46-cbfd-4321-81ec-d756a494e33d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\MonsterDied">
+      <UniqueIdentifier>{a5e69964-92ba-415c-9091-0a6ce84680c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Defaults">
+      <UniqueIdentifier>{1c47e99f-4fd9-4f1f-8afb-96862a73b2b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Defaults\Glow_Effect">
+      <UniqueIdentifier>{8f02d884-a77a-4b21-82ec-3f8d768e1165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Defaults\Cross_Effect">
+      <UniqueIdentifier>{7055d7a1-e940-4790-92ea-3c18140ca8b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Defaults\Smoke_Effect">
+      <UniqueIdentifier>{5fe6c222-05b4-4d37-9b2b-12570355c35e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\06.Particle\Particle_Image">
+      <UniqueIdentifier>{a316a826-0d51-4999-890f-4f52078f6546}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -999,6 +1020,24 @@
     <ClInclude Include="..\Public\MapUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\MiniMap\MapUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\2DEffects.h">
+      <Filter>02.GameObjects\08.Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MonsterDied_Effect.h">
+      <Filter>02.GameObjects\08.Effects\MonsterDied</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Glow_Effect.h">
+      <Filter>02.GameObjects\08.Effects\Defaults\Glow_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Cross_Effect.h">
+      <Filter>02.GameObjects\08.Effects\Defaults\Cross_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Smoke_Effect.h">
+      <Filter>02.GameObjects\08.Effects\Defaults\Smoke_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Particle_Image.h">
+      <Filter>02.GameObjects\06.Particle\Particle_Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1450,6 +1489,24 @@
     </ClCompile>
     <ClCompile Include="..\Private\MapUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\MiniMap\MapUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\2DEffects.cpp">
+      <Filter>02.GameObjects\08.Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MonsterDied_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\MonsterDied</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Glow_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\Defaults\Glow_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Cross_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\Defaults\Cross_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Smoke_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\Defaults\Smoke_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Particle_Image.cpp">
+      <Filter>02.GameObjects\06.Particle\Particle_Image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
