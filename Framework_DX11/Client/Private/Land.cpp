@@ -30,7 +30,13 @@ HRESULT CLand::Initialize(void* pArg)
 
     //Read한 정보 세팅
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-    m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
+
+    if (m_eObjType == NONANIM_LEVEL && m_iListIndex == 2)
+    {
+        m_pTransformCom->Set_Scaled(1.05f, 1.05f, 1.05f);
+    }
+    else
+      m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
 
@@ -73,8 +79,17 @@ HRESULT CLand::Render()
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
                 return E_FAIL;
 
-            if (FAILED(m_pShaderCom->Begin(0)))
-                return E_FAIL;
+            if(m_eObjType == NONANIM_LEVEL && m_iListIndex == 2)
+            {
+                if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+                    return E_FAIL;
+
+                if (FAILED(m_pShaderCom->Begin(5)))
+                    return E_FAIL;
+            }
+            else
+                if (FAILED(m_pShaderCom->Begin(0)))
+                    return E_FAIL;
 
             if (FAILED(m_pModelCom->Render(i)))
                 return E_FAIL;
@@ -168,6 +183,9 @@ HRESULT CLand::Add_Component_SingleMap()
             return E_FAIL;
         break;
     }
+
+    if(m_iListIndex != 2)
+        m_pTransformCom->Set_Scaled(1.f, 1.f, 1.f);
     return S_OK;
 }
 

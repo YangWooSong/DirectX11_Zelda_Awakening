@@ -91,7 +91,7 @@ private:
 	static _int m_iLupee ;
 	_int m_iSmallKeyCount = { 0 };
 
-	_bool m_bDungeonKey = { false };
+	static _bool m_bDungeonKey ;
 	_bool m_bGetBossKey = { false };
 	_bool m_bCampus = { false };
 	_bool m_bBeak = { false };

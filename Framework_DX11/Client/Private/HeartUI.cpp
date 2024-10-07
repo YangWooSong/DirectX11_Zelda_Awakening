@@ -61,7 +61,7 @@ void CHeartUI::Update(_float fTimeDelta)
         if (m_fInvisibleAngle <= 0.f)
             m_bStartIncrease = false;
 
-        _float tmp = m_fInvisibleAngle - 10.f * fTimeDelta;
+        _float tmp = m_fInvisibleAngle - 200.f * fTimeDelta;
         m_fInvisibleAngle = max(0.f, tmp);
     }
 

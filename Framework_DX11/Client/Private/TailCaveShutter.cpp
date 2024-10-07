@@ -65,6 +65,8 @@ void CTailCaveShutter::Update(_float fTimeDelta)
 			m_bChangeAnim = true;
 			m_iCurrentAnimIndex = m_iOpenAnimIndex;
 			m_pModelCom->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, false);
+			CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
+			pCamera->Start_Shake(0.2f, 0.06f, 3.f);
 		}
 
 		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_pModelCom->Get_IsEnd_CurrentAnimation() && m_bPlaySound == false && m_pSoundCom->Get_IsPlaying() == false)
@@ -143,6 +145,7 @@ void CTailCaveShutter::Camera_Set()
 	CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
 	pCamera->Set_FollowPlayer(false);
 	pCamera->Set_TargetToOtherPos(m_pTransformCom->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&pCamera->Get_Offset()));
+
 
 }
 

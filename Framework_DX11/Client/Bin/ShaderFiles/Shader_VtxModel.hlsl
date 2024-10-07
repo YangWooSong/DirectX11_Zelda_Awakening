@@ -154,6 +154,41 @@ struct PS_IN_NORMAL
     float3 vBinormal : BINORMAL;
 };
 
+PS_OUT PS_MAIN_NORMAL_WORLD(PS_IN_NORMAL In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    // 디퓨즈 텍스처 샘플링
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+
+    // 오브젝트 또는 월드 공간 기준의 노멀맵 샘플링
+    vector vNormalDesc = g_NormalTexture.Sample(LinearSampler, In.vTexcoord);
+
+    // [-1, 1] 범위로 변환 (이미 오브젝트/월드 공간이므로 추가 변환 불필요)
+   // float3 vNormal = vNormalDesc.xyz * 2.f - 1.f;
+    float3x3 WorldMatrix = float3x3(In.vTangent.xyz, In.vBinormal.xyz, In.vNormal.xyz);
+    float3 vNormal;
+  
+    //z값을 계산해준다
+    vNormal.xy = vNormalDesc.xy * 2.f - 1.f;
+    vNormal.z = sqrt(1 - saturate(dot(vNormal.xy, vNormal.xy)));
+    vNormal.xyz = mul(vNormal, WorldMatrix);
+    
+    // 알파 테스트
+    if (0.3f >= vDiffuse.a)
+        discard;
+
+    // 디퓨즈 출력
+    Out.vDiffuse = vDiffuse;
+
+    // 노멀 벡터를 다시 [0, 1]로 변환하여 출력
+    Out.vNormal = vector(vNormal.xyz * 0.5f + 0.5f, 0.f);
+    // 깊이 값 계산
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
+  
+    return Out;
+}
+
 PS_OUT PS_MAIN_NORMAL(PS_IN_NORMAL In)
 {
     PS_OUT Out = (PS_OUT) 0;
@@ -237,5 +272,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN_NORMAL();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_NORMAL();
+    }
+
+    pass WorldNormalMapping //5
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN_NORMAL();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_NORMAL_WORLD();
     }
 }
