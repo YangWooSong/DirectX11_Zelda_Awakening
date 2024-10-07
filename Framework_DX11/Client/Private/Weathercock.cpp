@@ -39,6 +39,8 @@ HRESULT CWeathercock::Initialize(void* pArg)
 	m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
 	m_vRot = pDesc->vRotation;
 
+	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Obj/Weathercock/MI_Weathercock_01_nml.dds"), TEXTURE_TYPE::NORMALS, 0);
+
 	return S_OK;
 }
 
@@ -77,7 +79,10 @@ HRESULT CWeathercock::Render()
 			return E_FAIL;
 
 
-		if (FAILED(m_pShaderCom->Begin(0)))
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+			return E_FAIL;
+
+		if (FAILED(m_pShaderCom->Begin(5)))
 			return E_FAIL;
 
 		if (FAILED(m_pModelCom->Render((_uint)i)))

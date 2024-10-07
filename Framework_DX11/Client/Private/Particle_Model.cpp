@@ -59,9 +59,10 @@ void CParticle_Model::Update(_float fTimeDelta)
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->PurpleQuartz_Spread(fTimeDelta);
 		break;
 	case GRASS:
-		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Grass_Spread(fTimeDelta, 0.5f, 1.f);
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Spread(fTimeDelta);
+		break;
 	case LAWN:
-		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Grass_Spread(fTimeDelta, 0.5f, 1.f);
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Lawn_Spread(fTimeDelta, 1.f, 1.f);
 	default:
 		break;
 	}
@@ -213,12 +214,12 @@ HRESULT CParticle_Model::Ready_Components()
 		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
 
 		Desc.iNumInstance = 10;
-		Desc.vCenter = _float3(0.f, 0.5f, 0.f);
-		Desc.vRange = _float3(1.f, 2.f, 1.f);
+		Desc.vCenter = _float3(0.f, 0.0f, 0.f);
+		Desc.vRange = _float3(1.f, 0.5f, 1.f);
 		Desc.vSize = _float2(0.3f, 1.f);
-		Desc.vPivot = _float3(0.f, 0.5f, 0.f);
+		Desc.vPivot = _float3(0.f, -1.f, 0.f);
 		Desc.vSpeed = _float2(1.f, 3.f);
-		Desc.vLifeTime = _float2(0.3f, 1.f);
+		Desc.vLifeTime = _float2(0.0f, 0.5f);
 		Desc.isLoop = false;
 
 		/* FOR.Com_VIBuffer */

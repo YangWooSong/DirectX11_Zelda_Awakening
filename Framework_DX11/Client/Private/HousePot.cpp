@@ -136,7 +136,7 @@ HRESULT CHousePot::Render()
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
                 return E_FAIL;
 
-            if (FAILED(m_pShaderCom->Begin(4)))
+            if (FAILED(m_pShaderCom->Begin(5)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render(i)))

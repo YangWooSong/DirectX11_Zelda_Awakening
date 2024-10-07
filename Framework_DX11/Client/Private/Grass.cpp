@@ -120,7 +120,7 @@ HRESULT CGrass::Render()
         if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(4)))
+        if (FAILED(m_pShaderCom->Begin(5)))
             return E_FAIL;
 
         if (FAILED(m_pModelCom->Render(i)))
@@ -221,7 +221,7 @@ HRESULT CGrass::Ready_Particle()
     {
         CParticle_Model::MODEL_PARTICLE_DESC Desc = {};
         Desc.iParticleType = CParticle_Model::GRASS;
-
+        
         m_pParticle = m_pGameInstance->Clone_GameObject(TEXT("Prototype_GameObject_Particle_Model"), &Desc);
     }
         break;

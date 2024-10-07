@@ -271,6 +271,12 @@ HRESULT CModel::Add_Texture_to_Material(const _tchar* pTextureFilePath, TEXTURE_
 
 	if (m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType] != nullptr)
 		return m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType]->Add_Texture(pTextureFilePath);
+	else
+	{
+		m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType] = CTexture::Create(m_pDevice, m_pContext, pTextureFilePath, 1);
+		if (nullptr == m_Materials[iMaterialIndex].pMaterialTextures[eMaterialType])
+			return E_FAIL;
+	}
 
 	return S_OK;
 }

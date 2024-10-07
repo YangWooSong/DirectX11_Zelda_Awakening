@@ -30,6 +30,7 @@ public:
 	virtual void Drop(_float fTimeDelta) override;
 	void PurpleQuartz_Spread(_float fTimeDelta);
 	void Grass_Spread(_float fTimeDelta, _float fFallTime, _float fFallSpeed);
+	void Lawn_Spread(_float fTimeDelta, _float fFallTime, _float fFallSpeed);
 
 private:
 	_float fTimer = { 0.f };

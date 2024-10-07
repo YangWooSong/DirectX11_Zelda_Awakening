@@ -34,6 +34,9 @@ HRESULT CTree::Initialize(void* pArg)
 	m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
 	m_vRot = pDesc->vRotation;
 
+	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Obj/Tree/MI_Tree_01_nml.dds"), TEXTURE_TYPE::NORMALS, 1);
+	m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/ModelData/Anim/Obj/Tree/MI_Tree_02_nml.dds"), TEXTURE_TYPE::NORMALS, 0);
+
 	return S_OK;
 }
 
@@ -70,6 +73,8 @@ HRESULT CTree::Render()
 		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 			return E_FAIL;
 
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+			return E_FAIL;
 
 		if (FAILED(m_pShaderCom->Begin(0)))
 			return E_FAIL;
