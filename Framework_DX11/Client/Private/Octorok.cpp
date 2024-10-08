@@ -10,6 +10,7 @@
 #include "OctorokRock.h"
 #include "Detector.h"
 #include "2DEffects.h"
+#include "3D_Effects.h"
 
 COctorok::COctorok(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
@@ -55,6 +56,7 @@ void COctorok::Priority_Update(_float fTimeDelta)
 {
 	__super::Priority_Update(fTimeDelta);
 	m_pEffect->Priority_Update(fTimeDelta);
+	m_p3D_Effect->Priority_Update(fTimeDelta);
 }
 
 void COctorok::Update(_float fTimeDelta)
@@ -93,6 +95,7 @@ void COctorok::Update(_float fTimeDelta)
 	}
 
 	m_pEffect->Update(fTimeDelta);
+	m_p3D_Effect->Update(fTimeDelta);
 }
 
 void COctorok::Late_Update(_float fTimeDelta)
@@ -102,6 +105,7 @@ void COctorok::Late_Update(_float fTimeDelta)
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 	m_pEffect->Late_Update(fTimeDelta);
+	m_p3D_Effect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -154,6 +158,8 @@ void COctorok::OnCollisionEnter(CGameObject* pOther)
 		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
 		{
 			Change_State(DEAD);
+			//m_p3D_Effect->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+			m_p3D_Effect->SetActive(true);
 		}
 	}
 }
@@ -249,6 +255,17 @@ HRESULT COctorok::Ready_PartObjects()
 		Desc.iEffectType = C2DEffects::MONSTER_DIED;
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect = pEffect;
+	}
+	
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = C3D_Effects::MONSTER_HIT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+		m_p3D_Effect = p3DEffect;
 	}
 	return S_OK;
 }

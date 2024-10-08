@@ -95,6 +95,7 @@
 #include "Cross_Effect.h"
 #include "Smoke_Effect.h"
 #include "MonsterDied_Effect.h"
+#include "3D_Effects.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -621,6 +622,13 @@ HRESULT CLoader::Ready_Models_For_Static()
 
 #pragma endregion
 
+#pragma region EFFECTS
+
+	/* For. Prototype_Component_Model_hitflash_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/hitflash_00/hitflash_00.dat"))))
+		return E_FAIL;
+#pragma endregion
 	return S_OK;
 }
 
@@ -1135,6 +1143,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_MonsterDied_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"),
 		CMonsterDied_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_3D_Effects*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_3D_Effects"),
+		C3D_Effects::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;

@@ -92,6 +92,7 @@ protected:
 	CCollider* m_pColliderCom = { nullptr };
 	CSound* m_pMonsterSoundCom = { nullptr };
 	CGameObject* m_pEffect = { nullptr };
+	CGameObject* m_p3D_Effect = { nullptr };
 protected:
 	_float				m_fMoveSpeed = { 3.f };
 	_uint				m_iDir = { BACK };	

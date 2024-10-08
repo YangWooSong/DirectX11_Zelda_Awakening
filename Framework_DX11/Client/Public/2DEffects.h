@@ -47,7 +47,7 @@ protected:
 	CGameObject* m_pParentObj = { nullptr };
 	_float4 m_fColor = {};
 	_uint m_iLevelIndex = { LEVEL_END };
-	_uint m_iEffectType = {};
+	_uint m_iEffectType = { TYPE_END };
 	vector<CGameObject*>	m_Child_List;
 public:
 	static C2DEffects* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

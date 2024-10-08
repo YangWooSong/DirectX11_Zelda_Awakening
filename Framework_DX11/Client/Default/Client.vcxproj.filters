@@ -1038,6 +1038,9 @@
     <ClInclude Include="..\Public\Particle_Image.h">
       <Filter>02.GameObjects\06.Particle\Particle_Image</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\3D_Effects.h">
+      <Filter>02.GameObjects\08.Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1507,6 +1510,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Particle_Image.cpp">
       <Filter>02.GameObjects\06.Particle\Particle_Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\3D_Effects.cpp">
+      <Filter>02.GameObjects\08.Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

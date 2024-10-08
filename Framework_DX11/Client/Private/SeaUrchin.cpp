@@ -8,6 +8,7 @@
 #include "State_SeaUrchin_Pushed.h"
 #include "State_SeaUrchin_Dead.h"
 #include "2DEffects.h"
+#include "3D_Effects.h"
 CSeaUrchin::CSeaUrchin(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
 {
@@ -52,6 +53,7 @@ void CSeaUrchin::Priority_Update(_float fTimeDelta)
 {
 	__super::Priority_Update(fTimeDelta);
 	m_pEffect->Priority_Update(fTimeDelta);
+	m_p3D_Effect->Priority_Update(fTimeDelta);
 }
 
 void CSeaUrchin::Update(_float fTimeDelta)
@@ -76,6 +78,7 @@ void CSeaUrchin::Update(_float fTimeDelta)
 	}
 	__super::Update(fTimeDelta);
 	m_pEffect->Update(fTimeDelta);
+	m_p3D_Effect->Update(fTimeDelta);
 	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 }
 
@@ -89,6 +92,7 @@ void CSeaUrchin::Late_Update(_float fTimeDelta)
 	{
 		m_pEffect->Late_Update(fTimeDelta);
 	}
+	m_p3D_Effect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -141,6 +145,7 @@ void CSeaUrchin::OnCollisionEnter(CGameObject* pOther)
 		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
 		{
 			Change_State(DEAD);
+			m_p3D_Effect->SetActive(true);
 		}
 	}
 }
@@ -226,6 +231,18 @@ HRESULT CSeaUrchin::Ready_Components()
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect = pEffect;
 	}
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = C3D_Effects::MONSTER_HIT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+		m_p3D_Effect = p3DEffect;
+	}
+	return S_OK;
 
 	return S_OK;
 }

@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\2DEffects.h" />
+    <ClInclude Include="..\Public\3D_Effects.h" />
     <ClInclude Include="..\Public\AnimModel.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Bed.h" />
@@ -329,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\2DEffects.cpp" />
+    <ClCompile Include="..\Private\3D_Effects.cpp" />
     <ClCompile Include="..\Private\AnimModel.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\Bed.cpp" />
