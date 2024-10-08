@@ -174,6 +174,7 @@
     <ClInclude Include="..\Public\Bed.h" />
     <ClInclude Include="..\Public\BladeTrap.h" />
     <ClInclude Include="..\Public\Bomb.h" />
+    <ClInclude Include="..\Public\BombExplosion.h" />
     <ClInclude Include="..\public\BossDoor.h" />
     <ClInclude Include="..\Public\CampusUI.h" />
     <ClInclude Include="..\Public\ChoiceBtn.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\Public\Level_Dungeon.h" />
     <ClInclude Include="..\Public\Level_Store.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
+    <ClInclude Include="..\Public\Light_Effect.h" />
     <ClInclude Include="..\Public\LockBlock.h" />
     <ClInclude Include="..\Public\LockDoor.h" />
     <ClInclude Include="..\Public\Lupee.h" />
@@ -336,6 +338,7 @@
     <ClCompile Include="..\Private\Bed.cpp" />
     <ClCompile Include="..\Private\BladeTrap.cpp" />
     <ClCompile Include="..\Private\Bomb.cpp" />
+    <ClCompile Include="..\Private\BombExplosion.cpp" />
     <ClCompile Include="..\Private\BossDoor.cpp" />
     <ClCompile Include="..\Private\CampusUI.cpp" />
     <ClCompile Include="..\Private\ChoiceBtn.cpp" />
@@ -370,6 +373,7 @@
     <ClCompile Include="..\Private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\Level_Store.cpp" />
     <ClCompile Include="..\Private\Level_Test.cpp" />
+    <ClCompile Include="..\Private\Light_Effect.cpp" />
     <ClCompile Include="..\Private\Link.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\Private\LockBlock.cpp" />

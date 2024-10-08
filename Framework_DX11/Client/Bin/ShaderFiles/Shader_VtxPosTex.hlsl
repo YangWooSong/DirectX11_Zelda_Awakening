@@ -185,9 +185,9 @@ PS_OUT PS_MAIN_WHITE_TO_COLOR(PS_IN In)
     //»ö º¯°æ
     if (Out.vColor.r > 0.3f)
     {
-        Out.vColor.r = g_fColor.x;
-        Out.vColor.g = g_fColor.y;
-        Out.vColor.b = g_fColor.z;
+        Out.vColor.r *= g_fColor.x;
+        Out.vColor.g *= g_fColor.y;
+        Out.vColor.b *= g_fColor.z;
     }
 
     

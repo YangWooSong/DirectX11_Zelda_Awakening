@@ -77,6 +77,7 @@ public:
 	void		ChangePosToPreCellMiddle(CNavigation* pNavigation);
 
 	void		BillBoard(_uint iLevelIndex);
+	void		BillBoard_RotZ(_uint iLevelIndex, _float fRotationAngle);
 	void		Set_RotationSpeed(_float fSpeed) { m_fRotationPerSec = fSpeed; }
 public:
 	HRESULT Bind_ShaderResource(class CShader* pShader, const _char* pConstantName);

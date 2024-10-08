@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Bomb.h"
 #include "GameInstance.h"
-
+#include "2DEffects.h"
 CBomb::CBomb(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	:CPartObject(pDevice, pContext)
 {
@@ -22,12 +22,16 @@ HRESULT CBomb::Initialize(void* pArg)
 {
     BOMB_DESC* pDesc = static_cast<BOMB_DESC*>(pArg);
     m_pSocketMatrix = pDesc->pSocketBoneMatrix;
+    m_iLevel_Index = pDesc->iLevelIndex;
 
     /* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
     if (FAILED(Ready_Components()))
+        return E_FAIL;
+    
+    if (FAILED(Ready_Effects()))
         return E_FAIL;
 
     m_eObjType = CGameObject::ANIM_OBJ;
@@ -43,6 +47,10 @@ HRESULT CBomb::Initialize(void* pArg)
 
 void CBomb::Priority_Update(_float fTimeDelta)
 {
+    for (int i = 0; i < 2; ++i)
+    {
+       m_pEffects[i]->Priority_Update(fTimeDelta);
+    }
 }
 
 void CBomb::Update(_float fTimeDelta)
@@ -75,6 +83,7 @@ void CBomb::Update(_float fTimeDelta)
 
                 m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat4x4(&m_WorldMatrix).r[3]);
                 m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + fOffset);
+                m_pEffects[0]->SetActive(true);
             }
         }
         else
@@ -93,6 +102,8 @@ void CBomb::Update(_float fTimeDelta)
             m_pColliderCom->Set_IsActive(false);
             m_isActive = false;
             m_pSoundCom->Play_Sound(TEXT("4_Obj_Bomb.wav"), 1.f);
+            m_pEffects[0]->SetActive(false);
+            m_pEffects[1]->SetActive(true);
         }
 
     }
@@ -105,6 +116,11 @@ void CBomb::Update(_float fTimeDelta)
             fExplodeTimer = 0.f;
             m_fRed = 1.f;
         }
+    }
+
+    for (int i = 0; i < 2; ++i)
+    {
+        m_pEffects[i]->Update(fTimeDelta);
     }
 }
 
@@ -120,6 +136,11 @@ void CBomb::Late_Update(_float fTimeDelta)
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+    }
+
+    for (int i = 0; i < 2; ++i)
+    {
+        m_pEffects[i]->Late_Update(fTimeDelta);
     }
 }
 
@@ -186,6 +207,39 @@ HRESULT CBomb::Ready_Components()
         TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
         return E_FAIL;
     m_pSoundCom->Set_Owner(this);
+
+    return S_OK;
+}
+
+HRESULT CBomb::Ready_Effects()
+{
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Light_Effect"));
+
+    if (pGameObj != nullptr)
+    {
+        C2DEffects::EFFECT_DESC _Desc{};
+        _Desc.iEffectType = C2DEffects::BOMB_FUSE;
+        _Desc.fColor = { 1.f,1.f,1.f,1.f };
+        _Desc.pParent = this;
+        _Desc.iLevelIndex = m_iLevel_Index;
+        CGameObject* p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+        m_pEffects[0] = p2DEffect;
+    }
+
+   pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_BombExplosion"));
+
+    if (pGameObj != nullptr)
+    {
+        C2DEffects::EFFECT_DESC pDesc;
+        pDesc.iEffectType = C2DEffects::BOMB_EXPLOSIONT;
+        pDesc.fColor = { 1.f,1.f,1.f,1.f };
+        pDesc.pParent = this;
+        pDesc.iLevelIndex = m_iLevel_Index;
+
+        CGameObject* p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
+        m_pEffects[1] = p2DEffect;
+    }
+
     return S_OK;
 }
 
@@ -225,6 +279,11 @@ CGameObject* CBomb::Clone(void* pArg)
 void CBomb::Free()
 {
     __super::Free();
+
+    for (int i = 0; i < 2; ++i)
+    {
+        Safe_Release(m_pEffects[i]);
+    }
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);

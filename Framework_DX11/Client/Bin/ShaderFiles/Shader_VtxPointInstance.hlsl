@@ -66,6 +66,7 @@ void GS_MAIN(point GS_IN In[1], inout TriangleStream<GS_OUT> Container)
     GS_OUT Out[4];
 
     float3 vLook = (g_vCamPosition - In[0].vPosition).xyz;
+    vLook = normalize(vLook);
     float3 vRight = normalize(cross(float3(0.f, 1.f, 0.f), vLook)) * In[0].vPSize.x * 0.5f;
     float3 vUp = normalize(cross(vLook, vRight)) * In[0].vPSize.y * 0.5f;
 
@@ -153,7 +154,7 @@ technique11 DefaultTechnique
     pass UI
     {
         SetRasterizerState(RS_Default);
-        SetDepthStencilState(DSS_Default, 0);
+        SetDepthStencilState(DSS_None, 0);
         SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
         VertexShader = compile vs_5_0 VS_MAIN();

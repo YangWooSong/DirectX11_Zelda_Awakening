@@ -112,6 +112,17 @@ HRESULT CMonsterDied_Effect::Ready_Child()
 
 	}
 
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+	if (pGameObj != nullptr)
+	{
+		CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+		pImageDesc.iParticleType = CParticle_Image::CROSS_MINI;
+		pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		CGameObject* m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+		m_Child_List.push_back(m_pEffect);
+	}
+
 	return S_OK;
 }
 CMonsterDied_Effect* CMonsterDied_Effect::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

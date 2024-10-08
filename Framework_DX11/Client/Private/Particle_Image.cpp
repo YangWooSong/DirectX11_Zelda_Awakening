@@ -27,7 +27,7 @@ HRESULT CParticle_Image::Initialize(void* pArg)
 {
 	IMAGE_PARTICLE_DESC* pDesc = static_cast<IMAGE_PARTICLE_DESC*>(pArg);
 	m_iParticleType = pDesc->iParticleType;
-
+	m_pParentMatrix = pDesc->pParentMatrix;
 	/* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -46,6 +46,8 @@ void CParticle_Image::Priority_Update(_float fTimeDelta)
 
 void CParticle_Image::Update(_float fTimeDelta)
 {
+	m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
+
 	switch (m_iParticleType)
 	{
 	case CROSS_MINI:
@@ -61,9 +63,7 @@ void CParticle_Image::Late_Update(_float fTimeDelta)
 {
 	/* 직교투영을 위한 월드행렬까지 셋팅하게 된다. */
 	__super::Late_Update(fTimeDelta);
-
-
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONLIGHT, this);
 }
 
 HRESULT CParticle_Image::Render()
@@ -94,7 +94,7 @@ HRESULT CParticle_Image::Render()
 HRESULT CParticle_Image::Ready_Components()
 {
 	/* FOR.Com_Shader */
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxModelInstance"),
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxPointInstance"),
 		TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
 		return E_FAIL;
 
@@ -107,13 +107,13 @@ HRESULT CParticle_Image::Ready_Components()
 
 		CVIBuffer_Instancing::INSTANCE_DESC Desc{};
 
-		Desc.iNumInstance = 50;
-		Desc.vCenter = _float3(0.f, 0.5f, 0.f);
-		Desc.vRange = _float3(5.f, 5.f, 5.f);
-		Desc.vSize = _float2(1.f, 5.f);
-		Desc.vPivot = _float3(0.f, -2.f, 0.f);
-		Desc.vSpeed = _float2(3.f, 5.f);
-		Desc.vLifeTime = _float2(0.5f, 1.f);
+		Desc.iNumInstance = 8;
+		Desc.vCenter = _float3(0.25f, 0.25f, 0.f);
+		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
+		Desc.vSize = _float2(0.2f, 0.4f);
+		Desc.vPivot = _float3(0.25f, 0.25f, 0.f);
+		Desc.vSpeed = _float2(0.2f, 2.5f);
+		Desc.vLifeTime = _float2(0.2f, 0.5f);
 		Desc.isLoop = false;
 
 		/* FOR.Com_VIBuffer */

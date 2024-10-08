@@ -909,6 +909,36 @@ void CTransform::BillBoard(_uint iLevelIndex)
 	Set_State(STATE_LOOK, XMVector3Normalize(vLook) * vScale.z);
 }
 
+void CTransform::BillBoard_RotZ(_uint iLevelIndex, _float fRotationAngle)
+{
+	_float3		vScale = Get_Scaled();
+	_vector		vPosition = Get_State(STATE_POSITION);
+
+	_vector		vLook = vPosition - static_cast<CCamera*>(m_pGameInstance->Find_Camera(iLevelIndex))->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+	// Y축 성분 제거 (Y축 회전을 방지)
+	vLook = XMVectorSet(0.f, XMVectorGetY(vLook), XMVectorGetZ(vLook), 0.f);
+	vLook = XMVector3Normalize(vLook);
+
+	// Up 벡터와 Look 벡터를 외적하여 Right 벡터를 구함
+	_vector		vRight = XMVector3Cross(XMVectorSet(0.f, 1.f, 0.f, 0.f), vLook);
+
+	// Look 벡터와 Right 벡터를 외적하여 진짜 Up 벡터를 구함
+	_vector		vUp = XMVector3Cross(vLook, vRight);
+
+	// Z축 회전 매트릭스를 생성 (여기서 fRotationAngle는 라디안 단위의 회전 각도)
+	fRotationAngle = XMConvertToRadians(fRotationAngle);
+	_matrix matRotation = XMMatrixRotationAxis(vLook, fRotationAngle);
+
+	// Right와 Up 벡터에 회전 매트릭스 적용
+	vRight = XMVector3TransformNormal(vRight, matRotation);
+	vUp = XMVector3TransformNormal(vUp, matRotation);
+
+	// 스케일을 맞춰줌
+	Set_State(STATE_RIGHT, XMVector3Normalize(vRight) * vScale.x);
+	Set_State(STATE_UP, XMVector3Normalize(vUp) * vScale.y);
+	Set_State(STATE_LOOK, XMVector3Normalize(vLook) * vScale.z);
+}
+
 HRESULT CTransform::Bind_ShaderResource(CShader* pShader, const _char* pConstantName)
 {
 	return pShader->Bind_Matrix(pConstantName, &m_WorldMatrix);

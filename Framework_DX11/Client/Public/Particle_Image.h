@@ -18,6 +18,7 @@ public:
 
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
+		const _float4x4* pParentMatrix = { nullptr };;
 		_uint iParticleType = 0;
 	} IMAGE_PARTICLE_DESC;
 private:
@@ -40,7 +41,7 @@ public:
 
 private:
 	_uint m_iParticleType = { TYPE_END };
-
+	const _float4x4* m_pParentMatrix = { nullptr };
 private:
 	HRESULT Ready_Components();
 

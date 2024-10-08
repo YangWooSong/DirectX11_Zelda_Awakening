@@ -17,6 +17,7 @@ class CBomb final : public CPartObject
 public:
 	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
+		_uint iLevelIndex = { LEVEL_END };
 		const _float4x4* pSocketBoneMatrix = { nullptr };
 	}BOMB_DESC;
 private:
@@ -40,6 +41,7 @@ private:
 
 private:
 	HRESULT Ready_Components();
+	HRESULT Ready_Effects();
 
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
@@ -49,6 +51,8 @@ private:
 	_float m_fRed = { 1.f };
 
 	_int m_iCurrentAnimIndex = {0};
+	_uint m_iLevel_Index = { LEVEL_END };
+	CGameObject* m_pEffects[2] = {};
 
 private:
 	void Red_Blink();

@@ -94,7 +94,9 @@
 #include "Glow_Effect.h"
 #include "Cross_Effect.h"
 #include "Smoke_Effect.h"
+#include "Light_Effect.h"
 #include "MonsterDied_Effect.h"
+#include "BombExplosion.h"
 #include "3D_Effects.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -237,32 +239,14 @@ HRESULT CLoader::Ready_Resources_For_LogoLevel()
 		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxRectInstance.hlsl"), VTXRECTINSTANCE::Elements, VTXRECTINSTANCE::iNumElements))))
 		return E_FAIL;
 
+
+	/* For. Prototype_Component_Shader_VtxPointInstance */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_VtxPointInstance"),
+		CShader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxPointInstance.hlsl"), VTXPOINTINSTANCE::Elements, VTXPOINTINSTANCE::iNumElements))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("파티클을(를) 로딩중입니다."));
 
-	CVIBuffer_Instancing::INSTANCE_DESC			ParticleDesc{};
-	/* For. Prototype_Component_VIBuffer_Particle_Explosion */
-	ZeroMemory(&ParticleDesc, sizeof ParticleDesc);
-
-	//ParticleDesc.iNumInstance = 200;
-	//ParticleDesc.vCenter = _float3(0.f, 1.f, 0.f);
-	//ParticleDesc.vRange = _float3(1.f, 2.f, 1.f);
-	//ParticleDesc.vSize = _float2(0.1f, 0.3f);
-	//ParticleDesc.vPivot = _float3(0.f, 0.f, 0.f);
-	//ParticleDesc.vSpeed = _float2(1.f, 1.5f);
-	//ParticleDesc.vLifeTime = _float2(0.3f, 1.f);
-	//ParticleDesc.isLoop = false;
-
-	//if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Particle_Explosion"),
-	//	CVIBuffer_Rect_Instance::Create(m_pDevice, m_pContext))))
-	//	return E_FAIL;
-
-	//ParticleDesc.vPivot = _float3(0.f, 4.f, 0.f);
-	//ParticleDesc.iNumInstance = 13;
-	//ParticleDesc.vSize = _float2(0.5f, 1.2f);
-	//ParticleDesc.vRange = _float3(0.6f, 2.f, 0.6f);
-	//ParticleDesc.vSpeed = _float2(2.f, 5.f);
-	//ParticleDesc.vCenter = _float3(0.f, 2.f, 0.f);
-	//ParticleDesc.vLifeTime = _float2(0.5f, 1.f);
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
 		CVIBuffer_Model_Instance::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
@@ -564,6 +548,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 	/* For. Prototype_Component_Texture_ChoiceBtn_Selected */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Cross_Mini"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/cross_00.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_Effect_Light*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Light"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/flash_01.dds"), 1))))
 		return E_FAIL;
 
 	return S_OK;
@@ -1140,9 +1129,18 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Smoke_Effect"),
 		CSmoke_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+	/* For. Prototype_GameObject_Light_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Light_Effect"),
+		CLight_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 	/* For. Prototype_GameObject_MonsterDied_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"),
 		CMonsterDied_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_BombExplosion*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BombExplosion"),
+		CBombExplosion::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	/* For. Prototype_GameObject_3D_Effects*/
