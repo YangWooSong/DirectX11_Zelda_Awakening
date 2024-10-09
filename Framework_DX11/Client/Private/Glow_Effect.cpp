@@ -47,13 +47,19 @@ void CGlow_Effect::Update(_float fTimeDelta)
 {
     if (m_isActive )
     {
-        m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
+      
+        m_bReset = false;
 
         if (m_iEffectType == MONSTER_DIED)
         {
             Lerp_Size(fTimeDelta);
         }
+        else if (m_iEffectType == PLAYER_ITEM_GET)
+        {
+            m_vOffset = { 0.f, 1.5f, 0.f };
+        }
 
+        m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_vOffset));
     }
     else
     {
@@ -61,6 +67,7 @@ void CGlow_Effect::Update(_float fTimeDelta)
         {
             m_bReset = true;
             m_bSizeUp = true;
+            m_fColor.w = 1.f;
             m_pTransformCom->Set_Scaled(m_vOriSize.x, m_vOriSize.y, m_vOriSize.z);
         }
     }

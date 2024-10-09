@@ -37,6 +37,7 @@
 #include "SquareBlock.h"
 #include "NPC.h"
 #include "ToolShopkeeper.h"
+#include "2DEffects.h"
 
 _bool CLink::m_bActiveSheild = { true };
 _bool CLink::m_bActiveSword = { true };
@@ -84,6 +85,9 @@ HRESULT CLink::Initialize(void* pArg)
 
 	if (FAILED(Ready_PlayerUI()))
 		return E_FAIL;
+	
+	if (FAILED(Ready_Effect()))
+		return E_FAIL;
 
 	m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
@@ -102,6 +106,9 @@ void CLink::Priority_Update(_float fTimeDelta)
 
 	for (auto& pPlayerUI : m_PlayerUI)
 		pPlayerUI->Priority_Update(fTimeDelta);
+
+	for (auto& pEffect : m_pEffect)
+		pEffect->Priority_Update(fTimeDelta);
 	
 }
 
@@ -124,6 +131,9 @@ void CLink::Update(_float fTimeDelta)
 
 	for (auto& pPlayerUI : m_PlayerUI)
 		pPlayerUI->Update(fTimeDelta);
+
+	for (auto& pEffect : m_pEffect)
+		pEffect->Update(fTimeDelta);
 
 	//¶³¾îÁö±â
 	if (m_pNavigationCom != nullptr && m_pNavigationCom->Get_CurrentCellType() == CCell::CELL_CLIFF && m_pFsmCom->Get_CurrentState() != JUMP)
@@ -165,6 +175,9 @@ void CLink::Late_Update(_float fTimeDelta)
 
 	for (auto& pPlayerUI : m_PlayerUI)
 		pPlayerUI->Late_Update(fTimeDelta);
+
+	for (auto& pEffect : m_pEffect)
+		pEffect->Late_Update(fTimeDelta);
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
@@ -235,8 +248,8 @@ HRESULT CLink::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bLowAlpha", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 
-		for (auto& pPlayerUI : m_PlayerUI)
-			pPlayerUI->Render();
+		//for (auto& pPlayerUI : m_PlayerUI)
+		//	pPlayerUI->Render();
 	
 	}
 
@@ -696,12 +709,28 @@ HRESULT CLink::Ready_PlayerUI()
 		pDesc.fSizeY = 96.f ;
 		pDesc.fX = 640.f;
 		pDesc.fY = 360.f;
-
+	
 		CUIObject*  m_pItemUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
 		m_pItemUI->Set_ParentObj(this);
 		m_PlayerUI.push_back(m_pItemUI);
 	}
 
+	return S_OK;
+}
+
+HRESULT CLink::Ready_Effect()
+{
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Player_ItemGet_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = m_iLevelIndex;
+		Desc.pParent = this;
+		Desc.iEffectType = C2DEffects::PLAYER_ITEM_GET;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect.push_back(pEffect);
+	}
 	return S_OK;
 }
 

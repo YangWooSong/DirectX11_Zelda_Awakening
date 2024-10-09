@@ -95,9 +95,12 @@
 #include "Cross_Effect.h"
 #include "Smoke_Effect.h"
 #include "Flash_Effect.h"
+#include "Ripple_Effect.h"
 #include "MonsterDied_Effect.h"
 #include "BombExplosion.h"
 #include "3D_Effects.h"
+#include "Player_ItemGet_Effect.h"
+#include "Halo_Effect.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -552,9 +555,13 @@ HRESULT CLoader::Ready_Textures_For_static()
 
 	/* For. Prototype_Component_Texture_Effect_Flash*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Flash"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/flash_%d.dds"), 3))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/flash_%d.dds"), 4))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_Effect_Ripple*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Ripple"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/ripple_02.dds"), 1))))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -617,6 +624,11 @@ HRESULT CLoader::Ready_Models_For_Static()
 	/* For. Prototype_Component_Model_hitflash_00*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/hitflash_00/hitflash_00.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_halo_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_halo_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/halo_00/halo_00.dat"))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
@@ -1147,6 +1159,20 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_3D_Effects*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_3D_Effects"),
 		C3D_Effects::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_Player_ItemGet_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_ItemGet_Effect"),
+		CPlayer_ItemGet::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_Ripple_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Ripple_Effect"),
+		CRipple_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For. Prototype_GameObject_Halo_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Halo_Effect"),
+		CHalo_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;

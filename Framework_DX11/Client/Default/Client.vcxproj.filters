@@ -565,6 +565,15 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Flash">
       <UniqueIdentifier>{f26587f4-a171-4ad3-8024-5a9866af03ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Player_ItemGet">
+      <UniqueIdentifier>{44e115b2-3191-4d78-9113-6d53e7c0b2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\3D_Defaults">
+      <UniqueIdentifier>{cb93d194-07c6-4be8-b9c2-8f746406c585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect">
+      <UniqueIdentifier>{2a7d4354-79f7-4446-a955-89ea9746761b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1053,6 +1062,15 @@
     <ClInclude Include="..\Public\Flash_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Flash</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Player_ItemGet_Effect.h">
+      <Filter>02.GameObjects\08.Effects\Player_ItemGet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Ripple_Effect.h">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Halo_Effect.h">
+      <Filter>02.GameObjects\08.Effects\3D_Defaults</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1531,6 +1549,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\Flash_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Flash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player_ItemGet_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\Player_ItemGet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Ripple_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Halo_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\3D_Defaults</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

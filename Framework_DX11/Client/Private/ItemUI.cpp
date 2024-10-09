@@ -33,6 +33,7 @@ HRESULT CItemUI::Initialize(void* pArg)
 
     m_pTransformCom->Set_Scaled(m_MinSize.x, m_MinSize.y, m_MinSize.z);
 
+    m_iDepth = 10;
     return S_OK;
 }
 
@@ -54,7 +55,14 @@ void CItemUI::Update(_float fTimeDelta)
             m_bOff = false;
         }
         _vector vNewPos = m_pParentGameObj->Get_Transform()->Get_State(CTransform::STATE_POSITION);
-        m_TargetPos = XMVectorSetZ(vNewPos, XMVectorGetZ(vNewPos) + 2.5f);
+
+        if(static_cast<CLink*>(m_pParentGameObj) ->Get_LevelIndex() == LEVEL_DUNGEON)
+             m_TargetPos = XMVectorSetZ(vNewPos, XMVectorGetZ(vNewPos) + 2.f);
+        if (static_cast<CLink*>(m_pParentGameObj)->Get_LevelIndex() == LEVEL_FIELD)
+        {
+            m_TargetPos = XMVectorSetY(vNewPos, XMVectorGetY(vNewPos) + 2.5f);
+        }
+
 
         Lerp_Size(fTimeDelta);
         Lerp_Pos(fTimeDelta);

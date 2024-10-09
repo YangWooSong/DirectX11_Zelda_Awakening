@@ -71,11 +71,6 @@ public:
 	_bool Get_Feather() { return  m_bFeather; }
 	_bool Get_Map() { return m_bMap; }
 private:
-	HRESULT Ready_Components();
-	HRESULT Ready_PartObjects();
-	HRESULT Ready_State();
-	HRESULT Ready_PlayerUI();
-
 	class CItem* m_pItemA = { nullptr };
 	class CItem* m_pItemB = { nullptr };
 	CGameObject* m_pCarryitem = { nullptr };
@@ -103,6 +98,12 @@ private:
 	//class CInteractUI* m_pInteractUI = { nullptr };
 	//class CItemUI* m_pItemtUI = { nullptr };
 
+private:
+	HRESULT Ready_Components();
+	HRESULT Ready_PartObjects();
+	HRESULT Ready_State();
+	HRESULT Ready_PlayerUI();
+	HRESULT Ready_Effect();
 public:
 	static CLink* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

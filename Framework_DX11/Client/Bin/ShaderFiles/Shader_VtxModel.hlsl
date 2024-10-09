@@ -4,10 +4,12 @@
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 texture2D g_DiffuseTexture;
 texture2D g_NormalTexture;
+texture2D g_AlphaTexture;
 
 bool g_bInteract = false;
 float g_fAlpha = 1.f;
 float g_fBright = 1.f;
+float g_MoveTexCoord = 0.f;
 
 struct VS_IN
 {
@@ -167,6 +169,29 @@ PS_OUT PS_MAIN_AlphaChange(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_HALO(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+	
+     // 텍스처 좌표 이동 (예: (0.1, 0.1)만큼 이동)
+    float2 offset = float2(0.f, g_MoveTexCoord);
+    float2 movedTexcoord = In.vTexcoord + offset; 
+    
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, movedTexcoord);
+    vector vAlpha = g_AlphaTexture.Sample(LinearSampler, In.vTexcoord);
+
+    vDiffuse.a = vAlpha.r;
+    vDiffuse.a *= vAlpha.a;
+   
+    
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 1.f);
+    
+    return Out;
+}
+
 struct PS_IN_NORMAL
 {
     float4 vPosition : SV_POSITION;
@@ -317,5 +342,17 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_AlphaChange();
+    }
+
+
+    pass Model_Halo//7
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_HALO();
     }
 }

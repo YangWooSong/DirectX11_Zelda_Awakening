@@ -13,13 +13,14 @@ class C3D_Effects :
 	public CGameObject
 {
 public:
-	enum EFFECT_TYPE { MONSTER_HIT, TYPE_END };
+	enum EFFECT_TYPE { MONSTER_HIT, PLAYER_ITEM_GET, TYPE_END };
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
 		const _float4x4* pParentWorldMatrix = { nullptr };
 		_uint iEffectType = { TYPE_END };
+		_uint iLevelIndex = { LEVEL_END };
 	} MODEL_EFFECT_DESC;
-private:
+protected:
 	C3D_Effects(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	C3D_Effects(const C3D_Effects& Prototype);
 	virtual ~C3D_Effects() = default;
@@ -32,16 +33,16 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-public:
+protected:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
 
-private:
+protected:
 	_uint m_iEffectType = { TYPE_END };
 	_float m_fSize = { 0.5f };
 	_float m_fAlpha = { 1.f };
 	_float m_fBright = { 1.f };
-
+	_uint m_iLevelIndex = { LEVEL_END };
 	const _float4x4* m_pParentMatrix = { nullptr };
 
 private:

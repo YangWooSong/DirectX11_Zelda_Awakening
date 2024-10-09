@@ -45,7 +45,6 @@ private:
 
 	_vector m_TargetPos = {};
 	_float3 m_MinSize = {0.1f,0.1f,0.1f };
-
 private:
 	void Lerp_Size(_float fTimeDelta);
 	void Lerp_Pos(_float fTimeDelta);

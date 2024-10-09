@@ -210,6 +210,14 @@ void CPlayer::Set_UI_Active(_uint iIndex, _bool bActive)
 	m_PlayerUI[iIndex]->SetActive(bActive);
 }
 
+CGameObject* CPlayer::Get_Effect(_uint iIndex)
+{
+	if (m_pEffect[iIndex] != nullptr)
+		return m_pEffect[iIndex];
+	else
+		return nullptr;
+}
+
 _uint CPlayer::Get_CurRoomNum()
 {
 	return m_pNavigationCom->Get_CurrentCell_RoomNum();
@@ -258,6 +266,11 @@ void CPlayer::Free()
 
 	for (auto& pPlayerUI : m_PlayerUI)
 		Safe_Release(pPlayerUI);
+	m_PlayerUI.clear();
+
+	for (auto& pEffect : m_pEffect)
+		Safe_Release(pEffect);
+	m_pEffect.clear();
 
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);

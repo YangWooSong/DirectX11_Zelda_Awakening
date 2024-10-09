@@ -19,6 +19,7 @@ class CPlayer : public CContainerObject
 {
 public:
 	enum PARTID { PART_SWORD, PART_SHIELD, PART_BOMB, PART_END };
+	enum PARTICLE_TYPE{GET_ITEM, PARTICLE_END};
 	enum PLAYER_DIR{FRONT, LEFT,LEFTUFRONT, LEFTBACK, BACK, RIGHT,RIGHTFRONT,RIGHTBACK, PLAYER_DIR_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
@@ -96,6 +97,8 @@ public:
 
 	void Change_PlayerUI_TextureNum(_uint iIndex, _int iTextureNum);
 	void Set_UI_Active(_uint iIndex, _bool bActive);
+
+	CGameObject* Get_Effect(_uint iIndex);
 protected:
 	CModel*		m_pModelCom = { nullptr };
 	CShader*		m_pShaderCom = { nullptr };
@@ -122,7 +125,7 @@ protected:
 	_bool			m_bRender = { true };
 
 	vector<CUIObject*> m_PlayerUI;
-
+	vector <CGameObject*> m_pEffect ;
 protected:
 	HRESULT Ready_Components();
 

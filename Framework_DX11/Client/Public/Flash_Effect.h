@@ -40,11 +40,14 @@ private:
 	bool m_bAlphaDown = { false };
 	_uint m_iTextureNum = { 0 };
 	_bool m_bReset = { false };
+	_float m_fSpeed = {};
+	_float4 m_fOriColor = {};
 
 private:
 	HRESULT Ready_Components();
 	void AlphaDown(_float fTimeDelta);
 	void Lerp_Size(_float fTimeDelta);
+	void Change_Color(_float fTimeDelta);
 
 public:
 	static CFlash_Effect* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

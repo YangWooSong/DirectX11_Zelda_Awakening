@@ -34,12 +34,21 @@ HRESULT CFlash_Effect::Initialize(void* pArg)
     {
         m_fOffset = { 0.f, 0.8f,0.f };
     }
+    if (m_iEffectType == PLAYER_ITEM_GET)
+    {
+        m_iDepth = 2;
+        m_fOffset = { 0.f, 1.3f, 0.f };
+        m_bAlphaDown = true;
+        m_fSpeed = 0.5f;
+
+    }
     else
     {
         m_iDepth = 2;
         m_bAlphaDown = true;
+        m_fSpeed = 3.f;
     }
-
+    m_fOriColor = m_fColor;
     m_isActive = false;
     return S_OK;
 }
@@ -64,6 +73,16 @@ void CFlash_Effect::Update(_float fTimeDelta)
         }
         if (m_iEffectType == BOMB_EXPLOSIONT)
             AlphaDown(fTimeDelta);
+        if (m_iEffectType == PLAYER_ITEM_GET)
+        {
+           /* AlphaDown(fTimeDelta);
+            Change_Color(fTimeDelta);*/
+
+            m_fAngle = min(360.f, m_fAngle + fTimeDelta * 100.f);
+
+            if (m_fAngle == 360.f)
+                m_fAngle = 0.f;
+        }
 
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
     }
@@ -72,7 +91,7 @@ void CFlash_Effect::Update(_float fTimeDelta)
         if (m_bReset == false)
         {
             m_bReset = true;
-            m_fColor.w = 1.f;
+            m_fColor = m_fOriColor;
         }
     }
 }
@@ -81,7 +100,7 @@ void CFlash_Effect::Late_Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-        if (m_iEffectType == BOMB_FUSE)
+        if (m_iEffectType == BOMB_FUSE || m_iEffectType == PLAYER_ITEM_GET)
         {
             m_pTransformCom->BillBoard_RotZ(m_iLevelIndex, m_fAngle);
             m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
@@ -145,7 +164,7 @@ void CFlash_Effect::AlphaDown(_float fTimeDelta)
     if (m_bAlphaDown)
     {
         if (m_fColor.w > 0)
-            m_fColor.w -= fTimeDelta * 3.f;
+            m_fColor.w -= fTimeDelta * m_fSpeed;
     }
 }
 
@@ -170,6 +189,13 @@ void CFlash_Effect::Lerp_Size(_float fTimeDelta)
         if (fSize == 0.1f)
             m_bSizedown = false;
     }
+}
+
+void CFlash_Effect::Change_Color(_float fTimeDelta)
+{
+    m_fColor.x = (0.f, m_fColor.x- fTimeDelta * 0.5f);
+    m_fColor.y = (0.f, m_fColor.y- fTimeDelta * 0.3f);
+    m_fColor.z = (0.f, m_fColor.z- fTimeDelta * 0.1f);
 }
 
 CFlash_Effect* CFlash_Effect::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

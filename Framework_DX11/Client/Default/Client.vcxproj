@@ -185,6 +185,7 @@
     <ClInclude Include="..\Public\Flash_Effect.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\Glow_Effect.h" />
+    <ClInclude Include="..\Public\Halo_Effect.h" />
     <ClInclude Include="..\Public\HeartUI.h" />
     <ClInclude Include="..\Public\HPUI.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
@@ -221,7 +222,9 @@
     <ClInclude Include="..\Public\Particle_Model.h" />
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
+    <ClInclude Include="..\Public\Player_ItemGet_Effect.h" />
     <ClInclude Include="..\Public\PurpleQuartz.h" />
+    <ClInclude Include="..\Public\Ripple_Effect.h" />
     <ClInclude Include="..\Public\Rola.h" />
     <ClInclude Include="..\Public\RollingSpike.h" />
     <ClInclude Include="..\Public\Shield.h" />
@@ -349,6 +352,7 @@
     <ClCompile Include="..\Private\Flash_Effect.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\Glow_Effect.cpp" />
+    <ClCompile Include="..\Private\Halo_Effect.cpp" />
     <ClCompile Include="..\Private\HeartUI.cpp" />
     <ClCompile Include="..\Private\HPUI.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />
@@ -401,7 +405,9 @@
     <ClCompile Include="..\Private\Pawn.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\PlayerCamera.cpp" />
+    <ClCompile Include="..\Private\Player_ItemGet_Effect.cpp" />
     <ClCompile Include="..\Private\PurpleQuartz.cpp" />
+    <ClCompile Include="..\Private\Ripple_Effect.cpp" />
     <ClCompile Include="..\Private\Rola.cpp" />
     <ClCompile Include="..\Private\RollingSpike.cpp" />
     <ClCompile Include="..\Private\SeaUrchin.cpp" />

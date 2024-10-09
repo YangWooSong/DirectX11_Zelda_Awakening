@@ -17,7 +17,6 @@ HRESULT CState_Link_Get_Item::Initialize(_uint iStateNum)
 	m_iAnimEdIndex = m_pPlayer->Get_Model()->Get_AnimationIndex("item_get_ed");
 
 	m_iStateNum = iStateNum;
-
 	return S_OK;
 }
 
@@ -59,7 +58,12 @@ void CState_Link_Get_Item::Update(_float fTimeDelta)
 		XMStoreFloat3(&vPlayerLook, m_pPlayer->Get_Transform()->Get_State(CTransform::STATE_LOOK));
 
 		if (m_pPlayer->Get_Model()->Get_CurrentTrackPosition() > 21.f)
+		{
+			CGameObject* pEffect = m_pPlayer->Get_Effect(CPlayer::GET_ITEM);
+			if (pEffect != nullptr)
+				pEffect->SetActive(true);
 			m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, true);
+		}
 	}
 
 	if (m_iCurrentAnimIndex == m_iAnimLpIndex)
@@ -74,6 +78,9 @@ void CState_Link_Get_Item::Update(_float fTimeDelta)
 		m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, false);
 		m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.02f);
 		m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
+		CGameObject* pEffect = m_pPlayer->Get_Effect(CPlayer::GET_ITEM);
+		if (pEffect != nullptr)
+			pEffect->SetActive(false);
 	}
 
 	if (m_iCurrentAnimIndex == m_iAnimEdIndex && m_pPlayer->Get_IsEnd_CurrentAnimation())
@@ -95,8 +102,8 @@ void CState_Link_Get_Item::End_State()
 	}
 	else
 		m_pCamera->Zoom_Out(1.5f, 45.f);
-
 }
+
 
 CState_Link_Get_Item* CState_Link_Get_Item::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)
 {
