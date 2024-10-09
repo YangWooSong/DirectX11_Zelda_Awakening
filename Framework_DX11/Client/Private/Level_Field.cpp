@@ -53,6 +53,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_0->Get_NextLevel()))))
 			return;
+		return;
 	}
 
 	else if (m_pTeleportObj_1->Get_Change_Level())
@@ -64,6 +65,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_1->Get_NextLevel()))))
 			return;
+		return;
 	}
 
 	else if (m_pTeleportObj_2 != nullptr && m_pTeleportObj_2->Get_Change_Level())
@@ -75,6 +77,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj_2->Get_NextLevel()))))
 			return;
+		return;
 	}
 
 	Setting_Gimmick();

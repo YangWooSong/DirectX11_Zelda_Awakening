@@ -110,33 +110,16 @@ HRESULT CParticle_Image::Ready_Components()
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
 
-		Desc.iNumInstance = 8;
-		Desc.vCenter = _float3(0.25f, 0.25f, 0.f);
-		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
+		Desc.iNumInstance = 10;
+		Desc.vCenter = _float3(0.15f, 0.15f, 0.f);
+		Desc.vRange = _float3(0.3f, 0.3f, 0.2f);
 		Desc.vSize = _float2(0.2f, 0.4f);
 		Desc.vPivot = _float3(0.25f, 0.25f, 0.f);
-		Desc.vSpeed = _float2(0.2f, 2.5f);
-		Desc.vLifeTime = _float2(0.2f, 0.5f);
+		Desc.vSpeed = _float2(0.4f, 2.5f);
+		Desc.vLifeTime = _float2(0.4f, 0.5f);
 		Desc.isLoop = false;
 	}
 
-	if (m_iParticleType == BOMB_SMOKE)
-	{
-		/* FOR.Com_Texture */
-		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Smoke"),
-			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
-			return E_FAIL;
-
-		Desc.iNumInstance = 5;
-		Desc.vCenter = _float3(0.f, -0.5f, 0.f);
-		Desc.vRange = _float3(0.5f, 0.2f, 0.1f);
-		Desc.vSize = _float2(2.f, 2.5f);
-		Desc.vPivot = _float3(0.f, -1.f, 0.f);
-		Desc.vSpeed = _float2(0.5f, 0.7f);
-		Desc.vLifeTime = _float2(2.f, 2.f);
-		Desc.isLoop = false;
-	}
-	
 	/* FOR.Com_VIBuffer */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),
 		TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))

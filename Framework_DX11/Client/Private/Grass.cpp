@@ -287,10 +287,10 @@ void CGrass::Shake(_float fTimeDelta)
     {
         if (fPlayerX < fCurPosX) //오른쪽으로 회전
         {
-            m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f, 0.f, -10.f), fTimeDelta);
+            m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f, 0.f, -13.f), fTimeDelta);
         }
         else
-            m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f, 0.f, 10.f), fTimeDelta);
+            m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(0.f, 0.f, 13.f), fTimeDelta);
     }
 }
 

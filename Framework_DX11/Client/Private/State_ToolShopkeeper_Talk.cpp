@@ -44,7 +44,7 @@ void CState_ToolShopkeeper_Talk::Update(_float fTimeDelta)
 {
 	//플레이어가 NPC 쳐다보게 함
 	_vector newLook = XMVector3Normalize(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pPlayer->Get_Position());
-	m_pPlayer->Get_Transform()->Turn_Lerp(newLook, 1.5f, fTimeDelta);
+	m_pPlayer->Get_Transform()->Turn_Lerp(newLook, 1.0f, fTimeDelta);
 
 	//상품이 없으면 알아서 창 꺼짐
 	if (m_pCarryObj == nullptr)

@@ -133,7 +133,7 @@ void CGlow_Effect::Lerp_Size(_float fTimeDelta)
         else
         {
             m_isActive = false;
-            m_bSizeDown = false;
+        //    m_bSizeDown = false;
         }
     }
 }
