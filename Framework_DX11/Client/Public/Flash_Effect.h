@@ -40,6 +40,7 @@ private:
 	bool m_bAlphaDown = { false };
 	_uint m_iTextureNum = { 0 };
 	_bool m_bReset = { false };
+	_bool m_bDisappear = { false };
 	_float m_fSpeed = {};
 	_float4 m_fOriColor = {};
 

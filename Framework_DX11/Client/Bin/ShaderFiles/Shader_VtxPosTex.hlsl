@@ -150,7 +150,7 @@ PS_OUT PS_MAIN_BLACK_TO_COLOR(PS_IN In)
     if (0.2 >= Out.vColor.a)
         discard;
 
-    if (Out.vColor.a < 0.8)
+    if (Out.vColor.a < 0.8 || Out.vColor.r < 0.3f)
     {
         Out.vColor.r = g_fColor.x;
         Out.vColor.g = g_fColor.y;

@@ -62,7 +62,6 @@ void CFlash_Effect::Update(_float fTimeDelta)
     if (m_isActive)
     {
         m_bReset = false;
-
         if (m_iEffectType == BOMB_FUSE)
         {
             Lerp_Size(fTimeDelta);
@@ -75,9 +74,6 @@ void CFlash_Effect::Update(_float fTimeDelta)
             AlphaDown(fTimeDelta);
         if (m_iEffectType == PLAYER_ITEM_GET)
         {
-           /* AlphaDown(fTimeDelta);
-            Change_Color(fTimeDelta);*/
-
             m_fAngle = min(360.f, m_fAngle + fTimeDelta * 100.f);
 
             if (m_fAngle == 360.f)
@@ -98,7 +94,7 @@ void CFlash_Effect::Update(_float fTimeDelta)
 
 void CFlash_Effect::Late_Update(_float fTimeDelta)
 {
-    if (m_isActive)
+    if (m_isActive || m_bDisappear)
     {
         if (m_iEffectType == BOMB_FUSE || m_iEffectType == PLAYER_ITEM_GET)
         {
@@ -112,40 +108,38 @@ void CFlash_Effect::Late_Update(_float fTimeDelta)
 
 HRESULT CFlash_Effect::Render()
 {
-    if (m_isActive)
+
+    if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
+        return E_FAIL;
+
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
+        return E_FAIL;
+
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+        return E_FAIL;
+
+    if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float4))))
+        return E_FAIL;
+
+    if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", m_iTextureNum)))
+        return E_FAIL;
+
+    if (m_iEffectType == BOMB_FUSE)
     {
-        if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
-            return E_FAIL;
-
-        if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))
-            return E_FAIL;
-
-        if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
-            return E_FAIL;
-
-        if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float4))))
-            return E_FAIL;
-
-        if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", m_iTextureNum)))
-            return E_FAIL;
-
-        if (m_iEffectType == BOMB_FUSE)
-        {
-            if (FAILED(m_pShaderCom->Begin(8)))
-                return E_FAIL;
-        }
-        else
-        {
-            if (FAILED(m_pShaderCom->Begin(7)))
-                return E_FAIL;
-        }
-
-        if (FAILED(m_pVIBufferCom->Bind_Buffers()))
-            return E_FAIL;
-
-        if (FAILED(m_pVIBufferCom->Render()))
+        if (FAILED(m_pShaderCom->Begin(8)))
             return E_FAIL;
     }
+    else
+    {
+        if (FAILED(m_pShaderCom->Begin(7)))
+            return E_FAIL;
+    }
+
+    if (FAILED(m_pVIBufferCom->Bind_Buffers()))
+        return E_FAIL;
+
+    if (FAILED(m_pVIBufferCom->Render()))
+        return E_FAIL;
 
     return S_OK;
 }
