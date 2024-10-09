@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "BombExplosion.h"
 #include "GameInstance.h"
-
+#include "Particle_Image.h"
+#include "Flash_Effect.h"
 CBombExplosion::CBombExplosion(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :C2DEffects(pDevice, pContext)
 {
@@ -36,19 +37,38 @@ HRESULT CBombExplosion::Initialize(void* pArg)
 void CBombExplosion::Priority_Update(_float fTimeDelta)
 {
     
-        if (m_isActive)
+    if (m_isActive)
+    {
+        if(m_bActiveChild == false)
         {
+            m_bActiveChild = true;
+
             for (auto& iter : m_Child_List)
                 iter->SetActive(true);
+        }
+
+        for (auto& iter : m_Child_List)
+            iter->Priority_Update(fTimeDelta);
+
+    }
+    else
+    {
+        if (m_bActiveChild)
+        {
+            m_bActiveChild = false;
 
             for (auto& iter : m_Child_List)
-                iter->Priority_Update(fTimeDelta);
-
+                iter->SetActive(false);
         }
+    }
 }
 
 void CBombExplosion::Update(_float fTimeDelta)
 {
+    _vector vParentPos = m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+    vParentPos = XMVectorSetZ(vParentPos, (XMVectorGetZ(vParentPos) + 1.f));
+    m_pTransformCom->Set_State(CTransform::STATE_POSITION, vParentPos);
+
     if (m_isActive)
     {
         for (auto& iter : m_Child_List)
@@ -68,16 +88,47 @@ void CBombExplosion::Late_Update(_float fTimeDelta)
 HRESULT CBombExplosion::Render()
 {
 
-    if (m_isActive)
-    {
-        for (auto& iter : m_Child_List)
-            iter->Render();
-    }
     return S_OK;
 }
 
 HRESULT CBombExplosion::Ready_Child()
 {
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Smoke_Effect"));
+    C2DEffects::EFFECT_DESC pDesc{};
+    pDesc.iLevelIndex = m_iLevelIndex;
+    pDesc.pParent = this;
+    pDesc.iEffectType = m_iEffectType;
+    if (pGameObj != nullptr)
+    {
+        pDesc.fColor = { 1.f, 0.77f, 0.f, 1.f };
+        pDesc.vScale = { 5.f,5.f,1.f };
+        CGameObject* m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
+        m_Child_List.push_back(m_pEffect);
+    }
+
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Flash_Effect"));
+
+    if (pGameObj != nullptr)
+    {
+        CFlash_Effect::FLASH_DESC _Desc{};
+        _Desc.iEffectType = C2DEffects::BOMB_EXPLOSIONT;
+        _Desc.fColor = { 1.f,1.f,0.8f,1.f };
+        _Desc.pParent = this;
+        _Desc.iLevelIndex = m_iLevelIndex;
+        _Desc.iTextureNum = 1;
+        _Desc.vScale = { 7.f,7.f,1.f };
+        CGameObject* p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+        m_Child_List.push_back(p2DEffect);
+
+        _Desc.fColor = { 1.f,1.f,0.8f,1.f };
+        _Desc.pParent = this;
+        _Desc.iLevelIndex = m_iLevelIndex;
+        _Desc.iTextureNum = 0;
+        _Desc.vScale = { 5.f,5.f,1.f };
+        p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+        m_Child_List.push_back(p2DEffect);
+    }
+
     return S_OK;
 }
 

@@ -20,6 +20,7 @@ float g_fAlpha = 1.f;
 float g_fDissolve = 1.f;    //흰색부터 없앨거임
 float g_fAngle = 0.f;
 float4 g_fColor = { 1.f, 1.f, 1.f, 1.f };
+float4 g_fOutLineColor = { 1.f, 1.f, 1.f, 1.f };
 
 struct VS_IN
 {
@@ -140,7 +141,7 @@ PS_OUT PS_MAIN_FillColor(PS_IN In)
     return Out;
 }
 
-PS_OUT PS_MAIN_BALCK_TO_COLOR(PS_IN In)
+PS_OUT PS_MAIN_BLACK_TO_COLOR(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
 
@@ -149,7 +150,7 @@ PS_OUT PS_MAIN_BALCK_TO_COLOR(PS_IN In)
     if (0.2 >= Out.vColor.a)
         discard;
 
-    if (Out.vColor.r < 0.3)
+    if (Out.vColor.a < 0.8)
     {
         Out.vColor.r = g_fColor.x;
         Out.vColor.g = g_fColor.y;
@@ -160,6 +161,42 @@ PS_OUT PS_MAIN_BALCK_TO_COLOR(PS_IN In)
     
     return Out;
 }
+
+PS_OUT PS_MAIN_SMOKE(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    
+     //알파 테스트
+    if (0.2 >= Out.vColor.a) 
+        discard;
+
+    float4 Dissolve;
+  
+    if (m_bDissolve)
+    {
+        Dissolve = g_DissolveTexture.Sample(LinearSampler, In.vTexcoord);
+        
+        if (g_fDissolve <= Dissolve.r)//흰색부터 없앨거임
+            discard;
+        if (g_fDissolve <= Dissolve.r + 0.15f)//흰색부터 없앨거임
+            Out.vColor.rgb *= g_fOutLineColor.rgb;
+    }
+   
+    //색 변경
+        if (Out.vColor.r > 0.3f)
+        {
+            Out.vColor.r *= g_fColor.x;
+            Out.vColor.g *= g_fColor.y;
+            Out.vColor.b *= g_fColor.z;
+        }
+
+    
+   // Out.vColor.a *= max(0, g_fColor.w);
+    
+        return Out;
+    }
 
 PS_OUT PS_MAIN_WHITE_TO_COLOR(PS_IN In)
 {
@@ -175,11 +212,10 @@ PS_OUT PS_MAIN_WHITE_TO_COLOR(PS_IN In)
         
         if (g_fDissolve <= Dissolve.r)//흰색부터 없앨거임
             discard;
-
     }
     
     //알파 테스트
-    if (0.2 >= Out.vColor.a ) 
+    if (0.2 >= Out.vColor.a) 
         discard;
 
     //색 변경
@@ -318,7 +354,7 @@ technique11 DefaultTechnique
         SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
-        PixelShader = compile ps_5_0 PS_MAIN_BALCK_TO_COLOR();
+        PixelShader = compile ps_5_0 PS_MAIN_BLACK_TO_COLOR();
     }
   pass WhiteToColor //8
     {
@@ -328,6 +364,15 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_WHITE_TO_COLOR();
+    }
+ pass Smoke //9
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_None, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_SMOKE();
     }
 
 	

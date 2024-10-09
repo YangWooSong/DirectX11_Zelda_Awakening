@@ -31,6 +31,8 @@ private:
 private:
 	_float m_fDissovle = { 1.f };
 	_bool m_bDissolve = { false };
+	_bool m_bReset = { false };
+	_float4 m_fOutLineColor = {};
 private:
 	HRESULT Ready_Components();
 

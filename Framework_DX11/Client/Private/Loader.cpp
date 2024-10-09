@@ -94,7 +94,7 @@
 #include "Glow_Effect.h"
 #include "Cross_Effect.h"
 #include "Smoke_Effect.h"
-#include "Light_Effect.h"
+#include "Flash_Effect.h"
 #include "MonsterDied_Effect.h"
 #include "BombExplosion.h"
 #include "3D_Effects.h"
@@ -550,10 +550,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/cross_00.dds"), 1))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Texture_Effect_Light*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Light"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/flash_01.dds"), 1))))
+	/* For. Prototype_Component_Texture_Effect_Flash*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Flash"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/flash_%d.dds"), 3))))
 		return E_FAIL;
+
 
 	return S_OK;
 }
@@ -1129,9 +1130,9 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Smoke_Effect"),
 		CSmoke_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
-	/* For. Prototype_GameObject_Light_Effect*/
-	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Light_Effect"),
-		CLight_Effect::Create(m_pDevice, m_pContext))))
+	/* For. Prototype_GameObject_Flash_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Flash_Effect"),
+		CFlash_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 	/* For. Prototype_GameObject_MonsterDied_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"),

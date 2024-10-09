@@ -27,9 +27,15 @@ HRESULT CGlow_Effect::Initialize(void* pArg)
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-    m_pTransformCom->Set_Scaled(0.1f, 0.1f, 0.1f);
     m_isActive = false;
-    m_iDepth = 1;
+
+    if (m_iEffectType == MONSTER_DIED)
+    {
+        m_iDepth = 1;
+        m_fMaxSize = 1.5f;
+    }
+
+    m_vOriSize = m_pTransformCom->Get_Scaled();
     return S_OK;
 }
 
@@ -44,7 +50,19 @@ void CGlow_Effect::Update(_float fTimeDelta)
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
 
         if (m_iEffectType == MONSTER_DIED)
+        {
             Lerp_Size(fTimeDelta);
+        }
+
+    }
+    else
+    {
+        if (m_bReset == false)
+        {
+            m_bReset = true;
+            m_bSizeUp = true;
+            m_pTransformCom->Set_Scaled(m_vOriSize.x, m_vOriSize.y, m_vOriSize.z);
+        }
     }
 }
 
@@ -103,7 +121,7 @@ void CGlow_Effect::Lerp_Size(_float fTimeDelta)
 
     _float fAmout = fTimeDelta * 4.f;
 
-    if (fAmout + fCurSize.x <= 1.5f && m_bSizeDown == false)
+    if (fAmout + fCurSize.x <= m_fMaxSize && m_bSizeDown == false)
         m_pTransformCom->Set_Scaled(fCurSize.x + fAmout, fCurSize.y + fAmout, fCurSize.z + fAmout);
     else
         m_bSizeDown = true;
@@ -113,7 +131,10 @@ void CGlow_Effect::Lerp_Size(_float fTimeDelta)
         if (fCurSize.x - fAmout >= 0.1f)
             m_pTransformCom->Set_Scaled(fCurSize.x - fAmout, fCurSize.y - fAmout, fCurSize.z - fAmout);
         else
+        {
             m_isActive = false;
+            m_bSizeDown = false;
+        }
     }
 }
 

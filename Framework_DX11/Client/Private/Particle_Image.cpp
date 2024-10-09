@@ -53,6 +53,9 @@ void CParticle_Image::Update(_float fTimeDelta)
 	case CROSS_MINI:
 		m_pVIBufferCom->Spread(fTimeDelta);
 		break;
+	case BOMB_SMOKE:
+		m_pVIBufferCom->Spread(fTimeDelta);
+		break;
 	default:
 		break;
 	}
@@ -98,14 +101,14 @@ HRESULT CParticle_Image::Ready_Components()
 		TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
 		return E_FAIL;
 
+	CVIBuffer_Instancing::INSTANCE_DESC Desc{};
+
 	if (m_iParticleType == CROSS_MINI)
 	{
 		/* FOR.Com_Texture */
 		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Cross_Mini"),
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
-
-		CVIBuffer_Instancing::INSTANCE_DESC Desc{};
 
 		Desc.iNumInstance = 8;
 		Desc.vCenter = _float3(0.25f, 0.25f, 0.f);
@@ -115,13 +118,30 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vSpeed = _float2(0.2f, 2.5f);
 		Desc.vLifeTime = _float2(0.2f, 0.5f);
 		Desc.isLoop = false;
+	}
 
-		/* FOR.Com_VIBuffer */
-		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),
-			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+	if (m_iParticleType == BOMB_SMOKE)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Smoke"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
+
+		Desc.iNumInstance = 5;
+		Desc.vCenter = _float3(0.f, -0.5f, 0.f);
+		Desc.vRange = _float3(0.5f, 0.2f, 0.1f);
+		Desc.vSize = _float2(2.f, 2.5f);
+		Desc.vPivot = _float3(0.f, -1.f, 0.f);
+		Desc.vSpeed = _float2(0.5f, 0.7f);
+		Desc.vLifeTime = _float2(2.f, 2.f);
+		Desc.isLoop = false;
 	}
 	
+	/* FOR.Com_VIBuffer */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),
+		TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+		return E_FAIL;
+
 	return S_OK;
 }
 

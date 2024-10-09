@@ -28,10 +28,14 @@ public:
 
 private:
 	bool m_bSizeDown = { false };
-
+	bool m_bSizeUp = { false };
+	bool m_bReset= { false };
+	_float m_fMaxSize = { 0.f };
+	_float3 m_vOriSize = {};
 private:
 	HRESULT Ready_Components();
-	void Lerp_Size(_float fTimeDelta);
+	void Lerp_Size(_float fTimeDelta);	//커졌다 작아짐(한번)
+	void Lerp_Size_Up(_float fTimeDelta); //커짐 , 알파도 줄어듦
 
 
 public:

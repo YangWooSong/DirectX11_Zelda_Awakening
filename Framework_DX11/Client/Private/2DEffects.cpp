@@ -55,7 +55,6 @@ void C2DEffects::Update(_float fTimeDelta)
 
 void C2DEffects::Late_Update(_float fTimeDelta)
 {
-  
    m_pTransformCom->BillBoard(m_iLevelIndex);
    m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
     

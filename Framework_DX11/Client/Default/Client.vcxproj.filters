@@ -559,11 +559,11 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Smoke_Effect">
       <UniqueIdentifier>{5fe6c222-05b4-4d37-9b2b-12570355c35e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Light_Effect">
-      <UniqueIdentifier>{26b984f6-07e4-4333-8771-dfbfdbf8b59a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\08.Effects\BombExplosion">
       <UniqueIdentifier>{4f9301d1-89e0-49eb-b9fb-517b050f1f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Flash">
+      <UniqueIdentifier>{f26587f4-a171-4ad3-8024-5a9866af03ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1047,11 +1047,11 @@
     <ClInclude Include="..\Public\3D_Effects.h">
       <Filter>02.GameObjects\08.Effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Light_Effect.h">
-      <Filter>02.GameObjects\08.Effects\2D_Defaults\Light_Effect</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\BombExplosion.h">
       <Filter>02.GameObjects\08.Effects\BombExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Flash_Effect.h">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Flash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1526,11 +1526,11 @@
     <ClCompile Include="..\Private\3D_Effects.cpp">
       <Filter>02.GameObjects\08.Effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Light_Effect.cpp">
-      <Filter>02.GameObjects\08.Effects\2D_Defaults\Light_Effect</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\BombExplosion.cpp">
       <Filter>02.GameObjects\08.Effects\BombExplosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Flash_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Flash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

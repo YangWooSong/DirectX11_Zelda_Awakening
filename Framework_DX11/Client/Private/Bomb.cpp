@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Bomb.h"
 #include "GameInstance.h"
-#include "2DEffects.h"
+#include "Flash_Effect.h"
 CBomb::CBomb(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	:CPartObject(pDevice, pContext)
 {
@@ -83,7 +83,9 @@ void CBomb::Update(_float fTimeDelta)
 
                 m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat4x4(&m_WorldMatrix).r[3]);
                 m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + fOffset);
+
                 m_pEffects[0]->SetActive(true);
+               m_pEffects[1]->SetActive(false);
             }
         }
         else
@@ -213,15 +215,17 @@ HRESULT CBomb::Ready_Components()
 
 HRESULT CBomb::Ready_Effects()
 {
-    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Light_Effect"));
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Flash_Effect"));
 
     if (pGameObj != nullptr)
     {
-        C2DEffects::EFFECT_DESC _Desc{};
+        CFlash_Effect::FLASH_DESC _Desc{};
         _Desc.iEffectType = C2DEffects::BOMB_FUSE;
-        _Desc.fColor = { 1.f,1.f,1.f,1.f };
+        _Desc.fColor = { 1.f,1.f,0.6f,1.f };
         _Desc.pParent = this;
         _Desc.iLevelIndex = m_iLevel_Index;
+        _Desc.iTextureNum = 2;
+        _Desc.vScale = {0.2f,0.2f,0.2f};
         CGameObject* p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
         m_pEffects[0] = p2DEffect;
     }

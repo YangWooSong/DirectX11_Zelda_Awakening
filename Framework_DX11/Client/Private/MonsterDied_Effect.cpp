@@ -88,7 +88,7 @@ HRESULT CMonsterDied_Effect::Ready_Child()
 	if (pGameObj != nullptr)
 	{
 		pDesc.fColor = { 0.f, 0.f, 0.f, 2.f };
-		
+		pDesc.vScale = {0.1f,0.1f,0.1f};
 		CGameObject* m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
 		m_Child_List.push_back(m_pEffect);
 	}

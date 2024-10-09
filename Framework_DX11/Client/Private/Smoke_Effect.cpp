@@ -41,11 +41,28 @@ void CSmoke_Effect::Update(_float fTimeDelta)
     if (m_isActive)
     {
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
-
+        m_bReset = false;
         if (m_iEffectType == MONSTER_DIED)
         {
-            m_fDissovle = max(0.f, m_fDissovle -= fTimeDelta * 1.f);
+            m_fOutLineColor = { 1.f, 1.f, 1.f, 1.f };
+            m_fDissovle = max(0.f, m_fDissovle - fTimeDelta * 1.f);
             m_bDissolve = true;
+        }
+        if (m_iEffectType == BOMB_EXPLOSIONT)
+        {
+            m_iDepth = 0;
+            m_fOutLineColor = { 0.8f, 0.3f, 0.f, 1.f };
+            m_fDissovle = max(0.f, m_fDissovle - fTimeDelta);
+            m_bDissolve = true;
+        }
+    }
+    else
+    {
+        if (m_bReset == false)
+        {
+            m_bReset = true;
+            m_bDissolve = false;
+            m_fDissovle = 1.f;
         }
     }
 }
@@ -74,6 +91,9 @@ HRESULT CSmoke_Effect::Render()
         if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float4))))
             return E_FAIL;
 
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_fOutLineColor", &m_fOutLineColor, sizeof(_float4))))
+            return E_FAIL;
+
         if (FAILED(m_pShaderCom->Bind_RawValue("g_fDissolve", &m_fDissovle, sizeof(_float))))
             return E_FAIL;
         
@@ -86,13 +106,17 @@ HRESULT CSmoke_Effect::Render()
         if (FAILED(m_pDissolveTextureCom->Bind_ShadeResource(m_pShaderCom, "g_DissolveTexture", 0)))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(8)))
+        if (FAILED(m_pShaderCom->Begin(9)))
             return E_FAIL;
 
         if (FAILED(m_pVIBufferCom->Bind_Buffers()))
             return E_FAIL;
 
         if (FAILED(m_pVIBufferCom->Render()))
+            return E_FAIL;
+
+        _bool bFalse = false;
+        if (FAILED(m_pShaderCom->Bind_RawValue("m_bDissolve", &bFalse, sizeof(_bool))))
             return E_FAIL;
     }
 

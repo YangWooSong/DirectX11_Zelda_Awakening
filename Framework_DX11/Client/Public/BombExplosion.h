@@ -29,6 +29,7 @@ private:
 	CGameObject* m_pParticle = { nullptr };
 	vector<CGameObject*>	m_Child_List;
 
+	_bool m_bActiveChild = { false };
 private:
 	HRESULT Ready_Child();
 public:

@@ -182,6 +182,7 @@
     <ClInclude Include="..\Public\ConchHorn.h" />
     <ClInclude Include="..\Public\Cross_Effect.h" />
     <ClInclude Include="..\Public\DialogueUI.h" />
+    <ClInclude Include="..\Public\Flash_Effect.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\Glow_Effect.h" />
     <ClInclude Include="..\Public\HeartUI.h" />
@@ -201,7 +202,6 @@
     <ClInclude Include="..\Public\Level_Dungeon.h" />
     <ClInclude Include="..\Public\Level_Store.h" />
     <ClInclude Include="..\Public\Level_Test.h" />
-    <ClInclude Include="..\Public\Light_Effect.h" />
     <ClInclude Include="..\Public\LockBlock.h" />
     <ClInclude Include="..\Public\LockDoor.h" />
     <ClInclude Include="..\Public\Lupee.h" />
@@ -346,6 +346,7 @@
     <ClCompile Include="..\Private\ConchHorn.cpp" />
     <ClCompile Include="..\Private\Cross_Effect.cpp" />
     <ClCompile Include="..\Private\DialogueUI.cpp" />
+    <ClCompile Include="..\Private\Flash_Effect.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\Glow_Effect.cpp" />
     <ClCompile Include="..\Private\HeartUI.cpp" />
@@ -373,7 +374,6 @@
     <ClCompile Include="..\Private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\Level_Store.cpp" />
     <ClCompile Include="..\Private\Level_Test.cpp" />
-    <ClCompile Include="..\Private\Light_Effect.cpp" />
     <ClCompile Include="..\Private\Link.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\Private\LockBlock.cpp" />
