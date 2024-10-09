@@ -68,6 +68,13 @@ void C3D_Effects::Update(_float fTimeDelta)
             m_fBright = 1.5f;
             Monster_HIt_SizeUp(fTimeDelta);
         }
+
+        if (m_iEffectType == PLAYER_SWISH)
+        {
+            m_fAlpha = 0.6f;
+            m_fBright = 1.5f;
+            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix) * m_pGameInstance->Find_Player(LEVEL_MARINHOUSE)->Get_Transform()->Get_WorldMatrix());
+        }
     }
     else
     {
@@ -140,6 +147,14 @@ HRESULT C3D_Effects::Ready_Components()
     {
         /* FOR.Com_Model */
         if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),
+            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+            return E_FAIL;
+    }
+
+    if(m_iEffectType == PLAYER_SWISH)
+    {
+        /* FOR.Com_Model */
+        if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_swordslash_00"),
             TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
             return E_FAIL;
     }

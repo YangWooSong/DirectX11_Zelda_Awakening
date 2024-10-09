@@ -1,6 +1,2 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxPosTex.hlsl(245,22-30): warning X3081: comma expression used where a vector constructor may have been intended
-  
-  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPosTex.cso
-  Flash_Effect.cpp
+﻿  3D_Effects.cpp
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

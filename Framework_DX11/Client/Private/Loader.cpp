@@ -630,6 +630,11 @@ HRESULT CLoader::Ready_Models_For_Static()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_halo_00"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/halo_00/halo_00.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_swordslash_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_swordslash_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/swordslash_00/swordslash_00.dat"))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }

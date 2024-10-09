@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Link.h"
 #include "GameInstance.h"
+#include "3D_Effects.h"
 
 CSword::CSword(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CPartObject{ pDevice, pContext }
@@ -62,7 +63,7 @@ void CSword::Update(_float fTimeDelta)
 		m_pColliderCom->Set_IsActive(false);
 	
 	m_pColliderCom->Update(&m_WorldMatrix);
-
+	m_pEffect->Update(fTimeDelta);
 	//상태에 따라 활성화 결정
 }
 
@@ -73,7 +74,7 @@ void CSword::Late_Update(_float fTimeDelta)
 
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-
+	m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -98,6 +99,18 @@ HRESULT CSword::Ready_Components()
 	m_pColliderCom->Set_Owner(this);
 	m_pColliderCom->Set_IsActive(false);
 
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = C3D_Effects::PLAYER_SWISH;
+		_Desc.pParentWorldMatrix = m_pSocketMatrix;
+		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+		m_pEffect = p3DEffect;
+		m_pEffect->SetActive(true);
+	}
 	return S_OK;
 }
 
@@ -133,6 +146,7 @@ void CSword::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pEffect);
 	Safe_Release(m_pColliderCom);
 	Safe_Release(m_pPlayerFsm);
 }
