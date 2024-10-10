@@ -41,6 +41,8 @@ public:
 
 private:
 	_uint m_iParticleType = { TYPE_END };
+	_float4 m_fColor = { 1.f,1.f,1.f,1.f };
+	_bool m_bSetAlpha = { false };
 	const _float4x4* m_pParentMatrix = { nullptr };
 private:
 	HRESULT Ready_Components();

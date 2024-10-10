@@ -220,7 +220,7 @@ HRESULT CBomb::Ready_Effects()
     if (pGameObj != nullptr)
     {
         CFlash_Effect::FLASH_DESC _Desc{};
-        _Desc.iEffectType = C2DEffects::BOMB_FUSE;
+        _Desc.iEffectType = BOMB_FUSE_EFFECT;
         _Desc.fColor = { 1.f,1.f,0.6f,1.f };
         _Desc.pParent = this;
         _Desc.iLevelIndex = m_iLevel_Index;
@@ -235,7 +235,7 @@ HRESULT CBomb::Ready_Effects()
     if (pGameObj != nullptr)
     {
         C2DEffects::EFFECT_DESC pDesc;
-        pDesc.iEffectType = C2DEffects::BOMB_EXPLOSIONT;
+        pDesc.iEffectType = BOMB_EXPLOSION_EFFECT;
         pDesc.fColor = { 1.f,1.f,1.f,1.f };
         pDesc.pParent = this;
         pDesc.iLevelIndex = m_iLevel_Index;

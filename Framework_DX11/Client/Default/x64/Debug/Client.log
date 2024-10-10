@@ -1,2 +1,19 @@
-﻿  Particle_Image.cpp
-  Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxPointInstance.hlsl(138,5-29): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPointInstance.cso
+  BombExplosion.cpp
+  Level_Field.cpp
+C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(276,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
+  
+  MonsterDied_Effect.cpp
+  Particle_Image.cpp
+  Player_Charge_Slash.cpp
+  Player_ItemGet_Effect.cpp
+  TailCaveShutter.cpp
+  TailDungeonOpen.cpp
+  TailLockStatue.cpp
+  Loader.cpp
+  코드를 생성하고 있습니다...
+  Client.vcxproj -> C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

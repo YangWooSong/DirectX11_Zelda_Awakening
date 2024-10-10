@@ -4,6 +4,8 @@
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 texture2D g_Texture;
 vector g_vCamPosition;
+float4 g_fColor = { 1.f, 1.f, 1.f,1.f };
+bool g_bSetAlpha = { false };
 
 struct VS_IN
 {
@@ -133,7 +135,7 @@ PS_OUT PS_MAIN(PS_IN In)
     if (Out.vColor.a <= 0.3f)
         discard;
 
-    Out.vColor.rgb = 1.f;
+    Out.vColor.rgb = g_fColor;
 
 	/*Out.vColor.rgb = (float3)0.f;
 
@@ -142,8 +144,12 @@ PS_OUT PS_MAIN(PS_IN In)
 */
     if (In.vLifeTime.y >= In.vLifeTime.x)
         discard;
-    else
+    else if (g_bSetAlpha)
+    {
+        Out.vColor.a *= max(Out.vColor.a, g_fColor.w); //최대 알파값이 정해져 있다
         Out.vColor.a *= In.vLifeTime.x - In.vLifeTime.y;
+    }
+      
     
     return Out;
 }

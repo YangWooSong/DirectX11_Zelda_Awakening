@@ -42,7 +42,9 @@ private:
 	_bool m_bCameraSetting = { false };
 	_bool m_bCameraBackOrigin = { false };
 	_bool m_bPlaySound = { false };
-
+	_bool m_bActiveEffect = { false };
+	
+	CGameObject* m_pEffect = { nullptr };
 private:
 	HRESULT Ready_Components();
 	void Camera_Set();

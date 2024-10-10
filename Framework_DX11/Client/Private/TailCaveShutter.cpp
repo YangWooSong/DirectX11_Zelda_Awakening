@@ -2,7 +2,7 @@
 #include "TailCaveShutter.h"
 #include "GameInstance.h"
 #include "PlayerCamera.h"
-
+#include "Particle_Image.h"
 CTailCaveShutter::CTailCaveShutter(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CGameObject{ pDevice, pContext }
 {
@@ -68,11 +68,16 @@ void CTailCaveShutter::Update(_float fTimeDelta)
 			CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
 			pCamera->Start_Shake(0.2f, 0.06f, 3.f);
 		}
-
+		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_fOpenedTimer > 1.3f) //먼지 이펙트 실행
+		{
+			m_bActiveEffect = true;
+			m_pEffect->Update(fTimeDelta);
+		}
 		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_pModelCom->Get_IsEnd_CurrentAnimation() && m_bPlaySound == false && m_pSoundCom->Get_IsPlaying() == false)
 		{
 			m_bPlaySound = true;
 			m_pSoundCom->Play_Sound(TEXT("5_GimmickSolve.wav"), 0.8f);
+			m_pEffect->SetActive(false);
 		}
 	}
 	m_pModelCom->Play_Animation(fTimeDelta);
@@ -82,6 +87,10 @@ void CTailCaveShutter::Update(_float fTimeDelta)
 void CTailCaveShutter::Late_Update(_float fTimeDelta)
 {
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+	if (m_bActiveEffect)
+	{
+		m_pEffect->Late_Update(fTimeDelta);
+	}
 }
 
 HRESULT CTailCaveShutter::Render()
@@ -132,6 +141,16 @@ HRESULT CTailCaveShutter::Ready_Components()
 		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
 		return E_FAIL;
 	m_pSoundCom->Set_Owner(this);
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+	if (pGameObj != nullptr)
+	{
+		CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+		pImageDesc.iParticleType = CParticle_Image::SHUTTER_DUST;
+		pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+	}
+
 
 	return S_OK;
 }
@@ -192,6 +211,7 @@ void CTailCaveShutter::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pEffect);
 	Safe_Release(m_pSoundCom);
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);
