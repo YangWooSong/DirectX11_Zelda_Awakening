@@ -120,9 +120,9 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vCenter = _float3(0.f, 0.15f, 0.f);
 		Desc.vRange = _float3(0.3f, 0.3f, 0.2f);
 		Desc.vSize = _float2(0.2f, 0.4f);
-		Desc.vPivot = _float3(0.25f, 0.25f, 0.f);
-		Desc.vSpeed = _float2(0.4f, 2.5f);
-		Desc.vLifeTime = _float2(0.4f, 0.5f);
+		Desc.vPivot = _float3(0.f, 0.25f, 0.f);
+		Desc.vSpeed = _float2(0.4f, 2.f);
+		Desc.vLifeTime = _float2(0.4f, 2.f);
 		Desc.isLoop = false;
 	}
 	else if (m_iParticleType == PLAYER_ITEM_GET)
@@ -135,10 +135,10 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.iNumInstance = 15;
 		Desc.vCenter = _float3(0.f, 1.5f, 0.f);
 		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
-		Desc.vSize = _float2(0.2f, 0.4f);
+		Desc.vSize = _float2(0.3f, 0.6f);
 		Desc.vPivot = Desc.vCenter;
 		Desc.vSpeed = _float2(0.5f, 1.5f);
-		Desc.vLifeTime = _float2(0.4f, 0.8f);
+		Desc.vLifeTime = _float2(0.4f,2.f);
 		Desc.isLoop = true;
 	}
 	else if (m_iParticleType == GLOW)
@@ -151,10 +151,26 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.iNumInstance = 20;
 		Desc.vCenter = _float3(0.f, 0.f, 0.f);
 		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
-		Desc.vSize = _float2(0.1f, 0.3f);
-		Desc.vPivot = Desc.vCenter;
+		Desc.vSize = _float2(0.1f, 0.5f);
+		Desc.vPivot = _float3(0.f, -0.2f, 0.f);
 		Desc.vSpeed = _float2(0.3f, 0.6f);
 		Desc.vLifeTime = _float2(0.4f, 3.f);
+		Desc.isLoop = false;
+	}
+	else if (m_iParticleType == SHUTTER_DUST)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Smoke"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+
+		Desc.iNumInstance = 5;
+		Desc.vCenter = _float3(0.f, 0.f, 0.f);
+		Desc.vRange = _float3(2.f, 0.5f, 0.2f);
+		Desc.vSize = _float2(1.f, 2.f);
+		Desc.vPivot = _float3(0.f, 0.f, 0.f);
+		Desc.vSpeed = _float2(0.3f, 0.3f);
+		Desc.vLifeTime = _float2(1.f, 1.f);
 		Desc.isLoop = false;
 	}
 	/* FOR.Com_VIBuffer */

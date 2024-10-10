@@ -142,7 +142,9 @@ PS_OUT PS_MAIN(PS_IN In)
 */
     if (In.vLifeTime.y >= In.vLifeTime.x)
         discard;
-
+    else
+        Out.vColor.a *= In.vLifeTime.x - In.vLifeTime.y;
+    
     return Out;
 }
 
