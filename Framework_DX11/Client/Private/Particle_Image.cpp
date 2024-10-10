@@ -59,6 +59,9 @@ void CParticle_Image::Update(_float fTimeDelta)
 	case PLAYER_ITEM_GET:
 		m_pVIBufferCom->Spread(fTimeDelta);
 		break;
+	case GLOW:
+		m_pVIBufferCom->Spread(fTimeDelta);
+		break;
 	default:
 		break;
 	}
@@ -138,7 +141,22 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vLifeTime = _float2(0.4f, 0.8f);
 		Desc.isLoop = true;
 	}
+	else if (m_iParticleType == GLOW)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_point_Glow"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
 
+		Desc.iNumInstance = 20;
+		Desc.vCenter = _float3(0.f, 0.f, 0.f);
+		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
+		Desc.vSize = _float2(0.1f, 0.3f);
+		Desc.vPivot = Desc.vCenter;
+		Desc.vSpeed = _float2(0.3f, 0.6f);
+		Desc.vLifeTime = _float2(0.4f, 3.f);
+		Desc.isLoop = false;
+	}
 	/* FOR.Com_VIBuffer */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),
 		TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))

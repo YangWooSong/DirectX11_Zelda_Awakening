@@ -104,6 +104,7 @@
 #include "Player_Charge_Slash.h"
 #include "Halo_Effect.h"
 #include "Ring_Effect.h"
+#include "TailDungeonOpen.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -534,6 +535,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 	/* For. Prototype_Component_Texture_Effect_Glow*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Glow"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/glow_00.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_Effect_point_Glow*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_point_Glow"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/point_Glow.dds"), 1))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Effect_Cross_Color*/
@@ -1261,6 +1267,11 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 		return E_FAIL;
 
 #pragma endregion
+	/* For. Prototype_GameObject_TailDungeonOpen*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_TailDungeonOpen"),
+		CTailDungeonOpen::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 	return S_OK;
 
 }

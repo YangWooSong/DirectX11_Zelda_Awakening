@@ -48,6 +48,7 @@ private:
 	HRESULT Ready_Components();
 	void AlphaDown(_float fTimeDelta);
 	void Lerp_Size(_float fTimeDelta);
+	void Lerp_SizeUp(_float fTimeDelta);
 	void Change_Color(_float fTimeDelta);
 
 public:

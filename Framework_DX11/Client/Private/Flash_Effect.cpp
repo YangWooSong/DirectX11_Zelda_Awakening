@@ -42,6 +42,13 @@ HRESULT CFlash_Effect::Initialize(void* pArg)
         m_fSpeed = 0.5f;
 
     }
+    if (m_iEffectType == TAIL_DUNGEON_OPEN)
+    {
+        m_iDepth = 2;
+        m_bAlphaDown = true;
+        m_fSpeed = 1.f;
+        m_bSizedown = false;
+    }
     else
     {
         m_iDepth = 2;
@@ -78,6 +85,11 @@ void CFlash_Effect::Update(_float fTimeDelta)
 
             if (m_fAngle == 360.f)
                 m_fAngle = 0.f;
+        }
+        if (m_iEffectType == TAIL_DUNGEON_OPEN)
+        {
+            Lerp_Size(fTimeDelta);
+            AlphaDown(fTimeDelta);
         }
 
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
@@ -182,6 +194,21 @@ void CFlash_Effect::Lerp_Size(_float fTimeDelta)
         m_pTransformCom->Set_Scaled(fSize, fSize, fSize);
         if (fSize == 0.1f)
             m_bSizedown = false;
+    }
+}
+
+void CFlash_Effect::Lerp_SizeUp(_float fTimeDelta)
+{
+    _float3 fCurSize = m_pTransformCom->Get_Scaled();
+
+    _float fAmout = fTimeDelta * 2.f;
+
+    if (m_bSizedown == false)
+    {
+        _float fSize = min(1.f, fCurSize.x + fAmout);
+        m_pTransformCom->Set_Scaled(fCurSize.x + fAmout, fCurSize.y + fAmout, fCurSize.z + fAmout);
+        if (fSize == 0.8f)
+            m_bSizedown = true;
     }
 }
 

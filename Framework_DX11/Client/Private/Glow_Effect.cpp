@@ -34,7 +34,11 @@ HRESULT CGlow_Effect::Initialize(void* pArg)
         m_iDepth = 1;
         m_fMaxSize = 1.5f;
     }
-
+    else if (m_iEffectType == TAIL_DUNGEON_OPEN)
+    {
+        m_iDepth = 1;
+        m_fMaxSize = 3.f;
+    }
     m_vOriSize = m_pTransformCom->Get_Scaled();
     return S_OK;
 }
@@ -58,7 +62,10 @@ void CGlow_Effect::Update(_float fTimeDelta)
         {
             m_vOffset = { 0.f, 1.5f, 0.f };
         }
-
+        else if (m_iEffectType == TAIL_DUNGEON_OPEN)
+        {
+            Lerp_Size(fTimeDelta);
+        }
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_vOffset));
     }
     else

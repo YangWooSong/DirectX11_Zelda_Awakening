@@ -50,6 +50,7 @@ private:
 	_float m_fOpenedTimer = { 0.f };
 	_float m_fAfterSoundTimer = { 0.f };
 
+	CGameObject* m_pEffect = { nullptr };
 
 private:
 	HRESULT Ready_Components();

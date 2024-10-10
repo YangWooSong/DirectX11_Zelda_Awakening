@@ -586,6 +586,9 @@
     <Filter Include="02.GameObjects\08.Effects\3D_Defaults\Ring">
       <UniqueIdentifier>{769aa899-2f5f-42f8-b2a9-3ca7ba1e2cdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\TailDungeonOpen">
+      <UniqueIdentifier>{e86b8afb-44b7-4e76-bf51-8d31d30bcf4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1092,6 +1095,9 @@
     <ClInclude Include="..\Public\Ring_Effect.h">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Ring</Filter>
     </ClInclude>
+    <ClInclude Include="TailDungeonOpen.h">
+      <Filter>02.GameObjects\08.Effects\TailDungeonOpen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1588,6 +1594,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Ring_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Ring</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TailDungeonOpen.cpp">
+      <Filter>02.GameObjects\08.Effects\TailDungeonOpen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

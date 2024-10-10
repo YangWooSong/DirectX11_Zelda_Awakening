@@ -332,6 +332,7 @@
     <ClInclude Include="..\Public\Vegas.h" />
     <ClInclude Include="..\Public\Weathercock.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="TailDungeonOpen.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -491,6 +492,7 @@
     <ClCompile Include="..\Private\Store_Item.cpp" />
     <ClCompile Include="..\Private\Sword.cpp" />
     <ClCompile Include="..\Private\TailCaveShutter.cpp" />
+    <ClCompile Include="..\Private\TailDungeonOpen.cpp" />
     <ClCompile Include="..\Private\TailLockStatue.cpp" />
     <ClCompile Include="..\Private\Teleport.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />

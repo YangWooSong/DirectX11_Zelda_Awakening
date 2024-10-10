@@ -4,6 +4,7 @@
 #include "Link.h"
 #include "PlayerCamera.h"
 #include "TailCaveShutter.h"
+#include "TailDungeonOpen.h"
 
 CTailLockStatue::CTailLockStatue(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CGameObject{ pDevice, pContext }
@@ -45,6 +46,7 @@ HRESULT CTailLockStatue::Initialize(void* pArg)
 }
 void CTailLockStatue::Priority_Update(_float fTimeDelta)
 {
+	m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CTailLockStatue::Update(_float fTimeDelta)
@@ -55,6 +57,7 @@ void CTailLockStatue::Update(_float fTimeDelta)
 
 		if (m_bOpenSound == false) //처음으로 효과음 틀리
 		{
+			m_pEffect->SetActive(true);
 			m_bOpenSound = true;
 			m_pSoundCom->Play_Sound(TEXT("4_Obj_TailLockStatue_Open.wav"), 1.f);
 		}
@@ -74,13 +77,14 @@ void CTailLockStatue::Update(_float fTimeDelta)
 	m_pModelCom->Play_Animation(fTimeDelta);
 	m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 	m_pSoundCom->Update(fTimeDelta);
+	m_pEffect->Update(fTimeDelta);
 }
 
 void CTailLockStatue::Late_Update(_float fTimeDelta)
 {
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-
+	m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -178,6 +182,17 @@ HRESULT CTailLockStatue::Ready_Components()
 		TEXT("Com_Collider"), reinterpret_cast<CComponent**>(&m_pColliderCom), &ColliderDesc)))
 		return E_FAIL;
 	m_pColliderCom->Set_Owner(this);
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_TailDungeonOpen"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_FIELD;
+		Desc.pParent = this;
+		Desc.iEffectType = TAIL_DUNGEON_OPEN;
+		m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+	}
     return S_OK;
 }
 
@@ -197,6 +212,7 @@ void CTailLockStatue::Shutter_Set()
 {
 	CTailCaveShutter* pShutter = static_cast<CTailCaveShutter*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_TailCaveShutter"), 0));
 	pShutter->Set_Open(true);
+	m_pEffect->SetActive(false);
 }
 
 CTailLockStatue* CTailLockStatue::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -231,6 +247,7 @@ void CTailLockStatue::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pEffect);
 	Safe_Release(m_pSoundCom);
 	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pModelCom);

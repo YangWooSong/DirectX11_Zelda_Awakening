@@ -103,7 +103,7 @@ PS_OUT PS_MAIN_LAWALPHA(PS_IN In)
     if (0.2 >= Out.vColor.a)
         discard;
     if (Out.vColor.r < 0.3f)
-        Out.vColor.a *= 0.6f;
+        Out.vColor.a *= 0.8f;
     return Out;
 }
 
