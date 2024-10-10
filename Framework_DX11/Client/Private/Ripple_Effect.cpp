@@ -36,7 +36,13 @@ HRESULT CRipple_Effect::Initialize(void* pArg)
         m_fOffset = { 0.f, 1.5f, 0.f };
         m_fMaxSize = 3.f;
     }
-
+    else if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
+    {
+        m_bSizeUp = true;
+        m_bAlphaChange = true;
+        m_fOffset = { 0.f, 0.f, 0.2f };
+        m_fMaxSize = 2.5f;
+    }
     m_isActive = false;
     m_fOriSize = m_pTransformCom->Get_Scaled();
     m_fOriColor = m_fColor;
@@ -54,6 +60,11 @@ void CRipple_Effect::Update(_float fTimeDelta)
         m_bReset = false;
 
         if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
+        {
+            AlphaDown(fTimeDelta);
+            Lerp_Size_Up(fTimeDelta);
+        }
+        if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
         {
             AlphaDown(fTimeDelta);
             Lerp_Size_Up(fTimeDelta);
@@ -76,7 +87,9 @@ void CRipple_Effect::Late_Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-       __super::Late_Update(fTimeDelta);
+      // __super::Late_Update(fTimeDelta);
+        m_pTransformCom->BillBoard(m_iLevelIndex);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_NONLIGHT, this);
     }
 }
 
@@ -91,6 +104,9 @@ HRESULT CRipple_Effect::Render()
             return E_FAIL;
 
         if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+            return E_FAIL;
+
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float3))))
             return E_FAIL;
 
         if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &m_fColor.w, sizeof(_float))))

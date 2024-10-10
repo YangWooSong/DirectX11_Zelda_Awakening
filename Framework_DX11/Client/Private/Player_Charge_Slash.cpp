@@ -4,6 +4,7 @@
 #include "Particle_Image.h"
 #include "Flash_Effect.h"
 #include "Halo_Effect.h"
+#include "Ripple_Effect.h"
 CPlayer_Charge_Slash::CPlayer_Charge_Slash(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	:C2DEffects(pDevice, pContext)
 {
@@ -39,12 +40,25 @@ void CPlayer_Charge_Slash::Priority_Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
-		for (auto& iter : m_Child_List)
-			iter->SetActive(true);
+		if(KEY_HOLD(KEY::P))
+		{
+			if (m_fTimer > 1.f)
+			{
+				m_Child_List[0]->SetActive(true);
+			}
+		}
+		if (m_fTimer > 1.55f)
+		{
+			m_Child_List[0]->SetActive(false);
+		}
+		/*for (auto& iter : m_Child_List)
+			iter->SetActive(true);*/
 
 		for (auto& iter : m_Child_List)
 			iter->Priority_Update(fTimeDelta);
 	}
+	else
+		m_fTimer = 0.f;
 }
 
 void CPlayer_Charge_Slash::Update(_float fTimeDelta)
@@ -54,6 +68,8 @@ void CPlayer_Charge_Slash::Update(_float fTimeDelta)
 
 	if (m_isActive)
 	{
+		m_fTimer += fTimeDelta;
+
 		m_bActiveChild = true;
 
 		for (auto& iter : m_Child_List)
@@ -108,18 +124,32 @@ HRESULT CPlayer_Charge_Slash::Ready_Child()
 	//	m_Child_List.push_back(p2DEffect);
 	//}
 
-	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Halo_Effect"));
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Ring_Effect"));
 	if (pGameObj != nullptr)
 	{
 		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
 		_Desc.iEffectType = m_iEffectType;
 		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-		_Desc.vScale = { 10.f, 10.f, 0.1f };
+		_Desc.vScale = { 3.f, 3.f, 0.1f };
 		_Desc.iLevelIndex = m_iLevelIndex;
 		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_Child_List.push_back(p3DEffect);
 	}
 
+	//pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Ripple_Effect"));
+	//if (pGameObj != nullptr)
+	//{
+	//	CRipple_Effect::RIPPLE_DESC _Desc{};
+	//	_Desc.iEffectType = m_iEffectType;
+	//	_Desc.fColor = { 1.f,1.f,0.5f,1.f };
+	//	_Desc.pParent = this;
+	//	_Desc.iLevelIndex = m_iLevelIndex;
+	//	_Desc.iTextureNum = 1;
+	//	_Desc.vScale = { 1.f,1.f,1.f };
+
+	//	CGameObject* p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+	//	m_Child_List.push_back(p2DEffect);
+	//}
 	return S_OK;
 }
 

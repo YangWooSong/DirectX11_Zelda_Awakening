@@ -103,6 +103,7 @@
 #include "Player_ItemGet_Effect.h"
 #include "Player_Charge_Slash.h"
 #include "Halo_Effect.h"
+#include "Ring_Effect.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -562,7 +563,7 @@ HRESULT CLoader::Ready_Textures_For_static()
 
 	/* For. Prototype_Component_Texture_Effect_Ripple*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Ripple"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/ripple_02.dds"), 1))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/ripple_%d.dds"), 2))))
 		return E_FAIL;
 
 	return S_OK;
@@ -633,9 +634,14 @@ HRESULT CLoader::Ready_Models_For_Static()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/halo_00/halo_00.dat"))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_swordslash_00*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_swordslash_00"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/swordslash_00/swordslash_00.dat"))))
+	/* For. Prototype_Component_Model_ring_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_ring_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/ring_00/ring_00.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_slash*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_slash"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/slash/slash.dat"))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
@@ -1190,6 +1196,10 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_Halo_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Halo_Effect"),
 		CHalo_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	/* For. Prototype_GameObject_Ring_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Ring_Effect"),
+		CRing_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;

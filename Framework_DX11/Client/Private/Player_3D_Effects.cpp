@@ -36,7 +36,7 @@ HRESULT CPlayer_3D_Effects::Initialize(void* pArg)
 		return E_FAIL;
 
 	//m_pTransformCom->Set_Scaled(1.f, 1.f, 2.f);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, -0.6f, 1.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, 0.f, 1.f));
 
 	//Set_LayerTag(TEXT("Layer_Player_3D_Effects"));
 	m_isActive = false;
@@ -57,8 +57,8 @@ void CPlayer_3D_Effects::Update(_float fTimeDelta)
 	}
 	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()) * SocketMatrix * XMLoadFloat4x4(m_pParentMatrix));
 
-	m_fAlpha = 0.6f;
-	m_fBright = 1.5f;
+	m_fAlpha = 0.5f;
+	m_fBright = 2.5f;
 
 	//상태에 따라 활성화 결정
 }
@@ -123,7 +123,7 @@ HRESULT CPlayer_3D_Effects::Ready_Components()
 		return E_FAIL;
 
 	/* FOR.Com_Model */
-	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_swordslash_00"),
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_slash"),
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom[SWISH]))))
 		return E_FAIL;
 
@@ -162,9 +162,9 @@ void CPlayer_3D_Effects::Free()
 {
 	__super::Free();
 
-	for (int i = 0; i < TYPE_END-1; ++i)
+	for (int i = 0; i < TYPE_END; ++i)
 		Safe_Release(m_pModelCom[i]);
 
-//	Safe_Release(m_pPlayerFsm);
+	Safe_Release(m_pPlayerFsm);
 	Safe_Release(m_pShaderCom);
 }

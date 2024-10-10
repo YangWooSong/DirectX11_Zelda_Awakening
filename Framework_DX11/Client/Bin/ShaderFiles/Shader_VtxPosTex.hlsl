@@ -113,13 +113,12 @@ PS_OUT PS_MAIN_CHANGEALPHA(PS_IN In)
 
     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
     
-    
     if (0.2 >= Out.vColor.a)
         discard;
-    
-    
-    Out.vColor.a *= g_fAlpha;
 
+    Out.vColor.a *= g_fAlpha;
+    Out.vColor.rgb = g_fColor;
+    
     return Out;
 }
 
@@ -356,7 +355,7 @@ technique11 DefaultTechnique
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_BLACK_TO_COLOR();
     }
-  pass WhiteToColor //8
+      pass WhiteToColor //8
     {
         SetRasterizerState(RS_Default);
         SetDepthStencilState(DSS_None, 0);
@@ -365,7 +364,8 @@ technique11 DefaultTechnique
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_WHITE_TO_COLOR();
     }
- pass Smoke //9
+
+    pass Smoke //9
     {
         SetRasterizerState(RS_Default);
         SetDepthStencilState(DSS_None, 0);

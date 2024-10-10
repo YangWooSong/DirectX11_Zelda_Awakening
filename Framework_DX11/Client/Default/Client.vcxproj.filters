@@ -580,6 +580,12 @@
     <Filter Include="02.GameObjects\08.Effects\Player_Charge_Slash">
       <UniqueIdentifier>{0a849845-2280-46d7-969a-fca3bfa130c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\3D_Defaults\Halo">
+      <UniqueIdentifier>{76ac3533-0dc8-419e-8870-0ddf8aeb24cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\3D_Defaults\Ring">
+      <UniqueIdentifier>{769aa899-2f5f-42f8-b2a9-3ca7ba1e2cdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1074,14 +1080,17 @@
     <ClInclude Include="..\Public\Ripple_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Halo_Effect.h">
-      <Filter>02.GameObjects\08.Effects\3D_Defaults</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Player_3D_Effects.h">
       <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Player_Charge_Slash.h">
       <Filter>02.GameObjects\08.Effects\Player_Charge_Slash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Halo_Effect.h">
+      <Filter>02.GameObjects\08.Effects\3D_Defaults\Halo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Ring_Effect.h">
+      <Filter>02.GameObjects\08.Effects\3D_Defaults\Ring</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1568,14 +1577,17 @@
     <ClCompile Include="..\Private\Ripple_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Halo_Effect.cpp">
-      <Filter>02.GameObjects\08.Effects\3D_Defaults</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Player_3D_Effects.cpp">
       <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Player_Charge_Slash.cpp">
       <Filter>02.GameObjects\08.Effects\Player_Charge_Slash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Halo_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\3D_Defaults\Halo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Ring_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\3D_Defaults\Ring</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

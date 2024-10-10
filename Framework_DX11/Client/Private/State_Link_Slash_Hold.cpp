@@ -31,6 +31,7 @@ HRESULT CState_Link_Slash_Hold::Start_State()
 	m_iCurrentAnimIndex = m_iSlash_Hold_lp_AnimIndex;
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f,true);
 	m_pPlayer->Get_EffectSound()->Play_Sound(TEXT("1_Sword_chargeStart.wav"), 0.8f);
+	m_pPlayer->Get_Effect(CPlayer::CHARGE)->SetActive(true);
 	return S_OK;
 }
 
@@ -251,6 +252,7 @@ void CState_Link_Slash_Hold::End_State()
 	m_fTimer = 0.f;
 	m_bChargeEnd = false;
 	m_iButttonAwayCount = 0;
+	m_pPlayer->Get_Effect(CPlayer::CHARGE)->SetActive(false);
 }
 
 CState_Link_Slash_Hold* CState_Link_Slash_Hold::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

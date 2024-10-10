@@ -31,6 +31,7 @@ private:
 private:
 	_float m_fTexMove = { 0.f };
 	_float3 m_fOriSize = {};
+	_bool m_bMoveAlpha = { false };
 private:
 	HRESULT Ready_Components();
 public:

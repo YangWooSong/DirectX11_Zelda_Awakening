@@ -26,6 +26,7 @@ public:
 	virtual HRESULT Render() override;
 private:
 	_bool m_bActiveChild = { false };
+	_float m_fTimer = { 0.f };
 private:
 	HRESULT Ready_Child();
 public:

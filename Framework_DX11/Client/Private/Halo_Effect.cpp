@@ -47,14 +47,9 @@ void CHalo_Effect::Update(_float fTimeDelta)
     if(m_iEffectType == PLAYER_ITEM_GET_EFFECT)
     {
         m_fTexMove += fTimeDelta * 0.1f;
+        m_bMoveAlpha = false;
         vOffeset = { 0.f, 1.3f,0.f };
     }
-    else if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
-    {
-        m_fTexMove += fTimeDelta * 0.1f;
-        vOffeset = { 0.f, 1.3f,0.f };
-    }
-
 
     m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
     m_pTransformCom->Set_Scaled(m_fOriSize.x, m_fOriSize.y, m_fOriSize.z);
@@ -85,9 +80,9 @@ HRESULT CHalo_Effect::Render()
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
-            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, 0,1)))
+
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, 0, 1)))
                 return E_FAIL;
-            
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_AlphaTexture", TEXTURE_TYPE::DIFFUSE, 0, 2)))
                 return E_FAIL;
 
@@ -112,14 +107,6 @@ HRESULT CHalo_Effect::Ready_Components()
     if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_halo_00"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
-
-    //if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_halo_00"),
-    //    TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pHaloTexture))))
-    //    return E_FAIL;
-
-    //if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_rainbow_01"),
-    //    TEXT("Com_Texture1"), reinterpret_cast<CComponent**>(&m_pRainbowTexture))))
-    //    return E_FAIL;
 
     return S_OK;
 }
@@ -153,8 +140,5 @@ CGameObject* CHalo_Effect::Clone(void* pArg)
 void CHalo_Effect::Free()
 {
     __super::Free();
-
-    //Safe_Release(m_pHaloTexture);
-    //Safe_Release(m_pRainbowTexture);
 }
 
