@@ -24,6 +24,7 @@
 #include "Bed.h"
 #include "Sword.h"
 #include "Shield.h"
+#include "Player_3D_Effects.h"
 #include "Bomb.h"
 
 #include "Grass.h"
@@ -724,7 +725,7 @@ HRESULT CLoader::Ready_Models_For_Field()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/SinkingSword/SinkingSword.dat", PreTransformMatrix))))
 		return E_FAIL;
 
-	/* For. Prototype_Component_Model_SinkingSword*/
+	/* For. Prototype_Component_Model_Lupee*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_Lupee"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Obj/Objects/RupeeGreen/RupeeGreen.dat", PreTransformMatrix))))
 		return E_FAIL;
@@ -1019,6 +1020,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 		CSword::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_Player_3D_Effects*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_3D_Effects"),
+		CPlayer_3D_Effects::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 	/* For. Prototype_GameObject_Shield*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Shield"),
 		CShield::Create(m_pDevice, m_pContext))))
@@ -1216,7 +1222,7 @@ HRESULT CLoader::Ready_Prototype_For_Field()
 		CSinkingSword::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	/* For. Prototype_GameObject_SinkingSword*/
+	/* For. Prototype_GameObject_Lupee*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Lupee"),
 		CLupee::Create(m_pDevice, m_pContext))))
 		return E_FAIL;

@@ -18,7 +18,7 @@ BEGIN(Client)
 class CPlayer : public CContainerObject
 {
 public:
-	enum PARTID { PART_SWORD, PART_SHIELD, PART_BOMB, PART_END };
+	enum PARTID { PART_SWORD, PART_SHIELD, PART_BOMB,PART_3D_EFFECT, PART_END };
 	enum PARTICLE_TYPE{GET_ITEM, PARTICLE_END};
 	enum PLAYER_DIR{FRONT, LEFT,LEFTUFRONT, LEFTBACK, BACK, RIGHT,RIGHTFRONT,RIGHTBACK, PLAYER_DIR_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
@@ -99,6 +99,8 @@ public:
 	void Set_UI_Active(_uint iIndex, _bool bActive);
 
 	CGameObject* Get_Effect(_uint iIndex);
+	CGameObject* Get_3DEffect();
+	void Set_3D_Effect_Type(_uint iIndex);
 protected:
 	CModel*		m_pModelCom = { nullptr };
 	CShader*		m_pShaderCom = { nullptr };

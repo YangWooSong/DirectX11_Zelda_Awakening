@@ -38,6 +38,7 @@
 #include "NPC.h"
 #include "ToolShopkeeper.h"
 #include "2DEffects.h"
+#include "Player_3D_Effects.h"
 
 _bool CLink::m_bActiveSheild = { true };
 _bool CLink::m_bActiveSword = { true };
@@ -650,6 +651,12 @@ HRESULT CLink::Ready_PartObjects()
 	bombDesc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
 	bombDesc.iLevelIndex = m_iLevelIndex;
 	if (FAILED(__super::Add_PartObject(CPlayer::PART_BOMB, TEXT("Prototype_GameObject_Bomb"), &bombDesc)))
+		return E_FAIL;
+
+	CPlayer_3D_Effects::PLAYER_3D_DESC effectDesc{};
+	effectDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	effectDesc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
+	if (FAILED(__super::Add_PartObject(CPlayer::PART_3D_EFFECT, TEXT("Prototype_GameObject_Player_3D_Effects"), &effectDesc)))
 		return E_FAIL;
 
 	return S_OK;

@@ -36,7 +36,6 @@ private:
 	CFsm* m_pPlayerFsm = { nullptr };
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
-	CGameObject* m_pEffect = { nullptr };
 private:
 	HRESULT Ready_Components();
 

@@ -574,6 +574,9 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect">
       <UniqueIdentifier>{2a7d4354-79f7-4446-a955-89ea9746761b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\02.Player\Player_3D_Effects">
+      <UniqueIdentifier>{849bac30-3080-4887-87f0-1113fe503b94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1071,6 +1074,9 @@
     <ClInclude Include="..\Public\Halo_Effect.h">
       <Filter>02.GameObjects\08.Effects\3D_Defaults</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Player_3D_Effects.h">
+      <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1558,6 +1564,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Halo_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\3D_Defaults</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player_3D_Effects.cpp">
+      <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

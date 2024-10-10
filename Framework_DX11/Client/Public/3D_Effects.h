@@ -44,7 +44,7 @@ protected:
 	_float m_fBright = { 1.f };
 	_uint m_iLevelIndex = { LEVEL_END };
 	const _float4x4* m_pParentMatrix = { nullptr };
-
+	_float4x4				m_WorldMatrix = {};
 private:
 	HRESULT Ready_Components();
 	void Monster_HIt_SizeUp(_float fTimeDelta);

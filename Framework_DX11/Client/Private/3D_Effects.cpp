@@ -26,7 +26,7 @@ HRESULT C3D_Effects::Initialize(void* pArg)
 
 
     //Read한 정보 세팅
-   // m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
+  //  m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
     m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
@@ -43,6 +43,9 @@ HRESULT C3D_Effects::Initialize(void* pArg)
 
     if (FAILED(Ready_Components()))
         return E_FAIL;
+
+    if(m_iEffectType == PLAYER_SWISH)
+        m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, -0.6f, 1.f));
 
     m_isActive = false;
     return S_OK;
@@ -73,7 +76,6 @@ void C3D_Effects::Update(_float fTimeDelta)
         {
             m_fAlpha = 0.6f;
             m_fBright = 1.5f;
-            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix) * m_pGameInstance->Find_Player(LEVEL_MARINHOUSE)->Get_Transform()->Get_WorldMatrix());
         }
     }
     else

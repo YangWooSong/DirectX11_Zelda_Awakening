@@ -4,7 +4,7 @@
 #include "GameInstance.h"
 #include "UIObject.h"
 #include "Link.h"
-
+#include "Player_3D_Effects.h"
 CPlayer::CPlayer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CContainerObject{ pDevice, pContext }
 {
@@ -216,6 +216,19 @@ CGameObject* CPlayer::Get_Effect(_uint iIndex)
 		return m_pEffect[iIndex];
 	else
 		return nullptr;
+}
+
+CGameObject* CPlayer::Get_3DEffect()
+{
+	if (m_Parts[PART_3D_EFFECT] != nullptr)
+		return m_Parts[PART_3D_EFFECT];
+	return nullptr;
+}
+
+void CPlayer::Set_3D_Effect_Type(_uint iIndex)
+{
+	if(nullptr != dynamic_cast<CPlayer_3D_Effects*>(m_Parts[PART_3D_EFFECT]))
+		dynamic_cast<CPlayer_3D_Effects*>(m_Parts[PART_3D_EFFECT])->Set_Type(iIndex);
 }
 
 _uint CPlayer::Get_CurRoomNum()

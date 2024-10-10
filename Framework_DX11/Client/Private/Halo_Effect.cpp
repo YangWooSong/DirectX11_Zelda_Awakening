@@ -26,7 +26,6 @@ HRESULT CHalo_Effect::Initialize(void* pArg)
     m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/rainbow_01.dds"), TEXTURE_TYPE::DIFFUSE, 0);
     m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/halo_00.dds"), TEXTURE_TYPE::DIFFUSE, 0);
 
-
     return S_OK;
 }
 
