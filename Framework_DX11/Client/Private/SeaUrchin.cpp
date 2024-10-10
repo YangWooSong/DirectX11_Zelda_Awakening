@@ -230,7 +230,7 @@ HRESULT CSeaUrchin::Ready_Components()
 		C2DEffects::EFFECT_DESC Desc{};
 		Desc.iLevelIndex = LEVEL_FIELD;
 		Desc.pParent = this;
-		Desc.iEffectType = C2DEffects::MONSTER_DIED;
+		Desc.iEffectType = MONSTER_DIED_EFFECT;
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect = pEffect;
 	}
@@ -240,7 +240,7 @@ HRESULT CSeaUrchin::Ready_Components()
 	if (pGameObj != nullptr)
 	{
 		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
-		_Desc.iEffectType = C3D_Effects::MONSTER_HIT;
+		_Desc.iEffectType = MONSTER_HIT_EFFECT;
 		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_p3D_Effect = p3DEffect;

@@ -42,13 +42,13 @@ void CSmoke_Effect::Update(_float fTimeDelta)
     {
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
         m_bReset = false;
-        if (m_iEffectType == MONSTER_DIED)
+        if (m_iEffectType == MONSTER_DIED_EFFECT)
         {
             m_fOutLineColor = { 1.f, 1.f, 1.f, 1.f };
             m_fDissovle = max(0.f, m_fDissovle - fTimeDelta * 1.f);
             m_bDissolve = true;
         }
-        if (m_iEffectType == BOMB_EXPLOSIONT)
+        if (m_iEffectType == BOMB_EXPLOSION_EFFECT)
         {
             m_iDepth = 0;
             m_fOutLineColor = { 0.8f, 0.3f, 0.f, 1.f };

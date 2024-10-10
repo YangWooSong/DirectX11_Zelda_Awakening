@@ -79,12 +79,12 @@ HRESULT CLand::Render()
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
-            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE,(_uint) i)))
                 return E_FAIL;
 
             if(m_eObjType == NONANIM_LEVEL && m_iListIndex == 2)
             {
-                if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+                if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
                     return E_FAIL;
 
                 if (FAILED(m_pShaderCom->Begin(5)))
@@ -94,7 +94,7 @@ HRESULT CLand::Render()
                 if (FAILED(m_pShaderCom->Begin(0)))
                     return E_FAIL;
 
-            if (FAILED(m_pModelCom->Render(i)))
+            if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
         }
     }

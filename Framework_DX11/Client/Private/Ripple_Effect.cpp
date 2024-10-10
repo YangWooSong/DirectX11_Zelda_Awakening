@@ -29,7 +29,7 @@ HRESULT CRipple_Effect::Initialize(void* pArg)
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-    if (m_iEffectType == PLAYER_ITEM_GET)
+    if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
     {
         m_bSizeUp = true;
         m_bAlphaChange = true;
@@ -53,7 +53,7 @@ void CRipple_Effect::Update(_float fTimeDelta)
     {
         m_bReset = false;
 
-        if (m_iEffectType == PLAYER_ITEM_GET)
+        if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
         {
             AlphaDown(fTimeDelta);
             Lerp_Size_Up(fTimeDelta);

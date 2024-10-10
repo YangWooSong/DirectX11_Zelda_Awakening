@@ -101,6 +101,7 @@
 #include "BombExplosion.h"
 #include "3D_Effects.h"
 #include "Player_ItemGet_Effect.h"
+#include "Player_Charge_Slash.h"
 #include "Halo_Effect.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -1175,6 +1176,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_Player_ItemGet_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_ItemGet_Effect"),
 		CPlayer_ItemGet::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_Player_Charge_Slash*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_Charge_Slash"),
+		CPlayer_Charge_Slash::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 	
 	/* For. Prototype_GameObject_Ripple_Effect*/

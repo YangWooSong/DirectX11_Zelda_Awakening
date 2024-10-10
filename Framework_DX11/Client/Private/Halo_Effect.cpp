@@ -26,6 +26,9 @@ HRESULT CHalo_Effect::Initialize(void* pArg)
     m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/rainbow_01.dds"), TEXTURE_TYPE::DIFFUSE, 0);
     m_pModelCom->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/halo_00.dds"), TEXTURE_TYPE::DIFFUSE, 0);
 
+    GAMEOBJECT_DESC* pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
+    m_fOriSize = pDesc->vScale;
+
     return S_OK;
 }
 
@@ -40,10 +43,21 @@ void CHalo_Effect::Priority_Update(_float fTimeDelta)
 
 void CHalo_Effect::Update(_float fTimeDelta)
 {
-    m_fTexMove += fTimeDelta * 0.1;
-    _vector vOffeset = { 0.f, 1.3f,0.f };
+    _vector vOffeset = {};
+    if(m_iEffectType == PLAYER_ITEM_GET_EFFECT)
+    {
+        m_fTexMove += fTimeDelta * 0.1f;
+        vOffeset = { 0.f, 1.3f,0.f };
+    }
+    else if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
+    {
+        m_fTexMove += fTimeDelta * 0.1f;
+        vOffeset = { 0.f, 1.3f,0.f };
+    }
+
+
     m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
-    m_pTransformCom->Set_Scaled(3.f, 3.f, 0.1f);
+    m_pTransformCom->Set_Scaled(m_fOriSize.x, m_fOriSize.y, m_fOriSize.z);
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vOffeset);
 }
 

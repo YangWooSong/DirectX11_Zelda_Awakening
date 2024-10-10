@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "3D_Effects.h"
 #include "GameInstance.h"
+#include "Client_Defines.h"
 
 C3D_Effects::C3D_Effects(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -44,9 +45,6 @@ HRESULT C3D_Effects::Initialize(void* pArg)
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
-    if(m_iEffectType == PLAYER_SWISH)
-        m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, -0.6f, 1.f));
-
     m_isActive = false;
     return S_OK;
 }
@@ -65,17 +63,11 @@ void C3D_Effects::Update(_float fTimeDelta)
     {
         __super::Update(fTimeDelta);
 
-        if (m_iEffectType == MONSTER_HIT)
+        if (m_iEffectType == MONSTER_HIT_EFFECT)
         {
             m_fAlpha = 0.6f;
             m_fBright = 1.5f;
             Monster_HIt_SizeUp(fTimeDelta);
-        }
-
-        if (m_iEffectType == PLAYER_SWISH)
-        {
-            m_fAlpha = 0.6f;
-            m_fBright = 1.5f;
         }
     }
     else
@@ -145,18 +137,10 @@ HRESULT C3D_Effects::Ready_Components()
         TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
         return E_FAIL;
 
-    if(m_iEffectType == MONSTER_HIT)
+    if(m_iEffectType == MONSTER_HIT_EFFECT)
     {
         /* FOR.Com_Model */
         if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),
-            TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
-            return E_FAIL;
-    }
-
-    if(m_iEffectType == PLAYER_SWISH)
-    {
-        /* FOR.Com_Model */
-        if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_swordslash_00"),
             TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
             return E_FAIL;
     }

@@ -117,16 +117,16 @@ HRESULT CGrass::Render()
             if (i == 0)
                 continue;
         }
-        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
             return E_FAIL;
 
-        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
             return E_FAIL;
 
         if (FAILED(m_pShaderCom->Begin(5)))
             return E_FAIL;
 
-        if (FAILED(m_pModelCom->Render(i)))
+        if (FAILED(m_pModelCom->Render((_uint)i)))
             return E_FAIL;
     }
 
@@ -272,6 +272,8 @@ HRESULT CGrass::Drop_Lupee()
         if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_Lupee"), TEXT("Prototype_GameObject_Lupee"), &Desc)))
             return E_FAIL;
     }
+
+    return S_OK;
 }
 
 void CGrass::Shake(_float fTimeDelta)

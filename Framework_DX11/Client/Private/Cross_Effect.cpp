@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Cross_Effect.h"
 #include "GameInstance.h"
-
+#include "Client_Defines.h"
 CCross_Effect::CCross_Effect(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :C2DEffects(pDevice, pContext)
 {
@@ -43,7 +43,7 @@ void CCross_Effect::Update(_float fTimeDelta)
     {
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
 
-        if(m_iEffectType == MONSTER_DIED)
+        if(m_iEffectType == MONSTER_DIED_EFFECT)
             Lerp_Size(fTimeDelta);
     }
 }

@@ -143,7 +143,7 @@ HRESULT CPlayer_ItemGet::Ready_Child()
 		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
 		_Desc.iEffectType = m_iEffectType;
 		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-		_Desc.vScale = { 10.f, 10.f, 0.1f };
+		_Desc.vScale = { 3.f, 3.f, 0.1f };
 		_Desc.iLevelIndex = m_iLevelIndex;
 		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_Child_List.push_back(p3DEffect);

@@ -13,7 +13,6 @@ class C3D_Effects :
 	public CGameObject
 {
 public:
-	enum EFFECT_TYPE { MONSTER_HIT, PLAYER_ITEM_GET, PLAYER_SWISH, TYPE_END };
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
 		const _float4x4* pParentWorldMatrix = { nullptr };

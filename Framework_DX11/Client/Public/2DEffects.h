@@ -13,7 +13,6 @@ class C2DEffects :
 	public CUIObject
 {
 public:
-	enum EFFECT_TYPE{MONSTER_DIED, BOMB_FUSE, BOMB_EXPLOSIONT,PLAYER_ITEM_GET,	TYPE_END};
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{
 		_float4 fColor = {1.f,1.f,1.f,1.f};

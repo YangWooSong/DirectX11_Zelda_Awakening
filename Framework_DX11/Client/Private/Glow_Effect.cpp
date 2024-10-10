@@ -29,7 +29,7 @@ HRESULT CGlow_Effect::Initialize(void* pArg)
 
     m_isActive = false;
 
-    if (m_iEffectType == MONSTER_DIED)
+    if (m_iEffectType == MONSTER_DIED_EFFECT)
     {
         m_iDepth = 1;
         m_fMaxSize = 1.5f;
@@ -50,11 +50,11 @@ void CGlow_Effect::Update(_float fTimeDelta)
       
         m_bReset = false;
 
-        if (m_iEffectType == MONSTER_DIED)
+        if (m_iEffectType == MONSTER_DIED_EFFECT)
         {
             Lerp_Size(fTimeDelta);
         }
-        else if (m_iEffectType == PLAYER_ITEM_GET)
+        else if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
         {
             m_vOffset = { 0.f, 1.5f, 0.f };
         }

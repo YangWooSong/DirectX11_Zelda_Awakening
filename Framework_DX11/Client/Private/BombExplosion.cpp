@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Particle_Image.h"
 #include "Flash_Effect.h"
+#include "Client_Defines.h"
 CBombExplosion::CBombExplosion(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :C2DEffects(pDevice, pContext)
 {
@@ -111,7 +112,7 @@ HRESULT CBombExplosion::Ready_Child()
     if (pGameObj != nullptr)
     {
         CFlash_Effect::FLASH_DESC _Desc{};
-        _Desc.iEffectType = C2DEffects::BOMB_EXPLOSIONT;
+        _Desc.iEffectType = BOMB_EXPLOSION_EFFECT;
         _Desc.fColor = { 1.f,1.f,0.8f,1.f };
         _Desc.pParent = this;
         _Desc.iLevelIndex = m_iLevelIndex;

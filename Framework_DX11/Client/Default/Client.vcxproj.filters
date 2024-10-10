@@ -577,6 +577,9 @@
     <Filter Include="02.GameObjects\02.Player\Player_3D_Effects">
       <UniqueIdentifier>{849bac30-3080-4887-87f0-1113fe503b94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Player_Charge_Slash">
+      <UniqueIdentifier>{0a849845-2280-46d7-969a-fca3bfa130c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1077,6 +1080,9 @@
     <ClInclude Include="..\Public\Player_3D_Effects.h">
       <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Player_Charge_Slash.h">
+      <Filter>02.GameObjects\08.Effects\Player_Charge_Slash</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1567,6 +1573,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Player_3D_Effects.cpp">
       <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player_Charge_Slash.cpp">
+      <Filter>02.GameObjects\08.Effects\Player_Charge_Slash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

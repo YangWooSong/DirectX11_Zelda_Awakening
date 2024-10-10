@@ -11,6 +11,7 @@
 #include "Detector.h"
 #include "2DEffects.h"
 #include "3D_Effects.h"
+#include "Client_Defines.h"
 
 COctorok::COctorok(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
@@ -252,7 +253,7 @@ HRESULT COctorok::Ready_PartObjects()
 		C2DEffects::EFFECT_DESC Desc{};
 		Desc.iLevelIndex = LEVEL_FIELD;
 		Desc.pParent = this;
-		Desc.iEffectType = C2DEffects::MONSTER_DIED;
+		Desc.iEffectType = MONSTER_DIED_EFFECT;
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect = pEffect;
 	}
@@ -262,7 +263,7 @@ HRESULT COctorok::Ready_PartObjects()
 	if (pGameObj != nullptr)
 	{
 		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
-		_Desc.iEffectType = C3D_Effects::MONSTER_HIT;
+		_Desc.iEffectType = MONSTER_HIT_EFFECT;
 		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_p3D_Effect = p3DEffect;

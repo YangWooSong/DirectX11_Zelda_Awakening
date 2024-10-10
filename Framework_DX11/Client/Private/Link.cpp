@@ -231,7 +231,7 @@ HRESULT CLink::Render()
 			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 				return E_FAIL;
 
-			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
 				return E_FAIL;
 
 			if (FAILED(m_pShaderCom->Begin(1)))
@@ -292,16 +292,16 @@ HRESULT CLink::Render_LightDepth()
 
 		m_pModelCom->Bind_MeshBoneMatrices(m_pShaderCom, "g_BoneMatrices", i);
 
-		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 			return E_FAIL;
 
-		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
 			return E_FAIL;
 
 		if (FAILED(m_pShaderCom->Begin(6)))
 			return E_FAIL;
 
-		if (FAILED(m_pModelCom->Render(i)))
+		if (FAILED(m_pModelCom->Render((_uint)i)))
 			return E_FAIL;
 	}
 
@@ -508,7 +508,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_Lupee"))
 		{
-			m_iLupee += 5.f;
+			m_iLupee += 5;
 		}
 	}
 }
@@ -734,7 +734,18 @@ HRESULT CLink::Ready_Effect()
 		C2DEffects::EFFECT_DESC Desc{};
 		Desc.iLevelIndex = m_iLevelIndex;
 		Desc.pParent = this;
-		Desc.iEffectType = C2DEffects::PLAYER_ITEM_GET;
+		Desc.iEffectType = PLAYER_ITEM_GET_EFFECT;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect.push_back(pEffect);
+	}
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Player_Charge_Slash"));
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = m_iLevelIndex;
+		Desc.pParent = this;
+		Desc.iEffectType = PLAYER_CHARGE_SLASH_EFFECT;
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect.push_back(pEffect);
 	}

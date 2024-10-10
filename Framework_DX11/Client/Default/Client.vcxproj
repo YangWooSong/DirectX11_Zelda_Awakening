@@ -223,6 +223,7 @@
     <ClInclude Include="..\Public\Particle_Snow.h" />
     <ClInclude Include="..\Public\Pawn.h" />
     <ClInclude Include="..\Public\Player_3D_Effects.h" />
+    <ClInclude Include="..\Public\Player_Charge_Slash.h" />
     <ClInclude Include="..\Public\Player_ItemGet_Effect.h" />
     <ClInclude Include="..\Public\PurpleQuartz.h" />
     <ClInclude Include="..\Public\Ripple_Effect.h" />
@@ -407,6 +408,7 @@
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\PlayerCamera.cpp" />
     <ClCompile Include="..\Private\Player_3D_Effects.cpp" />
+    <ClCompile Include="..\Private\Player_Charge_Slash.cpp" />
     <ClCompile Include="..\Private\Player_ItemGet_Effect.cpp" />
     <ClCompile Include="..\Private\PurpleQuartz.cpp" />
     <ClCompile Include="..\Private\Ripple_Effect.cpp" />
