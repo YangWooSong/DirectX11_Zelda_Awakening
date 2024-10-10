@@ -155,6 +155,11 @@ public:
 	HRESULT Add_ColliderList(class CCollider* pCollider);
 #pragma endregion
 
+#pragma region FRUSTUM
+	public:
+		_bool isIn_Frustum_WorldSpace(_fvector vPosition, _float fRadius = 0.f);
+#pragma endregion
+
 private:
 	class CGraphic_Device*			m_pGraphic_Device = { nullptr };
 	class CInput_Device*			m_pInput_Device = { nullptr };
@@ -169,6 +174,7 @@ private:
 	class CCollider_Manager* m_pCollider_Manager = { nullptr };
 	class CLight_Manager* m_pLight_Manager = { nullptr };
 	class CTarget_Manager* m_pTarget_Manager = { nullptr };
+	class CFrustum* m_pFrustum = { nullptr };
 
 	/*추가한 기능들*/
 	class CKey_Manager*				m_pKey_Manager = { nullptr };

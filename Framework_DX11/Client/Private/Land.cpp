@@ -55,8 +55,11 @@ void CLand::Update(_float fTimeDelta)
 
 void CLand::Late_Update(_float fTimeDelta)
 {
+    if (true == m_pGameInstance->isIn_Frustum_WorldSpace(m_pTransformCom->Get_State(CTransform::STATE_POSITION), 15.f))
+    {
     __super::Late_Update(fTimeDelta);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    }
 }
 
 HRESULT CLand::Render()

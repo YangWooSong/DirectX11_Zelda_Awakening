@@ -232,8 +232,8 @@ void CMiniMap::Culculate_PlayerIconPos()
 {
     _float3 fPlayerPos = static_cast<CMainUI*>(m_pParentUI)->Get_PlayerPos_Float3();
 
-    _float fNewPosX = 320 + 640 * ((fPlayerPos.x + 36) / 87);
-    _float fNewPosY = 560 + (-410) * ((fPlayerPos.z + 4.5) / 69.5);
+    _float fNewPosX = 320.f + 640.f * ((fPlayerPos.x + 36.f) / 87.f);
+    _float fNewPosY = 560.f + (-410.f) * ((fPlayerPos.z + 4.5f) / 69.5f);
 
     m_childUI_List[0]->Set_fX(fNewPosX);
     m_childUI_List[0]->Set_fY(fNewPosY);

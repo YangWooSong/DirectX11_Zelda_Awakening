@@ -100,13 +100,13 @@ HRESULT CPurpleQuartz::Render()
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
-            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
                 return E_FAIL;
 
             if (FAILED(m_pShaderCom->Begin(0)))
                 return E_FAIL;
 
-            if (FAILED(m_pModelCom->Render(i)))
+            if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
         }
     }

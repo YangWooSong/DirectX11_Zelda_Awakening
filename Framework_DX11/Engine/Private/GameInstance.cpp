@@ -16,6 +16,8 @@
 #include "PhysX_Manager.h"
 #include "Event_Manager.h"
 #include "Collider_Manager.h"
+#include "Frustum.h"
+
 IMPLEMENT_SINGLETON(CGameInstance)
 
 CGameInstance::CGameInstance()
@@ -30,6 +32,10 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 	/* 그래픽 카드를 초기화하낟. */
 	m_pGraphic_Device = CGraphic_Device::Create(EngineDesc.hWnd, EngineDesc.isWindowsed, EngineDesc.iWinSizeX, EngineDesc.iWinSizeY, ppDevice, ppContext);
 	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	m_pFrustum = CFrustum::Create();
+	if (nullptr == m_pFrustum)
 		return E_FAIL;
 
 	m_pTimer_Manager = CTimer_Manager::Create();
@@ -121,6 +127,8 @@ void CGameInstance::Update_Engine(_float fTimeDelta)
 	m_pObject_Manager->Priority_Update(fTimeDelta);	
 
 	m_pPipeLine->Update();
+
+	m_pFrustum->Update();
 
 	m_pPicking_Manager->Update();
 
@@ -603,6 +611,14 @@ HRESULT CGameInstance::Add_ColliderList(CCollider* pCollider)
 {
 	return m_pCollider_Manager->Add_ColliderList(pCollider);
 }
+#pragma endregion
+
+#pragma region FRUSTUM
+
+_bool CGameInstance::isIn_Frustum_WorldSpace(_fvector vPosition, _float fRadius)
+{
+	return m_pFrustum->isIn_WorldSpace(vPosition, fRadius);
+}
 
 #pragma endregion
 
@@ -610,6 +626,7 @@ HRESULT CGameInstance::Add_ColliderList(CCollider* pCollider)
 
 void CGameInstance::Release_Engine()
 {
+	Safe_Release(m_pFrustum);
 	Safe_Release(m_pTarget_Manager);
 	Safe_Release(m_pPhysX_Manager);
 	Safe_Release(m_pFont_Manager);

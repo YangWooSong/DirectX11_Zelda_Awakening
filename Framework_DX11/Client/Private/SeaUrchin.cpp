@@ -84,18 +84,21 @@ void CSeaUrchin::Update(_float fTimeDelta)
 
 void CSeaUrchin::Late_Update(_float fTimeDelta)
 {
-	__super::Late_Update(fTimeDelta);
-
-	m_pGameInstance->Add_ColliderList(m_pColliderCom);
-	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-	if (m_bEffect)
+	if (true == m_pGameInstance->isIn_Frustum_WorldSpace(m_pTransformCom->Get_State(CTransform::STATE_POSITION), 3.f))
 	{
-		m_pEffect->Late_Update(fTimeDelta);
-	}
-	m_p3D_Effect->Late_Update(fTimeDelta);
+		__super::Late_Update(fTimeDelta);
+
+		m_pGameInstance->Add_ColliderList(m_pColliderCom);
+		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+		if (m_bEffect)
+		{
+			m_pEffect->Late_Update(fTimeDelta);
+		}
+		m_p3D_Effect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
-	m_pGameInstance->Add_DebugObject(m_pColliderCom);
+		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+	}
 }
 
 HRESULT CSeaUrchin::Render()

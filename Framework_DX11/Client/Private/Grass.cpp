@@ -81,17 +81,20 @@ void CGrass::Update(_float fTimeDelta)
 
 void CGrass::Late_Update(_float fTimeDelta)
 {
-    __super::Late_Update(fTimeDelta);
-    m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    if (true == m_pGameInstance->isIn_Frustum_WorldSpace(m_pTransformCom->Get_State(CTransform::STATE_POSITION), 3.f))
+    {
+        __super::Late_Update(fTimeDelta);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 
-    if (m_bCut == false && m_bAddColliderList)
-       m_pGameInstance->Add_ColliderList(m_pColliderCom);
-    else if(m_bCut)
-        m_pParticle->Late_Update(fTimeDelta);
+        if (m_bCut == false && m_bAddColliderList)
+            m_pGameInstance->Add_ColliderList(m_pColliderCom);
+        else if (m_bCut)
+            m_pParticle->Late_Update(fTimeDelta);
 
 #ifdef _DEBUG
-    m_pGameInstance->Add_DebugObject(m_pColliderCom);
+        m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+    }
 }
 
 HRESULT CGrass::Render()

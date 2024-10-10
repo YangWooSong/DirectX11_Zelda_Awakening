@@ -130,19 +130,22 @@ void COctorokRock::Update(_float fTimeDelta)
 }
 void COctorokRock::Late_Update(_float fTimeDelta)
 {
-    __super::Late_Update(fTimeDelta);
-
-    m_pGameInstance->Add_ColliderList(m_pColliderCom);
-    m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-
-    if (m_bActiveParticle)
+    if (true == m_pGameInstance->isIn_Frustum_WorldSpace(m_pTransformCom->Get_State(CTransform::STATE_POSITION), 3.f))
     {
-        if (m_pParticle != nullptr)
-             m_pParticle->Late_Update(fTimeDelta);
-    }
+        __super::Late_Update(fTimeDelta);
+
+        m_pGameInstance->Add_ColliderList(m_pColliderCom);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+
+        if (m_bActiveParticle)
+        {
+            if (m_pParticle != nullptr)
+                m_pParticle->Late_Update(fTimeDelta);
+        }
 #ifdef _DEBUG
-    m_pGameInstance->Add_DebugObject(m_pColliderCom);
+        m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+    }
 }
 
 HRESULT COctorokRock::Render()
@@ -162,13 +165,13 @@ HRESULT COctorokRock::Render()
 
       for (size_t i = 0; i < iNumMeshes; i++)
       {
-          if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, i)))
+          if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
               return E_FAIL;
 
           if (FAILED(m_pShaderCom->Begin(0)))
               return E_FAIL;
 
-          if (FAILED(m_pModelCom->Render(i)))
+          if (FAILED(m_pModelCom->Render((_uint)i)))
               return E_FAIL;
       }
 
