@@ -181,6 +181,10 @@ void CVIBuffer_Rect_Instance::Drop(_float fTimeDelta)
 {
 }
 
+void CVIBuffer_Rect_Instance::Stay(_float fTimeDelta)
+{
+}
+
 
 
 

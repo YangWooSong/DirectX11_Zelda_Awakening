@@ -68,6 +68,10 @@ void CParticle_Image::Update(_float fTimeDelta)
 		m_bSetAlpha = true;
 		m_pVIBufferCom->Spread(fTimeDelta);
 		break;
+	case KEY_DROP:
+		m_bSetAlpha = true;
+		m_pVIBufferCom->Stay(fTimeDelta);
+		break;
 	default:
 		break;
 	}
@@ -189,6 +193,22 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vSpeed = _float2(0.2f, 0.2f);
 		Desc.vLifeTime = _float2(2.f, 2.f);
 		Desc.isLoop = false;
+	}
+	else if(m_iParticleType == KEY_DROP)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Cross_Color"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+
+		Desc.iNumInstance = 1;
+		Desc.vCenter = _float3(-0.1f, 0.75f, 0.f);
+		Desc.vRange = _float3(0.1f, 0.1f, 0.1f);
+		Desc.vSize = _float2(0.5f, 0.5f);
+		Desc.vPivot = Desc.vCenter;
+		Desc.vSpeed = _float2(0.4f, 2.f);
+		Desc.vLifeTime = _float2(1.f, 1.f);
+		Desc.isLoop = true;
 	}
 	/* FOR.Com_VIBuffer */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),

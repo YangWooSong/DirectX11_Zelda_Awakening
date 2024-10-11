@@ -34,6 +34,7 @@ public:
 public:
 	virtual void Spread(_float fTimeDelta) = 0;
 	virtual void Drop(_float fTimeDelta) = 0;
+	virtual void Stay(_float fTimeDelta) = 0;
 
 protected:
 	ID3D11Buffer* m_pVBInstance = { nullptr };

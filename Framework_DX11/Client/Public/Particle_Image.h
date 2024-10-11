@@ -14,7 +14,7 @@ BEGIN(Client)
 class CParticle_Image final : public CGameObject
 {
 public:
-	enum PARTICLE_TYPE { CROSS_MINI, BOMB_SMOKE, PLAYER_ITEM_GET, GLOW, SHUTTER_DUST, TYPE_END };
+	enum PARTICLE_TYPE { CROSS_MINI, BOMB_SMOKE, PLAYER_ITEM_GET, GLOW, SHUTTER_DUST, KEY_DROP, TYPE_END };
 
 	typedef struct : public CGameObject::GAMEOBJECT_DESC
 	{

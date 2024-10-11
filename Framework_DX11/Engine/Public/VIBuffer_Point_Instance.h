@@ -18,6 +18,7 @@ public:
 public:
 	virtual void Spread(_float fTimeDelta) override;
 	virtual void Drop(_float fTimeDelta) override;
+	virtual void Stay(_float fTimeDelta) override;
 
 public:
 	static CVIBuffer_Point_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg = nullptr);

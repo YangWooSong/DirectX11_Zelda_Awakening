@@ -46,6 +46,7 @@ private:
 	_vector m_TargetPos = { -18.75f, 0.5f, 0.69f };
 	_float m_fTimer = { 0.f };
 
+	CGameObject* m_pEffect = { nullptr };
 private:
 	HRESULT Ready_Components();
 	void Show(_float fTimeDelta);

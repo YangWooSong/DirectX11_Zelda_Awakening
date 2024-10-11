@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SmallKey.h"
 #include "GameInstance.h"
-
+#include "Particle_Image.h"
 CSmallKey::CSmallKey(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -62,8 +62,13 @@ void CSmallKey::Update(_float fTimeDelta)
                 m_pGameInstance->Pause_BGM();
             }
         }
+        m_pEffect->SetActive(true);
+        m_pEffect->Update(fTimeDelta);
+
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
     }
+    else
+        m_pEffect->SetActive(false);
 }
 
 void CSmallKey::Late_Update(_float fTimeDelta)
@@ -72,7 +77,7 @@ void CSmallKey::Late_Update(_float fTimeDelta)
     {
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
-
+        m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -157,6 +162,16 @@ HRESULT CSmallKey::Ready_Components()
         return E_FAIL;
     m_pSoundCom->Set_Owner(this);
 
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+    if (pGameObj != nullptr)
+    {
+        CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+        pImageDesc.iParticleType = CParticle_Image::KEY_DROP;
+        pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+        m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+    }
+
+
     return S_OK;
 }
 
@@ -218,6 +233,7 @@ void CSmallKey::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

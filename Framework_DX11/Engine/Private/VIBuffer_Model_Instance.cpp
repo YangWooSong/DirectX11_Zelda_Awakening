@@ -173,6 +173,10 @@ void CVIBuffer_Model_Instance::Drop(_float fTimeDelta)
 {
 }
 
+void CVIBuffer_Model_Instance::Stay(_float fTimeDelta)
+{
+}
+
 void CVIBuffer_Model_Instance::PurpleQuartz_Spread(_float fTimeDelta)
 {
 	D3D11_MAPPED_SUBRESOURCE	SubResource{};
