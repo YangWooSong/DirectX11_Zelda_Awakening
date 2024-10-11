@@ -41,6 +41,9 @@ protected:
 	_float m_fSize = { 0.5f };
 	_float m_fAlpha = { 1.f };
 	_float m_fBright = { 1.f };
+	_float4 m_fColor = {1.f,1.f,1.f,1.f};
+	_float3 m_fOriSize = {1.f,1.f,1.f};
+
 	_uint m_iLevelIndex = { LEVEL_END };
 	const _float4x4* m_pParentMatrix = { nullptr };
 	_float4x4				m_WorldMatrix = {};

@@ -35,6 +35,9 @@ public:
 	virtual void OnCollisionExit(CGameObject* pOther)  override;
 
 private:
+	_bool m_bActiveEffect = { false };
+	_float m_fTimer = { 0.f };
+private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
 

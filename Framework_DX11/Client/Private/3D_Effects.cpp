@@ -28,11 +28,10 @@ HRESULT C3D_Effects::Initialize(void* pArg)
 
     //Read한 정보 세팅
   //  m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-    m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(pDesc->vRotation);
     m_vRot = pDesc->vRotation;
     m_iRoomNum = pDesc->iRoomNum;
-
+    m_fOriSize = pDesc->vScale;
 
     MODEL_EFFECT_DESC* pModelDesc = static_cast<MODEL_EFFECT_DESC*>(pArg);
     if (pModelDesc != nullptr)
@@ -65,15 +64,23 @@ void C3D_Effects::Update(_float fTimeDelta)
 
         if (m_iEffectType == MONSTER_HIT_EFFECT)
         {
-            m_fAlpha = 0.6f;
+            m_fColor = { 0.9f,0.9f,0.4f,1.f };
+            m_fAlpha = 0.8f;
             m_fBright = 1.5f;
             Monster_HIt_SizeUp(fTimeDelta);
+        } 
+        if (m_iEffectType == PAWN_HIT_EFFECT)
+        {
+            m_fColor = { 0.8f,0.8f,1.f,1.f };
+            m_fAlpha = 0.9f;
+            m_fBright = 1.5f;
         }
     }
     else
     {
         m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
         _vector vOffeset = { 0.f, 1.f,0.f };
+        m_pTransformCom->Set_Scaled(m_fOriSize.x, m_fOriSize.y, m_fOriSize.z);
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vOffeset);
     }
 }
@@ -104,6 +111,9 @@ HRESULT C3D_Effects::Render()
         
         if (FAILED(m_pShaderCom->Bind_RawValue("g_fBright", &m_fBright, sizeof(_float))))
             return E_FAIL;
+        
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float4))))
+            return E_FAIL;
 
         _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
@@ -112,7 +122,7 @@ HRESULT C3D_Effects::Render()
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE,(_uint) i)))
                 return E_FAIL;
 
-            if (FAILED(m_pShaderCom->Begin(6)))
+            if (FAILED(m_pShaderCom->Begin(10)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render((_uint)i)))
@@ -137,7 +147,7 @@ HRESULT C3D_Effects::Ready_Components()
         TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
         return E_FAIL;
 
-    if(m_iEffectType == MONSTER_HIT_EFFECT)
+    if(m_iEffectType == MONSTER_HIT_EFFECT || m_iEffectType == PAWN_HIT_EFFECT)
     {
         /* FOR.Com_Model */
         if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),

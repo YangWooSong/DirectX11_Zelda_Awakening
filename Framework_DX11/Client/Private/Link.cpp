@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Model.h"
 #include "PartObject.h"
+#include "../../EngineSDK/Inc/Navigation.h"
 
 #include "State_Link_Idle.h"
 #include "State_Link_Walk.h"

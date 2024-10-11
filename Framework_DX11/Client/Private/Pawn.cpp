@@ -8,6 +8,7 @@
 #include "State_Pawn_Jump.h"
 #include "State_Pawn_Damage.h"
 #include "State_Pawn_DeadFall.h"
+#include "3D_Effects.h"
 
 CPawn::CPawn(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -38,12 +39,8 @@ HRESULT CPawn::Initialize(void* pArg)
 		return E_FAIL;
 
 	//Read한 정보 세팅
-	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
 	m_pTransformCom->RotationThreeAxis(_float3(0.f, 180.f, 0.f));
-	//m_vRot = _float3(0.f, 180.f, 0.f);
 
-	//m_pModelCom->SetUp_Animation(30, true);
 	m_pFsmCom->Set_State(IDLE);
 	m_isActive = false;
 
@@ -55,6 +52,7 @@ void CPawn::Priority_Update(_float fTimeDelta)
 	if (m_isActive)
 	{
 		__super::Priority_Update(fTimeDelta);
+		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
 }
 
@@ -70,7 +68,22 @@ void CPawn::Update(_float fTimeDelta)
 		m_pModelCom->Play_Animation(fTimeDelta);
 		m_pMonsterSoundCom->Update(fTimeDelta);
 
+		m_p3D_Effect->Update(fTimeDelta);
 		__super::Update(fTimeDelta);
+	}
+
+	if (m_bActiveEffect)
+	{
+		if(m_fTimer == 0.f)
+			m_p3D_Effect->SetActive(true);
+		else if (m_fTimer > 0.2f)
+		{
+			m_p3D_Effect->SetActive(false);
+			m_bActiveEffect = false;
+			m_fTimer = 0.f;
+			return;
+		}
+		m_fTimer += fTimeDelta;
 	}
 }
 
@@ -81,7 +94,7 @@ void CPawn::Late_Update(_float fTimeDelta)
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
-
+		m_p3D_Effect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -127,6 +140,7 @@ void CPawn::OnCollisionEnter(CGameObject* pOther)
 	{
 		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
 		{
+			m_bActiveEffect = true;
 			Change_State(DAMAGE);
 		}
 	}
@@ -186,8 +200,20 @@ HRESULT CPawn::Ready_Components()
 		return E_FAIL;
 	m_pMonsterSoundCom->Set_Owner(this);
 
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = PAWN_HIT_EFFECT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		_Desc.vScale = { 0.3f,0.3f,0.3f };
+		m_p3D_Effect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+	}
+
 	return S_OK;
 }
+
 
 HRESULT CPawn::Ready_State()
 {

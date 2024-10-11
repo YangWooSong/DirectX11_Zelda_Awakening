@@ -113,7 +113,7 @@ HRESULT CLupeeUI::Render()
         if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &m_fAlpha, sizeof(_float))))
             return E_FAIL;
 
-        if (FAILED(m_pShaderCom->Begin(4)))
+        if (FAILED(m_pShaderCom->Begin(10)))
             return E_FAIL;
 
         if (FAILED(m_pVIBufferCom->Bind_Buffers()))
