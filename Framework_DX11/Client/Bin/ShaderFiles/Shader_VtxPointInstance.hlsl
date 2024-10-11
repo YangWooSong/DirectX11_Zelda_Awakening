@@ -146,7 +146,7 @@ PS_OUT PS_MAIN(PS_IN In)
         discard;
     else if (g_bSetAlpha)
     {
-        Out.vColor.a *= max(Out.vColor.a, g_fColor.w); //최대 알파값이 정해져 있다
+        Out.vColor.a *= min(Out.vColor.a, g_fColor.w); //최대 알파값이 정해져 있다
         Out.vColor.a *= In.vLifeTime.x - In.vLifeTime.y;
     }
       

@@ -88,7 +88,7 @@ void CFlash_Effect::Update(_float fTimeDelta)
         }
         if (m_iEffectType == TAIL_DUNGEON_OPEN)
         {
-            Lerp_Size(fTimeDelta);
+            Lerp_SizeUp(fTimeDelta);
             AlphaDown(fTimeDelta);
         }
 
@@ -207,7 +207,7 @@ void CFlash_Effect::Lerp_SizeUp(_float fTimeDelta)
     {
         _float fSize = min(1.f, fCurSize.x + fAmout);
         m_pTransformCom->Set_Scaled(fCurSize.x + fAmout, fCurSize.y + fAmout, fCurSize.z + fAmout);
-        if (fSize == 0.8f)
+        if (fSize == 1.5f)
             m_bSizedown = true;
     }
 }

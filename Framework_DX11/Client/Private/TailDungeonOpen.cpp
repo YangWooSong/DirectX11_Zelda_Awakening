@@ -101,7 +101,7 @@ HRESULT CTailDungeonOpen::Ready_Child()
 
 	if (pGameObj != nullptr)
 	{
-		pDesc.fColor = { 0.9f, 0.9f, 1.f, 1.f };
+		pDesc.fColor = { 0.7f, 0.8f, 1.f, 0.5f };
 		pDesc.vScale = { 1.f,1.f,0.1f };
 		CGameObject* m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
 		m_Child_List.push_back(m_pEffect);
@@ -112,11 +112,11 @@ HRESULT CTailDungeonOpen::Ready_Child()
 	{
 		CFlash_Effect::FLASH_DESC _Desc{};
 		_Desc.iEffectType = m_iEffectType;
-		_Desc.fColor = { 1.f,1.f,1.f,1.f };
+		_Desc.fColor = { 0.9f,0.9f,1.f,1.f };
 		_Desc.pParent = this;
 		_Desc.iLevelIndex = m_iLevelIndex;
 		_Desc.iTextureNum = 3;
-		_Desc.vScale = { 0.5f,0.5f,0.1f };
+		_Desc.vScale = { 0.7f,0.7f,0.1f };
 
 		CGameObject* p2DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_Child_List.push_back(p2DEffect);

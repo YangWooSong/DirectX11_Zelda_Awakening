@@ -64,7 +64,7 @@ void CParticle_Image::Update(_float fTimeDelta)
 		m_pVIBufferCom->Spread(fTimeDelta);
 		break;
 	case SHUTTER_DUST:
-		m_fColor = { 0.5f,0.5f,0.1f,0.2f };
+		m_fColor = { 0.7f,0.4f,0.2f,0.3f };
 		m_bSetAlpha = true;
 		m_pVIBufferCom->Spread(fTimeDelta);
 		break;
@@ -139,7 +139,7 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vSize = _float2(0.2f, 0.4f);
 		Desc.vPivot = _float3(0.f, 0.25f, 0.f);
 		Desc.vSpeed = _float2(0.4f, 2.f);
-		Desc.vLifeTime = _float2(0.4f, 2.f);
+		Desc.vLifeTime = _float2(0.4f, 1.f);
 		Desc.isLoop = false;
 	}
 	else if (m_iParticleType == PLAYER_ITEM_GET)
@@ -154,8 +154,8 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
 		Desc.vSize = _float2(0.2f, 0.5f);
 		Desc.vPivot = Desc.vCenter;
-		Desc.vSpeed = _float2(0.5f, 1.5f);
-		Desc.vLifeTime = _float2(0.4f,1.5f);
+		Desc.vSpeed = _float2(0.5f, 1.2f);
+		Desc.vLifeTime = _float2(0.4f,1.f);
 		Desc.isLoop = true;
 	}
 	else if (m_iParticleType == GLOW)
@@ -168,10 +168,10 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.iNumInstance = 20;
 		Desc.vCenter = _float3(0.f, 0.f, 0.f);
 		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
-		Desc.vSize = _float2(0.1f, 0.4f);
+		Desc.vSize = _float2(0.3f, 0.4f);
 		Desc.vPivot = _float3(0.f, -0.2f, 0.f);
-		Desc.vSpeed = _float2(0.3f, 0.6f);
-		Desc.vLifeTime = _float2(0.4f, 0.8f);
+		Desc.vSpeed = _float2(0.6f, 1.f);
+		Desc.vLifeTime = _float2(0.7f, 1.f);
 		Desc.isLoop = false;
 	}
 	else if (m_iParticleType == SHUTTER_DUST)
@@ -181,13 +181,13 @@ HRESULT CParticle_Image::Ready_Components()
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
 
-		Desc.iNumInstance = 8;
+		Desc.iNumInstance = 12;
 		Desc.vCenter = _float3(0.f, -0.25f, 0.f);
 		Desc.vRange = _float3(1.2f, 0.2f, 0.2f);
 		Desc.vSize = _float2(1.2f, 1.2f);
-		Desc.vPivot = _float3(0.f, -1.f, 0.f);
+		Desc.vPivot = Desc.vCenter;
 		Desc.vSpeed = _float2(0.2f, 0.2f);
-		Desc.vLifeTime = _float2(2.2f, 2.2f);
+		Desc.vLifeTime = _float2(2.f, 2.f);
 		Desc.isLoop = false;
 	}
 	/* FOR.Com_VIBuffer */

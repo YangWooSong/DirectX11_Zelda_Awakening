@@ -68,7 +68,7 @@ void CTailCaveShutter::Update(_float fTimeDelta)
 			CPlayerCamera* pCamera = static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_FIELD));
 			pCamera->Start_Shake(0.2f, 0.06f, 3.f);
 		}
-		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_fOpenedTimer > 1.3f) //먼지 이펙트 실행
+		if (m_iCurrentAnimIndex == m_iOpenAnimIndex && m_fOpenedTimer > 3.3f) //먼지 이펙트 실행
 		{
 			m_bActiveEffect = true;
 			m_pEffect->Update(fTimeDelta);
