@@ -28,7 +28,7 @@ HRESULT CRing_Effect::Initialize(void* pArg)
     GAMEOBJECT_DESC* pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
     m_fOriSize = pDesc->vScale;
   
-    if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
+    if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || BOX_APPEAR)
     {
         m_fTexMove = 0.7f;
     }
@@ -56,6 +56,14 @@ void CRing_Effect::Update(_float fTimeDelta)
             m_fColor = { 1.f,1.f,0.8f,1.f };
             m_fTexMove += fTimeDelta * 1.2f;
             m_bMoveAlpha = true;
+        } 
+        
+        else if (m_iEffectType == BOX_APPEAR)
+        {
+            vOffeset = { 0.f,0.5f,0.f };
+            m_fColor = { 1.f,0.8f,0.8f,1.f };
+            m_fTexMove += fTimeDelta * 1.2f;
+            m_bMoveAlpha = true;
         }
 
         m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
@@ -65,7 +73,7 @@ void CRing_Effect::Update(_float fTimeDelta)
     }
     else
     {
-        if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
+        if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || BOX_APPEAR)
         {
             m_fTexMove = 0.7f;
         }
@@ -99,7 +107,7 @@ HRESULT CRing_Effect::Render()
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
-            if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT)
+            if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || BOX_APPEAR)
             {
                 if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, 0, 0)))
                     return E_FAIL;

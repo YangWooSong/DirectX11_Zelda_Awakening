@@ -6,6 +6,7 @@
 #include "PlayerCamera.h"
 #include "MainUI.h"
 #include "Particle_Image.h"
+#include "Ring_Effect.h"
 
 CTreasureBox::CTreasureBox(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -72,7 +73,7 @@ void CTreasureBox::Update(_float fTimeDelta)
         m_pSoundCom->Update(fTimeDelta);
         m_pModelCom->Play_Animation(fTimeDelta);
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
-
+       
         if (m_iCurrentAnimIndex == m_pModelCom->Get_AnimationIndex("open") && m_pModelCom->Get_IsEnd_CurrentAnimation() && m_bCangePlayerState == false)
         {
             m_bCangePlayerState = true;
@@ -92,6 +93,9 @@ void CTreasureBox::Update(_float fTimeDelta)
         {
             Set_Brightness(fTimeDelta);
             m_pEffect[0]->Update(fTimeDelta);
+            m_pEffect[1]->SetActive(true);
+            m_bEffectActive = true;
+
             if (m_fBrightness == 1.f && m_bGimmickSound == false)
             {
                 m_bGimmickSound = true;
@@ -119,6 +123,8 @@ void CTreasureBox::Update(_float fTimeDelta)
 
         if(m_fCameraTimer > 2.5f)
             static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Set_FollowPlayer(true);
+
+        m_pEffect[1]->Update(fTimeDelta);
     }
     else
     {
@@ -129,7 +135,10 @@ void CTreasureBox::Update(_float fTimeDelta)
     Play_Alarm();
 
     if (m_bOpened )
+    {
+        m_pEffect[1]->SetActive(false);
         m_pColliderCom->Set_IsActive(false);
+    }
 }
 
 void CTreasureBox::Late_Update(_float fTimeDelta)
@@ -140,6 +149,7 @@ void CTreasureBox::Late_Update(_float fTimeDelta)
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
         m_pEffect[0]->Late_Update(fTimeDelta);
+        m_pEffect[1]->Late_Update(fTimeDelta);
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -251,6 +261,19 @@ HRESULT CTreasureBox::Ready_Effects()
         pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
        m_pEffect[0] = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
     }
+
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Ring_Effect"));
+    if (pGameObj != nullptr)
+    {
+        C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+        _Desc.iEffectType = BOX_APPEAR;
+        _Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+        _Desc.vScale = { 3.f, 3.f, 0.1f };
+        _Desc.iLevelIndex = LEVEL_DUNGEON;
+        m_pEffect[1] = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+
+    }
+
 
     return S_OK;
 }
