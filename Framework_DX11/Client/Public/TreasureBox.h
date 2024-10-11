@@ -44,6 +44,7 @@ public:
 
 private:
 	HRESULT Ready_Components();
+	HRESULT Ready_Effects();
 	void Change_PlayerUI_TextureNum();
 	void Set_Item();
 	void Play_Alarm();
@@ -66,6 +67,7 @@ private:
 
 	_uint		m_iItemIndex = { 0 };
 
+	CGameObject* m_pEffect[1] = { nullptr };
 private:
 	void Set_Brightness(_float fTimeDelta);
 public:

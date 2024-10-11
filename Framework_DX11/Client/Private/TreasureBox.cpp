@@ -5,6 +5,7 @@
 #include "ItemUI.h"
 #include "PlayerCamera.h"
 #include "MainUI.h"
+#include "Particle_Image.h"
 
 CTreasureBox::CTreasureBox(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -29,6 +30,8 @@ HRESULT CTreasureBox::Initialize(void* pArg)
         return E_FAIL;
 
     if (FAILED(Ready_Components()))
+        return E_FAIL;
+    if (FAILED(Ready_Effects()))
         return E_FAIL;
 
     //Read한 정보 세팅
@@ -88,7 +91,7 @@ void CTreasureBox::Update(_float fTimeDelta)
         if (m_bShowAction)
         {
             Set_Brightness(fTimeDelta);
-
+            m_pEffect[0]->Update(fTimeDelta);
             if (m_fBrightness == 1.f && m_bGimmickSound == false)
             {
                 m_bGimmickSound = true;
@@ -136,7 +139,7 @@ void CTreasureBox::Late_Update(_float fTimeDelta)
         __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
-
+        m_pEffect[0]->Late_Update(fTimeDelta);
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -234,6 +237,21 @@ HRESULT CTreasureBox::Ready_Components()
         TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pSoundCom))))
         return E_FAIL;
     m_pSoundCom->Set_Owner(this);
+    return S_OK;
+}
+
+HRESULT CTreasureBox::Ready_Effects()
+{
+
+   CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+    if (pGameObj != nullptr)
+    {
+        CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+        pImageDesc.iParticleType = CParticle_Image::BOX_APPEAR;
+        pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+       m_pEffect[0] = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+    }
+
     return S_OK;
 }
 
@@ -365,6 +383,9 @@ CGameObject* CTreasureBox::Clone(void* pArg)
 void CTreasureBox::Free()
 {
     __super::Free();
+
+    for (auto& iter : m_pEffect)
+        Safe_Release(iter);
 
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);

@@ -72,6 +72,9 @@ void CParticle_Image::Update(_float fTimeDelta)
 		m_bSetAlpha = true;
 		m_pVIBufferCom->Stay(fTimeDelta);
 		break;
+	case BOX_APPEAR:
+		m_pVIBufferCom->Spread(fTimeDelta);
+		break;
 	default:
 		break;
 	}
@@ -144,6 +147,22 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vPivot = _float3(0.f, 0.25f, 0.f);
 		Desc.vSpeed = _float2(0.4f, 2.f);
 		Desc.vLifeTime = _float2(0.4f, 1.f);
+		Desc.isLoop = false;
+	}
+	else if (m_iParticleType == BOX_APPEAR)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Cross_Mini"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+
+		Desc.iNumInstance = 15;
+		Desc.vCenter = _float3(0.f, 0.f, 0.-0.1f);
+		Desc.vRange = _float3(1.f, 0.8f, 0.2f);
+		Desc.vSize = _float2(0.3f, 0.5f);
+		Desc.vPivot = Desc.vCenter;
+		Desc.vSpeed = _float2(0.6f, 2.f);
+		Desc.vLifeTime = _float2(0.3f, 0.8f);
 		Desc.isLoop = false;
 	}
 	else if (m_iParticleType == PLAYER_ITEM_GET)
