@@ -31,7 +31,7 @@ public:
 	_int Get_MonsterNum() { return m_iMonsterNum; }
 private:
 	_int m_iMonsterNum = { 0 };
-
+	CGameObject* m_pEffect = { nullptr };
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();

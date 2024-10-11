@@ -68,7 +68,7 @@ private:
 
 	_uint		m_iItemIndex = { 0 };
 
-	CGameObject* m_pEffect[1] = { nullptr };
+	CGameObject* m_pEffect[2] = { nullptr };
 private:
 	void Set_Brightness(_float fTimeDelta);
 public:

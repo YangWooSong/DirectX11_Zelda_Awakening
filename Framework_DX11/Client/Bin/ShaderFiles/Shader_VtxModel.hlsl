@@ -224,6 +224,32 @@ PS_OUT PS_MAIN_RING(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_CUBEHALF(PS_IN In) //좌 이동, 흰색이 투명하게 
+{
+    PS_OUT Out = (PS_OUT) 0;
+	
+     // 텍스처 좌표 이동 (예: (0.1, 0.1)만큼 이동)
+    float2 offset = float2(g_MoveTexCoord , 0.f);
+    float2 movedTexcoord = In.vTexcoord + offset;
+    
+    vector vDiffuse;
+    vector vAlpha;
+
+    vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    vAlpha = g_AlphaTexture.Sample(LinearSampler, movedTexcoord);
+    
+    vDiffuse.a = 1.f - vAlpha.a; //흐ㅟㄴ색이 투명하게
+   
+    vDiffuse.rgb = g_fColor;
+    
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 1.f);
+    
+    return Out;
+}
+
 struct PS_IN_NORMAL
 {
     float4 vPosition : SV_POSITION;
@@ -397,5 +423,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_RING();
+    }
+
+    pass Model_CubeHalf //9
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_None, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_CUBEHALF();
     }
 }

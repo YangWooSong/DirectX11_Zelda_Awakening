@@ -235,6 +235,7 @@
     <ClInclude Include="..\Public\SmallKey.h" />
     <ClInclude Include="..\Public\Smoke_Effect.h" />
     <ClInclude Include="..\Public\Spark.h" />
+    <ClInclude Include="..\Public\Spark_Effect.h" />
     <ClInclude Include="..\Public\SpikeTile.h" />
     <ClInclude Include="..\Public\SquareBlock.h" />
     <ClInclude Include="..\Public\State_DeguTail_Appear.h" />
@@ -329,6 +330,7 @@
     <ClInclude Include="..\Public\ToolShopkeeper.h" />
     <ClInclude Include="..\Public\TreasureBox.h" />
     <ClInclude Include="..\Public\Tree.h" />
+    <ClInclude Include="..\Public\CubeHalfDome.h" />
     <ClInclude Include="..\Public\Vegas.h" />
     <ClInclude Include="..\Public\Weathercock.h" />
     <ClInclude Include="Client.h" />
@@ -352,6 +354,7 @@
     <ClCompile Include="..\Private\ClosedPotDoor.cpp" />
     <ClCompile Include="..\Private\ConchHorn.cpp" />
     <ClCompile Include="..\Private\Cross_Effect.cpp" />
+    <ClCompile Include="..\Private\CubeHalfDome.cpp" />
     <ClCompile Include="..\Private\DialogueUI.cpp" />
     <ClCompile Include="..\Private\Flash_Effect.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
@@ -423,6 +426,7 @@
     <ClCompile Include="..\Private\SmallKey.cpp" />
     <ClCompile Include="..\Private\Smoke_Effect.cpp" />
     <ClCompile Include="..\Private\Spark.cpp" />
+    <ClCompile Include="..\Private\Spark_Effect.cpp" />
     <ClCompile Include="..\Private\SpikeTile.cpp" />
     <ClCompile Include="..\Private\SquareBlock.cpp" />
     <ClCompile Include="..\Private\State_DeguTail_Appear.cpp" />

@@ -268,10 +268,9 @@ HRESULT CTreasureBox::Ready_Effects()
         C3D_Effects::MODEL_EFFECT_DESC _Desc{};
         _Desc.iEffectType = BOX_APPEAR;
         _Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-        _Desc.vScale = { 3.f, 3.f, 0.1f };
+        _Desc.vScale = { 2.5f, 2.5f, 0.1f };
         _Desc.iLevelIndex = LEVEL_DUNGEON;
         m_pEffect[1] = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
-
     }
 
 

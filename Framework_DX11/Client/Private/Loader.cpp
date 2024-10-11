@@ -105,6 +105,8 @@
 #include "Halo_Effect.h"
 #include "Ring_Effect.h"
 #include "TailDungeonOpen.h"
+#include "Spark_Effect.h"
+#include "CubeHalfDome.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -645,9 +647,19 @@ HRESULT CLoader::Ready_Models_For_Static()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/ring_00/ring_00.dat"))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Model_cubehalfdome_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_cubehalfdome_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/cubehalfdome_00/cubehalfdome_00.dat"))))
+		return E_FAIL;
+
 	/* For. Prototype_Component_Model_slash*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_slash"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/slash/slash.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_slash*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_thunder_02"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/thunder_02/thunder_02.dat"))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
@@ -1207,6 +1219,16 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Ring_Effect"),
 		CRing_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
+
+	/* For. Prototype_GameObject_Spark_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Spark_Effect"),
+		CSpark_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_CubeHalfDome_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CubeHalfDome_Effect"),
+		CCubeHalfDome::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 #pragma endregion
 	return S_OK;
 }
@@ -1438,6 +1460,7 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 		return E_FAIL;
 
 #pragma endregion
+
 	return S_OK;
 }
 

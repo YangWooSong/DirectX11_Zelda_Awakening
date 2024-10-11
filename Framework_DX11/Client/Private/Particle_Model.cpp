@@ -63,6 +63,10 @@ void CParticle_Model::Update(_float fTimeDelta)
 		break;
 	case LAWN:
 		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Lawn_Spread(fTimeDelta, 1.f, 1.f);
+		break;
+	case SPARK:
+		static_cast<CVIBuffer_Model_Instance*>(m_pVIBufferCom)->Stay(fTimeDelta);
+		break;
 	default:
 		break;
 	}
@@ -254,8 +258,35 @@ HRESULT CParticle_Model::Ready_Components()
 		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
 			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
 			return E_FAIL;
-			}
-	
+	}
+	else if (m_iParticleType == SPARK)
+	{
+		/* FOR.Com_Model */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_thunder_02"),
+			TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
+			return E_FAIL;
+
+		CVIBuffer_Model_Instance::MODEL_INSTANCE_DESC Desc{};
+
+		Desc.iNumVertices = m_pModelCom->Get_Mesh(0)->Get_NumVertices();
+		Desc.iNumIndices = m_pModelCom->Get_Mesh(0)->Get_NumIndices();
+		Desc.pVB = m_pModelCom->Get_Mesh(0)->Get_VB();
+		Desc.pIB = m_pModelCom->Get_Mesh(0)->Get_IB();
+
+		Desc.iNumInstance = 1;
+		Desc.vCenter = _float3(0.f, 0.5f, -0.5f);
+		Desc.vRange = _float3(1.f, 1.f, 0.1f);
+		Desc.vSize = _float2(1.f, 1.5f);
+		Desc.vPivot = _float3(0.f, 0.f, 0.f);
+		Desc.vSpeed = _float2(1.f, 1.f);
+		Desc.vLifeTime = _float2(0.5f, 1.f);
+		Desc.isLoop = true;
+
+		/* FOR.Com_VIBuffer */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Model_Instance"),
+			TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom), &Desc)))
+			return E_FAIL;
+	}
 
 	return S_OK;
 }

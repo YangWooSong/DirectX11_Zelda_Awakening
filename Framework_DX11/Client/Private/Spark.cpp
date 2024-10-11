@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Model.h"
 #include "State_Spark_Idle.h"
+#include "Glow_Effect.h"
 
 CSpark::CSpark(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -38,6 +39,30 @@ HRESULT CSpark::Initialize(void* pArg)
 	m_eObjType = CGameObject::ANIM_MONSTER;
 
 	m_isActive = false;
+
+	/*CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Spark_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_DUNGEON;
+		Desc.pParent = this;
+		Desc.iEffectType = SPARK_EFFECT;
+		m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+	}*/
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Glow_Effect"));
+	C2DEffects::EFFECT_DESC pDesc{};
+	pDesc.iLevelIndex = LEVEL_DUNGEON;
+	pDesc.pParent = this;
+	pDesc.iEffectType = SPARK_EFFECT;
+
+	if (pGameObj != nullptr)
+	{
+		pDesc.fColor = { 1.f, 1.f, 0.0f, 0.5f };
+		pDesc.vScale = { 2.f,2.f,0.1f };
+		m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
+	}
 	return S_OK;
 }
 
@@ -45,6 +70,7 @@ void CSpark::Priority_Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
+		m_pEffect->Priority_Update(fTimeDelta);
 		__super::Priority_Update(fTimeDelta);
 	}
 }
@@ -53,21 +79,26 @@ void CSpark::Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
+		m_pEffect->SetActive(true);
+		m_pEffect->Update(fTimeDelta);
 		m_pFsmCom->Update(fTimeDelta);
 		m_pModelCom->Play_Animation(fTimeDelta);
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
-		m_pMonsterSoundCom->Update(fTimeDelta);
-
+		//m_pEffect->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 		__super::Update(fTimeDelta);
 	}
 	else
+	{
 		m_pMonsterSoundCom->Stop();
+		m_pEffect->SetActive(false);
+	}
 }
 
 void CSpark::Late_Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
+		m_pEffect->Late_Update(fTimeDelta);
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
@@ -224,6 +255,7 @@ void CSpark::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 
+	Safe_Release(m_pEffect);
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);
 }

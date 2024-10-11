@@ -1,10 +1,2 @@
-﻿  Ring_Effect.cpp
-  TreasureBox.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(365,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
-  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(377,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
-  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
-  
-  코드를 생성하고 있습니다...
+﻿  Glow_Effect.cpp
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

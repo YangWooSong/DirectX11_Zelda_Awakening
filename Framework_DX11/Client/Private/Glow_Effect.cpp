@@ -65,6 +65,10 @@ void CGlow_Effect::Update(_float fTimeDelta)
         else if (m_iEffectType == TAIL_DUNGEON_OPEN)
         {
             Lerp_Size(fTimeDelta);
+        } 
+        else if (m_iEffectType == SPARK_EFFECT)
+        {
+            m_vOffset = { 0.f, 0.5f, 0.0f };
         }
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_vOffset));
     }
