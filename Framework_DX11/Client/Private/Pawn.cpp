@@ -75,7 +75,9 @@ void CPawn::Update(_float fTimeDelta)
 	if (m_bActiveEffect)
 	{
 		if(m_fTimer == 0.f)
+		{
 			m_p3D_Effect->SetActive(true);
+		}
 		else if (m_fTimer > 0.2f)
 		{
 			m_p3D_Effect->SetActive(false);
@@ -207,7 +209,7 @@ HRESULT CPawn::Ready_Components()
 		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
 		_Desc.iEffectType = PAWN_HIT_EFFECT;
 		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-		_Desc.vScale = { 0.3f,0.3f,0.3f };
+		_Desc.vScale = { 0.5f,0.5f,0.5f };
 		m_p3D_Effect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 	}
 

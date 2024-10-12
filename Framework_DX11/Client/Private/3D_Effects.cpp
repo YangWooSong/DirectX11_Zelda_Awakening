@@ -78,10 +78,19 @@ void C3D_Effects::Update(_float fTimeDelta)
     }
     else
     {
-        m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
-        _vector vOffeset = { 0.f, 1.f,0.f };
+        if(m_iEffectType != PAWN_HIT_EFFECT)
+        {
+            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
+            _vector vOffeset = { 0.f, 1.f,0.f };
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vOffeset);
+        }
+        else
+        {
+            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + XMVector3Normalize(m_pTransformCom->Get_State(CTransform::STATE_LOOK) * 0.05f));
+        }
+
         m_pTransformCom->Set_Scaled(m_fOriSize.x, m_fOriSize.y, m_fOriSize.z);
-        m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vOffeset);
     }
 }
 
