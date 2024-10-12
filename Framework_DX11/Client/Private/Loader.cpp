@@ -107,6 +107,9 @@
 #include "TailDungeonOpen.h"
 #include "Spark_Effect.h"
 #include "CubeHalfDome.h"
+#include "Fire_Big_Effect.h"
+#include "Fire_Plane_Effect.h"
+#include "Fire_Small_Effect.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -573,6 +576,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Ripple"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/ripple_%d.dds"), 2))))
 		return E_FAIL;
+	
+	/* For. Prototype_Component_Texture_Effect_fire_small_01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_fire_small_01"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/fire_small_01.png"), 1))))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -660,6 +668,11 @@ HRESULT CLoader::Ready_Models_For_Static()
 	/* For. Prototype_Component_Model_slash*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_thunder_02"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/thunder_02/thunder_02.dat"))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_fireplane_00*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_fireplane_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/fireplane_00/fireplane_00.dat"))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;
@@ -1228,6 +1241,21 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_CubeHalfDome_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_CubeHalfDome_Effect"),
 		CCubeHalfDome::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_Fire_Plane_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Fire_Plane_Effect"),
+		CFire_Plane_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_Fire_Big_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Fire_Big_Effect"),
+		CFire_Big_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_Fire_Small_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Fire_Small_Effect"),
+		CFire_Small_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;

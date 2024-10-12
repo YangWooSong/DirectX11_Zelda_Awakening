@@ -13,6 +13,8 @@ float g_fBright = 1.f;
 float g_MoveTexCoord = 0.f;
 float4 g_fColor = { 1.f, 1.f, 1.f,1.f };
 
+int g_FireType = 0;
+
 struct VS_IN
 {
     float3 vPosition : POSITION;
@@ -244,6 +246,37 @@ PS_OUT PS_MAIN_RING(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_FIRE(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+	
+     // 텍스처 좌표 이동 (예: (0.1, 0.1)만큼 이동)
+    float2 offset = float2(0.f,g_MoveTexCoord);
+    float2 MovedTexcoord = In.vTexcoord + offset; 
+    
+    float2 offset2 = float2(g_MoveTexCoord,0.f);
+    float2 MovedTexcoord2 = In.vTexcoord + offset2;
+    
+    vector vDiffuse;
+    vector vAlpha;
+
+    if (g_FireType == 0)
+     vDiffuse = g_DiffuseTexture.Sample(LinearSampler, MovedTexcoord);
+    else if (g_FireType ==  1)
+        vDiffuse = g_DiffuseTexture.Sample(LinearSampler, MovedTexcoord2);
+   // vAlpha = g_AlphaTexture.Sample(LinearSampler, DiffuseMovedTexcoord);
+    
+    vDiffuse.rgb = g_fColor;
+    vDiffuse.a *= 1 - g_MoveTexCoord*3.f;
+    
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 1.f);
+    
+    return Out;
+}
+
 PS_OUT PS_MAIN_CUBEHALF(PS_IN In) //좌 이동, 흰색이 투명하게 
 {
     PS_OUT Out = (PS_OUT) 0;
@@ -465,5 +498,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_3DEFFECT();
+    } 
+
+    pass Model_3D_Fire //11
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_None, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_FIRE();
     }
 }

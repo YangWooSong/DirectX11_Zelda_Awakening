@@ -10,6 +10,7 @@
 #include "BackGround.h"
 #include "MainUI.h"
 #include "Teleport.h"
+#include "2DEffects.h"
 
 #include <fstream>
 CLevel_MarinHouse::CLevel_MarinHouse(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -198,6 +199,13 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
 		return E_FAIL;
 
+	C2DEffects::EFFECT_DESC EffectDesc = {};
+	EffectDesc.iEffectType = FIRE_BIG_EFFECT;
+	EffectDesc.iLevelIndex = LEVEL_MARINHOUSE;
+	EffectDesc.vPosition = { 0.1f,0.1,0.1f };
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Fire"),
+		TEXT("Prototype_GameObject_Fire_Big_Effect"), &EffectDesc)))
+		return E_FAIL;
 	return S_OK;
 }
 

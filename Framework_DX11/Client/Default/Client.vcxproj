@@ -186,6 +186,9 @@
     <ClInclude Include="..\Public\ConchHorn.h" />
     <ClInclude Include="..\Public\Cross_Effect.h" />
     <ClInclude Include="..\Public\DialogueUI.h" />
+    <ClInclude Include="..\Public\Fire_Big_Effect.h" />
+    <ClInclude Include="..\Public\Fire_Plane_Effect.h" />
+    <ClInclude Include="..\Public\Fire_Small_Effect.h" />
     <ClInclude Include="..\Public\Flash_Effect.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\Glow_Effect.h" />
@@ -360,6 +363,9 @@
     <ClCompile Include="..\Private\Cross_Effect.cpp" />
     <ClCompile Include="..\Private\CubeHalfDome.cpp" />
     <ClCompile Include="..\Private\DialogueUI.cpp" />
+    <ClCompile Include="..\Private\Fire_Big_Effect.cpp" />
+    <ClCompile Include="..\Private\Fire_Plane_Effect.cpp" />
+    <ClCompile Include="..\Private\Fire_Small_Effect.cpp" />
     <ClCompile Include="..\Private\Flash_Effect.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\Glow_Effect.cpp" />
