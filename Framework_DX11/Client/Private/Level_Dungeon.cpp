@@ -21,7 +21,7 @@
 #include "MainUI.h"
 #include "MiniMap.h"
 #include "MapUI.h"
-
+#include "2DEffects.h"
 #include <fstream>
 CLevel_Dungeon::CLevel_Dungeon(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CLevel{ pDevice, pContext }
@@ -61,7 +61,16 @@ HRESULT CLevel_Dungeon::Initialize()
 		   static_cast<CLand*>(*iter)->SetActive(false);
    }
 
-   return S_OK;
+   CLayer* pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Fire"));
+
+   for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+   {
+	   if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum)
+		   static_cast<CGameObject*>(*iter)->SetActive(true);
+	   else
+		   static_cast<CGameObject*>(*iter)->SetActive(false);
+   }
+
 }
 
 
@@ -460,6 +469,17 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 	{
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_LockBlock"), TEXT("Prototype_GameObject_LockBlock"), &pDesc)))
 			return E_FAIL;
+	}	
+	else if (_strLyaerTag == "Layer_AppleRed")
+	{
+		C2DEffects::EFFECT_DESC EffectDesc = {};
+		EffectDesc.iEffectType = FIRE_BIG_EFFECT;
+		EffectDesc.iLevelIndex = LEVEL_DUNGEON;
+		EffectDesc.vPosition = _fPos;
+		EffectDesc.iRoomNum = _iRoomNum;
+		EffectDesc.vScale = _fScaled;
+		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Fire"), TEXT("Prototype_GameObject_Fire_Big_Effect"), &EffectDesc)))
+			return E_FAIL;
 	}
 	return S_OK;
 }
@@ -773,6 +793,17 @@ void CLevel_Dungeon::Change_Room()
 
 	}
 #pragma endregion
+
+	pLayer = m_pGameInstance->Find_Layer(LEVEL_DUNGEON, TEXT("Layer_Fire"));
+
+	for (auto iter = pLayer->Get_ObjectList().begin(); iter != pLayer->Get_ObjectList().end(); iter++)
+	{
+		if (static_cast<CGameObject*>(*iter)->Get_RoomNum() == m_iCurRoomNum )
+			static_cast<CGameObject*>(*iter)->SetActive(true);
+		else
+			static_cast<CGameObject*>(*iter)->SetActive(false);
+	}
+
 }
 
 void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)

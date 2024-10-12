@@ -31,9 +31,22 @@ HRESULT CFire_Small_Effect::Initialize(void* pArg)
 
 
     m_iDepth = 2;
-    m_fMaxSize = 0.6f;
-
+ 
     m_vOriSize = m_pTransformCom->Get_Scaled();
+
+
+    FIRE_SAMLL_EFFECT_DESC* pDesc = static_cast<FIRE_SAMLL_EFFECT_DESC*>(pArg);
+
+    m_iFireTypeNum = pDesc->iFireTypeNum;
+
+    if (m_iFireTypeNum == 0)
+    {
+        m_fMaxSize = 0.7f;
+    }
+    else if (m_iFireTypeNum == 1)
+    {
+        m_fMaxSize = 0.3f;
+    }
     return S_OK;
 }
 
@@ -47,10 +60,10 @@ void CFire_Small_Effect::Update(_float fTimeDelta)
     {
 
         m_bReset = false;
-       // m_fColor = { 1.f,1.f,1.f,1.f };
         Lerp_Size(fTimeDelta);
  
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_vOffset));
+        m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(5.f, 0.f,0.f), 10.f);
     }
     else
     {
@@ -68,7 +81,8 @@ void CFire_Small_Effect::Late_Update(_float fTimeDelta)
 {
     if (m_isActive)
     {
-        __super::Late_Update(fTimeDelta);
+        //__super::Late_Update(fTimeDelta);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
     }
 }
 

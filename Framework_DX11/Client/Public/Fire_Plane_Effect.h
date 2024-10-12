@@ -14,7 +14,7 @@ class CFire_Plane_Effect :
 public:
 	typedef struct : public C3D_Effects::MODEL_EFFECT_DESC
 	{
-		_uint iDifuseNum = { 0 }; //0은 위로 향한거, 1은 옆을 향한거
+		_uint iFireTypeNum = { 0 }; //0 = 큰 불, 1 == 작은 불
 	} FIRE_EFFECT_DESC;
 private:
 	CFire_Plane_Effect(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -30,7 +30,7 @@ public:
 	virtual HRESULT Render() override;
 
 private:
-	_uint m_iDuffuseNum = { 0 };
+	_uint m_iFireTypeNum = { 0 };
 	_float m_fTexMove = { 0.f };
 	_float3 m_fOriSize = {};
 	_bool m_bMoveAlpha = { false };

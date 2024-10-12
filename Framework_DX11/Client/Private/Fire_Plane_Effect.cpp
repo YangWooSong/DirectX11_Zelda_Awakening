@@ -28,7 +28,7 @@ HRESULT CFire_Plane_Effect::Initialize(void* pArg)
 
     FIRE_EFFECT_DESC* pDesc = static_cast<FIRE_EFFECT_DESC*>(pArg);
     m_fOriSize = pDesc->vScale;
-    m_iDuffuseNum = pDesc->iDifuseNum;
+    m_iFireTypeNum = pDesc->iFireTypeNum;
     return S_OK;
 }
 
@@ -45,24 +45,28 @@ void CFire_Plane_Effect::Update(_float fTimeDelta)
 {
     _vector vOffeset = {};
 
-    m_fTexMove += fTimeDelta * 1.2f;
+    m_fTexMove += fTimeDelta * 0.8f;
     m_bMoveAlpha = false;
-    vOffeset = { 0.f, 0.5f,0.f };
+    if(m_iFireTypeNum == 0)
+        vOffeset = { 0.f, 0.7f,0.f };
+    else
+        vOffeset = { 0.f, 0.2f,0.f };
    
     if (m_fTexMove >= 0.1f)
         m_fTexMove = 0.f;
 
     m_fColor = { 1.f, 0.7f, 0.f, 1.f };
-    m_iDuffuseNum = 0;
 
     m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
     m_pTransformCom->Set_Scaled(m_fOriSize.x, m_fOriSize.y, m_fOriSize.z);
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vOffeset);
+    m_pTransformCom->Turn_Lerp_Angle(m_pTransformCom->Get_Rot(), _float3(10.f, 0.f, 0.f), 10.f);
 }
 
 void CFire_Plane_Effect::Late_Update(_float fTimeDelta)
 {
-    m_pTransformCom->BillBoard(m_iLevelIndex);
+
+   // m_pTransformCom->BillBoard(m_iLevelIndex);
     __super::Late_Update(fTimeDelta);
 }
 
@@ -81,8 +85,7 @@ HRESULT CFire_Plane_Effect::Render()
             return E_FAIL;
         if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float4))))
             return E_FAIL;  
-        if (FAILED(m_pShaderCom->Bind_RawValue("g_FireType", &m_iDuffuseNum, sizeof(_int))))
-            return E_FAIL;
+
         _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
         for (size_t i = 0; i < iNumMeshes; i++)

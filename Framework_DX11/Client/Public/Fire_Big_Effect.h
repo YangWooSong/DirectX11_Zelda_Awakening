@@ -12,6 +12,8 @@ BEGIN(Client)
 class CFire_Big_Effect :
 	public C2DEffects
 {
+public :
+	enum FIRE_TYPE{BIG, SMALL ,TYPE_END};
 private:
 	CFire_Big_Effect(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	CFire_Big_Effect(const CFire_Big_Effect& Prototype);
@@ -26,7 +28,7 @@ public:
 	virtual HRESULT Render() override;
 private:
 	_bool m_bActiveChild = { false };
-
+	_int m_iType = { TYPE_END };
 private:
 	HRESULT Ready_Child();
 public:
