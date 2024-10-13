@@ -11,6 +11,7 @@
 #include "State_DeguTail_Dead.h"
 #include "DeguTail_01.h"
 #include "DeguTail_04.h"
+#include "2DEffects.h"
 
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -64,6 +65,7 @@ void CDeguTail_00::Priority_Update(_float fTimeDelta)
 	{
 		__super::Priority_Update(fTimeDelta);
 	}
+	m_pEffect->Priority_Update(fTimeDelta);
 }
 
 
@@ -83,7 +85,7 @@ void CDeguTail_00::Update(_float fTimeDelta)
 
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 
-		if (m_iHp == 0 )
+		if (m_iHp <= 0 && m_bBodyRed == false)
 		{
 			m_iHp--;
 			m_bBodyRed = true;
@@ -92,9 +94,11 @@ void CDeguTail_00::Update(_float fTimeDelta)
 
 		if (m_isDead)
 		{
+			m_pEffect->SetActive(true);
 			m_isActive = false;
 		}
 	}
+	m_pEffect->Update(fTimeDelta);
 }
 
 void CDeguTail_00::Late_Update(_float fTimeDelta)
@@ -106,6 +110,7 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 	}
+	m_pEffect->Late_Update(fTimeDelta);
 }
 HRESULT CDeguTail_00::Render()
 {
@@ -233,6 +238,18 @@ HRESULT CDeguTail_00::Ready_Components()
 		return E_FAIL;
 	m_pMonsterSoundCom->Set_Owner(this);
 
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_DUNGEON;
+		Desc.pParent = this;
+		Desc.iEffectType = MONSTER_DIED_EFFECT;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect = pEffect;
+	}
+	  
 	return S_OK;
 }
 

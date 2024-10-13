@@ -72,6 +72,7 @@ private:
 	_bool			m_bRender= { false };
 
 	class CGameObject* m_pParent = { nullptr };
+	class CGameObject* m_pEffect = { nullptr };
 	vector<_matrix> m_pParentWorldMatrixVector;
 
 	CFsm* m_pHeadFsm = { nullptr };

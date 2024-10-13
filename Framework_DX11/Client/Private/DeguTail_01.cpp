@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Monster.h"
 #include "DeguTail_00.h"
+#include "2DEffects.h"
 
 CDeguTail_01::CDeguTail_01(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CPartObject(pDevice, pContext)
@@ -71,6 +72,7 @@ void CDeguTail_01::Priority_Update(_float fTimeDelta)
         m_pColliderCom->Set_IsActive(false);
         m_bRender = false;
     }
+    m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CDeguTail_01::Update(_float fTimeDelta)
@@ -98,7 +100,9 @@ void CDeguTail_01::Update(_float fTimeDelta)
         else
         {
             if (m_pHeadFsm->Get_CurrentState() == CDeguTail_00::HURT)
+            {
                 m_bRender = false;
+            }
         }
 
         if (m_fTimer > 0.2f)
@@ -121,7 +125,11 @@ void CDeguTail_01::Update(_float fTimeDelta)
 
         }
     }
-    
+    if (m_isDead)
+    {
+        m_pEffect->SetActive(true);
+    }
+    m_pEffect->Update(fTimeDelta);
 }
 
 void CDeguTail_01::Late_Update(_float fTimeDelta)
@@ -130,6 +138,7 @@ void CDeguTail_01::Late_Update(_float fTimeDelta)
 
     m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+    m_pEffect->Late_Update(fTimeDelta);
 }
 
 HRESULT CDeguTail_01::Render()
@@ -253,6 +262,19 @@ HRESULT CDeguTail_01::Ready_Components()
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);
 
+
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+    if (pGameObj != nullptr)
+    {
+        C2DEffects::EFFECT_DESC Desc{};
+        Desc.iLevelIndex = LEVEL_DUNGEON;
+        Desc.pParent = this;
+        Desc.iEffectType = MONSTER_DIED_EFFECT;
+        CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+        m_pEffect = pEffect;
+    }
+
     return S_OK;
 }
 
@@ -336,6 +358,7 @@ void CDeguTail_01::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pNavigationCom);

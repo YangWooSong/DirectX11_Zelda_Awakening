@@ -85,6 +85,7 @@ private:
 	_bool*			m_pBlink = { nullptr };
 
 	class CGameObject* m_pParent = { nullptr };
+	class CGameObject* m_pEffect = { nullptr };
 	vector<_matrix> m_pParentWorldMatrixVector;
 
 	CFsm* m_pHeadFsm = { nullptr };
