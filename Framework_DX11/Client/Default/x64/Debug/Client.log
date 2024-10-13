@@ -1,3 +1,3 @@
-﻿  ItemIconUI.cpp
-  Link.cpp
+﻿  Loader.cpp
+  MonsterDied_Effect.cpp
   Client.vcxproj -> C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

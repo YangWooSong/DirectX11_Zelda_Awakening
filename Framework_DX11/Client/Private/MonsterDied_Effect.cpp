@@ -56,6 +56,11 @@ void CMonsterDied_Effect::Update(_float fTimeDelta)
 	{
 		for (auto& iter : m_Child_List)
 			iter->Update(fTimeDelta);
+
+		m_fActiveTimer += fTimeDelta;
+
+		if (m_fActiveTimer > 2.f)
+			m_isActive = false;
 	}
 }
 
@@ -70,11 +75,6 @@ void CMonsterDied_Effect::Late_Update(_float fTimeDelta)
 
 HRESULT CMonsterDied_Effect::Render()
 {
-	if (m_isActive)
-	{
-		for (auto& iter : m_Child_List)
-			iter->Render();
-	}
 	return S_OK;
 }
 HRESULT CMonsterDied_Effect::Ready_Child()

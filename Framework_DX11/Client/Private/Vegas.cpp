@@ -10,7 +10,8 @@
 #include "State_Vegas_Walk_r.h"
 #include "State_Vegas_Damage.h"
 #include "State_Vegas_Dead.h"
-
+#include "3D_Effects.h"
+#include "2DEffects.h"
 CVegas::CVegas(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: CMonster{ pDevice, pContext }
 {
@@ -65,7 +66,9 @@ void CVegas::Priority_Update(_float fTimeDelta)
 	if (m_isActive)
 	{
 		__super::Priority_Update(fTimeDelta);
+		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
+	m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CVegas::Update(_float fTimeDelta)
@@ -88,13 +91,15 @@ void CVegas::Update(_float fTimeDelta)
 		m_pModelCom->Play_Animation(fTimeDelta);
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 		m_pMonsterSoundCom->Update(fTimeDelta);
-
+		m_p3D_Effect->Update(fTimeDelta);
 		__super::Update(fTimeDelta);
 	}
 	else
 	{
 		if(m_bHide == true)
 		{
+			m_pEffect->SetActive(true);
+
 			if (m_fDeadTimer > 1.3f)
 			{
 				m_pMonsterSoundCom->Stop();
@@ -104,6 +109,24 @@ void CVegas::Update(_float fTimeDelta)
 				m_fDeadTimer += fTimeDelta;
 		}
 	}
+
+	if (m_bActiveEffect && m_bHide == false)
+	{
+		if (m_fEffectTimer == 0.f)
+		{
+			m_p3D_Effect->SetActive(true);
+		}
+		else if (m_fEffectTimer > 0.2f)
+		{
+			m_p3D_Effect->SetActive(false);
+			m_bActiveEffect = false;
+			m_fEffectTimer = 0.f;
+			return;
+		}
+		m_fEffectTimer += fTimeDelta;
+	}
+
+	m_pEffect->Update(fTimeDelta);
 }
 
 void CVegas::Late_Update(_float fTimeDelta)
@@ -113,12 +136,13 @@ void CVegas::Late_Update(_float fTimeDelta)
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
-
+		m_p3D_Effect->Late_Update(fTimeDelta);
+	
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
 	}
-
+	m_pEffect->Late_Update(fTimeDelta);
 }
 
 
@@ -161,6 +185,7 @@ void CVegas::OnCollisionEnter(CGameObject* pOther)
 	{
 		if (pOther->Get_LayerTag() == TEXT("Layer_Sword") )
 		{
+			m_bActiveEffect = true;
 			m_pFsmCom->Change_State(DAMAGE);
 		}
 	}
@@ -219,6 +244,30 @@ HRESULT CVegas::Ready_Components()
 	if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Navigation"),
 		TEXT("Com_Navigation"), reinterpret_cast<CComponent**>(&m_pNavigationCom), &NaviDesc)))
 		return E_FAIL;
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = VEAGAS_HIT_EFFECT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		_Desc.vScale = { 0.3f,0.3f,0.3f };
+		_Desc.iLevelIndex = LEVEL_DUNGEON;
+		m_p3D_Effect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+	}
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_DUNGEON;
+		Desc.pParent = this;
+		Desc.iEffectType = MONSTER_DIED_EFFECT;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect = pEffect;
+	}
 	return S_OK;
 }
 

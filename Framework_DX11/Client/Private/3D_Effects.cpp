@@ -69,27 +69,34 @@ void C3D_Effects::Update(_float fTimeDelta)
             m_fBright = 1.5f;
             Monster_HIt_SizeUp(fTimeDelta);
         } 
-        if (m_iEffectType == PAWN_HIT_EFFECT)
+        if (m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT)
         {
             m_fColor = { 0.8f,0.8f,1.f,1.f };
-            m_fAlpha = 0.9f;
+            m_fAlpha = 0.8f;
             m_fBright = 1.5f;
         }
     }
     else
     {
-        if(m_iEffectType != PAWN_HIT_EFFECT)
+        if(m_iEffectType == PAWN_HIT_EFFECT)
+        {
+            //PAWN_HIT_EFFECT
+            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + XMVector3Normalize(m_pTransformCom->Get_State(CTransform::STATE_LOOK) * 0.05f));
+        }
+        else if(m_iEffectType == VEAGAS_HIT_EFFECT)
+        {
+            //PAWN_HIT_EFFECT
+            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
+            _vector vNewDir = XMVector3NormalizeEst(m_pGameInstance->Find_Player(m_iLevelIndex)->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+           m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vNewDir*0.7f);
+        }
+        else 
         {
             m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
             _vector vOffeset = { 0.f, 1.f,0.f };
             m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + vOffeset);
         }
-        else
-        {
-            m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
-            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION) + XMVector3Normalize(m_pTransformCom->Get_State(CTransform::STATE_LOOK) * 0.05f));
-        }
-
         m_pTransformCom->Set_Scaled(m_fOriSize.x, m_fOriSize.y, m_fOriSize.z);
     }
 }
@@ -156,7 +163,7 @@ HRESULT C3D_Effects::Ready_Components()
         TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
         return E_FAIL;
 
-    if(m_iEffectType == MONSTER_HIT_EFFECT || m_iEffectType == PAWN_HIT_EFFECT)
+    if(m_iEffectType == MONSTER_HIT_EFFECT || m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT)
     {
         /* FOR.Com_Model */
         if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),

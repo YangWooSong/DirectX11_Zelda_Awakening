@@ -40,8 +40,12 @@ private:
 	HRESULT Ready_State();
 
 	_uint	m_iTextureNum = { 0 };
+
 	_bool   m_bHide = { false };
+	_bool m_bActiveEffect = { false };
+
 	_float m_fTimer = { 0.f };
+	_float m_fEffectTimer = { 0.f };
 	_float m_fDeadTimer = { 0.f };
 public:
 	static CVegas* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

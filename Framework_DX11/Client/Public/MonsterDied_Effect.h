@@ -27,6 +27,7 @@ public:
 
 private:
 	CGameObject* m_pParticle = { nullptr };
+	_float m_fActiveTimer = { 0.f };
 private:
 	HRESULT Ready_Child();
 public:

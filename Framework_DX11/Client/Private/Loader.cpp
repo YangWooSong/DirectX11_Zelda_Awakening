@@ -642,7 +642,7 @@ HRESULT CLoader::Ready_Models_For_Static()
 
 	/* For. Prototype_Component_Model_hitflash_00*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/hitflash_00/hitflash_00.dat"))))
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/hitflash_00/hitflash_00.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_halo_00*/
