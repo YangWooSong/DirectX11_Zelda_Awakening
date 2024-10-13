@@ -1,3 +1,9 @@
-﻿  Loader.cpp
-  MonsterDied_Effect.cpp
+﻿  Smoke_Effect.cpp
+  State_Togezo_Damage.cpp
+  State_Togezo_Discover.cpp
+  State_Togezo_Idle.cpp
+  State_Togezo_Rebound.cpp
+  State_Togezo_Run.cpp
+  Togezo.cpp
+  Loader.cpp
   Client.vcxproj -> C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

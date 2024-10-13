@@ -41,7 +41,9 @@ private:
 	_bool m_bVerDetect = { false };
 	_bool m_bHoriDetect = { false };
 	_bool	m_bBodyRed = { false };
+	_bool	m_bActiveEffect = { false };
 	_float	m_fRedTimer = { false };
+	_float	m_fEffectTimer = { false };
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();

@@ -9,6 +9,8 @@
 #include "State_Togezo_Rebound.h"
 #include "State_Togezo_Damage.h"
 #include "Detector.h"
+#include "3D_Effects.h"
+#include "2DEffects.h"
 
 CTogezo::CTogezo(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -63,7 +65,12 @@ HRESULT CTogezo::Initialize(void* pArg)
 void CTogezo::Priority_Update(_float fTimeDelta)
 {
 	if(m_isActive)
+	{
 		__super::Priority_Update(fTimeDelta);
+		m_p3D_Effect->Priority_Update(fTimeDelta);
+	}
+
+	m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CTogezo::Update(_float fTimeDelta)
@@ -88,15 +95,34 @@ void CTogezo::Update(_float fTimeDelta)
 
 		
 		__super::Update(fTimeDelta);
+		m_p3D_Effect->Update(fTimeDelta);
 	}
 
 	if (m_isDead)
 	{
 		m_pColliderCom->Set_IsActive(false);
-
+		m_pEffect->SetActive(true);
 		for (auto& pPartObject : m_Parts)
 			static_cast<CDetector*>(pPartObject)->Set_Active_Collider(false);
 	}
+
+	if (m_bActiveEffect)
+	{
+		if (m_fEffectTimer == 0.f)
+		{
+			m_p3D_Effect->SetActive(true);
+		}
+		else if (m_fEffectTimer > 0.2f)
+		{
+			m_p3D_Effect->SetActive(false);
+			m_bActiveEffect = false;
+			m_fEffectTimer = 0.f;
+			return;
+		}
+		m_fEffectTimer += fTimeDelta;
+	}
+
+	m_pEffect->Update(fTimeDelta);
 }
 
 
@@ -107,11 +133,12 @@ void CTogezo::Late_Update(_float fTimeDelta)
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
-
+		m_p3D_Effect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
 	}
+	m_pEffect->Late_Update(fTimeDelta);
 }
 
 HRESULT CTogezo::Render()
@@ -158,6 +185,7 @@ void CTogezo::OnCollisionEnter(CGameObject* pOther)
 	{
 		if (pOther->Get_LayerTag() == TEXT("Layer_Shield") )
 		{
+			m_bActiveEffect = true;
 			Change_State(REBOUND);
 		}
 
@@ -214,6 +242,30 @@ HRESULT CTogezo::Ready_Components()
 		TEXT("Com_Sound"), reinterpret_cast<CComponent**>(&m_pMonsterSoundCom))))
 		return E_FAIL;
 	m_pMonsterSoundCom->Set_Owner(this);
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_DUNGEON;
+		Desc.pParent = this;
+		Desc.iEffectType = MONSTER_DIED_EFFECT;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect = pEffect;
+	}
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = VEAGAS_HIT_EFFECT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		_Desc.vScale = { 0.3f,0.3f,0.3f };
+		_Desc.iLevelIndex = LEVEL_DUNGEON;
+		m_p3D_Effect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+	}
 
 	return S_OK;
 }
