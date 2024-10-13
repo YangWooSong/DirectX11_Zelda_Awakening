@@ -150,9 +150,15 @@ HRESULT CFire_Big_Effect::Ready_Child()
 		pDesc.iEffectType = m_iEffectType;
 		pDesc.fColor = { 1.f, 0.8f, 0.f, 1.f };
 		if (m_iType == BIG)
+		{
 			pDesc.vScale = { 0.6f,0.6f,0.1f };
+			pDesc.iFireTypeNum = 0;
+		}
 		else
+		{
 			pDesc.vScale = { 0.1f,0.1f,0.1f };
+			pDesc.iFireTypeNum = 1;
+		}
 		CGameObject* m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
 		m_Child_List.push_back(m_pEffect);
 	}

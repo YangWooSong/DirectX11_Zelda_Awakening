@@ -36,7 +36,7 @@ HRESULT CItemIconUI::Initialize(void* pArg)
     else
         m_isActive = false;
 
-    m_iDepth = 2;
+    m_iDepth = 5;
 
     return S_OK;
 }

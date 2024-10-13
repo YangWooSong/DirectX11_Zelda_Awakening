@@ -30,7 +30,7 @@ HRESULT CFire_Small_Effect::Initialize(void* pArg)
     m_isActive = false;
 
 
-    m_iDepth = 2;
+    m_iDepth = 1;
  
     m_vOriSize = m_pTransformCom->Get_Scaled();
 

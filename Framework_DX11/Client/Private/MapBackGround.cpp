@@ -31,7 +31,7 @@ HRESULT CMapBackGround::Initialize(void* pArg)
         return E_FAIL;
 
     m_isActive = false;
-    m_iDepth = 0;
+    m_iDepth = 3;
     return S_OK;
 }
 
