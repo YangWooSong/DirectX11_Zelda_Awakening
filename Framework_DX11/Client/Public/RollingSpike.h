@@ -35,7 +35,7 @@ public:
 
 	void Start_Move_Right() { m_bMoveRight = true; }
 	void Start_Move_Left() { m_bMoveLeft = true; }
-
+	void Set_Dissolve(_bool _bActive) { m_bActiveDissolve = _bActive; }
 public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = { nullptr };
@@ -44,11 +44,15 @@ public:
 
 private:
 	_int m_iCurrentAnimIndex = { 0 };
+
 	_bool m_bMoveRight = { false };
 	_bool m_bMoveLeft = { false };
+	_bool m_bActiveDissolve = { false };
+
 	_float m_fMoveTimer = { 0.f };
 	_float m_fRotateSpeed = { 0.f };
 	_float m_fMoveSpeed = { 0.f };
+	_float m_fAlpha = { 0.f };		//µðÁ¹ºê °ª
 private:
 	HRESULT Ready_Components();
 

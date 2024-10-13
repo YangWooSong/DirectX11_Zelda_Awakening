@@ -4,6 +4,7 @@
 matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
 texture2D g_DiffuseTexture;
 texture2D g_NormalTexture;
+texture2D g_DissolveTexture;
 
 vector g_vLightDir;
 vector g_vLightDiffuse;
@@ -15,6 +16,7 @@ vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
 
 vector g_vCamPosition;
 bool g_bLowAlpha = false;
+bool g_bActiveDissolve = false;
 
 /* 뼈행렬들(내 모델 전체의 뼈행렬들(x), 현재 그리는 메시에게 영향을 주는 뼈행렬들(o) */
 matrix g_BoneMatrices[512];
@@ -142,6 +144,31 @@ PS_OUT PS_MAIN_NONRED(PS_IN In)
     Out.vDiffuse = vMtrlDiffuse;
     Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
     Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f); //1000.f는 커메라 far
+    
+    return Out;
+}
+
+
+PS_OUT PS_MAIN_ROLLINGSPIKE(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+	
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    vector vDissolve = g_DissolveTexture.Sample(LinearSampler, In.vTexcoord);
+
+    if (0.3f >= vDiffuse.a)
+        discard;
+    
+    if (g_bActiveDissolve)
+    {
+        if (vDissolve.r <= g_fAlpha)
+            discard;
+    }
+
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
     
     return Out;
 }
@@ -408,5 +435,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN_NORMAL();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_NORMAL();
+    }
+
+    pass Model_RollingSpike //8
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_ROLLINGSPIKE();
     }
 }

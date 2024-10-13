@@ -145,6 +145,12 @@ _int CMonster::Get_CurrentCellNum()
 	return m_pNavigationCom->Get_CurrentCellIndex();
 }
 
+void CMonster::Effect2D_Active()
+{
+	if (m_pEffect != nullptr)
+		m_pEffect->SetActive(true);
+}
+
 HRESULT CMonster::Ready_Components()
 {
 	/* FOR.Com_Shader */

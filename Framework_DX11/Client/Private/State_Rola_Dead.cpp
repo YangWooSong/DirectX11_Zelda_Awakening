@@ -4,7 +4,7 @@
 #include "Model.h"
 #include "Rola.h"
 #include "PlayerCamera.h"
-
+#include "RollingSpike.h"
 CState_Rola_Dead::CState_Rola_Dead(CFsm* pFsm, CMonster* pOwner)
     :CState{ pFsm }
     , m_pOwner{ pOwner }
@@ -15,7 +15,7 @@ HRESULT CState_Rola_Dead::Initialize(_uint iStateNum)
 {
     m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("dead");
     m_iStateNum = iStateNum;
-
+    m_pRollingSpike = static_cast<CRollingSpike*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_RollingSpike"), 0));
     return S_OK;
 }
 
@@ -26,16 +26,20 @@ HRESULT CState_Rola_Dead::Start_State()
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 70.f);
     m_pOwner->Get_Collider()->Set_IsActive(false);
     static_cast<CPlayerCamera*>(m_pGameInstance->Find_Camera(LEVEL_DUNGEON))->Zoom_In(1.1f, 60.f);
+    m_pRollingSpike->Set_Dissolve(true);
     return S_OK;
 }
 
 void CState_Rola_Dead::Update(_float fTimeDelta)
 {
-
-    if (m_fTimer > 3.f)
+    if(m_bPlaySound == false)
+        m_pOwner->Get_Sound()->Play_SoundRepeat(TEXT("3_Monster_Rola_Jump_End.wav"), 0.8f);
+    if (m_fTimer > 1.f)
     {
         if(m_bPlaySound==false)
         {
+            m_pOwner->Get_Sound()->Stop();
+            m_pOwner->Effect2D_Active();
             m_bPlaySound = true;
             m_pOwner->Get_Sound()->Play_Sound(TEXT("3_Monster_Rola_Dead.wav"), 0.8f);
         }

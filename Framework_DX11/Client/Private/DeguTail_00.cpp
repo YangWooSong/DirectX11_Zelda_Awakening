@@ -53,7 +53,7 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	//벡터 사이즈 임의 지정
 	m_MParentWorldMarix.reserve(100);
 
-	m_iHp = 4;
+	m_iHp = 5;
 	m_eObjType = CGameObject::ANIM_MONSTER;
 	m_isActive = false;
 	return S_OK;
@@ -83,7 +83,7 @@ void CDeguTail_00::Update(_float fTimeDelta)
 
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
 
-		if (m_iHp <= 0 && m_bBodyRed == false)
+		if (m_iHp == 0 )
 		{
 			m_iHp--;
 			m_bBodyRed = true;
@@ -91,7 +91,9 @@ void CDeguTail_00::Update(_float fTimeDelta)
 		}
 
 		if (m_isDead)
+		{
 			m_isActive = false;
+		}
 	}
 }
 

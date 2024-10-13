@@ -48,40 +48,43 @@ void CParticle_Image::Update(_float fTimeDelta)
 {
 	m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
 
-	switch (m_iParticleType)
+	if(m_isActive)
 	{
-	case CROSS_MINI:
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	case BOMB_SMOKE:
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	case PLAYER_ITEM_GET:
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	case GLOW:
-		m_fColor = { 0.8f,0.8f,1.f ,1.f};
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	case SHUTTER_DUST:
-		m_fColor = { 0.7f,0.4f,0.2f,0.3f };
-		m_bSetAlpha = true;
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	case KEY_DROP:
-		m_bSetAlpha = true;
-		m_pVIBufferCom->Stay(fTimeDelta);
-		break;
-	case BOX_APPEAR:
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	case FIRE_BIG_EFFECT:
-		m_fColor = { 1.f,0.6f,0.6f,1.f };
-		m_bSetAlpha = true;
-		m_pVIBufferCom->Spread(fTimeDelta);
-		break;
-	default:
-		break;
+		switch (m_iParticleType)
+		{
+		case CROSS_MINI:
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		case BOMB_SMOKE:
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		case PLAYER_ITEM_GET:
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		case GLOW:
+			m_fColor = { 0.8f,0.8f,1.f ,1.f };
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		case SHUTTER_DUST:
+			m_fColor = { 0.6f,0.3f,0.08f,0.2f };
+			m_bSetAlpha = true;
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		case KEY_DROP:
+			m_bSetAlpha = true;
+			m_pVIBufferCom->Stay(fTimeDelta);
+			break;
+		case BOX_APPEAR:
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		case FIRE_BIG_EFFECT:
+			m_fColor = { 1.f,0.6f,0.6f,1.f };
+			m_bSetAlpha = true;
+			m_pVIBufferCom->Spread(fTimeDelta);
+			break;
+		default:
+			break;
+		}
 	}
 
 }
@@ -95,6 +98,7 @@ void CParticle_Image::Late_Update(_float fTimeDelta)
 
 HRESULT CParticle_Image::Render()
 {
+
 	if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
 		return E_FAIL;
 	if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_VIEW))))

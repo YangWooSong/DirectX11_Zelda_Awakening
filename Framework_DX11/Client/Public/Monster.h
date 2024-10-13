@@ -80,7 +80,7 @@ public:
 	_int Get_Hp() { return m_iHp; }
 	void Minus_Hp() { m_iHp--; }
 	void Plus_Hp() { m_iHp++; }
-
+	void Effect2D_Active();
 protected:
 	HRESULT Ready_Components();
 

@@ -23,6 +23,8 @@ public:
 
 private:
     class CMonster* m_pOwner = { nullptr };
+    class CRollingSpike* m_pRollingSpike = { nullptr };
+
     _float m_fTimer = { 0.f };
     _bool   m_bPlaySound = { false };
     _uint               m_iCurrentAnimIndex = {};

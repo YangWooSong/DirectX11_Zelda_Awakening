@@ -126,6 +126,7 @@ namespace Engine
 		EMISSIVE = 4,
 		HEIGHT = 5,
 		NORMALS = 6,
+		DISSOLVE = 7,
 		TEXTURE_END
 	};
 

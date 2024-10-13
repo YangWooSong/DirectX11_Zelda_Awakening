@@ -8,6 +8,8 @@
 #include "State_Rola_Push.h"
 #include "State_Rola_Demage.h"
 #include "State_Rola_Dead.h"
+#include "2DEffects.h"
+#include "3D_Effects.h"
 
 CRola::CRola(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -56,7 +58,12 @@ void CRola::Priority_Update(_float fTimeDelta)
 	if (m_isActive)
 	{
 		__super::Priority_Update(fTimeDelta);
+		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
+	m_pEffect->Priority_Update(fTimeDelta);
+
+	if (KEY_TAP(KEY::U))
+		Change_State(DEAD);
 }
 
 void CRola::Update(_float fTimeDelta)
@@ -108,7 +115,26 @@ void CRola::Update(_float fTimeDelta)
 		else
 			m_pColliderCom->Set_IsActive(true);
 		__super::Update(fTimeDelta);
+	
 	}
+
+	if (m_bActiveEffect )
+	{
+		if (m_fEffectTimer == 0.f)
+		{
+			m_p3D_Effect->SetActive(true);
+		}
+		else if (m_fEffectTimer > 0.2f)
+		{
+			m_p3D_Effect->SetActive(false);
+			m_bActiveEffect = false;
+			m_fEffectTimer = 0.f;
+			return;
+		}
+		m_fEffectTimer += fTimeDelta;
+	}
+	m_p3D_Effect->Update(fTimeDelta);
+	m_pEffect->Update(fTimeDelta);
 }
 
 void CRola::Late_Update(_float fTimeDelta)
@@ -123,6 +149,8 @@ void CRola::Late_Update(_float fTimeDelta)
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
 	}
+	m_pEffect->Late_Update(fTimeDelta);
+	m_p3D_Effect->Late_Update(fTimeDelta);
 }
 
 HRESULT CRola::Render()
@@ -171,8 +199,11 @@ void CRola::OnCollisionEnter(CGameObject* pOther)
 	{
 		if (pOther->Get_LayerTag() == TEXT("Layer_Sword") )
 		{
+			m_bActiveEffect = true;
 			if(m_iHp > 0)
+			{
 				Change_State(DEMAGE);
+			}
 		}
 	}
 }
@@ -221,6 +252,30 @@ HRESULT CRola::Ready_Components()
 		return E_FAIL;
 	m_pMonsterSoundCom->Set_Owner(this);
 
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_MonsterDied_Effect"));
+
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = LEVEL_DUNGEON;
+		Desc.pParent = this;
+		Desc.iEffectType = MONSTER_DIED_EFFECT;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect = pEffect;
+	}
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = ROLA_HIT_EFFECT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		_Desc.vScale = { 1.f,1.f,1.f };
+		_Desc.iLevelIndex = LEVEL_DUNGEON;
+		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+		m_p3D_Effect = p3DEffect;
+	}
 	return S_OK;
 }
 

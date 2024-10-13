@@ -48,6 +48,7 @@ private:
 
 	_bool		m_bOpend = { false };
 	_bool		m_bSoundPlay = { false };
+	_bool		m_bEffect = { false };
 
 	_int m_iCurrentAnimIndex = { 0 };
 	_int m_iOpenAnimIndex = { 0 };
@@ -55,6 +56,8 @@ private:
 	_float m_fTimer = { 1.f };
 
 	_bool m_bAddActor = { false };
+
+	CGameObject* m_pEffect = { nullptr };
 public:
 	static COnewayDoorReverse* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

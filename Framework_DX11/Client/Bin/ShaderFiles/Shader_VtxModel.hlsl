@@ -111,6 +111,7 @@ PS_OUT PS_MAIN(PS_IN In)
     return Out;
 }
 
+
 PS_OUT PS_MAIN_NONSPECULAR(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
@@ -510,4 +511,5 @@ technique11 DefaultTechnique
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_FIRE();
     }
+
 }

@@ -2,7 +2,7 @@
 #include "OnewayDoorReverse.h"
 #include "GameInstance.h"
 #include "Link.h"
-
+#include "Particle_Image.h"
 COnewayDoorReverse::COnewayDoorReverse(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -61,6 +61,7 @@ HRESULT COnewayDoorReverse::Initialize(void* pArg)
 
 void COnewayDoorReverse::Priority_Update(_float fTimeDelta)
 {
+    m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void COnewayDoorReverse::Update(_float fTimeDelta)
@@ -86,6 +87,7 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
         {
             m_bSoundPlay = true;
             m_pSoundCom->Play_Sound(TEXT("4_Obj_OnewayDoor_Close.wav"), 0.8f);
+            m_bEffect = true;
         }
         if (m_pModelCom->Get_CurrentTrackPosition() > 0.5f && m_iCurrentAnimIndex == m_iOpenAnimIndex && m_bSoundPlay == false)
         {
@@ -107,6 +109,9 @@ void COnewayDoorReverse::Update(_float fTimeDelta)
             m_pGameInstance->AddScene_ColMesh(this, TEXT("OnewayDoorReverse"));
         }
     }
+
+    if(m_bEffect)
+         m_pEffect->Update(fTimeDelta);
 }
 
 void COnewayDoorReverse::Late_Update(_float fTimeDelta)
@@ -115,6 +120,7 @@ void COnewayDoorReverse::Late_Update(_float fTimeDelta)
     {
         __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pEffect->Late_Update(fTimeDelta);
     }
 }
 
@@ -182,6 +188,15 @@ HRESULT COnewayDoorReverse::Ready_Components()
         return E_FAIL;
     m_pSoundCom->Set_Owner(this);
 
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+    if (pGameObj != nullptr)
+    {
+        CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+        pImageDesc.iParticleType = CParticle_Image::SHUTTER_DUST;
+        pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+        m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+    }
+
     return S_OK;
 }
 
@@ -214,6 +229,7 @@ void COnewayDoorReverse::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pSoundCom);
     Safe_Release(m_pModelCom);

@@ -14,7 +14,6 @@ HRESULT CState_Vegas_Dead::Initialize(_uint iStateNum)
 {
 	m_iCurrentAnimIndex = m_pOwner->Get_Model()->Get_AnimationIndex("dead");
 	m_iStateNum = iStateNum;
-
 	return S_OK;
 }
 

@@ -50,10 +50,12 @@ private:
 	_int		m_iAddDir = { -1 };			//인덱스 늘릴때 쓰는 방향 변수 + -1은 오른쪽으로 이동, 1은 왼쪽으로 이동
 
 	_float		m_fTimer = { 0.f };
+	_float		m_fEffectTimer = { 0.f };
 	_float		m_fNonRedTimer = { 0.f };
+
 	_bool		m_bBlink = { false };
 	_bool		m_bArrived = { true };
-
+	_bool		m_bActiveEffect = { false };
 public:
 	static CRola* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);
