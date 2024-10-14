@@ -36,27 +36,68 @@ HRESULT CPlayer_3D_Effects::Initialize(void* pArg)
 		return E_FAIL;
 
 	//m_pTransformCom->Set_Scaled(1.f, 1.f, 2.f);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, 0.f, 1.f));
-
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMVectorSet(0.f, 0.f, 0.5f, 1.f));
+	m_pTransformCom->RotationThreeAxis(_float3(0.f,70.f, 0.f));
+	m_pTransformCom->Set_RotationSpeed(-15.f);
 	//Set_LayerTag(TEXT("Layer_Player_3D_Effects"));
 	m_isActive = false;
+
+	m_pModelCom[0]->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/slash_00.png"), TEXTURE_TYPE::DISSOLVE, 0);
+	m_fTextureScale = 0.5f;
 	return S_OK;
 }
 
 void CPlayer_3D_Effects::Priority_Update(_float fTimeDelta)
 {
+	m_fColor = { 1.f,0.8f,0.5f };
 }
 
 void CPlayer_3D_Effects::Update(_float fTimeDelta)
 {
-	_matrix		SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
+	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()) * XMLoadFloat4x4(m_pParentMatrix)); 
 
-	for (size_t i = 0; i < 3; i++)
+	if(m_iEffectType == SWISH)
 	{
-		SocketMatrix.r[i] = XMVector3Normalize(SocketMatrix.r[i]);
-	}
-	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()) * SocketMatrix * XMLoadFloat4x4(m_pParentMatrix));
+		if (m_isActive)
+		{
+			m_bRender = true;
+			m_bActivetimer += fTimeDelta;
+			if (m_bActivetimer > 0.1f)
+			{
+				_vector vDir = { 0.f,1.f,0.f };
+				m_pTransformCom->Turn(vDir, fTimeDelta);
+			}
 
+			m_fTextureScale = min(5.f, m_fTextureScale + fTimeDelta * 3.f);
+		}
+		else
+		{
+			if (m_bRender)
+				m_bStoptimer += fTimeDelta;
+
+			if (m_bStoptimer > 0.1f)
+			{
+				m_bStoptimer = 0.f;
+				m_bRender = false;
+				m_pTransformCom->RotationThreeAxis(_float3(0.f, 70.f, 0.f));
+				m_bActivetimer = 0.f;
+				m_fTextureScale = 0.1f;
+				m_bEnd = true;
+			}
+
+		}
+
+		if (m_bActivetimer != 0.f)
+		{
+			if (KEY_TAP(KEY::P))
+			{
+				m_bActivetimer = 0.f;
+				m_bStoptimer = 0.f;
+				m_pTransformCom->RotationThreeAxis(_float3(0.f, 50.f, 0.f));
+				m_fTextureScale = 0.1f;
+			}
+		}
+	}
 	m_fAlpha = 0.5f;
 	m_fBright = 2.5f;
 
@@ -73,7 +114,7 @@ void CPlayer_3D_Effects::Late_Update(_float fTimeDelta)
 
 HRESULT CPlayer_3D_Effects::Render()
 {
-	if (m_isActive)
+	if (m_bRender)
 	{
 		if (FAILED(__super::Bind_WorldMatrix(m_pShaderCom, "g_WorldMatrix")))
 			return E_FAIL;
@@ -88,7 +129,9 @@ HRESULT CPlayer_3D_Effects::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &m_fAlpha, sizeof(_float))))
 			return E_FAIL;
 
-		if (FAILED(m_pShaderCom->Bind_RawValue("g_fBright", &m_fBright, sizeof(_float))))
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float3))))
+			return E_FAIL;
+		if (FAILED(m_pShaderCom->Bind_RawValue("g_fTextureScale", &m_fTextureScale, sizeof(_float))))
 			return E_FAIL;
 
 		_uint		iNumMeshes = m_pModelCom[m_iEffectType]->Get_NumMeshes();
@@ -97,8 +140,10 @@ HRESULT CPlayer_3D_Effects::Render()
 		{
 			if (FAILED(m_pModelCom[m_iEffectType]->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 				return E_FAIL;
+			if (FAILED(m_pModelCom[m_iEffectType]->Bind_Material(m_pShaderCom, "g_AlphaTexture", TEXTURE_TYPE::DISSOLVE, (_uint)i)))
+			return E_FAIL;
 
-			if (FAILED(m_pShaderCom->Begin(6)))
+			if (FAILED(m_pShaderCom->Begin(12)))
 				return E_FAIL;
 
 			if (FAILED(m_pModelCom[m_iEffectType]->Render((_uint)i)))

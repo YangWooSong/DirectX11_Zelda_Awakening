@@ -30,7 +30,7 @@ HRESULT CState_Link_Slash::Start_State()
 
 void CState_Link_Slash::Update(_float fTimeDelta)
 {
-	if(m_pPlayer->Get_Model()->Get_CurrentTrackPosition() > 20.f)
+	if(m_pPlayer->Get_Model()->Get_CurrentTrackPosition() > 15.f)
 		m_pPlayer->Get_3DEffect()->SetActive(false);
 
 	if(m_pPlayer->Get_IsEnd_CurrentAnimation())
@@ -46,7 +46,7 @@ void CState_Link_Slash::Update(_float fTimeDelta)
 
 void CState_Link_Slash::End_State()
 {
-	
+	m_pPlayer->Get_3DEffect()->SetActive(false);
 }
 
 CState_Link_Slash* CState_Link_Slash::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)

@@ -42,9 +42,15 @@ private:
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
 	_uint m_iEffectType = { 0 };
-
+	_bool m_bRender = { false };
+	_bool m_bMove = { false };
+	_bool m_bEnd = { false };
 	_float m_fAlpha = {};
+	_float m_bStoptimer = {0.f};
+	_float m_bActivetimer = {0.f};
 	_float m_fBright = {};
+	_float m_fTextureScale = { 0.1f };
+	_float3 m_fColor = {1.f,1.f,1.f};
 private:
 	HRESULT Ready_Components();
 

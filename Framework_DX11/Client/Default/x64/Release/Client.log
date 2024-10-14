@@ -1,20 +1,9 @@
-﻿  Grass.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Grass.cpp(117,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Grass.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Grass.cpp(120,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Grass.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Grass.cpp(126,13): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Grass.cpp'을(를) 컴파일하는 중)
-  
-  Level_Field.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(276,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
-  
-  코드를 생성하고 있습니다.
-  3 of 3627 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
-  코드를 생성했습니다.
-  Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
+﻿  BladeTrap.cpp
+BladeTrap.obj : error LNK2001: 확인할 수 없는 외부 기호 "__declspec(dllimport) public: long __cdecl Engine::CGameInstance::Add_DebugObject(class Engine::CComponent *)" (__imp_?Add_DebugObject@CGameInstance@Engine@@QEAAJPEAVCComponent@2@@Z)
+DeguTail_00.obj : error LNK2001: 확인할 수 없는 외부 기호 "__declspec(dllimport) public: virtual long __cdecl Engine::CCollider::Render(void)" (__imp_?Render@CCollider@Engine@@UEAAJXZ)
+    정의되었으며 잠재적으로 일치할 수 있는 기호에 대한 힌트:
+      "__declspec(dllimport) public: virtual long __cdecl Engine::CModel::Render(unsigned int)" (__imp_?Render@CModel@Engine@@UEAAJI@Z)
+      "__declspec(dllimport) public: virtual long __cdecl Engine::CVIBuffer::Render(void)" (__imp_?Render@CVIBuffer@Engine@@UEAAJXZ)
+      "__declspec(dllimport) public: virtual long __cdecl Engine::CVIBuffer_Instancing::Render(void)" (__imp_?Render@CVIBuffer_Instancing@Engine@@UEAAJXZ)
+MainApp.obj : error LNK2001: 확인할 수 없는 외부 기호 "__declspec(dllimport) public: void __cdecl Engine::CGameInstance::Active_Debug_Renderer(void)" (__imp_?Active_Debug_Renderer@CGameInstance@Engine@@QEAAXXZ)
+..\Bin\Client.exe : fatal error LNK1120: 3개의 확인할 수 없는 외부 참조입니다.

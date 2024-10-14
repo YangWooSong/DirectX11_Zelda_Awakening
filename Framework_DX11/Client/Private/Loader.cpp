@@ -662,7 +662,7 @@ HRESULT CLoader::Ready_Models_For_Static()
 
 	/* For. Prototype_Component_Model_slash*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_slash"),
-		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/slash/slash.dat"))))
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/slash/slash.dat", PreTransformMatrix))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_slash*/

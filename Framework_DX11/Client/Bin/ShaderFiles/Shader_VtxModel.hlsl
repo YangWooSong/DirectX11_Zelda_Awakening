@@ -12,6 +12,7 @@ float g_fAlpha = 1.f;
 float g_fBright = 1.f;
 float g_MoveTexCoord = 0.f;
 float4 g_fColor = { 1.f, 1.f, 1.f,1.f };
+float4 g_fTextureScale= 1.f;
 
 int g_FireType = 0;
 
@@ -300,6 +301,30 @@ PS_OUT PS_MAIN_CUBEHALF(PS_IN In) //좌 이동, 흰색이 투명하게
     return Out;
 }
 
+PS_OUT PS_MAIN_Slash(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+	
+    float2 scaledTexCoord = In.vTexcoord * g_fTextureScale;
+    
+    vector vAlpha = g_AlphaTexture.Sample(LinearSampler, scaledTexCoord);
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    
+    if (0.3f >= vDiffuse.a)
+        discard;
+    
+    vDiffuse.a = vAlpha.a;
+    vDiffuse.rgb = g_fColor.rgb;
+    
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
+    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
+    
+    return Out;
+}
+
+
 struct PS_IN_NORMAL
 {
     float4 vPosition : SV_POSITION;
@@ -506,6 +531,17 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_FIRE();
+    }
+
+    pass Model_3D_Slash //12
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_Slash();
     }
 
 }
