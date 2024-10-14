@@ -110,6 +110,7 @@
 #include "Fire_Big_Effect.h"
 #include "Fire_Plane_Effect.h"
 #include "Fire_Small_Effect.h"
+#include "Lightning_Effect.h"
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -412,6 +413,11 @@ HRESULT CLoader::Ready_Resources_For_Field()
 HRESULT CLoader::Ready_Resources_For_Dungeon()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
+
+	/* For. Prototype_Component_Texture_LupeeUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Texture_Lightning"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/T_EFF_Lightning_05_M.dds"), 1))))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
@@ -1501,6 +1507,14 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 
 #pragma endregion
 
+#pragma region EFFECT
+	/* For. Prototype_GameObject_Lightning_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Lightning_Effect"),
+		CLightning_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	
+#pragma endregion
 	return S_OK;
 }
 

@@ -604,6 +604,9 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Fire_Small_Effect">
       <UniqueIdentifier>{0aa2b604-fcc0-4f5b-9de5-21c38a4f612f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Lightning">
+      <UniqueIdentifier>{2c024e6a-9842-406b-9d0e-89356e33d2ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1128,6 +1131,9 @@
     <ClInclude Include="..\Public\Fire_Small_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Fire_Small_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Lightning_Effect.h">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Lightning</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1642,6 +1648,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Fire_Small_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Fire_Small_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Lightning_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Lightning</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

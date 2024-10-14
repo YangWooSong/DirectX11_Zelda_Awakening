@@ -40,7 +40,7 @@ HRESULT CSpark::Initialize(void* pArg)
 
 	m_isActive = false;
 
-	/*CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Spark_Effect"));
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Glow_Effect"));
 
 	if (pGameObj != nullptr)
 	{
@@ -48,10 +48,12 @@ HRESULT CSpark::Initialize(void* pArg)
 		Desc.iLevelIndex = LEVEL_DUNGEON;
 		Desc.pParent = this;
 		Desc.iEffectType = SPARK_EFFECT;
-		m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
-	}*/
+		Desc.fColor = { 1.f, 1.f, 0.0f, 0.2f };
+		Desc.vScale = { 2.f,2.f,0.1f };
+		m_pEffect[0] = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+	}
 
-	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Glow_Effect"));
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Lightning_Effect"));
 	C2DEffects::EFFECT_DESC pDesc{};
 	pDesc.iLevelIndex = LEVEL_DUNGEON;
 	pDesc.pParent = this;
@@ -60,8 +62,8 @@ HRESULT CSpark::Initialize(void* pArg)
 	if (pGameObj != nullptr)
 	{
 		pDesc.fColor = { 1.f, 1.f, 0.0f, 0.5f };
-		pDesc.vScale = { 2.f,2.f,0.1f };
-		m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
+		pDesc.vScale = { 1.5f,1.5f,0.1f };
+		m_pEffect[1] = dynamic_cast<CGameObject*>(pGameObj->Clone(&pDesc));
 	}
 	return S_OK;
 }
@@ -70,7 +72,8 @@ void CSpark::Priority_Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
-		m_pEffect->Priority_Update(fTimeDelta);
+		m_pEffect[0]->Priority_Update(fTimeDelta);
+		m_pEffect[1]->Priority_Update(fTimeDelta);
 		__super::Priority_Update(fTimeDelta);
 	}
 }
@@ -79,8 +82,10 @@ void CSpark::Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
-		m_pEffect->SetActive(true);
-		m_pEffect->Update(fTimeDelta);
+		m_pEffect[0] ->SetActive(true);
+		m_pEffect[1] ->SetActive(true);
+		m_pEffect[0]->Update(fTimeDelta);
+		m_pEffect[1]->Update(fTimeDelta);
 		m_pFsmCom->Update(fTimeDelta);
 		m_pModelCom->Play_Animation(fTimeDelta);
 		m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
@@ -90,7 +95,8 @@ void CSpark::Update(_float fTimeDelta)
 	else
 	{
 		m_pMonsterSoundCom->Stop();
-		m_pEffect->SetActive(false);
+		m_pEffect[0]->SetActive(false);
+		m_pEffect[1]->SetActive(false);
 	}
 }
 
@@ -98,7 +104,8 @@ void CSpark::Late_Update(_float fTimeDelta)
 {
 	if (m_isActive)
 	{
-		m_pEffect->Late_Update(fTimeDelta);
+		m_pEffect[0]->Late_Update(fTimeDelta);
+		m_pEffect[1]->Late_Update(fTimeDelta);
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
@@ -255,7 +262,8 @@ void CSpark::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 
-	Safe_Release(m_pEffect);
+	Safe_Release(m_pEffect[1]);
+	Safe_Release(m_pEffect[0]);
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);
 }

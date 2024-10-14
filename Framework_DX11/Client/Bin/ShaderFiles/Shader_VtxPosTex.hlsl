@@ -22,6 +22,9 @@ float g_fAngle = 0.f;
 float4 g_fColor = { 1.f, 1.f, 1.f, 1.f };
 float4 g_fOutLineColor = { 1.f, 1.f, 1.f, 1.f };
 
+int g_iCol = 0.f;
+int g_iRow = 0.f;
+
 struct VS_IN
 {
     float3 vPosition : POSITION;
@@ -286,6 +289,33 @@ PS_OUT PS_MAIN_HP(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_Lightning(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    float2 vTexcoord;
+    vTexcoord.x = (g_iCol + In.vTexcoord.y) / 4;
+    vTexcoord.y = (g_iRow + In.vTexcoord.x) / 2;
+
+    vector vDiffuse = g_Texture.Sample(LinearClampSampler, vTexcoord);
+    
+    //Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    
+    if (vDiffuse.r < 0.3)
+        discard;
+    
+    vDiffuse.rgb *= g_fColor.rgb;
+    //if (g_bBlink == true)
+    //{
+    //    Out.vColor.rg = g_fBrightness;
+    //    Out.vColor.b = 0.6f + g_fBrightness;
+    //}
+    Out.vColor = vDiffuse;
+
+    return Out;
+}
+
+
 technique11 DefaultTechnique
 {
 	/* 빛연산 + 림라이트 + ssao + 노멀맵핑 + pbr*/
@@ -396,6 +426,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_CAMPUSUI();
+    }  
+
+    pass Lightning //11
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_None, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_Lightning();
     }
 
 	
