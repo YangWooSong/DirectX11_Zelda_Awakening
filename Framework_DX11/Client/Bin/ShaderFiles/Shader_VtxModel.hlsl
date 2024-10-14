@@ -237,7 +237,7 @@ PS_OUT PS_MAIN_RING(PS_IN In)
     vDiffuse.a = vAlpha.r;
     vDiffuse.a *= vAlpha.a;
    
-    vDiffuse.rgb = g_fColor;
+    vDiffuse.rgb = g_fColor.rgb;
     
     Out.vDiffuse = vDiffuse;
     Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
@@ -258,16 +258,12 @@ PS_OUT PS_MAIN_FIRE(PS_IN In)
     float2 offset2 = float2(g_MoveTexCoord,0.f);
     float2 MovedTexcoord2 = In.vTexcoord + offset2;
     
-    vector vDiffuse;
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, MovedTexcoord);
     vector vAlpha;
 
-    if (g_FireType == 0)
-     vDiffuse = g_DiffuseTexture.Sample(LinearSampler, MovedTexcoord);
-    else if (g_FireType ==  1)
-        vDiffuse = g_DiffuseTexture.Sample(LinearSampler, MovedTexcoord2);
    // vAlpha = g_AlphaTexture.Sample(LinearSampler, DiffuseMovedTexcoord);
     
-    vDiffuse.rgb = g_fColor;
+    vDiffuse.rgb = g_fColor.rgb;
     vDiffuse.a *= 1 - g_MoveTexCoord*3.f;
     
     Out.vDiffuse = vDiffuse;
@@ -294,7 +290,7 @@ PS_OUT PS_MAIN_CUBEHALF(PS_IN In) //좌 이동, 흰색이 투명하게
     
     vDiffuse.a = 1.f - vAlpha.a; //흐ㅟㄴ색이 투명하게
    
-    vDiffuse.rgb = g_fColor;
+    vDiffuse.rgb = g_fColor.rgb;;
     
     Out.vDiffuse = vDiffuse;
     Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
