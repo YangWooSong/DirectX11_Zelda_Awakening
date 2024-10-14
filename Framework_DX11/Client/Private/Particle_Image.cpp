@@ -66,7 +66,7 @@ void CParticle_Image::Update(_float fTimeDelta)
 			m_pVIBufferCom->Spread(fTimeDelta);
 			break;
 		case SHUTTER_DUST:
-			m_fColor = { 0.6f,0.3f,0.08f,0.2f };
+			m_fColor = { 0.6f,0.3f,0.08f,0.1f };
 			m_bSetAlpha = true;
 			m_pVIBufferCom->Spread(fTimeDelta);
 			break;
@@ -229,10 +229,10 @@ HRESULT CParticle_Image::Ready_Components()
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
 
-		Desc.iNumInstance = 12;
-		Desc.vCenter = _float3(0.f, -0.25f, 0.f);
+		Desc.iNumInstance = 25;
+		Desc.vCenter = _float3(0.f, -0.3f, 0.f);
 		Desc.vRange = _float3(1.2f, 0.2f, 0.2f);
-		Desc.vSize = _float2(1.2f, 1.2f);
+		Desc.vSize = _float2(0.8f, 1.2f);
 		Desc.vPivot = Desc.vCenter;
 		Desc.vSpeed = _float2(0.2f, 0.2f);
 		Desc.vLifeTime = _float2(2.f, 2.f);

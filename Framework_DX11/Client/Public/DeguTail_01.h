@@ -76,9 +76,13 @@ private:
 
 	_float			m_fTimer = { 0.f };
 	_float			m_fWaitTime = { 0.f };
+	_float			m_fEffectTimer = { 0.f };
+
 	_float3			m_fSize = { };
+
 	_bool			m_bMove = { false };
 	_bool			m_bRender = { false };
+	_bool			m_bActiveEffect = { false };
 
 	_bool*			m_pOutBodyRed = { nullptr };
 	_bool*			m_pBodyRed = { nullptr };
@@ -86,6 +90,7 @@ private:
 
 	class CGameObject* m_pParent = { nullptr };
 	class CGameObject* m_pEffect = { nullptr };
+	class CGameObject* m_p3DEffect = { nullptr };
 	vector<_matrix> m_pParentWorldMatrixVector;
 
 	CFsm* m_pHeadFsm = { nullptr };

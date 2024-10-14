@@ -61,8 +61,11 @@ private:
 	_bool			m_bBodyRed = { false };
 	_bool			m_bBlink = { false };
 	_bool			m_bRenderText = { false };
+	_bool			m_bActiveEffect = { false };
 
 	_float fTimer = { 0.f };
+	_float m_fEffectTimer = { 0.f };
+
 	_int m_iPartIndex = { PART_END };
 public:
 	static CDeguTail_00* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

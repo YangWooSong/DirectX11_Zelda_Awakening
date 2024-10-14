@@ -5,6 +5,7 @@
 #include "DeguTail_01.h"
 #include "DeguTail_00.h"
 #include "2DEffects.h"
+#include "3D_Effects.h"
 CDeguTail_04::CDeguTail_04(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CPartObject(pDevice, pContext)
 {
@@ -61,6 +62,7 @@ void CDeguTail_04::Priority_Update(_float fTimeDelta)
     {
         m_pColliderCom->Set_IsActive(false);
         m_bRender = false;
+        m_p3DEffect->Priority_Update(fTimeDelta);
     }
     m_pEffect->Priority_Update(fTimeDelta);
 }
@@ -106,11 +108,30 @@ void CDeguTail_04::Update(_float fTimeDelta)
 
         }
     }
+
+    if (m_bActiveEffect )
+    {
+        if (m_fEffectTimer == 0.f)
+        {
+            m_p3DEffect->SetActive(true);
+        }
+        else if (m_fEffectTimer > 0.2f)
+        {
+            m_p3DEffect->SetActive(false);
+            m_bActiveEffect = false;
+            m_fEffectTimer = 0.f;
+            return;
+        }
+        m_fEffectTimer += fTimeDelta;
+    }
+
     if (m_isDead)
     {
         m_pEffect->SetActive(true);
     }
+
     m_pEffect->Update(fTimeDelta);
+    m_p3DEffect->Update(fTimeDelta);
 }
 
 void CDeguTail_04::Late_Update(_float fTimeDelta)
@@ -120,6 +141,7 @@ void CDeguTail_04::Late_Update(_float fTimeDelta)
     m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
     m_pEffect->Late_Update(fTimeDelta);
+    m_p3DEffect->Late_Update(fTimeDelta);
 }
 
 HRESULT CDeguTail_04::Render()
@@ -164,6 +186,7 @@ void CDeguTail_04::OnCollisionEnter(CGameObject* pOther)
     {
         if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
         {
+            m_bActiveEffect = true;
             //두번 공격당하는거 방지
             if(m_pHeadFsm->Get_CurrentState() != CDeguTail_00::HURT)
                 m_pHeadFsm->Change_State(CDeguTail_00::HURT);
@@ -224,8 +247,18 @@ HRESULT CDeguTail_04::Ready_Components()
         CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
         m_pEffect = pEffect;
     }
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
 
-
+    if (pGameObj != nullptr)
+    {
+        C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+        _Desc.iEffectType = MONSTER_HIT_EFFECT;
+        _Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+        _Desc.vScale = { 0.5f,0.5f ,0.5f };
+        _Desc.iLevelIndex = LEVEL_DUNGEON;
+        CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+        m_p3DEffect = p3DEffect;
+    }
     return S_OK;
 }
 
@@ -304,6 +337,7 @@ void CDeguTail_04::Free()
     __super::Free();
 
     Safe_Release(m_pEffect);
+    Safe_Release(m_p3DEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pNavigationCom);

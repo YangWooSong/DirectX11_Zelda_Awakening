@@ -69,9 +69,15 @@ void C3D_Effects::Update(_float fTimeDelta)
             m_fBright = 1.5f;
             Monster_HIt_SizeUp(fTimeDelta);
         } 
-        if (m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT || m_iEffectType == ROLA_HIT_EFFECT)
+        else if (m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT )
         {
             m_fColor = { 0.6f,0.6f,0.9f,1.f };
+            m_fAlpha = 0.8f;
+            m_fBright = 1.5f;
+        }
+        else if (m_iEffectType == ROLA_HIT_EFFECT)
+        {
+            m_fColor = { 0.9f,0.9f,0.4f,1.f };
             m_fAlpha = 0.8f;
             m_fBright = 1.5f;
         }

@@ -12,6 +12,7 @@
 #include "DeguTail_01.h"
 #include "DeguTail_04.h"
 #include "2DEffects.h"
+#include "3D_Effects.h"
 
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
@@ -64,6 +65,7 @@ void CDeguTail_00::Priority_Update(_float fTimeDelta)
 	if (m_isActive == true)
 	{
 		__super::Priority_Update(fTimeDelta);
+		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
 	m_pEffect->Priority_Update(fTimeDelta);
 }
@@ -97,7 +99,25 @@ void CDeguTail_00::Update(_float fTimeDelta)
 			m_pEffect->SetActive(true);
 			m_isActive = false;
 		}
+		m_p3D_Effect->Update(fTimeDelta);
 	}
+
+	if (m_bActiveEffect)
+	{
+		if (m_fEffectTimer == 0.f)
+		{
+			m_p3D_Effect->SetActive(true);
+		}
+		else if (m_fEffectTimer > 0.2f)
+		{
+			m_p3D_Effect->SetActive(false);
+			m_bActiveEffect = false;
+			m_fEffectTimer = 0.f;
+			return;
+		}
+		m_fEffectTimer += fTimeDelta;
+	}
+
 	m_pEffect->Update(fTimeDelta);
 }
 
@@ -109,6 +129,7 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+		m_p3D_Effect->Late_Update(fTimeDelta);
 	}
 	m_pEffect->Late_Update(fTimeDelta);
 }
@@ -189,6 +210,7 @@ void CDeguTail_00::OnCollisionEnter(CGameObject* pOther)
 	{
 		if (pOther->Get_LayerTag() == TEXT("Layer_Sword"))
 		{
+			m_bActiveEffect = true;
 			Change_State(GUARD);
 		}
 	}
@@ -249,7 +271,19 @@ HRESULT CDeguTail_00::Ready_Components()
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect = pEffect;
 	}
-	  
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_3D_Effects"));
+
+	if (pGameObj != nullptr)
+	{
+		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
+		_Desc.iEffectType = VEAGAS_HIT_EFFECT;
+		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		_Desc.vScale = { 0.7f,0.7f,0.7f };
+		_Desc.iLevelIndex = LEVEL_DUNGEON;
+		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
+		m_p3D_Effect = p3DEffect;
+	}
 	return S_OK;
 }
 

@@ -62,17 +62,22 @@ private:
 	_uint			m_iHurtAnimIndex = { 0 };
 	_uint			m_iDeadAnimIndex = { 0 };
 	_uint			m_iAppearAnimIndex = { 0 };
-
 	_uint			m_iCurrentAnimIndex = { 0 };
 
 	_float			m_fTimer = { 0.f };
 	_float			m_fWaitTime = { 0.f };
+	_float			m_fEffectTimer = { 0.f };
+
 	_float3			m_fSize = { };
+
 	_bool			m_bMove = { false };
 	_bool			m_bRender= { false };
+	_bool			m_bActiveEffect = { false };
 
 	class CGameObject* m_pParent = { nullptr };
 	class CGameObject* m_pEffect = { nullptr };
+	class CGameObject* m_p3DEffect = { nullptr };
+
 	vector<_matrix> m_pParentWorldMatrixVector;
 
 	CFsm* m_pHeadFsm = { nullptr };

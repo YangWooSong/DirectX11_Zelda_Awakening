@@ -45,7 +45,7 @@ void CFire_Plane_Effect::Update(_float fTimeDelta)
 {
     _vector vOffeset = {};
 
-    m_fTexMove += fTimeDelta * 0.8f;
+    m_fTexMove += fTimeDelta * 0.7f;
     m_bMoveAlpha = false;
     if(m_iFireTypeNum == 0)
         vOffeset = { 0.f, 0.7f,0.f };
