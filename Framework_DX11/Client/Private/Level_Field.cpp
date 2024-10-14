@@ -193,7 +193,6 @@ HRESULT CLevel_Field::Ready_LandObjects()
 		return E_FAIL;
 	
 	m_pPlayer = static_cast<CPlayer*>( m_pGameInstance->Find_Player(LEVEL_FIELD));
-	Safe_AddRef(m_pPlayer);
 
 	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_FIELD;
@@ -453,6 +452,4 @@ CLevel_Field* CLevel_Field::Create(ID3D11Device* pDevice, ID3D11DeviceContext* p
 void CLevel_Field::Free()
 {
 	__super::Free();
-
-	Safe_Release(m_pPlayer);
 }

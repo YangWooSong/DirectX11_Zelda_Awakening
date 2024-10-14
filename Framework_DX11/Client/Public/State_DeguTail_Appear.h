@@ -24,6 +24,7 @@ public:
 private:
     class CMonster* m_pOwner = { nullptr };
     class CPlayerCamera* m_pCamera = { nullptr };
+    class CDialogueUI* m_pDialogueUI = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
     _bool               m_bPlaySound = { false };

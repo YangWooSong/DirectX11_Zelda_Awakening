@@ -147,6 +147,10 @@ HRESULT CDialogueUI::Render_Text()
             break;
         }
        
+    }   
+    else if (iOwnerType == DEGUTAIL)
+    {
+        m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("사고싶은 물건을 골라와."), XMVectorSet(m_fX * 0.75f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
     }
 
     return S_OK;
@@ -197,6 +201,7 @@ HRESULT CDialogueUI::Ready_ChildUI()
         m_pChoiceBtn = dynamic_cast<CUIObject*>(pGameObj->Clone(&Desc));
         m_pChoiceBtn->Set_ParentObj(this);
         m_childUI_List.push_back(m_pChoiceBtn);
+
     }
 
     return S_OK;

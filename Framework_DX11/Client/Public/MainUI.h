@@ -7,7 +7,7 @@ class CMainUI :
 	public CUIObject
 {
 public:
-	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, MAP, CHILD_END };
+	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, MAP, DIALOGUE, CHILD_END };
 
 	typedef struct : public CUIObject::UI_DESC
 	{

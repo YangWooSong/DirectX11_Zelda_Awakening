@@ -13,7 +13,8 @@
 #include "DeguTail_04.h"
 #include "2DEffects.h"
 #include "3D_Effects.h"
-
+#include "DialogueUI.h"
+#include "MainUI.h"
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
 {
@@ -58,6 +59,8 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	m_iHp = 5;
 	m_eObjType = CGameObject::ANIM_MONSTER;
 	m_isActive = false;
+
+	m_UI = static_cast<CDialogueUI*>( static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE));
 	return S_OK;
 }
 void CDeguTail_00::Priority_Update(_float fTimeDelta)
@@ -68,6 +71,7 @@ void CDeguTail_00::Priority_Update(_float fTimeDelta)
 		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
 	m_pEffect->Priority_Update(fTimeDelta);
+//	m_UI->Priority_Update(fTimeDelta);
 }
 
 
@@ -119,6 +123,7 @@ void CDeguTail_00::Update(_float fTimeDelta)
 	}
 
 	m_pEffect->Update(fTimeDelta);
+//	m_UI->Update(fTimeDelta);
 }
 
 void CDeguTail_00::Late_Update(_float fTimeDelta)
@@ -132,6 +137,7 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 		m_p3D_Effect->Late_Update(fTimeDelta);
 	}
 	m_pEffect->Late_Update(fTimeDelta);
+//	m_UI->Late_Update(fTimeDelta);
 }
 HRESULT CDeguTail_00::Render()
 {
@@ -284,6 +290,7 @@ HRESULT CDeguTail_00::Ready_Components()
 		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_p3D_Effect = p3DEffect;
 	}
+
 	return S_OK;
 }
 
@@ -414,12 +421,13 @@ void CDeguTail_00::Free()
 {
 	__super::Free();
 
+	m_MParentWorldMarix.clear();
+
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 
-	m_MParentWorldMarix.clear();
-
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);
+
 }
 

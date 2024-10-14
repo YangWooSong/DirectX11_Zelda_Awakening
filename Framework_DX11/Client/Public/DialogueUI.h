@@ -13,7 +13,7 @@ class CDialogueUI :
 	public CUIObject
 {
 public:
-	enum NPC_TYPE {TOOTOOLSHOPKEEPER, TYPE_END};
+	enum NPC_TYPE {TOOTOOLSHOPKEEPER, DEGUTAIL, TYPE_END};
 	typedef struct : public CUIObject::UI_DESC
 	{
 		_uint iOwnerType;

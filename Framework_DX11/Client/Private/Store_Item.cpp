@@ -40,7 +40,6 @@ HRESULT CStore_Item::Initialize(void* pArg)
 
     m_pPlayer = static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_STORE));
     m_pSocketMatrix = m_pPlayer->Get_Model()->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
-    Safe_AddRef(m_pPlayer);
 
     return S_OK;
 }
@@ -228,7 +227,6 @@ void CStore_Item::Free()
 {
     __super::Free();
 
-    Safe_Release(m_pPlayer);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

@@ -2,7 +2,7 @@
 #include "MainUI.h"
 #include"GameInstance.h"
 #include "Link.h"
-
+#include "DialogueUI.h"
 CMainUI::CMainUI(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CUIObject(pDevice, pContext)
 {
@@ -182,6 +182,20 @@ HRESULT CMainUI::Ready_Child_UI()
 
         CUIObject* m_pInvenUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pInvenUI);
+    }
+
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_DialogueUI"));
+    if (pGameObj != nullptr)
+    {
+        CDialogueUI::DIALOGUE_DESC UIDesc{};
+        UIDesc.fSizeX = g_iWinSizeX / 2.f;
+        UIDesc.fSizeY = g_iWinSizeY / 5.f;
+        UIDesc.fX = g_iWinSizeX * 0.5f;
+        UIDesc.fY = g_iWinSizeY * 0.75f;
+      
+        CUIObject* m_pDialogueUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&UIDesc));
+        m_pDialogueUI->Set_ParentObj(this);
+        m_childUI_List.push_back(m_pDialogueUI);
     }
 
     return S_OK;
