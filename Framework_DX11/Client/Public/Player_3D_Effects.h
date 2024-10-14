@@ -13,7 +13,7 @@ BEGIN(Client)
 class CPlayer_3D_Effects final : public CPartObject
 {
 public:
-	enum EFFECT_TYPE{SWISH, TYPE_END};
+	enum EFFECT_TYPE{SWISH,CHARGE_SLASH, TYPE_END};
 	typedef struct : public CPartObject::PARTOBJ_DESC
 	{
 		CFsm* pPlayerFsm;
@@ -37,7 +37,7 @@ public:
 	void Set_Type(_uint iType) { m_iEffectType = iType; }
 private:
 	CFsm* m_pPlayerFsm = { nullptr };
-	CModel* m_pModelCom[1] = {nullptr};
+	CModel* m_pModelCom[2] = {nullptr};
 	CShader* m_pShaderCom = { nullptr };
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };

@@ -674,6 +674,18 @@ HRESULT CLoader::Ready_Models_For_Static()
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_fireplane_00"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/fireplane_00/fireplane_00.dat"))))
 		return E_FAIL;
+
+	/* For. Prototype_Component_Model_rollcut_00*/ 
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_rollcut_00"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/rollcut_00/rollcut_00.dat", PreTransformMatrix))))
+		return E_FAIL;
+	
+	/* For. Prototype_Component_Model_rollcut_01*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Model_rollcut_01"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/rollcut_01/rollcut_01.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+
 #pragma endregion
 	return S_OK;
 }

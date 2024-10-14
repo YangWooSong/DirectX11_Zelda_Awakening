@@ -43,6 +43,7 @@ HRESULT CPlayer_3D_Effects::Initialize(void* pArg)
 	m_isActive = false;
 
 	m_pModelCom[0]->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/slash_00.png"), TEXTURE_TYPE::DISSOLVE, 0);
+	m_pModelCom[1]->Add_Texture_to_Material(TEXT("../Bin/Resources/Zelda/Effect/slash_00.png"), TEXTURE_TYPE::DISSOLVE, 0);
 	m_fTextureScale = 0.5f;
 	return S_OK;
 }
@@ -56,7 +57,7 @@ void CPlayer_3D_Effects::Update(_float fTimeDelta)
 {
 	XMStoreFloat4x4(&m_WorldMatrix, XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrix_Ptr()) * XMLoadFloat4x4(m_pParentMatrix)); 
 
-	if(m_iEffectType == SWISH)
+	if(m_iEffectType == SWISH || m_iEffectType == CHARGE_SLASH )
 	{
 		if (m_isActive)
 		{
@@ -98,6 +99,10 @@ void CPlayer_3D_Effects::Update(_float fTimeDelta)
 			}
 		}
 	}
+
+	if (m_iEffectType == CHARGE_SLASH && m_isActive == false)
+		m_bRender = false;
+
 	m_fAlpha = 0.5f;
 	m_fBright = 2.5f;
 
@@ -171,6 +176,13 @@ HRESULT CPlayer_3D_Effects::Ready_Components()
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_slash"),
 		TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom[SWISH]))))
 		return E_FAIL;
+	
+	/* FOR.Com_Model */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_rollcut_01"),
+		TEXT("Com_Model1"), reinterpret_cast<CComponent**>(&m_pModelCom[CHARGE_SLASH]))))
+		return E_FAIL;
+
+
 
 	return S_OK;
 }

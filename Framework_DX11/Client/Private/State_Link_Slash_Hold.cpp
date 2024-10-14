@@ -3,7 +3,7 @@
 #include "GameInstance.h"
 #include "Model.h"
 #include "Link.h"
-
+#include "Player_3D_Effects.h"
 CState_Link_Slash_Hold::CState_Link_Slash_Hold(CFsm* pFsm, CPlayer* pPlayer)
 	:CState{ pFsm }
 	, m_pPlayer{ pPlayer }
@@ -32,6 +32,8 @@ HRESULT CState_Link_Slash_Hold::Start_State()
 	m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f,true);
 	m_pPlayer->Get_EffectSound()->Play_Sound(TEXT("1_Sword_chargeStart.wav"), 0.8f);
 	m_pPlayer->Get_Effect(CPlayer::CHARGE)->SetActive(true);
+	m_pPlayer->Set_3D_Effect_Type(CPlayer_3D_Effects::CHARGE_SLASH);
+
 	return S_OK;
 }
 
@@ -50,6 +52,7 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 	//가만히 있는 애니로 돌아가기
 	if (!(GetAsyncKeyState(0x57) & 0x8000) && !(GetAsyncKeyState(0x41) & 0x8000) && !(GetAsyncKeyState(0x53) & 0x8000) && !(GetAsyncKeyState(0x44) & 0x8000) && !(GetAsyncKeyState(0xA0) & 0x8000))
 	{
+	
 		if(m_iCurrentAnimIndex != m_iSlash_Hold_lp_AnimIndex && m_iCurrentAnimIndex != m_iSlash_Hold_ed_AnimIndex)
 		{
 			m_iCurrentAnimIndex = m_iSlash_Hold_lp_AnimIndex;
@@ -79,6 +82,7 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 		m_iCurrentAnimIndex = m_iSlash_Hold_ed_AnimIndex;
 		m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f);
 		m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+		m_pPlayer->Get_3DEffect()->SetActive(true);
 	}
 
 	if (m_iPlayerDir == CPlayer::FRONT)
@@ -240,6 +244,11 @@ void CState_Link_Slash_Hold::Update(_float fTimeDelta)
 		m_pPlayer->Go_World_Left(fTimeDelta, m_fPlayerSpeed - 2.f, m_pPlayer_Navigation);
 	}
 
+	if (m_iCurrentAnimIndex == m_iSlash_Hold_ed_AnimIndex && m_pPlayer->Get_Model()->Get_CurrentTrackPosition() > 25.f)
+	{
+		m_pPlayer->Get_3DEffect()->SetActive(false);
+	}
+
 	if (m_iCurrentAnimIndex == m_iSlash_Hold_ed_AnimIndex && m_pPlayer->Get_IsEnd_CurrentAnimation())
 	{
 		m_pPlayer->Change_State(CLink::IDLE);
@@ -253,6 +262,7 @@ void CState_Link_Slash_Hold::End_State()
 	m_bChargeEnd = false;
 	m_iButttonAwayCount = 0;
 	m_pPlayer->Get_Effect(CPlayer::CHARGE)->SetActive(false);
+	
 }
 
 CState_Link_Slash_Hold* CState_Link_Slash_Hold::Create(CFsm* pFsm, CPlayer* pPlayer, _uint iStateNum)
