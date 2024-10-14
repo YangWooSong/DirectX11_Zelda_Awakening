@@ -64,6 +64,11 @@ void CParticle_Image::Update(_float fTimeDelta)
 		case GLOW:
 			m_fColor = { 0.8f,0.8f,1.f ,1.f };
 			m_pVIBufferCom->Spread(fTimeDelta);
+			break;	
+		case BOMB:
+			m_fColor = { 1.f,m_fColor.y - fTimeDelta * 0.5f ,0.f ,1.f };
+			m_pVIBufferCom->Spread(fTimeDelta);
+			m_bSetAlpha = true;
 			break;
 		case SHUTTER_DUST:
 			m_fColor = { 0.6f,0.3f,0.08f,0.1f };
@@ -205,6 +210,24 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vSpeed = _float2(0.6f, 1.f);
 		Desc.vLifeTime = _float2(0.7f, 1.f);
 		Desc.isLoop = false;
+	}	
+	else if (m_iParticleType == BOMB)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_point_Glow"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+
+		Desc.iNumInstance = 30;
+		Desc.vCenter = _float3(0.f, 0.f, 0.f);
+		Desc.vRange = _float3(2.f, 2.f, 0.2f);
+		Desc.vSize = _float2(0.3f, 0.5f);
+		Desc.vPivot = Desc.vCenter;
+		Desc.vSpeed = _float2(0.6f, 1.f);
+		Desc.vLifeTime = _float2(1.f, 1.5f);
+		Desc.isLoop = false;
+
+		m_fColor = { 1.f,0.8f,0.8f,1.f };
 	}
 	else if (m_iParticleType == FIRE_BIG_EFFECT)
 	{

@@ -40,17 +40,29 @@ void CBombExplosion::Priority_Update(_float fTimeDelta)
     
     if (m_isActive)
     {
+  
         if(m_bActiveChild == false)
         {
             m_bActiveChild = true;
 
+            CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+            if (pGameObj != nullptr)
+            {
+                CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+                pImageDesc.iParticleType = CParticle_Image::BOMB;
+                pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+                m_pParticle = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+            }
+
             for (auto& iter : m_Child_List)
                 iter->SetActive(true);
+            if (m_pParticle != nullptr)
+                m_pParticle->SetActive(true);
         }
 
         for (auto& iter : m_Child_List)
             iter->Priority_Update(fTimeDelta);
-
+        m_pParticle->Priority_Update(fTimeDelta);
     }
     else
     {
@@ -60,6 +72,8 @@ void CBombExplosion::Priority_Update(_float fTimeDelta)
 
             for (auto& iter : m_Child_List)
                 iter->SetActive(false);
+
+            Safe_Release(m_pParticle);
         }
     }
 }
@@ -74,6 +88,9 @@ void CBombExplosion::Update(_float fTimeDelta)
     {
         for (auto& iter : m_Child_List)
             iter->Update(fTimeDelta);
+
+        if(m_pParticle != nullptr)
+            m_pParticle->Update(fTimeDelta);
     }
 }
 
@@ -83,6 +100,8 @@ void CBombExplosion::Late_Update(_float fTimeDelta)
     {
         for (auto& iter : m_Child_List)
             iter->Late_Update(fTimeDelta);
+        if (m_pParticle != nullptr)
+            m_pParticle->Late_Update(fTimeDelta);
     }
 }
 
@@ -130,6 +149,9 @@ HRESULT CBombExplosion::Ready_Child()
         m_Child_List.push_back(p2DEffect);
     }
 
+  
+
+    
     return S_OK;
 }
 
