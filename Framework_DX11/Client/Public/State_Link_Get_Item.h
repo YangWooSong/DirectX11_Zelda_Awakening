@@ -23,6 +23,7 @@ public:
 private:
     class CPlayer* m_pPlayer = { nullptr };
     class CPlayerCamera* m_pCamera = { nullptr };
+    class CDialogueUI* m_pDialogueUI = { nullptr };
 
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iAnimStIndex = { 0 };
@@ -30,6 +31,8 @@ private:
     _uint               m_iAnimEdIndex = { 0 };
 
     _float              m_fLoopTimer = { 0.f };
+
+    _bool m_bSoundPlay = { false };
 
 public:
     static CState_Link_Get_Item* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);

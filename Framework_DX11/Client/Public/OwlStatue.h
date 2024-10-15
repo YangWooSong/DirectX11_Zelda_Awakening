@@ -38,7 +38,9 @@ public:
 
 private:
 	_bool m_bInteract = { false };
+	_bool m_bActiveDialogue = { false };
 
+	class CDialogueUI* m_pDialogueUI = { nullptr };
 private:
 	HRESULT Ready_Components();
 

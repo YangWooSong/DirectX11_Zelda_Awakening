@@ -66,6 +66,13 @@ void CMainUI::Update(_float fTimeDelta)
             m_fTextAlpha = min(1.f, m_fTextAlpha + fTimeDelta); //진해지기
         }
     }
+
+    //if (KEY_TAP(KEY::E))
+    //{
+    //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
+    //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(CDialogueUI::BOSS_KEY);
+    //    m_childUI_List[DIALOGUE]->SetActive(true);
+    //}
 }
 
 void CMainUI::Late_Update(_float fTimeDelta)

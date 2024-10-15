@@ -37,6 +37,9 @@ HRESULT CHeartUI::Initialize(void* pArg)
         m_fSizeX = 0.1f;
         m_fSizeY = 0.1f;
     }
+
+    m_iDepth = 4;
+
     return S_OK;
 }
 

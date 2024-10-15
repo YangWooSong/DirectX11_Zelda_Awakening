@@ -3,7 +3,8 @@
 #include "GameInstance.h"
 #include "Link.h"
 #include "PlayerCamera.h"
-
+#include "MainUI.h"
+#include "DialogueUI.h"
 CState_Link_Get_Item::CState_Link_Get_Item(CFsm* pFsm, CPlayer* pPlayer)
 	:CState{ pFsm }
 	, m_pPlayer{ pPlayer }
@@ -37,6 +38,8 @@ HRESULT CState_Link_Get_Item::Start_State()
 
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSheild(false);
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(false);
+	m_pDialogueUI = static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(m_pPlayer->Get_LevelIndex(), TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE));
+	m_pDialogueUI->Set_OwnerType(CDialogueUI::LINK);
 	return S_OK;
 }
 
@@ -63,6 +66,13 @@ void CState_Link_Get_Item::Update(_float fTimeDelta)
 			if (pEffect != nullptr)
 				pEffect->SetActive(true);
 			m_pPlayer->Set_UI_Active(CLink::ITEM_ICON_UI, true);
+			m_pDialogueUI->SetActive(true);
+
+			if (m_bSoundPlay == false)
+			{
+				m_bSoundPlay = true;
+				m_pPlayer->Get_EffectSound()->Play_Sound(TEXT("5_ItemGet.wav"), 0.8f);
+			}
 		}
 	}
 
@@ -81,6 +91,7 @@ void CState_Link_Get_Item::Update(_float fTimeDelta)
 		CGameObject* pEffect = m_pPlayer->Get_Effect(CPlayer::GET_ITEM);
 		if (pEffect != nullptr)
 			pEffect->SetActive(false);
+		m_pDialogueUI->SetActive(false);
 	}
 
 	if (m_iCurrentAnimIndex == m_iAnimEdIndex && m_pPlayer->Get_IsEnd_CurrentAnimation())
@@ -102,6 +113,7 @@ void CState_Link_Get_Item::End_State()
 	}
 	else
 		m_pCamera->Zoom_Out(1.5f, 45.f);
+	m_bSoundPlay = false;
 }
 
 

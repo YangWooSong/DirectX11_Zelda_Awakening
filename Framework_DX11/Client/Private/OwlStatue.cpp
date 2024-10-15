@@ -2,6 +2,8 @@
 #include "OwlStatue.h"
 #include "GameInstance.h"
 #include "Link.h"
+#include "MainUI.h"
+#include "DialogueUI.h"
 
 COwlStatue::COwlStatue(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
@@ -36,6 +38,8 @@ HRESULT COwlStatue::Initialize(void* pArg)
     m_iRoomNum = pDesc->iRoomNum;
 
     m_isActive = false;
+
+    m_pDialogueUI = static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE));
     return S_OK;
 }
 
@@ -48,6 +52,29 @@ void COwlStatue::Update(_float fTimeDelta)
     if (m_isActive)
     {
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+
+        if (m_bInteract)
+        {
+            if(m_bActiveDialogue == false)
+            {
+                m_bActiveDialogue = true;
+                m_pDialogueUI->Set_OwnerType(CDialogueUI::STATUE);
+                if (m_iRoomNum == 9 || m_iRoomNum == 15)
+                    m_pDialogueUI->Set_LineNum(CDialogueUI::ROOM9);
+                else if (m_iRoomNum == 14)
+                    m_pDialogueUI->Set_LineNum(CDialogueUI::ROOM14);
+                m_pDialogueUI->SetActive(true);
+            }
+        }
+        else
+        {
+            if(m_bActiveDialogue)
+            {
+                m_bActiveDialogue = false;
+                m_pDialogueUI->SetActive(false);
+            }
+        }
+
     }
 }
 

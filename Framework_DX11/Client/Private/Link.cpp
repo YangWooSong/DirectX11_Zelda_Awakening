@@ -40,6 +40,8 @@
 #include "ToolShopkeeper.h"
 #include "2DEffects.h"
 #include "Player_3D_Effects.h"
+#include "MainUI.h"
+#include "DialogueUI.h"
 
 _bool CLink::m_bActiveSheild = { true };
 _bool CLink::m_bActiveSword = { true };
@@ -322,6 +324,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			{
 				m_PlayerUI[INTERACT_UI]->SetActive(true);
 				m_PlayerUI[INTERACT_UI]->Set_TextureNum(0);
+				
 			}
 		}
 
@@ -346,6 +349,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 		if (pOther->Get_LayerTag() == TEXT("Layer_SmallKey"))
 		{
 			Change_PlayerUI_TextureNum(ITEM_ICON_UI,CItemUI::SMALLKEY);
+			static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(m_iLevelIndex, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE))->Set_LineNum(CDialogueUI::SMALL_KEY);
 			Change_State(GET_ITEM);
 		}
 
@@ -393,6 +397,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 		{
 			m_PlayerUI[ITEM_ICON_UI]->SetActive(true);
 			m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(8);
+			static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(m_iLevelIndex, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE))->Set_LineNum(CDialogueUI::SWORD);
 			m_pFsmCom->Change_State(GET_ITEM);
 		}
 		
