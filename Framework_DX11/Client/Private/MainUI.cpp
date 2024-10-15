@@ -47,13 +47,14 @@ void CMainUI::Update(_float fTimeDelta)
     for (auto& pChild : m_childUI_List)
         pChild->Update(fTimeDelta);
 
-    if (m_bRenderLevelText)
+    if (m_bRenderLevelText || m_bRenderBossName)
     {
         if (m_fTextAlpha == 1.f)    //화면에 얼마나 띄웠는지 시간 기록
             m_fTextTimer += fTimeDelta;
         if (m_fTextAlpha == 0.f && m_fTextTimer != 0.f) //한번 떴다가 다시 사라졌을 때 초기화
         {
             m_bRenderLevelText = false;
+            m_bRenderBossName = false;
             m_fTextTimer = 0.f;
         }
 
@@ -99,6 +100,9 @@ HRESULT CMainUI::Render()
         }
        
     }
+
+    if(m_bRenderBossName)
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("거대 꼬리리"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.7f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fTextAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
 
     return S_OK;
 }

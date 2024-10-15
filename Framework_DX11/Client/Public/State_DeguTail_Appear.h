@@ -30,6 +30,7 @@ private:
     _bool               m_bPlaySound = { false };
     _bool               m_bCameraShake = { false };
     _bool               m_bCarmeraSetting = { false };
+    _bool               m_bActiveName = { false };
 public:
     static CState_DeguTail_Appear* Create(class CFsm* pFsm, class CMonster* pOwner, _uint iStateNum);
     virtual void Free() override;
