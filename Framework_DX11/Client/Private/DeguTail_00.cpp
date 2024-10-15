@@ -60,7 +60,7 @@ HRESULT CDeguTail_00::Initialize(void* pArg)
 	m_eObjType = CGameObject::ANIM_MONSTER;
 	m_isActive = false;
 
-	m_UI = static_cast<CDialogueUI*>( static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE));
+	
 	return S_OK;
 }
 void CDeguTail_00::Priority_Update(_float fTimeDelta)

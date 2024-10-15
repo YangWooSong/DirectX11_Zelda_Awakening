@@ -33,6 +33,7 @@ public:
 
 public:
 	void Set_LineNum(_int iIndex) { iLineIndex = iIndex; }
+	void Set_OwnerType(_uint iOwnerIndex) { iOwnerType = iOwnerIndex; }
 private:
 	HRESULT Ready_Components();
 	HRESULT Render_Text();

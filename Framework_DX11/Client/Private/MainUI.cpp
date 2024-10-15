@@ -46,6 +46,24 @@ void CMainUI::Update(_float fTimeDelta)
 {
     for (auto& pChild : m_childUI_List)
         pChild->Update(fTimeDelta);
+
+    if (m_bRenderLevelText)
+    {
+        if (m_fTextAlpha == 1.f)    //화면에 얼마나 띄웠는지 시간 기록
+            m_fTextTimer += fTimeDelta;
+        if (m_fTextAlpha == 0.f && m_fTextTimer != 0.f) //한번 떴다가 다시 사라졌을 때 초기화
+        {
+            m_bRenderLevelText = false;
+            m_fTextTimer = 0.f;
+        }
+
+        if(m_fTextTimer > 1.5f)  //다시 흐려지기
+            m_fTextAlpha = max(0.f, m_fTextAlpha - fTimeDelta);
+        else
+        {
+            m_fTextAlpha = min(1.f, m_fTextAlpha + fTimeDelta); //진해지기
+        }
+    }
 }
 
 void CMainUI::Late_Update(_float fTimeDelta)
@@ -62,6 +80,25 @@ HRESULT CMainUI::Render()
 {
     for (auto& pChild : m_childUI_List)
         pChild->Render();
+
+    if(m_bRenderLevelText)
+    {
+        switch (m_iLevelIndex)
+        {
+        case LEVEL_FIELD:
+            m_pGameInstance->Render_Center(TEXT("Font_Mallang30"), TEXT("메베의 마을"), XMVectorSet(g_iWinSizeX *0.14f, g_iWinSizeY * 0.2f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fTextAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
+            break;
+        case LEVEL_DUNGEON:
+            m_pGameInstance->Render_Center(TEXT("Font_Mallang30"), TEXT("꼬리리의 동굴"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.45f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fTextAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
+            break;
+        case LEVEL_STORE:
+            m_pGameInstance->Render_Center(TEXT("Font_Mallang30"), TEXT("마을 도구점"), XMVectorSet(g_iWinSizeX * 0.14f, g_iWinSizeY * 0.2f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fTextAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
+            break;
+        default:
+            break;
+        }
+       
+    }
 
     return S_OK;
 }

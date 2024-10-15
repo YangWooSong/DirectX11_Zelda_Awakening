@@ -71,6 +71,8 @@ HRESULT CLevel_Dungeon::Initialize()
 		   static_cast<CGameObject*>(*iter)->SetActive(false);
    }
 
+   pMainUI->Active_LevelText();
+
 }
 
 

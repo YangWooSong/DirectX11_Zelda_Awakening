@@ -46,6 +46,23 @@ HRESULT CCustomFont::Render(const _tchar* pText, _fvector vPosition, _fvector vC
 	return S_OK;
 }
 
+HRESULT CCustomFont::Render_Center(const _tchar* pText, _fvector vPosition, _fvector vColor, _float fRadian, _fvector vPivot, _float fScale, _bool bChangeAlpha)
+{
+	XMVECTOR vSize = m_pFont->MeasureString(pText);
+	XMVECTOR vAdjustedPosition = vPosition - (vSize * 0.5f * fScale);
+
+	if (bChangeAlpha)
+		m_pBatch->Begin(SpriteSortMode_BackToFront, m_pBlendState);
+	else
+		m_pBatch->Begin();
+
+	m_pFont->DrawString(m_pBatch, pText, vAdjustedPosition, vColor, fRadian, vPivot, fScale);
+
+	m_pBatch->End();
+
+	return S_OK;
+}
+
 CCustomFont* CCustomFont::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const _tchar* pFontFilePath)
 {
 	CCustomFont* pInstance = new CCustomFont(pDevice, pContext);

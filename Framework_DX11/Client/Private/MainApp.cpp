@@ -95,7 +95,7 @@ HRESULT CMainApp::Ready_Font()
 {
 	//cmd창 명령어 (각종 성분 세팅->사이즈는 고정된다.
 	/* MakeSpriteFont "글꼴 이름 넣는 곳" /FontSize:10 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 내가 정하는 이름.spritefont */
-	/* MakeSpriteFont "Comic Sans MS" /FontSize:24 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 Number24.spritefont */
+	/* MakeSpriteFont "한컴 말랑말랑 Bold" /FontSize:48 /FastPack /CharacterRegion:0x0020-0x00FF /CharacterRegion:0x3131-0x3163 /CharacterRegion:0xAC00-0xD800 /DefaultCharacter:0xAC00 Mallang48.spritefont */
 
 	//Font_Gulim : 이건 레이어 이름 마냥 내가 정한다.
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim24"), TEXT("../Bin/Resources/Fonts/Gullim24.spritefont"))))
@@ -104,7 +104,10 @@ HRESULT CMainApp::Ready_Font()
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Gulim36"), TEXT("../Bin/Resources/Fonts/Gullim36.spritefont"))))
 		return E_FAIL;
 
-	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_BossName36"), TEXT("../Bin/Resources/Fonts/BossName36.spritefont"))))
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Mallang30"), TEXT("../Bin/Resources/Fonts/Mallang30.spritefont"))))
+		return E_FAIL;
+
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Mallang48"), TEXT("../Bin/Resources/Fonts/Mallang48.spritefont"))))
 		return E_FAIL;
 
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Number24"), TEXT("../Bin/Resources/Fonts/Number24.spritefont"))))

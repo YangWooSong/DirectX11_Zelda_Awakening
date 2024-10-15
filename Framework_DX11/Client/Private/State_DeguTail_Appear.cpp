@@ -6,7 +6,7 @@
 #include"Level_Dungeon.h"
 #include"PlayerCamera.h"
 #include "DialogueUI.h"
-
+#include "MainUI.h"
 CState_DeguTail_Appear::CState_DeguTail_Appear(CFsm* pFsm, CMonster* pOwner)
     :CState{ pFsm }
     , m_pOwner{ pOwner }
@@ -25,8 +25,8 @@ HRESULT CState_DeguTail_Appear::Start_State()
 {
     m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.f);
     m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
-    m_pDialogueUI = static_cast<CDialogueUI*>(static_cast<CDeguTail_00*>(m_pOwner)->Get_UIObject());
 
+    m_pDialogueUI = static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE));
     return S_OK;
 }
 
@@ -46,6 +46,7 @@ void CState_DeguTail_Appear::Update(_float fTimeDelta)
             _float3 v_Offset = _float3{ 0.0f, 20.0f, -12.f };
             m_pCamera->Set_TargetToOtherPos(m_pOwner->Get_Pos_vector() + XMLoadFloat3(&v_Offset));
             m_pCamera->Zoom_In(1.4f, 60.f);
+            m_pDialogueUI->Set_OwnerType(CDialogueUI::DEGUTAIL);
             m_pDialogueUI->SetActive(true);
         }
     }

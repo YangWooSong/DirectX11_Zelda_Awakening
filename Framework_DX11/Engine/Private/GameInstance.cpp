@@ -604,6 +604,10 @@ HRESULT CGameInstance::Render_Text(const _wstring& strFontTag, const _tchar* pTe
 {
 	return m_pFont_Manager->Render(strFontTag, pText, vPosition, vColor, fRadian, vPivot, fScale, bChangeAlpha);
 }
+HRESULT CGameInstance::Render_Center(const _wstring& strFontTag, const _tchar* pText, _fvector vPosition, _fvector vColor, _float fRadian, _fvector vPivot, _float fScale, _bool bChangeAlpha)
+{
+	return  m_pFont_Manager->Render_Center(strFontTag, pText, vPosition, vColor, fRadian, vPivot, fScale, bChangeAlpha);
+}
 #pragma endregion
 
 #pragma region Collider_Manager

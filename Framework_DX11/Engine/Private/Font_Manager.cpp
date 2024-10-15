@@ -38,6 +38,18 @@ HRESULT CFont_Manager::Render(const _wstring& strFontTag, const _tchar* pText, _
 	return pFont->Render(pText, vPosition, vColor, fRadian, vPivot, fScale, bChangeAlpha);
 }
 
+HRESULT CFont_Manager::Render_Center(const _wstring& strFontTag, const _tchar* pText, _fvector vPosition, _fvector vColor, _float fRadian, _fvector vPivot, _float fScale, _bool bChangeAlpha)
+{
+	CCustomFont* pFont = Find_Font(strFontTag);
+
+	if (nullptr == pFont)
+		return E_FAIL;
+
+	m_pContext->GSSetShader(nullptr, nullptr, 0);
+
+	return pFont->Render_Center(pText, vPosition, vColor, fRadian, vPivot, fScale, bChangeAlpha);
+}
+
 CCustomFont* CFont_Manager::Find_Font(const _wstring& strFontTag)
 {
 	auto	iter = m_Fonts.find(strFontTag);

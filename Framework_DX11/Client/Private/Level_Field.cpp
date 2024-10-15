@@ -38,7 +38,8 @@ HRESULT CLevel_Field::Initialize()
 	m_pGameInstance->Play_BGM(TEXT("0_Field_Normal.wav"), 0.6f);
 	m_pTeleportObj_0 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 0));
 	m_pTeleportObj_1 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 1));
-
+	CMainUI* pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_MainUI"), 0));
+	pMainUI->Active_LevelText();
 	return S_OK;
 }
 

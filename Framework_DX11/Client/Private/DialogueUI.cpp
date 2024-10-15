@@ -150,7 +150,8 @@ HRESULT CDialogueUI::Render_Text()
     }   
     else if (iOwnerType == DEGUTAIL)
     {
-        m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("사고싶은 물건을 골라와."), XMVectorSet(m_fX * 0.75f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+        m_pGameInstance->Render_Center(TEXT("Font_Gulim24"), TEXT("크르르!!크르르!!"), XMVectorSet(g_iWinSizeX * 0.5f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, false);
+        m_pGameInstance->Render_Center(TEXT("Font_Gulim24"), TEXT("침입자다! 방해꾼이다!"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.78f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, false);
     }
 
     return S_OK;

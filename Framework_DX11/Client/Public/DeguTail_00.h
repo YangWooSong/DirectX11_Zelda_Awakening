@@ -55,11 +55,9 @@ public:
 	void Set_bRenderText(_bool bText) { m_bRenderText = bText; }
 	_bool Get_bBlink() { return m_bBlink; }
 
-	CUIObject* Get_UIObject() { return m_UI; }
-
 private:
 	vector<_matrix> m_MParentWorldMarix;
-	class CDialogueUI* m_UI;
+
 	_bool			m_bAngry = { false };
 
 	_bool			m_bOutBodyRed = { false };

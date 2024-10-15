@@ -36,6 +36,9 @@ HRESULT CLevel_Store::Initialize()
 	m_pGameInstance->Play_BGM(TEXT("0_Shop.wav"), 0.8f);
 	m_pTeleportObj = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_STORE, TEXT("Layer_Teleport"), 0));
 
+	CMainUI* pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_STORE, TEXT("Layer_MainUI"), 0));
+	pMainUI->Active_LevelText();
+
 	return S_OK;
 }
 

@@ -42,11 +42,16 @@ public:
 	_float3 Get_PlayerPos_Float3();
 
 	void SEt_Active_Campus(_bool m_bActive) { m_bActive_Campus = m_bActive; }
-
+	void Active_LevelText() { m_bRenderLevelText = true; }
 private:
 	class CLink* m_pPlayer = { nullptr };
 
 	_bool m_bActive_Campus = { false };
+	_bool m_bRenderLevelText = { false };
+
+	_float m_fTextAlpha = { 0.f };
+	_float m_fTextTimer = { 0.f };
+
 	_uint m_iLevelIndex = {LEVEL_END};
 
 private:
