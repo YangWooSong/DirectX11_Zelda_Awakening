@@ -7,7 +7,7 @@ class CMainUI :
 	public CUIObject
 {
 public:
-	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, MAP, DIALOGUE, CHILD_END };
+	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, MAP, DIALOGUE, FADE_IN_OUT, CHILD_END };
 
 	typedef struct : public CUIObject::UI_DESC
 	{
@@ -34,8 +34,10 @@ public:
 	_bool Get_Player_Get_BossKey();
 	_bool Get_Bomb();
 	_bool Get_Feather();
-	_bool Get_Active_Campus() { return m_bActive_Campus; }
 	_bool Get_Map();
+	_bool Get_Active_Campus() { return m_bActive_Campus; }
+	_bool Get_isFinishFadeIn() { return m_isFinishFadeIn; }
+	_bool Get_isFinishFadeOut() { return m_isFinishFadeOut; }
 
 	_uint Get_LevelIndex() { return m_iLevelIndex; }
 
@@ -44,12 +46,20 @@ public:
 	void SEt_Active_Campus(_bool m_bActive) { m_bActive_Campus = m_bActive; }
 	void Active_LevelText() { m_bRenderLevelText = true; }
 	void Active_BossNameText() { m_bRenderBossName = true; }
+
+	void Active_FadeIn();
+	void Active_FadeOut();
+
+	void Set_isFinishFadeIn(_bool bFinishIn) { m_isFinishFadeIn = bFinishIn; }
+	void Set_isFinishFadeOut(_bool bFinishOut) { m_isFinishFadeOut = bFinishOut; }
 private:
 	class CLink* m_pPlayer = { nullptr };
 
 	_bool m_bActive_Campus = { false };
 	_bool m_bRenderLevelText = { false };
 	_bool m_bRenderBossName = { false };
+	_bool m_isFinishFadeIn = { false };
+	_bool m_isFinishFadeOut = { false };
 
 	_float m_fTextAlpha = { 0.f };
 	_float m_fTextTimer = { 0.f };

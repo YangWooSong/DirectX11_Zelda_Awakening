@@ -36,15 +36,22 @@ HRESULT CLevel_Store::Initialize()
 	m_pGameInstance->Play_BGM(TEXT("0_Shop.wav"), 0.8f);
 	m_pTeleportObj = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_STORE, TEXT("Layer_Teleport"), 0));
 
-	CMainUI* pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_STORE, TEXT("Layer_MainUI"), 0));
-	pMainUI->Active_LevelText();
+	m_pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_STORE, TEXT("Layer_MainUI"), 0));
+	m_pMainUI->Active_LevelText();
+	m_pMainUI->Active_FadeIn();
 
 	return S_OK;
 }
 
 void CLevel_Store::Update(_float fTimeDelta)
 {
-	if (m_pTeleportObj->Get_Change_Level() )
+	if (m_pTeleportObj->Get_Change_Level() && m_bFadeOut == false)
+	{
+		m_bFadeOut = true;
+		m_pMainUI->Active_FadeOut();
+	}
+
+	if (m_pMainUI->Get_isFinishFadeOut())
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
@@ -91,7 +98,7 @@ HRESULT CLevel_Store::Ready_Lights()
 	LightDesc.eType = LIGHT_DESC::TYPE_POINT;
 	LightDesc.vPosition = _float4(0.f, 3.f, -2.f, 1.f);
 	LightDesc.fRange = 25.f;
-	LightDesc.vDiffuse = _float4(1.f, 1.f, 1.f, 1.f);
+	LightDesc.vDiffuse = _float4(1.f, 1.f, 0.9f, 1.f);
 	LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
 	LightDesc.vSpecular = LightDesc.vDiffuse;
 
@@ -147,10 +154,10 @@ HRESULT CLevel_Store::Ready_Layer_BackGround()
 	CBackGround::BACKGROUND_DESC Desc{ };
 
 	Desc.eType = CBackGround::HOUSE_BACKGROUND;
-	Desc.fSizeX = g_iWinSizeX;
-	Desc.fSizeY = g_iWinSizeY;
+	Desc.fSizeX = g_iWinSizeX * 1.1f;
+	Desc.fSizeY = g_iWinSizeY * 1.5f;
 	Desc.fX = g_iWinSizeX / 2;
-	Desc.fY = g_iWinSizeY / 2;
+	Desc.fY = g_iWinSizeY * 0.3f;
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_STORE, TEXT("Layer_BackGround"),
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))

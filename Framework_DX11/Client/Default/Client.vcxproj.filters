@@ -607,6 +607,9 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Lightning">
       <UniqueIdentifier>{2c024e6a-9842-406b-9d0e-89356e33d2ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\FadeInOut">
+      <UniqueIdentifier>{4017e4c3-c2e6-4f5c-89e9-709f67534a6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1134,6 +1137,9 @@
     <ClInclude Include="..\Public\Lightning_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Lightning</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\FadeInOut.h">
+      <Filter>02.GameObjects\07.UI\MainUI\FadeInOut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1651,6 +1657,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Lightning_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Lightning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\FadeInOut.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\FadeInOut</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -37,20 +37,18 @@ HRESULT CLevel_MarinHouse::Initialize()
 	m_pGameInstance->Play_BGM(TEXT("0_House_Inside.wav"), 0.8f);
 	m_pTeleportObj = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"), 0));
 	
+	m_pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_MainUI"), 0));
+	m_pMainUI->Active_FadeIn();
+
 	return S_OK;
 }
 
 void CLevel_MarinHouse::Update(_float fTimeDelta)
 {
-	if (m_pTeleportObj->Get_Change_Level() )
+	if (m_pTeleportObj->Get_Change_Level() && m_bFadeOut == false)
 	{
-		m_pGameInstance->DeletePlayer();
-		m_pGameInstance->DeleteActors();
-		m_pGameInstance->Stop_BGM();
-		m_pGameInstance->Reset_Lights();
-		m_pTeleportObj->Set_Change_Level(false);
-		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj->Get_NextLevel()))))
-			return;
+		m_bFadeOut = true;
+		m_pMainUI->Active_FadeOut();
 	}
 
 	if (GetKeyState(VK_RETURN) & 0x8000)
@@ -60,6 +58,18 @@ void CLevel_MarinHouse::Update(_float fTimeDelta)
 		m_pGameInstance->Stop_BGM();
 		m_pGameInstance->Reset_Lights();
 		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, LEVEL_DUNGEON))))
+			return;
+		return;
+	}
+
+	if (m_pMainUI->Get_isFinishFadeOut())
+	{
+		m_pGameInstance->DeletePlayer();
+		m_pGameInstance->DeleteActors();
+		m_pGameInstance->Stop_BGM();
+		m_pGameInstance->Reset_Lights();
+		m_pTeleportObj->Set_Change_Level(false);
+		if (FAILED(m_pGameInstance->Change_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pDevice, m_pContext, (LEVELID)m_pTeleportObj->Get_NextLevel()))))
 			return;
 	}
 }
@@ -89,7 +99,7 @@ HRESULT CLevel_MarinHouse::Ready_Lights()
 	LightDesc.eType = LIGHT_DESC::TYPE_POINT;
 	LightDesc.vPosition = _float4(0.f, 0.f, -2.f, 1.f);
 	LightDesc.fRange = 8.f;
-	LightDesc.vDiffuse = _float4(1.f, 1.f, 1.f, 1.f);
+	LightDesc.vDiffuse = _float4(1.f, 1.f, 0.9f, 1.f);
 	LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
 	LightDesc.vSpecular = LightDesc.vDiffuse;
 
@@ -146,10 +156,10 @@ HRESULT CLevel_MarinHouse::Ready_Layer_BackGround()
 	CBackGround::BACKGROUND_DESC Desc{ };
 
 	Desc.eType = CBackGround::HOUSE_BACKGROUND;
-	Desc.fSizeX = g_iWinSizeX;
-	Desc.fSizeY = g_iWinSizeY;
+	Desc.fSizeX = g_iWinSizeX * 1.1f;
+	Desc.fSizeY = g_iWinSizeY * 1.5f;
 	Desc.fX = g_iWinSizeX  / 2;
-	Desc.fY = g_iWinSizeY / 2;
+	Desc.fY = g_iWinSizeY * 0.3f;
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_BackGround"),
 		TEXT("Prototype_GameObject_BackGround"), &Desc)))

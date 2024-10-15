@@ -38,14 +38,25 @@ HRESULT CLevel_Field::Initialize()
 	m_pGameInstance->Play_BGM(TEXT("0_Field_Normal.wav"), 0.6f);
 	m_pTeleportObj_0 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 0));
 	m_pTeleportObj_1 = static_cast<CTeleport*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_Teleport"), 1));
-	CMainUI* pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_MainUI"), 0));
-	pMainUI->Active_LevelText();
+	m_pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_MainUI"), 0));
+	m_pMainUI->Active_FadeIn();
+	m_pMainUI->Active_LevelText();
+
 	return S_OK;
 }
 
 void CLevel_Field::Update(_float fTimeDelta)
 {
- 	if (m_pTeleportObj_0->Get_Change_Level() )
+	if (m_pTeleportObj_0->Get_Change_Level() || m_pTeleportObj_1->Get_Change_Level() || m_pTeleportObj_2 != nullptr && m_pTeleportObj_2->Get_Change_Level())
+	{
+		if(m_bFadeOut == false)
+		{
+			m_bFadeOut = true;
+			m_pMainUI->Active_FadeOut();
+		}
+	}
+
+ 	if (m_pTeleportObj_0->Get_Change_Level() && m_pMainUI->Get_isFinishFadeOut())
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
@@ -57,7 +68,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		return;
 	}
 
-	else if (m_pTeleportObj_1->Get_Change_Level())
+	else if (m_pTeleportObj_1->Get_Change_Level() && m_pMainUI->Get_isFinishFadeOut())
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();
@@ -69,7 +80,7 @@ void CLevel_Field::Update(_float fTimeDelta)
 		return;
 	}
 
-	else if (m_pTeleportObj_2 != nullptr && m_pTeleportObj_2->Get_Change_Level())
+	else if (m_pTeleportObj_2 != nullptr && m_pTeleportObj_2->Get_Change_Level() && m_pMainUI->Get_isFinishFadeOut())
 	{
 		m_pGameInstance->DeletePlayer();
 		m_pGameInstance->DeleteActors();

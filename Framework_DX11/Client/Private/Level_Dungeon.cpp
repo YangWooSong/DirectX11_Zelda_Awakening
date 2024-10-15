@@ -72,7 +72,9 @@ HRESULT CLevel_Dungeon::Initialize()
    }
 
    pMainUI->Active_LevelText();
+   pMainUI->Active_FadeIn();
 
+   return S_OK;
 }
 
 

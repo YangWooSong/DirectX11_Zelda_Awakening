@@ -3,6 +3,7 @@
 #include"GameInstance.h"
 #include "Link.h"
 #include "DialogueUI.h"
+#include "FadeInOUt.h"
 CMainUI::CMainUI(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CUIObject(pDevice, pContext)
 {
@@ -79,8 +80,6 @@ void CMainUI::Late_Update(_float fTimeDelta)
 
 HRESULT CMainUI::Render()
 {
-    for (auto& pChild : m_childUI_List)
-        pChild->Render();
 
     if(m_bRenderLevelText)
     {
@@ -153,6 +152,18 @@ _float3 CMainUI::Get_PlayerPos_Float3()
 
     XMStoreFloat3(&fPos, m_pPlayer->Get_Position());
     return fPos;
+}
+
+void CMainUI::Active_FadeIn()
+{
+    if(dynamic_cast<CFadeInOut*>(m_childUI_List[FADE_IN_OUT]) != nullptr)
+        static_cast<CFadeInOut*>( m_childUI_List[FADE_IN_OUT])->FadeIn();
+}
+
+void CMainUI::Active_FadeOut()
+{
+    if (dynamic_cast<CFadeInOut*>(m_childUI_List[FADE_IN_OUT]) != nullptr)
+        static_cast<CFadeInOut*>(m_childUI_List[FADE_IN_OUT])->FadeOut();
 }
 
 HRESULT CMainUI::Ready_Child_UI()
@@ -235,8 +246,23 @@ HRESULT CMainUI::Ready_Child_UI()
         UIDesc.fY = g_iWinSizeY * 0.75f;
       
         CUIObject* m_pDialogueUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&UIDesc));
-        m_pDialogueUI->Set_ParentObj(this);
+      //  m_pDialogueUI->Set_ParentObj(this);
         m_childUI_List.push_back(m_pDialogueUI);
+    } 
+    
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_FadeInOut"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.fSizeX = g_iWinSizeX ;
+        pDesc.fSizeY = g_iWinSizeY;
+        pDesc.fX = g_iWinSizeX * 0.5f;
+        pDesc.fY = g_iWinSizeY * 0.5f;
+        pDesc.pParent = this;
+
+        CUIObject* m_pUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
+       // m_pUI->Set_ParentUI(this);
+        m_childUI_List.push_back(m_pUI);
     }
 
     return S_OK;

@@ -91,6 +91,7 @@
 #include "MapBackGround.h"
 #include "MiniMap.h"
 #include "MapUI.h"
+#include "FadeInOut.h"
 
 #include "Glow_Effect.h"
 #include "Cross_Effect.h"
@@ -475,7 +476,7 @@ HRESULT CLoader::Ready_Textures_For_static()
 {
 	/* For. Prototype_Component_Texture_House_Background */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_House_Background"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/House_Background.dds"), 1))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/room_back_01.dds"), 1))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_OpenBox */
@@ -586,6 +587,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 	/* For. Prototype_Component_Texture_Effect_fire_small_01*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_fire_small_01"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/fire_small_01.png"), 1))))
+		return E_FAIL;
+	
+	/* For. Prototype_Component_Texture_Black*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Black"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Black.dds"), 1))))
 		return E_FAIL;
 
 	return S_OK;
@@ -1193,6 +1199,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_MapUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_MapUI"),
 		CMapUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_FadeInOut*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FadeInOut"),
+		CFadeInOut::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 

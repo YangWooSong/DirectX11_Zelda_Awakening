@@ -36,7 +36,9 @@ private:
 	class CTeleport* m_pTeleportObj_0 = { nullptr };
 	class CTeleport* m_pTeleportObj_1 = { nullptr };
 	class CTeleport* m_pTeleportObj_2 = { nullptr };
+	class CMainUI* m_pMainUI = { nullptr };
 
+	_bool m_bFadeOut = { false };
 private:
 	void Setting_Gimmick();
 public:

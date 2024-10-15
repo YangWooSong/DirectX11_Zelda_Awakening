@@ -35,7 +35,9 @@ public:
 private:
 	class CNavigation* m_pNavigationCom = { nullptr };
 	class CTeleport* m_pTeleportObj = { nullptr };
+	class CMainUI* m_pMainUI = { nullptr };
 
+	_bool m_bFadeOut = { false };
 public:
 	static CLevel_Store* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual void Free() override;
