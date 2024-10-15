@@ -186,10 +186,10 @@ HRESULT CParticle_Image::Ready_Components()
 			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
 			return E_FAIL;
 
-		Desc.iNumInstance = 15;
+		Desc.iNumInstance = 25;
 		Desc.vCenter = _float3(0.f, 1.5f, 0.f);
 		Desc.vRange = _float3(0.5f, 0.5f, 0.2f);
-		Desc.vSize = _float2(0.2f, 0.5f);
+		Desc.vSize = _float2(0.2f, 0.3f);
 		Desc.vPivot = Desc.vCenter;
 		Desc.vSpeed = _float2(0.5f, 1.2f);
 		Desc.vLifeTime = _float2(0.4f,1.f);
@@ -223,7 +223,7 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vRange = _float3(2.f, 2.f, 0.2f);
 		Desc.vSize = _float2(0.3f, 0.5f);
 		Desc.vPivot = Desc.vCenter;
-		Desc.vSpeed = _float2(0.6f, 1.f);
+		Desc.vSpeed = _float2(0.8f, 1.f);
 		Desc.vLifeTime = _float2(1.f, 1.5f);
 		Desc.isLoop = false;
 
