@@ -49,6 +49,8 @@ private:
 	_int iLineIndex = { 0 };
 	//vector<const _tchar*> m_Text = {TEXT("사고싶은 물건을 골라와."),TEXT("폭탄은 5루피야.") ,TEXT("하트는 10루피야.") };
 
+	_float m_fAlpha = { 0.f };
+	_float4 m_fColor = { 0.f,0.f,0.f,0.f };
 private:
 	HRESULT Ready_ChildUI();
 public:
