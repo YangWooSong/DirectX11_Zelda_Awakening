@@ -347,6 +347,11 @@ void CGameInstance::Set_Transform(CPipeLine::D3DTRANSFORMSTATE eState, _fmatrix 
 	return m_pPipeLine->Set_Transform(eState, TransformMatrix);
 }
 
+void CGameInstance::Set_ShadowLight(CPipeLine :: D3DTRANSFORMSTATE eState, _fvector vPlayerPos)
+{
+	return m_pPipeLine->Set_ShadowLight(eState, vPlayerPos);
+}
+
 _float4x4 CGameInstance::Get_Transform_Float4x4(CPipeLine::D3DTRANSFORMSTATE eState) const
 {
 	return m_pPipeLine->Get_Transform_Float4x4(eState);
@@ -375,6 +380,16 @@ _float4 CGameInstance::Get_CamPosition_Float4() const
 _vector CGameInstance::Get_CamPosition_Vector() const
 {
 	return m_pPipeLine->Get_CamPosition_Vector();
+}
+
+_vector CGameInstance::Get_ShadowLightPos_Vector()
+{
+	return m_pPipeLine->Get_ShadowLightPos_Vector();
+}
+
+_vector CGameInstance::Get_LightLook_Vector()
+{
+	return m_pPipeLine->Get_LightLook_Vector();
 }
 
 #pragma endregion

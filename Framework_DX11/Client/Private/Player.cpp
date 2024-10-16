@@ -46,6 +46,7 @@ HRESULT CPlayer::Initialize(void* pArg)
 
 void CPlayer::Priority_Update(_float fTimeDelta)
 {
+	m_pGameInstance->Set_ShadowLight(CPipeLine::D3DTS_SHADOW_LIGHT,m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 }
 
 void CPlayer::Update(_float fTimeDelta)

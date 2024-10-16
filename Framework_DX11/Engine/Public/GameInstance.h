@@ -83,6 +83,7 @@ public:
 
 #pragma region PIPELINE
 	void Set_Transform(CPipeLine::D3DTRANSFORMSTATE eState, _fmatrix TransformMatrix);
+	void  Set_ShadowLight(CPipeLine::D3DTRANSFORMSTATE eState, _fvector vPlayerPos);
 	_float4x4 Get_Transform_Float4x4(CPipeLine::D3DTRANSFORMSTATE eState) const;
 	_matrix Get_Transform_Matrix(CPipeLine::D3DTRANSFORMSTATE eState) const;
 	_float4x4 Get_Transform_Inverse_Float4x4(CPipeLine::D3DTRANSFORMSTATE eState) const;
@@ -90,6 +91,8 @@ public:
 
 	_float4 Get_CamPosition_Float4() const;
 	_vector Get_CamPosition_Vector() const;
+	_vector Get_ShadowLightPos_Vector();
+	_vector Get_LightLook_Vector();
 #pragma endregion
 
 #pragma region LIGHT_MANAGER
