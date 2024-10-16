@@ -34,7 +34,7 @@ HRESULT CGlow_Effect::Initialize(void* pArg)
         m_iDepth = 1;
         m_fMaxSize = 1.5f;
     }
-    else if (m_iEffectType == TAIL_DUNGEON_OPEN)
+    else if (m_iEffectType == TAIL_DUNGEON_OPEN || LOCKBLOCK_OPEN)
     {
         m_iDepth = 1;
         m_fMaxSize = 3.f;
@@ -69,6 +69,11 @@ void CGlow_Effect::Update(_float fTimeDelta)
         else if (m_iEffectType == SPARK_EFFECT)
         {
             m_vOffset = { 0.f, 0.5f, 0.0f };
+        }
+        else if (m_iEffectType == LOCKBLOCK_OPEN)
+        {
+            m_vOffset = { 0.f, 0.5f, 0.0f };
+            Lerp_Size_Up(fTimeDelta);
         }
         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_vOffset));
     }
@@ -154,6 +159,18 @@ void CGlow_Effect::Lerp_Size(_float fTimeDelta)
         //    m_bSizeDown = false;
         }
     }
+}
+
+void CGlow_Effect::Lerp_Size_Up(_float fTimeDelta)
+{
+    m_fColor.w = max(0.f, m_fColor.w - fTimeDelta);
+
+    _float3 fCurSize = m_pTransformCom->Get_Scaled();
+
+    _float fAmout = fTimeDelta * 8.f;
+
+    if (fAmout + fCurSize.x <= m_fMaxSize )
+        m_pTransformCom->Set_Scaled(fCurSize.x + fAmout, fCurSize.y + fAmout, fCurSize.z + fAmout);
 }
 
 CGlow_Effect* CGlow_Effect::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)

@@ -36,7 +36,7 @@ private:
 private:
 	HRESULT Ready_Components();
 	void Lerp_Size(_float fTimeDelta);	//커졌다 작아짐(한번)
-//	void Lerp_Size_Up(_float fTimeDelta); //커짐 , 알파도 줄어듦
+	void Lerp_Size_Up(_float fTimeDelta); //커짐 , 알파도 줄어듦
 
 
 public:

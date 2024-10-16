@@ -2,7 +2,7 @@
 #include "LockBlock.h"
 #include "GameInstance.h"
 #include "Link.h"
-
+#include "2DEffects.h"
 CLockBlock::CLockBlock(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -43,6 +43,7 @@ HRESULT CLockBlock::Initialize(void* pArg)
 
 void CLockBlock::Priority_Update(_float fTimeDelta)
 {
+    m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CLockBlock::Update(_float fTimeDelta)
@@ -56,7 +57,14 @@ void CLockBlock::Update(_float fTimeDelta)
     {
         m_pColliderCom->Set_IsActive(false);
         m_pGameInstance->Destroy_PhysXActor(this);
+        if(m_bActiveEffect==false)
+        {
+            m_bActiveEffect = true;
+            m_pEffect->SetActive(true);
+        }
+        m_fAlpha = max(0.f, m_fAlpha - fTimeDelta * 2.f);
     }
+    m_pEffect->Update(fTimeDelta);
 }
 
 void CLockBlock::Late_Update(_float fTimeDelta)
@@ -70,11 +78,13 @@ void CLockBlock::Late_Update(_float fTimeDelta)
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
     }
+
+    m_pEffect->Late_Update(fTimeDelta);
 }
 
 HRESULT CLockBlock::Render()
 {
-    if (m_isActive && m_bOpened == false)
+    if (m_isActive && m_fAlpha != 0.f)
     {
         if (FAILED(m_pTransformCom->Bind_ShaderResource(m_pShaderCom, "g_WorldMatrix")))
             return E_FAIL;
@@ -84,22 +94,26 @@ HRESULT CLockBlock::Render()
         if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
             return E_FAIL;
 
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &m_fAlpha, sizeof(_float))))
+            return E_FAIL;
 
         _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
-
-
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
                 return E_FAIL;
 
-            if (FAILED(m_pShaderCom->Begin(0)))
+            if (FAILED(m_pShaderCom->Begin(6)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
         }
+
+        _float fOne = 1.f;
+        if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &fOne, sizeof(_float))))
+            return E_FAIL;
     }
     return S_OK;
 }
@@ -153,6 +167,17 @@ HRESULT CLockBlock::Ready_Components()
         return E_FAIL;
     m_pSoundCom->Set_Owner(this);
 
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_LockBlockEffect"));
+
+    if (pGameObj != nullptr)
+    {
+        C2DEffects::EFFECT_DESC Desc{};
+        Desc.iLevelIndex = LEVEL_DUNGEON;
+        Desc.pParent = this;
+        Desc.iEffectType = LOCKBLOCK_OPEN;
+        m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+    }
+
     return S_OK;
 }
 
@@ -184,6 +209,7 @@ void CLockBlock::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

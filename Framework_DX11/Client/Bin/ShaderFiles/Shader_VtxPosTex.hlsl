@@ -118,7 +118,7 @@ PS_OUT PS_MAIN_LAWALPHA(PS_IN In)
     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
     
     if (Out.vColor.r < 0.3f)
-        Out.vColor.a *= 0.8f;
+        Out.vColor.a *= 0.9f;
     
     return Out;
 }
@@ -158,8 +158,8 @@ PS_OUT PS_MAIN_FillColor(PS_IN In)
 
     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
     
-    if (0.2 >= Out.vColor.a)
-        discard;
+    //if (0.2 >= Out.vColor.a)
+    //    discard;
 
     Out.vColor.r = g_fColor.x;
     Out.vColor.g = g_fColor.y;

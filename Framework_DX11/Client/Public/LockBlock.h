@@ -40,7 +40,10 @@ public:
 
 private:
 	_bool m_bOpened = { false };
+	_bool m_bActiveEffect = { false };
+	_float m_fAlpha = { 1.f };
 
+	CGameObject* m_pEffect = { nullptr };
 
 private:
 	HRESULT Ready_Components();

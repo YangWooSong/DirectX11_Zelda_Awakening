@@ -1,9 +1,9 @@
 ﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Shader_Cell.cso
-  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Shader_Deferred.cso
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Shader_Deferred.cso
   unity_QDSV4FQ2D0PY0HOZ.cpp
   unity_3NUX7FF4BOOG1THY.cpp
   unity_9VUD6OU3QUIBM6SE.cpp

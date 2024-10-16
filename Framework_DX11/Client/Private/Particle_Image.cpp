@@ -86,6 +86,11 @@ void CParticle_Image::Update(_float fTimeDelta)
 			m_fColor = { 1.f,0.6f,0.6f,1.f };
 			m_bSetAlpha = true;
 			m_pVIBufferCom->Spread(fTimeDelta);
+			break;	
+		case LOCK_BLOCK:
+			m_fColor = { 1.f,1.f,1.f,1.f };
+			m_bSetAlpha = true;
+			static_cast<CVIBuffer_Point_Instance*>(m_pVIBufferCom)->Stop_MoveUp(fTimeDelta, 0.4f);
 			break;
 		default:
 			break;
@@ -276,6 +281,23 @@ HRESULT CParticle_Image::Ready_Components()
 		Desc.vSpeed = _float2(0.4f, 2.f);
 		Desc.vLifeTime = _float2(1.f, 1.f);
 		Desc.isLoop = true;
+	}
+	
+	else if(m_iParticleType == LOCK_BLOCK)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_point_Glow"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+
+		Desc.iNumInstance =70;
+		Desc.vCenter = _float3(0.f, 0.f, 0.f);
+		Desc.vRange = _float3(1.5f, 1.5f, 1.5f);
+		Desc.vSize = _float2(0.1f, 0.3f);
+		Desc.vPivot = _float3(0.f, -1.f, 0.f);
+		Desc.vSpeed = _float2(0.5f, 2.f);
+		Desc.vLifeTime = _float2(1.f, 2.f);
+		Desc.isLoop = false;
 	}
 	/* FOR.Com_VIBuffer */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),

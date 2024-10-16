@@ -49,7 +49,7 @@ void CLightning_Effect::Update(_float fTimeDelta)
         {
             m_fFrame = 0.f;
         }
-        m_fFrame += fTimeDelta * 5.f;
+        m_fFrame += fTimeDelta * 8.f;
 
 
         m_iFrameIndex = (_uint)floor(m_fFrame);

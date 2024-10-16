@@ -541,9 +541,6 @@
     <Filter Include="02.GameObjects\08.Effects">
       <UniqueIdentifier>{b9770d46-cbfd-4321-81ec-d756a494e33d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\08.Effects\MonsterDied">
-      <UniqueIdentifier>{a5e69964-92ba-415c-9091-0a6ce84680c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\06.Particle\Particle_Image">
       <UniqueIdentifier>{a316a826-0d51-4999-890f-4f52078f6546}</UniqueIdentifier>
     </Filter>
@@ -559,14 +556,8 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Smoke_Effect">
       <UniqueIdentifier>{5fe6c222-05b4-4d37-9b2b-12570355c35e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\08.Effects\BombExplosion">
-      <UniqueIdentifier>{4f9301d1-89e0-49eb-b9fb-517b050f1f41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Flash">
       <UniqueIdentifier>{f26587f4-a171-4ad3-8024-5a9866af03ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\08.Effects\Player_ItemGet">
-      <UniqueIdentifier>{44e115b2-3191-4d78-9113-6d53e7c0b2f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObjects\08.Effects\3D_Defaults">
       <UniqueIdentifier>{cb93d194-07c6-4be8-b9c2-8f746406c585}</UniqueIdentifier>
@@ -577,26 +568,14 @@
     <Filter Include="02.GameObjects\02.Player\Player_3D_Effects">
       <UniqueIdentifier>{849bac30-3080-4887-87f0-1113fe503b94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\08.Effects\Player_Charge_Slash">
-      <UniqueIdentifier>{0a849845-2280-46d7-969a-fca3bfa130c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\08.Effects\3D_Defaults\Halo">
       <UniqueIdentifier>{76ac3533-0dc8-419e-8870-0ddf8aeb24cf}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObjects\08.Effects\3D_Defaults\Ring">
       <UniqueIdentifier>{769aa899-2f5f-42f8-b2a9-3ca7ba1e2cdc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObjects\08.Effects\TailDungeonOpen">
-      <UniqueIdentifier>{e86b8afb-44b7-4e76-bf51-8d31d30bcf4e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\08.Effects\Spark_Effect">
-      <UniqueIdentifier>{3e94cf60-9197-4e62-bedb-64a60244ceec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObjects\08.Effects\3D_Defaults\CubeHalfDome">
       <UniqueIdentifier>{a7259cc8-69e9-4b52-b251-2342c709f1ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObjects\08.Effects\Fire_Big">
-      <UniqueIdentifier>{410e4d1d-3b6c-432c-bd5e-ac507e0b6e6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObjects\08.Effects\3D_Defaults\Fire_Plane_Effect">
       <UniqueIdentifier>{0717ac22-2839-45d2-b4f3-036baa515a6f}</UniqueIdentifier>
@@ -609,6 +588,33 @@
     </Filter>
     <Filter Include="02.GameObjects\07.UI\MainUI\FadeInOut">
       <UniqueIdentifier>{4017e4c3-c2e6-4f5c-89e9-709f67534a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set">
+      <UniqueIdentifier>{55060b38-805d-4da7-9d30-3ff13be92bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\BombExplosion">
+      <UniqueIdentifier>{4f9301d1-89e0-49eb-b9fb-517b050f1f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\Fire_Big">
+      <UniqueIdentifier>{410e4d1d-3b6c-432c-bd5e-ac507e0b6e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\MonsterDied">
+      <UniqueIdentifier>{a5e69964-92ba-415c-9091-0a6ce84680c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\Player_Charge_Slash">
+      <UniqueIdentifier>{0a849845-2280-46d7-969a-fca3bfa130c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\Player_ItemGet">
+      <UniqueIdentifier>{44e115b2-3191-4d78-9113-6d53e7c0b2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\Spark_Effect">
+      <UniqueIdentifier>{3e94cf60-9197-4e62-bedb-64a60244ceec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\TailDungeonOpen">
+      <UniqueIdentifier>{e86b8afb-44b7-4e76-bf51-8d31d30bcf4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\Effect_Set\LockBlock_Effect">
+      <UniqueIdentifier>{cd166f64-d704-46a3-8fc6-2ea9b0a6bba3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1075,7 +1081,7 @@
       <Filter>02.GameObjects\08.Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MonsterDied_Effect.h">
-      <Filter>02.GameObjects\08.Effects\MonsterDied</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\MonsterDied</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Glow_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Glow_Effect</Filter>
@@ -1093,13 +1099,13 @@
       <Filter>02.GameObjects\08.Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\BombExplosion.h">
-      <Filter>02.GameObjects\08.Effects\BombExplosion</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\BombExplosion</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Flash_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Flash</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Player_ItemGet_Effect.h">
-      <Filter>02.GameObjects\08.Effects\Player_ItemGet</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Player_ItemGet</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Ripple_Effect.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect</Filter>
@@ -1108,7 +1114,7 @@
       <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Player_Charge_Slash.h">
-      <Filter>02.GameObjects\08.Effects\Player_Charge_Slash</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Player_Charge_Slash</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Halo_Effect.h">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Halo</Filter>
@@ -1116,17 +1122,14 @@
     <ClInclude Include="..\Public\Ring_Effect.h">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Ring</Filter>
     </ClInclude>
-    <ClInclude Include="TailDungeonOpen.h">
-      <Filter>02.GameObjects\08.Effects\TailDungeonOpen</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\CubeHalfDome.h">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\CubeHalfDome</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Spark_Effect.h">
-      <Filter>02.GameObjects\08.Effects\Spark_Effect</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Spark_Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Fire_Big_Effect.h">
-      <Filter>02.GameObjects\08.Effects\Fire_Big</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Fire_Big</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Fire_Plane_Effect.h">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Fire_Plane_Effect</Filter>
@@ -1139,6 +1142,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\FadeInOut.h">
       <Filter>02.GameObjects\07.UI\MainUI\FadeInOut</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\TailDungeonOpen.h">
+      <Filter>02.GameObjects\08.Effects\Effect_Set\TailDungeonOpen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\LockBlockEffect.h">
+      <Filter>02.GameObjects\08.Effects\Effect_Set\LockBlock_Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1596,7 +1605,7 @@
       <Filter>02.GameObjects\08.Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\MonsterDied_Effect.cpp">
-      <Filter>02.GameObjects\08.Effects\MonsterDied</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\MonsterDied</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Glow_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Glow_Effect</Filter>
@@ -1614,13 +1623,13 @@
       <Filter>02.GameObjects\08.Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\BombExplosion.cpp">
-      <Filter>02.GameObjects\08.Effects\BombExplosion</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\BombExplosion</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Flash_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Flash</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Player_ItemGet_Effect.cpp">
-      <Filter>02.GameObjects\08.Effects\Player_ItemGet</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Player_ItemGet</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Ripple_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Ripple_Effect</Filter>
@@ -1629,7 +1638,7 @@
       <Filter>02.GameObjects\02.Player\Player_3D_Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Player_Charge_Slash.cpp">
-      <Filter>02.GameObjects\08.Effects\Player_Charge_Slash</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Player_Charge_Slash</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Halo_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Halo</Filter>
@@ -1638,16 +1647,16 @@
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Ring</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\TailDungeonOpen.cpp">
-      <Filter>02.GameObjects\08.Effects\TailDungeonOpen</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\TailDungeonOpen</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\CubeHalfDome.cpp">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\CubeHalfDome</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Spark_Effect.cpp">
-      <Filter>02.GameObjects\08.Effects\Spark_Effect</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Spark_Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Fire_Big_Effect.cpp">
-      <Filter>02.GameObjects\08.Effects\Fire_Big</Filter>
+      <Filter>02.GameObjects\08.Effects\Effect_Set\Fire_Big</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Fire_Plane_Effect.cpp">
       <Filter>02.GameObjects\08.Effects\3D_Defaults\Fire_Plane_Effect</Filter>
@@ -1660,6 +1669,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\FadeInOut.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\FadeInOut</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\LockBlockEffect.cpp">
+      <Filter>02.GameObjects\08.Effects\Effect_Set\LockBlock_Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

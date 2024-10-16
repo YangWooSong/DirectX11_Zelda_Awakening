@@ -19,6 +19,10 @@ public:
 	virtual void Spread(_float fTimeDelta) override;
 	virtual void Drop(_float fTimeDelta) override;
 	virtual void Stay(_float fTimeDelta) override;
+	void Stop_MoveUp(_float fTimeDelta, _float fStopTime);
+
+private:
+	_float m_fTimer = { 0.f };
 
 public:
 	static CVIBuffer_Point_Instance* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, void* pArg = nullptr);

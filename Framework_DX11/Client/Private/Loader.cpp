@@ -112,6 +112,8 @@
 #include "Fire_Plane_Effect.h"
 #include "Fire_Small_Effect.h"
 #include "Lightning_Effect.h"
+#include "LockBlockEffect.h"
+
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	: m_pDevice{ pDevice }
@@ -1522,6 +1524,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_Lightning_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Lightning_Effect"),
 		CLightning_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_LockBlockEffect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LockBlockEffect"),
+		CLockBlockEffect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	

@@ -34,6 +34,8 @@ HRESULT CCustomFont::Initialize(const _tchar* pFontFilePath)
 
 HRESULT CCustomFont::Render(const _tchar* pText, _fvector vPosition, _fvector vColor, _float fRadian, _fvector vPivot, _float fScale, _bool bChangeAlpha)
 {
+	m_pContext->GSSetShader(nullptr, nullptr, 0);
+
 	if(bChangeAlpha)
 		m_pBatch->Begin(SpriteSortMode_BackToFront, m_pBlendState);
 	else
