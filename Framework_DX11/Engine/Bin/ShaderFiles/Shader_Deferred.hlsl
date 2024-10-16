@@ -16,7 +16,7 @@ texture2D g_NormalTexture;
 
 texture2D g_DiffuseTexture;
 vector g_vMtrlAmbient = vector(1.f, 1.f, 1.f, 1.f); //렌더타깃은 최대 8개 까지라 아끼기 위해 엠비언트 계산은 그냥 전역으로 처리
-vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
+vector g_vMtrlSpecular = vector(0.6f, 0.6f, 0.6f, 1.f);
 texture2D g_ShadeTexture;
 texture2D g_DepthTexture;
 texture2D g_SpecularTexture;
@@ -119,7 +119,7 @@ PS_OUT_LIGHT PS_MAIN_LIGHT_DIRECTIONAL(PS_IN In)
 
      //pow는 제곱
     if (vDepthDesc.w != 1.f)
-         Out.vSpecular = (g_vLightSpecular * g_vMtrlSpecular) * pow(max(dot(normalize(vReflect) * -1.f, normalize(vLook)), 0.f), 50.f);
+         Out.vSpecular = (g_vLightSpecular * g_vMtrlSpecular) * pow(max(dot(normalize(vReflect) * -1.f, normalize(vLook)), 0.f), 80.f);
     else
         Out.vSpecular = 0;
 
