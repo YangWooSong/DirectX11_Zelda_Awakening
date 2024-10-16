@@ -39,6 +39,8 @@ private:
 	_bool m_bFadeIn = { false }; //점점 어두운게 사라지는
 	_bool m_bFadeOut = { false }; //점점 어두워 지는
 
+	_bool m_bRenderEndingText = { false };
+
 	_float m_fAlpha = {};
 
 private:

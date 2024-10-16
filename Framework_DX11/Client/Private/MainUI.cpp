@@ -67,12 +67,19 @@ void CMainUI::Update(_float fTimeDelta)
         }
     }
 
-    //if (KEY_TAP(KEY::E))
-    //{
-    //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
-    //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(CDialogueUI::BOSS_KEY);
-    //    m_childUI_List[DIALOGUE]->SetActive(true);
-    //}
+    if (m_bStartEnding && m_bEnding == false)
+    {
+        m_bEnding = true;
+        m_childUI_List[FADE_IN_OUT]->Set_TextureNum(1);
+        Active_FadeOut();
+    }
+
+  //  if (KEY_TAP(KEY::E))
+  //{
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(CDialogueUI::BOSS_KEY);
+  //   m_childUI_List[DIALOGUE]->SetActive(true);
+  //}
 }
 
 void CMainUI::Late_Update(_float fTimeDelta)

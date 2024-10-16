@@ -78,6 +78,7 @@ public:
 	void		Change_State(const _uint iState);
 	void		SetUp_NextAnimation(_uint iNextAnimationIndex, _float fChangeDuration = 0.2f, _bool _bLoop = false);
 	_bool       Get_IsEnd_CurrentAnimation();
+	_bool       Get_bEnding() { return m_bEnding; }
 
 	_vector		Calculate_Direction_Straight();
 
@@ -116,6 +117,7 @@ protected:
 	_float				m_vTargetPos = {};
 
 	_bool m_bFall = { false };
+	_bool m_bEnding = { false };
 
 	_uint				m_ePlayer_Dir = { PLAYER_DIR_END };
 	_uint				m_iLevelIndex = { LEVEL_END };

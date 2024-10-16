@@ -2,7 +2,8 @@
 #include "ConchHorn.h"
 #include "GameInstance.h"
 #include "Link.h"
-
+#include "DialogueUI.h"
+#include "MainUI.h"
 CConchHorn::CConchHorn(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -103,6 +104,7 @@ void CConchHorn::OnCollisionEnter(CGameObject* pOther)
     {
         if (pOther->Get_LayerTag() == TEXT("Layer_Player") )
         {
+            static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE))->Set_LineNum(CDialogueUI::HORN);
             m_isActive = false;
         }
     }

@@ -328,7 +328,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 		{		
 			if(m_pCarryitem == nullptr)
 			{
@@ -337,7 +337,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			}
 		}
 		
-		if (pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue"))
 		{		
 			if(m_bDungeonKey)
 			{
@@ -346,14 +346,14 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_SmallKey"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_SmallKey"))
 		{
 			Change_PlayerUI_TextureNum(ITEM_ICON_UI,CItemUI::SMALLKEY);
 			static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(m_iLevelIndex, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE))->Set_LineNum(CDialogueUI::SMALL_KEY);
 			Change_State(GET_ITEM);
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
 		{
 			if (m_iSmallKeyCount >= 1)
 			{
@@ -363,7 +363,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 		}
 
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_BossDoor"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_BossDoor"))
 		{
 			if (m_bGetBossKey)
 			{
@@ -372,7 +372,7 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue") && m_bBeak)
+		else if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue") && m_bBeak)
 		{
 
 			m_PlayerUI[INTERACT_UI]->SetActive(true);
@@ -380,20 +380,21 @@ void CLink::OnCollisionEnter(CGameObject* pOther)
 			
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_ConchHorn"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_ConchHorn"))
 		{
-				m_PlayerUI[ITEM_ICON_UI]->SetActive(true);
-				m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(7);
-				m_pFsmCom->Change_State(GET_ITEM);
+			m_bEnding = true;
+			m_PlayerUI[ITEM_ICON_UI]->SetActive(true);
+			m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(7);
+			m_pFsmCom->Change_State(GET_ITEM);
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_SquareBlock_Gimmick"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_SquareBlock_Gimmick"))
 		{
 			if(static_cast<CSquareBlock*>(pOther)->Get_IsPushed() == false)
 				m_pFsmCom->Change_State(PUSH);
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_SinkingSword"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_SinkingSword"))
 		{
 			m_PlayerUI[ITEM_ICON_UI]->SetActive(true);
 			m_PlayerUI[ITEM_ICON_UI]->Set_TextureNum(8);
@@ -416,7 +417,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_HousePot"))
 		{
 			if (KEY_TAP(E))
 			{
@@ -426,7 +427,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
 		{
 			if (m_iSmallKeyCount >= 1)
 			{
@@ -438,7 +439,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_BossDoor") )
+		else if (pOther->Get_LayerTag() == TEXT("Layer_BossDoor") )
 		{
 			if (m_bGetBossKey)
 			{
@@ -452,7 +453,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_DungeonOwlStatue"))
 		{
 			if (KEY_TAP(E))
 			{
@@ -460,7 +461,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue"))
 		{
 			if (m_bDungeonKey && KEY_TAP(E))
 			{
@@ -471,7 +472,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_Store_Item"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_Store_Item"))
 		{
 			if (m_pCarryitem == nullptr)
 			{
@@ -488,7 +489,7 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			}
 		}
 
-		if (pOther->Get_LayerTag() == TEXT("Layer_NPC"))
+		else if (pOther->Get_LayerTag() == TEXT("Layer_NPC"))
 		{
 			if (static_cast<CNPC*>(pOther)->Get_Talk() == false)
 			{

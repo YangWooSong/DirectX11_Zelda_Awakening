@@ -33,6 +33,7 @@ private:
     _float              m_fLoopTimer = { 0.f };
 
     _bool m_bSoundPlay = { false };
+    _bool m_bActiveEnding = { false };
 
 public:
     static CState_Link_Get_Item* Create(class CFsm* pFsm, class CPlayer* pPlayer, _uint iStateNum);

@@ -52,6 +52,7 @@ public:
 
 	void Set_isFinishFadeIn(_bool bFinishIn) { m_isFinishFadeIn = bFinishIn; }
 	void Set_isFinishFadeOut(_bool bFinishOut) { m_isFinishFadeOut = bFinishOut; }
+	void Start_Ending() { m_bStartEnding = true; }
 private:
 	class CLink* m_pPlayer = { nullptr };
 
@@ -60,6 +61,8 @@ private:
 	_bool m_bRenderBossName = { false };
 	_bool m_isFinishFadeIn = { false };
 	_bool m_isFinishFadeOut = { false };
+	_bool m_bEnding= { false };
+	_bool m_bStartEnding= { false };
 
 	_float m_fTextAlpha = { 0.f };
 	_float m_fTextTimer = { 0.f };

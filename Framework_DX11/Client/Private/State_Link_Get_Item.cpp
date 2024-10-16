@@ -96,7 +96,16 @@ void CState_Link_Get_Item::Update(_float fTimeDelta)
 
 	if (m_iCurrentAnimIndex == m_iAnimEdIndex && m_pPlayer->Get_IsEnd_CurrentAnimation())
 	{
-		m_pPlayer->Change_State(CLink::IDLE);
+		if (m_pPlayer->Get_bEnding() )
+		{
+			if(m_bActiveEnding == false)
+			{
+				m_bActiveEnding = true;
+				static_cast<CMainUI*>(m_pGameInstance->Find_Object(m_pPlayer->Get_LevelIndex(), TEXT("Layer_MainUI"), 0))->Start_Ending();
+			}
+		}
+		else
+			m_pPlayer->Change_State(CLink::IDLE);
 	}
 }
 

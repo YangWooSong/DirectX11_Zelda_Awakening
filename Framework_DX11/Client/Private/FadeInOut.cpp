@@ -60,11 +60,15 @@ void CFadeInOut::Update(_float fTimeDelta)
 
             if (m_fAlpha == 1.f)
             {
-                m_isActive = false;
+                if (m_iTextureNum != 1)
+                    m_isActive = false;
                 static_cast<CMainUI*>(m_pParentUI)->Set_isFinishFadeOut(true);
                 m_bFadeOut = false;
             }
         }
+
+        if (m_iTextureNum == 1 && m_fAlpha == 1.f)
+            m_bRenderEndingText = true;
     }
 }
 
@@ -92,7 +96,7 @@ HRESULT CFadeInOut::Render()
     if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &m_fAlpha, sizeof(_float))))
         return E_FAIL;
 
-    if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", 0)))
+    if (FAILED(m_pTextureCom->Bind_ShadeResource(m_pShaderCom, "g_Texture", m_iTextureNum)))
         return E_FAIL;
 
     if (FAILED(m_pShaderCom->Begin(12)))
@@ -107,6 +111,12 @@ HRESULT CFadeInOut::Render()
     _float fOne = 1.f;
     if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &fOne, sizeof(_float))))
         return E_FAIL;
+
+    if (m_bRenderEndingText)
+    {
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("The End"), XMVectorSet(g_iWinSizeX * 0.5f - 1.f, g_iWinSizeY * 0.5f - 1.f, 0.f, 1.f), XMVectorSet(0.2f, 0.2f, 0.2f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f);
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("The End"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f, 1.f), XMVectorSet(1.f, 0.8f, 0.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f);
+    }
 
     return S_OK;
 }
