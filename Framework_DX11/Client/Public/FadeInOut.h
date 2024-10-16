@@ -42,6 +42,8 @@ private:
 	_bool m_bRenderEndingText = { false };
 
 	_float m_fAlpha = {};
+	_float m_fTextAlpha = {0};
+	_float m_fSpeed = {3.f};
 
 private:
 	HRESULT Ready_Components();

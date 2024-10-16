@@ -133,7 +133,7 @@ PS_OUT PS_MAIN_CHANGEALPHA(PS_IN In)
         discard;
 
     Out.vColor.a *= g_fAlpha;
-    Out.vColor.rgb = g_fColor.rgb;
+  //  Out.vColor.rgb = g_fColor.rgb;
     
     return Out;
 }

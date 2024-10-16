@@ -29,13 +29,17 @@ HRESULT CFadeInOut::Initialize(void* pArg)
 
     m_isActive = false;
 
-    m_iDepth = 10;
+    m_iDepth = 100;
 
     return S_OK;
 }
 
 void CFadeInOut::Priority_Update(_float fTimeDelta)
 {
+    if (m_iTextureNum == 1)
+        m_fSpeed = 0.3f;
+    else
+        m_fSpeed = 3.f;
 }
 
 void CFadeInOut::Update(_float fTimeDelta)
@@ -44,7 +48,7 @@ void CFadeInOut::Update(_float fTimeDelta)
     {
         if (m_bFadeIn)
         {
-            m_fAlpha = max(0.f, m_fAlpha - fTimeDelta*3.f);
+            m_fAlpha = max(0.f, m_fAlpha - fTimeDelta* m_fSpeed);
 
             if (m_fAlpha == 0.f)
             {
@@ -56,7 +60,7 @@ void CFadeInOut::Update(_float fTimeDelta)
 
         if (m_bFadeOut)
         {
-            m_fAlpha = min(1.f, m_fAlpha + fTimeDelta * 3.f);
+            m_fAlpha = min(1.f, m_fAlpha + fTimeDelta * m_fSpeed);
 
             if (m_fAlpha == 1.f)
             {
@@ -68,7 +72,10 @@ void CFadeInOut::Update(_float fTimeDelta)
         }
 
         if (m_iTextureNum == 1 && m_fAlpha == 1.f)
+        {
             m_bRenderEndingText = true;
+            m_fTextAlpha = min(1.f, m_fTextAlpha + fTimeDelta);
+        }
     }
 }
 
@@ -114,8 +121,8 @@ HRESULT CFadeInOut::Render()
 
     if (m_bRenderEndingText)
     {
-        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("The End"), XMVectorSet(g_iWinSizeX * 0.5f - 1.f, g_iWinSizeY * 0.5f - 1.f, 0.f, 1.f), XMVectorSet(0.2f, 0.2f, 0.2f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f);
-        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("The End"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f, 1.f), XMVectorSet(1.f, 0.8f, 0.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f);
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("The End"), XMVectorSet(g_iWinSizeX * 0.5f - 1.f, g_iWinSizeY * 0.5f - 1.f, 0.f, 1.f), XMVectorSet(0.2f, 0.2f, 0.2f, m_fTextAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f,true);
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang48"), TEXT("The End"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f, 0.f, 1.f), XMVectorSet(1.f, 0.8f, 0.2f, m_fTextAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
     }
 
     return S_OK;

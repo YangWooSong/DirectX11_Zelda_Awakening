@@ -57,12 +57,17 @@ void CState_DeguTail_Appear::Update(_float fTimeDelta)
         m_bCameraShake = true;
         m_pCamera->Start_Shake(0.5f, 0.1f, 6.f);
        
-        if(m_bActiveName == false)
-        {
-            m_bActiveName = true;
-            static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Active_BossNameText();
-            m_pDialogueUI->SetActive(false);
-        }
+        m_pDialogueUI->SetActive(false);
+        m_bUIClose = true;
+    }
+
+    if (m_bUIClose == true)
+        m_fTimer += fTimeDelta;
+
+    if(m_fTimer > 0.5f && m_bActiveName == false)
+    {
+        m_bActiveName = true;
+        static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_DUNGEON, TEXT("Layer_MainUI"), 0))->Active_BossNameText();
     }
 
     if (m_pOwner->Get_IsEnd_CurrentAnimation())

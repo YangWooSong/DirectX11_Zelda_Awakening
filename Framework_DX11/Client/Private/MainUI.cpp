@@ -77,7 +77,7 @@ void CMainUI::Update(_float fTimeDelta)
   //  if (KEY_TAP(KEY::E))
   //{
   //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(CDialogueUI::BOSS_KEY);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(8);
   //   m_childUI_List[DIALOGUE]->SetActive(true);
   //}
 }

@@ -157,8 +157,6 @@ HRESULT CDialogueUI::Render()
         {
             if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &m_fAlpha, sizeof(_float))))
                 return E_FAIL;
-      /*      if (FAILED(m_pShaderCom->Bind_RawValue("g_fColor", &m_fColor, sizeof(_float4))))
-                return E_FAIL;*/
 
             if (FAILED(m_pShaderCom->Begin(13)))
                 return E_FAIL;
@@ -185,28 +183,29 @@ HRESULT CDialogueUI::Render()
     }
 
     return S_OK;
+
 }
 
 HRESULT CDialogueUI::Render_Text()
 {
     if(iOwnerType == TOOTOOLSHOPKEEPER)
     {
-        m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("도구점 주인"), XMVectorSet(m_fX * 0.58f, m_fY * 0.86f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.6f);
+        m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("도구점 주인"), XMVectorSet(m_fX * 0.58f, m_fY * 0.86f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.6f);
 
         switch (iLineIndex)
         {
         case 0:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"),TEXT("사고싶은 물건을 골라와."), XMVectorSet(m_fX * 0.75f, m_fY*0.97f , 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"),TEXT("사고싶은 물건을 골라와."), XMVectorSet(m_fX * 0.79f, m_fY*0.96f , 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
             break;
         case 1:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("폭탄은 "), XMVectorSet(m_fX * 0.8f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("          5루피 "), XMVectorSet(m_fX * 0.8f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                 야."), XMVectorSet(m_fX * 0.8f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("폭탄은 "), XMVectorSet(m_fX * 0.85f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("          5루피 "), XMVectorSet(m_fX * 0.85f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("                 야."), XMVectorSet(m_fX * 0.85f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
             break;
         case 2:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("하트는 "), XMVectorSet(m_fX * 0.8f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("         10루피 "), XMVectorSet(m_fX * 0.8f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                  야."), XMVectorSet(m_fX * 0.8f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("하트는 "), XMVectorSet(m_fX * 0.85f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("         10루피 "), XMVectorSet(m_fX * 0.85f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("                  야."), XMVectorSet(m_fX * 0.85f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
             break;
         default:
             break;
@@ -215,58 +214,58 @@ HRESULT CDialogueUI::Render_Text()
     }   
     else if (iOwnerType == DEGUTAIL)
     {
-        m_pGameInstance->Render_Center(TEXT("Font_Gulim24"), TEXT("크르르!!크르르!!"), XMVectorSet(g_iWinSizeX * 0.5f, m_fY * 0.97f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, false);
-        m_pGameInstance->Render_Center(TEXT("Font_Gulim24"), TEXT("침입자다! 방해꾼이다!"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.78f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, false);
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang24_Regular"), TEXT("크르르!!크르르!!"), XMVectorSet(g_iWinSizeX * 0.5f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, false);
+        m_pGameInstance->Render_Center(TEXT("Font_Mallang24_Regular"), TEXT("침입자다! 방해꾼이다!"), XMVectorSet(g_iWinSizeX * 0.5f, g_iWinSizeY * 0.76f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, false);
     }
     else if (iOwnerType == LINK)
     {
         switch (iLineIndex)
         {
         case SWORD:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT(" 잃어버린 "), XMVectorSet(m_fX * 0.77f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f,true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("              검 "), XMVectorSet(m_fX * 0.77f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                 을 찾았다! "), XMVectorSet(m_fX * 0.77f,  m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("  \"P\"로 휘둘러 보자! "), XMVectorSet(m_fX * 0.78f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT(" 잃어버린 "), XMVectorSet(m_fX * 0.77f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f,true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("               검 "), XMVectorSet(m_fX * 0.77f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("                  을 찾았다! "), XMVectorSet(m_fX * 0.77f,  m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("  \"P\"로 휘둘러 보자! "), XMVectorSet(m_fX * 0.8f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
             break;
         case SMALL_KEY:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("작은 열쇠"), XMVectorSet(m_fX * 0.77f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("            를 손에 넣었다!"), XMVectorSet(m_fX * 0.77f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("이제 잠긴 문을 열 수 있다"), XMVectorSet(m_fX * 0.75f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("작은 열쇠"), XMVectorSet(m_fX * 0.78f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("            를 손에 넣었다!"), XMVectorSet(m_fX * 0.78f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("이제 잠긴 문을 열 수 있다"), XMVectorSet(m_fX * 0.78f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
             break;
         case CAMPUS:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("나침반"), XMVectorSet(m_fX * 0.77f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("         을 손에 넣었다!"), XMVectorSet(m_fX * 0.77f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("열쇠가 근처에 있으면 소리로 알 수 있다"), XMVectorSet(m_fX * 0.65f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            break;
-        case MAP:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("드디어"), XMVectorSet(m_fX * 0.79f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("          지도"), XMVectorSet(m_fX * 0.79f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                를 찾았다!"), XMVectorSet(m_fX * 0.79f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT(" \"Q\"로 지도 화면을 열어 보자!"), XMVectorSet(m_fX * 0.7f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            break;
-        case LUPEE:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("20루피"), XMVectorSet(m_fX * 0.8f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("         를 손에 넣었다!"), XMVectorSet(m_fX * 0.8f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT(" 조금 기쁘다"), XMVectorSet(m_fX *0.87f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            break;
-        case STONEBEAK:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("석상의 부리"), XMVectorSet(m_fX * 0.79f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                를 찾았다!"), XMVectorSet(m_fX * 0.79f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("이제 부엉이 석상을 찾자"), XMVectorSet(m_fX * 0.77f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            break; 
-        case FEATHER:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("로크의 깃털"), XMVectorSet(m_fX * 0.75f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                을 손에 넣었다!"), XMVectorSet(m_fX * 0.75f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("왠지 몸이 가벼워진 것 같다"), XMVectorSet(m_fX * 0.75f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            break;
-        case BOSS_KEY:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("보스의 열쇠"), XMVectorSet(m_fX * 0.76f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("                를 손에 넣었다!"), XMVectorSet(m_fX * 0.76f, m_fY * 0.95f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("이제 보스의 방 문을 열 수 있다"), XMVectorSet(m_fX * 0.72f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            break;
-        case HORN:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("고둥의 호른"), XMVectorSet(m_fX * 0.78f, m_fY * 0.98f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("               을 찾았다!"), XMVectorSet(m_fX * 0.78f, m_fY * 0.98f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("나침반"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("        을 손에 넣었다!"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("열쇠가 근처에 있으면 소리로 알 수 있다"), XMVectorSet(m_fX * 0.68f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            break;                         
+        case MAP:                        
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("드디어"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("          지도"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("                를 찾았다!"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT(" \"Q\"로 지도 화면을 열어 보자!"), XMVectorSet(m_fX * 0.74f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            break;                          
+        case LUPEE:                         
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("20루피"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("         를 손에 넣었다!"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT(" 조금 기쁘다"), XMVectorSet(m_fX *0.87f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            break;                         
+        case STONEBEAK:                 
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("석상의 부리"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("                를 찾았다!"), XMVectorSet(m_fX * 0.8f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("이제 부엉이 석상을 찾자"), XMVectorSet(m_fX * 0.79f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            break;                            
+        case FEATHER:                        
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("로크의 깃털"), XMVectorSet(m_fX * 0.78f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("                을 손에 넣었다!"), XMVectorSet(m_fX * 0.78f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("왠지 몸이 가벼워진 것 같다"), XMVectorSet(m_fX * 0.78f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            break;                        
+        case BOSS_KEY:                       
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("보스의 열쇠"), XMVectorSet(m_fX * 0.76f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("                를 손에 넣었다!"), XMVectorSet(m_fX * 0.76f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("이제 보스의 방 문을 열 수 있다"), XMVectorSet(m_fX * 0.74f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            break;                            
+        case HORN:                          
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("고둥의 호른"), XMVectorSet(m_fX * 0.8f, m_fY * 0.98f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang24_Bold"), TEXT("               을 찾았다!"), XMVectorSet(m_fX * 0.8f, m_fY * 0.98f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f, true);
             break;
         }
     }
@@ -275,12 +274,12 @@ HRESULT CDialogueUI::Render_Text()
         switch (iLineIndex)
         {
         case ROOM9:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("날카로운 가시를 지닌 것"), XMVectorSet(m_fX * 0.77f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT(" 방패로 튕겨 내라......"), XMVectorSet(m_fX * 0.78f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("날카로운 가시를 지닌 것"), XMVectorSet(m_fX * 0.79f, m_fY * 0.92f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT(" 방패로 튕겨 내라......"), XMVectorSet(m_fX * 0.81f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
             break;
         case ROOM14:
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("닫힌 방의 문"), XMVectorSet(m_fX * 0.87f, m_fY * 0.94f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
-            m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), TEXT("사각 블록을 움직여라"), XMVectorSet(m_fX * 0.79f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("닫힌 방의 문"), XMVectorSet(m_fX * 0.88f, m_fY * 0.92f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("사각 블록을 움직여라"), XMVectorSet(m_fX * 0.83f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(0.49f, 0.98f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
             break;
         }
     }
