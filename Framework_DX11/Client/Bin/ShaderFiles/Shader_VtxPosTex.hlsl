@@ -116,6 +116,9 @@ PS_OUT PS_MAIN_LAWALPHA(PS_IN In)
     PS_OUT Out = (PS_OUT) 0;
 
     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+
+    if (Out.vColor.a < 0.2f)
+        discard;
     
     if (Out.vColor.r < 0.3f)
         Out.vColor.a *= 0.9f;
@@ -129,10 +132,10 @@ PS_OUT PS_MAIN_CHANGEALPHA(PS_IN In)
 
     Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
     
-    if (0.2 >= Out.vColor.a)
-        discard;
-
     Out.vColor.a *= g_fAlpha;
+    
+    if (Out.vColor.a < 0.2f)
+        discard;
   //  Out.vColor.rgb = g_fColor.rgb;
     
     return Out;

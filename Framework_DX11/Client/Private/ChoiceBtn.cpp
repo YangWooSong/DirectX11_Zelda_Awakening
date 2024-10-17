@@ -90,7 +90,9 @@ HRESULT CChoiceBtn::Render()
     if (FAILED(m_pVIBufferCom->Render()))
         return E_FAIL;
 
-    
+    _float fOne = 1.f;
+    if (FAILED(m_pShaderCom->Bind_RawValue("g_fAlpha", &fOne, sizeof(_float))))
+        return E_FAIL;
 
     return S_OK;
 }
