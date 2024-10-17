@@ -84,7 +84,7 @@ HRESULT CLevel_Store::Render()
 HRESULT CLevel_Store::Ready_Lights()
 {
 	/* 게임플레이 레벨에 필요한 광원을 준비한다. */
-	LIGHT_DESC			LightDesc{};
+	//LIGHT_DESC			LightDesc{};
 
 	//ZeroMemory(&LightDesc, sizeof LightDesc);
 	//LightDesc.eType = LIGHT_DESC::TYPE_DIRECTIONAL;
@@ -96,17 +96,40 @@ HRESULT CLevel_Store::Ready_Lights()
 	//if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
 	//	return E_FAIL;
 
+	//ZeroMemory(&LightDesc, sizeof LightDesc);
+	//LightDesc.eType = LIGHT_DESC::TYPE_POINT;
+	//LightDesc.vPosition = _float4(0.f, 3.f, -2.f, 1.f);
+	//LightDesc.fRange = 25.f;
+	//LightDesc.vDiffuse = _float4(1.f, 1.f, 0.9f, 1.f);
+	//LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
+	//LightDesc.vSpecular = LightDesc.vDiffuse;
+
+	//if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
+	//	return E_FAIL;
+
+	/* 게임플레이 레벨에 필요한 광원을 준비한다. */
+	LIGHT_DESC			LightDesc{};
+
+	ZeroMemory(&LightDesc, sizeof LightDesc);
+	LightDesc.eType = LIGHT_DESC::TYPE_DIRECTIONAL;
+	LightDesc.vDirection = _float4(1.f, -1.f, 1.f, 0.f);
+	LightDesc.vDiffuse = _float4(0.7f, 0.7f, 0.7f, 1.f);
+	LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
+	LightDesc.vSpecular = _float4(1.f, 1.f, 1.f, 1.f);
+
+	if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
+		return E_FAIL;
+
 	ZeroMemory(&LightDesc, sizeof LightDesc);
 	LightDesc.eType = LIGHT_DESC::TYPE_POINT;
-	LightDesc.vPosition = _float4(0.f, 3.f, -2.f, 1.f);
-	LightDesc.fRange = 25.f;
-	LightDesc.vDiffuse = _float4(1.f, 1.f, 0.9f, 1.f);
+	LightDesc.vPosition = _float4(0.f, 0.f, 0.f, 1.f);
+	LightDesc.fRange = 5.f;
+	LightDesc.vDiffuse = _float4(1.f, 1.f, 1.f, 1.f);
 	LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
 	LightDesc.vSpecular = LightDesc.vDiffuse;
 
 	if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
 		return E_FAIL;
-
 	return S_OK;
 }
 

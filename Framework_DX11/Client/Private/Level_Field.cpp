@@ -42,7 +42,7 @@ HRESULT CLevel_Field::Initialize()
 	m_pMainUI->Active_FadeIn();
 	m_pMainUI->Active_LevelText();
 
-	m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(80.f, 200.f, -20.f, 1.f));
+	m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(80.f, 200.f, -40.f, 1.f));
 
 	return S_OK;
 }

@@ -63,6 +63,7 @@ void CSinkingSword::Late_Update(_float fTimeDelta)
     {
         __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
@@ -96,6 +97,40 @@ HRESULT CSinkingSword::Render()
             if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
         }
+    }
+
+    return S_OK;
+}
+
+HRESULT CSinkingSword::Render_LightDepth()
+{
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix_Ptr())))
+        return E_FAIL;
+
+
+    _float4x4		ViewMatrix;
+    XMStoreFloat4x4(&ViewMatrix, XMMatrixLookAtLH(m_pGameInstance->Get_ShadowLightPos_Vector(), m_pGameInstance->Get_LightLook_Vector(), XMVectorSet(0.f, 1.f, 0.f, 0.f)));
+
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &ViewMatrix)))
+        return E_FAIL;
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+        return E_FAIL;
+
+    _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+    for (size_t i = 0; i < iNumMeshes; i++)
+    {
+        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+            return E_FAIL;
+
+        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
+            return E_FAIL;
+
+        if (FAILED(m_pShaderCom->Begin(13)))
+            return E_FAIL;
+
+        if (FAILED(m_pModelCom->Render((_uint)i)))
+            return E_FAIL;
     }
 
     return S_OK;

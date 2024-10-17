@@ -240,8 +240,7 @@ HRESULT CLink::Render()
 				return E_FAIL;
 
 			if (FAILED(m_pShaderCom->Begin(1)))
-				return E_FAIL;
-			
+				return E_FAIL;			
 
 			if (FAILED(m_pModelCom->Render((_uint)i)))
 				return E_FAIL;
