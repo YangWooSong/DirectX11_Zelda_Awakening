@@ -26,6 +26,7 @@
 #include "Shield.h"
 #include "Player_3D_Effects.h"
 #include "Bomb.h"
+#include "Marin.h"
 
 #include "Grass.h"
 #include "Tree.h"
@@ -725,6 +726,11 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/Obj/Bed/Bed.dat"))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Model_NPC_Marin*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Model_NPC_Marin"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/NPC/Marin/Marin.dat", PreTransformMatrix))))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -1057,6 +1063,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 		CPlayerCamera::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
+
+	/* For. Prototype_GameObject_Marin*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Marin"),
+		CMarin::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
 
 #pragma region Object
 	/* For. Prototype_GameObject_PLayer_Link */

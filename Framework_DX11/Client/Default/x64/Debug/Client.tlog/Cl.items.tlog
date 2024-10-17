@@ -59,6 +59,8 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Ma
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MainUI.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\MainUI.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MapBackGround.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\MapBackGround.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MapUI.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\MapUI.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Marin.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Marin.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Marin_State_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\Marin_State_Idle.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MiniMap.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\MiniMap.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MonsterDied_Effect.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\MonsterDied_Effect.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\NPC.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\NPC.obj
@@ -123,6 +125,7 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\St
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Stair_Up.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_Stair_Up.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Throw.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_Throw.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Link_Walk.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Link_Walk.obj
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Marin_Talk.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Marin_Talk.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Octorok_Attack.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Octorok_Attack.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Octorok_Dead.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Octorok_Dead.obj
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Octorok_Idle.cpp;C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Default\x64\Debug\State_Octorok_Idle.obj

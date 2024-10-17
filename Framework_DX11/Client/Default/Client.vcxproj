@@ -223,6 +223,8 @@
     <ClInclude Include="..\Public\MainUI.h" />
     <ClInclude Include="..\Public\MapBackGround.h" />
     <ClInclude Include="..\Public\MapUI.h" />
+    <ClInclude Include="..\Public\Marin.h" />
+    <ClInclude Include="..\Public\Marin_State_Idle.h" />
     <ClInclude Include="..\Public\MiniMap.h" />
     <ClInclude Include="..\Public\MonsterDied_Effect.h" />
     <ClInclude Include="..\Public\NavDataObj.h" />
@@ -273,6 +275,7 @@
     <ClInclude Include="..\Public\State_Link_Stair_Down.h" />
     <ClInclude Include="..\Public\State_Link_Stair_Up.h" />
     <ClInclude Include="..\Public\State_Link_Throw.h" />
+    <ClInclude Include="..\Public\State_Marin_Talk.h" />
     <ClInclude Include="..\Public\State_Pawn_Damage.h" />
     <ClInclude Include="..\Public\State_Pawn_DeadFall.h" />
     <ClInclude Include="..\Public\State_Pawn_Idle.h" />
@@ -414,6 +417,8 @@
     <ClCompile Include="..\Private\MainUI.cpp" />
     <ClCompile Include="..\Private\MapBackGround.cpp" />
     <ClCompile Include="..\Private\MapUI.cpp" />
+    <ClCompile Include="..\Private\Marin.cpp" />
+    <ClCompile Include="..\Private\Marin_State_Idle.cpp" />
     <ClCompile Include="..\Private\MiniMap.cpp" />
     <ClCompile Include="..\Private\MonsterDied_Effect.cpp" />
     <ClCompile Include="..\Private\NPC.cpp" />
@@ -478,6 +483,7 @@
     <ClCompile Include="..\Private\State_Link_Stair_Up.cpp" />
     <ClCompile Include="..\Private\State_Link_Throw.cpp" />
     <ClCompile Include="..\Private\State_Link_Walk.cpp" />
+    <ClCompile Include="..\Private\State_Marin_Talk.cpp" />
     <ClCompile Include="..\Private\State_Octorok_Attack.cpp" />
     <ClCompile Include="..\Private\State_Octorok_Dead.cpp" />
     <ClCompile Include="..\Private\State_Octorok_Idle.cpp" />

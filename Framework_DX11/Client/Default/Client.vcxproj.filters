@@ -616,6 +616,18 @@
     <Filter Include="02.GameObjects\08.Effects\Effect_Set\LockBlock_Effect">
       <UniqueIdentifier>{cd166f64-d704-46a3-8fc6-2ea9b0a6bba3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.NPC\Marin">
+      <UniqueIdentifier>{365848f6-df8e-4e1e-a933-d9b4ec68dbe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\Marin">
+      <UniqueIdentifier>{3a678db1-6160-4615-8c4d-0b3b657f12ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\Marin\Idle">
+      <UniqueIdentifier>{d9f8f813-9d25-4969-9561-0edc58195b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\Marin\Talk">
+      <UniqueIdentifier>{39ee7635-0516-48d3-a3e5-c2af9d4a6c1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1149,6 +1161,15 @@
     <ClInclude Include="..\Public\LockBlockEffect.h">
       <Filter>02.GameObjects\08.Effects\Effect_Set\LockBlock_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Marin.h">
+      <Filter>02.GameObjects\08.NPC\Marin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Marin_State_Idle.h">
+      <Filter>05.State\NPC\Marin\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_Marin_Talk.h">
+      <Filter>05.State\NPC\Marin\Talk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1672,6 +1693,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\LockBlockEffect.cpp">
       <Filter>02.GameObjects\08.Effects\Effect_Set\LockBlock_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Marin.cpp">
+      <Filter>02.GameObjects\08.NPC\Marin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Marin_State_Idle.cpp">
+      <Filter>05.State\NPC\Marin\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Marin_Talk.cpp">
+      <Filter>05.State\NPC\Marin\Talk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
