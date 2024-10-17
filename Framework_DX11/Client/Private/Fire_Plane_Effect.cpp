@@ -66,7 +66,7 @@ void CFire_Plane_Effect::Update(_float fTimeDelta)
 void CFire_Plane_Effect::Late_Update(_float fTimeDelta)
 {
 
-   // m_pTransformCom->BillBoard(m_iLevelIndex);
+    // m_pTransformCom->BillBoard(m_iLevelIndex);
     __super::Late_Update(fTimeDelta);
 }
 

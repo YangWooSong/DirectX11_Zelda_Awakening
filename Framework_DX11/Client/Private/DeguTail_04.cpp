@@ -252,9 +252,9 @@ HRESULT CDeguTail_04::Ready_Components()
     if (pGameObj != nullptr)
     {
         C3D_Effects::MODEL_EFFECT_DESC _Desc{};
-        _Desc.iEffectType = MONSTER_HIT_EFFECT;
+        _Desc.iEffectType = TAIL_HIT_EFFECT;
         _Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-        _Desc.vScale = { 0.5f,0.5f ,0.5f };
+        _Desc.vScale = { 0.4f,0.4f ,0.4f };
         _Desc.iLevelIndex = LEVEL_DUNGEON;
         CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
         m_p3DEffect = p3DEffect;

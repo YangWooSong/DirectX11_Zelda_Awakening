@@ -92,6 +92,7 @@ struct PS_OUT
     vector vDiffuse : SV_TARGET0;
     vector vNormal : SV_TARGET1;
     vector vDepth : SV_TARGET2;
+    vector vGlow : SV_TARGET3;
 };
 
 
@@ -320,7 +321,7 @@ PS_OUT PS_MAIN_Slash(PS_IN In)
     Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
     //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
     Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
-    
+    Out.vGlow = vDiffuse;
     return Out;
 }
 
@@ -366,7 +367,7 @@ PS_OUT PS_MAIN_NORMAL_WORLD(PS_IN_NORMAL In)
     Out.vNormal = vector(vNormal.xyz * 0.5f + 0.5f, 0.f);
     // 깊이 값 계산
     Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
-  
+    Out.vGlow = vDiffuse;
     return Out;
 }
 

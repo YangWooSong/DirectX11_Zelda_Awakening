@@ -33,6 +33,7 @@ public:
 	
 #pragma region GRAPHIC_DEVICE
 public:
+	ID3D11ShaderResourceView* Get_BackBuffer_SRV() const;
 	void Render_Begin();
 	void Render_End();
 #pragma endregion

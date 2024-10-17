@@ -82,7 +82,7 @@ void CFire_Small_Effect::Late_Update(_float fTimeDelta)
     if (m_isActive)
     {
         //__super::Late_Update(fTimeDelta);
-        m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);     
     }
 }
 

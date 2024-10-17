@@ -64,20 +64,26 @@ void C3D_Effects::Update(_float fTimeDelta)
 
         if (m_iEffectType == MONSTER_HIT_EFFECT)
         {
-            m_fColor = { 0.9f,0.9f,0.4f,1.f };
+            m_fColor = { 0.5f,0.5f,0.1f,1.f };
             m_fAlpha = 0.8f;
             m_fBright = 1.5f;
             Monster_HIt_SizeUp(fTimeDelta);
         } 
         else if (m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT )
         {
-            m_fColor = { 0.6f,0.6f,0.9f,1.f };
+            m_fColor = { 0.3f,0.3f,0.7f,1.f };
             m_fAlpha = 0.8f;
             m_fBright = 1.5f;
         }
         else if (m_iEffectType == ROLA_HIT_EFFECT)
         {
-            m_fColor = { 0.9f,0.9f,0.4f,1.f };
+            m_fColor = { 0.5f,0.5f,0.1f,1.f };
+            m_fAlpha = 0.8f;
+            m_fBright = 1.5f;
+        } 
+        else if (m_iEffectType == TAIL_HIT_EFFECT)
+        {
+            m_fColor = { 0.5f,0.5f,0.1f,1.f };
             m_fAlpha = 0.8f;
             m_fBright = 1.5f;
         }
@@ -119,7 +125,10 @@ void C3D_Effects::Late_Update(_float fTimeDelta)
     if (m_isActive)
     {
         __super::Late_Update(fTimeDelta);
-        m_pGameInstance->Add_RenderObject(CRenderer::RG_NONLIGHT, this);
+        if(m_iEffectType == ROLA_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT || m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == MONSTER_HIT_EFFECT || m_iEffectType == TAIL_HIT_EFFECT)
+            m_pGameInstance->Add_RenderObject(CRenderer::RG_BLOOM, this);
+        else
+            m_pGameInstance->Add_RenderObject(CRenderer::RG_NONLIGHT, this);
     }
   
 }
@@ -176,7 +185,7 @@ HRESULT C3D_Effects::Ready_Components()
         TEXT("Com_Shader"), reinterpret_cast<CComponent**>(&m_pShaderCom))))
         return E_FAIL;
 
-    if(m_iEffectType == MONSTER_HIT_EFFECT || m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT || m_iEffectType == ROLA_HIT_EFFECT)
+    if(m_iEffectType == MONSTER_HIT_EFFECT || m_iEffectType == PAWN_HIT_EFFECT || m_iEffectType == VEAGAS_HIT_EFFECT || m_iEffectType == ROLA_HIT_EFFECT || m_iEffectType == TAIL_HIT_EFFECT)
     {
         /* FOR.Com_Model */
         if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Model_hitflash_00"),
@@ -190,7 +199,9 @@ HRESULT C3D_Effects::Ready_Components()
 void C3D_Effects::Monster_HIt_SizeUp(_float fTimeDelta)
 {
     if (m_fSize == 0.8f)
+    {
         m_isActive = false;
+    }
 
     m_pTransformCom->Set_Scaled(m_fSize, m_fSize, m_fSize);
 

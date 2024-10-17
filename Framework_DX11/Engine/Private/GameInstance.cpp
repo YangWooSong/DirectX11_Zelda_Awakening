@@ -182,6 +182,11 @@ POINT CGameInstance::Get_MosePos()
 	return ptMouse;
 }
 
+ID3D11ShaderResourceView* CGameInstance::Get_BackBuffer_SRV() const
+{
+	return m_pGraphic_Device->Get_BackBuffer_SRV();
+}
+
 void CGameInstance::Render_Begin()
 {
 	/*m_pGraphic_Device->Render_Begin();*/

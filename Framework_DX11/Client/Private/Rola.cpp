@@ -271,7 +271,7 @@ HRESULT CRola::Ready_Components()
 		C3D_Effects::MODEL_EFFECT_DESC _Desc{};
 		_Desc.iEffectType = ROLA_HIT_EFFECT;
 		_Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
-		_Desc.vScale = { 1.f,1.f,1.f };
+		_Desc.vScale = { 0.8f,0.8f,0.8f };
 		_Desc.iLevelIndex = LEVEL_DUNGEON;
 		CGameObject* p3DEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&_Desc));
 		m_p3D_Effect = p3DEffect;

@@ -12,7 +12,7 @@ class CRenderer final : public CBase
 {
 public:
 	//RG_NONBLEND: ºû¿¬»êÀ» »ç¿ëÇÏ´Â °´Ã¼
-	enum RENDERGROUP { RG_PRIORITY, RG_SHADOWOBJ, RG_NONBLEND, RG_NONLIGHT, RG_BLEND, RG_UI, RG_END };
+	enum RENDERGROUP { RG_PRIORITY, RG_SHADOWOBJ, RG_BLOOM, RG_NONBLEND, RG_NONLIGHT, RG_BLEND, RG_UI, RG_END };
 private:
 	CRenderer(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual ~CRenderer() = default;
@@ -61,6 +61,11 @@ private:
 	HRESULT Render_NonBlend();
 	HRESULT Render_Lights();
 	HRESULT Render_Deferred();
+	HRESULT Render_Final();
+	HRESULT Render_Bloom();
+	HRESULT Render_Blur();
+	HRESULT Render_Bloom_Final();
+
 	HRESULT Render_NonLights();
 	HRESULT Render_Blend();
 	HRESULT Render_UI();
