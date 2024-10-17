@@ -1,9 +1,248 @@
-﻿  BladeTrap.cpp
-BladeTrap.obj : error LNK2001: 확인할 수 없는 외부 기호 "__declspec(dllimport) public: long __cdecl Engine::CGameInstance::Add_DebugObject(class Engine::CComponent *)" (__imp_?Add_DebugObject@CGameInstance@Engine@@QEAAJPEAVCComponent@2@@Z)
-DeguTail_00.obj : error LNK2001: 확인할 수 없는 외부 기호 "__declspec(dllimport) public: virtual long __cdecl Engine::CCollider::Render(void)" (__imp_?Render@CCollider@Engine@@UEAAJXZ)
-    정의되었으며 잠재적으로 일치할 수 있는 기호에 대한 힌트:
-      "__declspec(dllimport) public: virtual long __cdecl Engine::CModel::Render(unsigned int)" (__imp_?Render@CModel@Engine@@UEAAJI@Z)
-      "__declspec(dllimport) public: virtual long __cdecl Engine::CVIBuffer::Render(void)" (__imp_?Render@CVIBuffer@Engine@@UEAAJXZ)
-      "__declspec(dllimport) public: virtual long __cdecl Engine::CVIBuffer_Instancing::Render(void)" (__imp_?Render@CVIBuffer_Instancing@Engine@@UEAAJXZ)
-MainApp.obj : error LNK2001: 확인할 수 없는 외부 기호 "__declspec(dllimport) public: void __cdecl Engine::CGameInstance::Active_Debug_Renderer(void)" (__imp_?Active_Debug_Renderer@CGameInstance@Engine@@QEAAXXZ)
-..\Bin\Client.exe : fatal error LNK1120: 3개의 확인할 수 없는 외부 참조입니다.
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxAnimModel.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxModel.hlsl(308,29-58): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModel.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModelInstance.cso
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxNorTex.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPointInstance.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxPosTex.hlsl(285,22-30): warning X3081: comma expression used where a vector constructor may have been intended
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPosTex.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxRectInstance.cso
+  stdafx.cpp
+  2DEffects.cpp
+  3D_Effects.cpp
+  AnimModel.cpp
+  BackGround.cpp
+  Bed.cpp
+  BladeTrap.cpp
+  Bomb.cpp
+  BombExplosion.cpp
+  BossDoor.cpp
+  CampusUI.cpp
+  ChoiceBtn.cpp
+  ClosedPotDoor.cpp
+  ConchHorn.cpp
+  Cross_Effect.cpp
+  CubeHalfDome.cpp
+  DialogueUI.cpp
+  FadeInOut.cpp
+  Fire_Big_Effect.cpp
+  Fire_Plane_Effect.cpp
+  Fire_Small_Effect.cpp
+  Flash_Effect.cpp
+  FootSwitch.cpp
+  Glow_Effect.cpp
+  Halo_Effect.cpp
+  HeartUI.cpp
+  HPUI.cpp
+  InteractUI.cpp
+  CollapseTile.cpp
+  CrackedWall.cpp
+  DeguTail_00.cpp
+  DeguTail_01.cpp
+  Detector.cpp
+  DeguTail_04.cpp
+  FreeCamera.cpp
+  Grass.cpp
+  HousePot.cpp
+  InvenUI.cpp
+  ItemIconUI.cpp
+  ItemUI.cpp
+  KeyUI.cpp
+  Kuribo.cpp
+  Land.cpp
+  Level_Dungeon.cpp
+  Level_Field.cpp
+  Level_MarinHouse.cpp
+  Level_Loading.cpp
+  Level_Logo.cpp
+  Level_Store.cpp
+  Level_Test.cpp
+  Lightning_Effect.cpp
+  Link.cpp
+  Loader.cpp
+  LockBlock.cpp
+  LockBlockEffect.cpp
+  LockDoor.cpp
+  Lupee.cpp
+  LupeeUI.cpp
+  MainApp.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(1,9): warning C4603: '_CRT_NON_CONFORMING_SWPRINTFS': 매크로가 정의되지 않았거나 미리 컴파일된 헤더 사용 후와 정의가 다릅니다.
+  (소스 파일 '/Private/LupeeUI.cpp'을(를) 컴파일하는 중)
+      C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(1,9):
+      여기에서 정의하지 않고 미리 컴파일된 헤더에 매크로 추가
+      C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(3,1):
+      미리 컴파일된 헤더 사용
+  
+  MainUI.cpp
+  MapBackGround.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(264,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_MarinHouse.cpp(248,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_MarinHouse.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(289,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Store.cpp(249,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Store.cpp'을(를) 컴파일하는 중)
+  
+  MapUI.cpp
+  MiniMap.cpp
+  MonsterDied_Effect.cpp
+  NPC.cpp
+  Particle_Image.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Test.cpp(228,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Test.cpp'을(를) 컴파일하는 중)
+  
+  Particle_Model.cpp
+  Monster.cpp
+  NavDataObj.cpp
+  NonAnimModel.cpp
+  Octorok.cpp
+  OctorokRock.cpp
+  OnewayDoorReverse.cpp
+  OwlStatue.cpp
+  Particle_Explosion.cpp
+  Particle_Snow.cpp
+  Pawn.cpp
+  Player.cpp
+  PlayerCamera.cpp
+  Player_3D_Effects.cpp
+  Player_Charge_Slash.cpp
+  Player_ItemGet_Effect.cpp
+  PurpleQuartz.cpp
+  Ring_Effect.cpp
+  Ripple_Effect.cpp
+  Rola.cpp
+  RollingSpike.cpp
+  SeaUrchin.cpp
+  Shield.cpp
+  SinkingSword.cpp
+  SmallKey.cpp
+  Smoke_Effect.cpp
+  Spark.cpp
+  Spark_Effect.cpp
+  SpikeTile.cpp
+  SquareBlock.cpp
+  State_DeguTail_Appear.cpp
+  State_DeguTail_Dead.cpp
+  State_DeguTail_Guard.cpp
+  State_DeguTail_Hurt.cpp
+  State_DeguTail_Idle.cpp
+  State_DeguTail_Walk.cpp
+  State_Kuribo_Dead.cpp
+  State_Kuribo_Idle.cpp
+  State_Kuribo_Walk.cpp
+  State_Kuribo_Walk_Shake.cpp
+  State_Link_Bomb.cpp
+  State_Link_Carry.cpp
+  State_Link_Carry_Walk.cpp
+  State_Link_Damage_Front.cpp
+  State_Link_Fall.cpp
+  State_Link_Get_Item.cpp
+  State_Link_Idle.cpp
+  State_Link_ItemA.cpp
+  State_Link_ItemB.cpp
+  State_Link_Jump.cpp
+  State_Link_Key.cpp
+  State_Link_Push.cpp
+  State_Link_Shield.cpp
+  State_Link_Shield_Walk.cpp
+  State_Link_Slash.cpp
+  State_Link_Slash_Hold.cpp
+  State_Link_Stair_Down.cpp
+  State_Link_Stair_Up.cpp
+  State_Link_Throw.cpp
+  State_Link_Walk.cpp
+  State_Octorok_Attack.cpp
+  State_Octorok_Dead.cpp
+  State_Octorok_Idle.cpp
+  State_Octorok_Walk.cpp
+  State_Pawn_Damage.cpp
+  State_Pawn_DeadFall.cpp
+  State_Pawn_Idle.cpp
+  State_Pawn_Jump.cpp
+  State_Pawn_Walk.cpp
+  State_Rola_Dead.cpp
+  State_Rola_Demage.cpp
+  State_Rola_Idle.cpp
+  State_Rola_Jump.cpp
+  State_Rola_Push.cpp
+  State_SeaUrchin_Dead.cpp
+  State_SeaUrchin_Idle.cpp
+  State_SeaUrchin_Pushed.cpp
+  State_Spark_Idle.cpp
+  State_Togezo_Damage.cpp
+  State_Togezo_Discover.cpp
+  State_Togezo_Idle.cpp
+  State_Togezo_Rebound.cpp
+  State_Togezo_Run.cpp
+  State_ToolShopkeeper_Attack.cpp
+  State_ToolShopkeeper_Talk.cpp
+  State_ToolShopkeeper_Idle.cpp
+  State_Vegas_Damage.cpp
+  State_Vegas_Dead.cpp
+  State_Vegas_Idle.cpp
+  State_Vegas_Walk_b.cpp
+  State_Vegas_Walk_f.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Rola_Jump.cpp(132,19): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/State_Rola_Jump.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Rola_Jump.cpp(137,19): warning C4018: '>': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/State_Rola_Jump.cpp'을(를) 컴파일하는 중)
+  
+  State_Vegas_Walk_l.cpp
+  State_Vegas_Walk_r.cpp
+  StoneHinoxRock.cpp
+  Store_Item.cpp
+  Sword.cpp
+  TailCaveShutter.cpp
+  TailDungeonOpen.cpp
+  TailLockStatue.cpp
+  Teleport.cpp
+  Terrain.cpp
+  Togezo.cpp
+  TreasureBox.cpp
+  Tree.cpp
+  Vegas.cpp
+  Weathercock.cpp
+  ToolShopkeeper.cpp
+  Client.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\StoneHinoxRock.cpp(74,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/StoneHinoxRock.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\StoneHinoxRock.cpp(80,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/StoneHinoxRock.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Tree.cpp(76,7): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Tree.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Weathercock.cpp(82,7): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/Weathercock.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(385,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
+  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(397,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
+  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
+  
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 3835 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

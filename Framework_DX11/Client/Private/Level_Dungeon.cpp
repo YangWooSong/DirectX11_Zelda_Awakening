@@ -1069,7 +1069,7 @@ void CLevel_Dungeon::Setting_Gimmick(_float fTimeDelta)
 
 					m_bRestartBgm = true;
 					m_pGameInstance->Stop_BGM();
-					m_pGameInstance->Play_BGM(TEXT("0_Dangeon1_TailCave"), 0.7f);
+					m_pGameInstance->Play_BGM(TEXT("0_Dangeon1_TailCave.wav"), 0.7f);
 				}
 
 				//필요한 연출 끝나고 줌 아웃

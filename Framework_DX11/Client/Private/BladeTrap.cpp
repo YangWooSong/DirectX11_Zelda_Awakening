@@ -133,7 +133,7 @@ void CBladeTrap::Late_Update(_float fTimeDelta)
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
 #ifdef _DEBUG
-        m_pGameInstance->Add_DebugObject(m_pColliderCom);
+      //  m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
     }
 }
