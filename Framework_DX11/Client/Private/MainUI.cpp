@@ -72,6 +72,8 @@ void CMainUI::Update(_float fTimeDelta)
         m_bEnding = true;
         m_childUI_List[FADE_IN_OUT]->Set_TextureNum(1);
         Active_FadeOut();
+        m_pGameInstance->Stop_BGM();
+        m_pGameInstance->Play_BGM(TEXT("0_Ending.wav"),1.f);
     }
 
   //  if (KEY_TAP(KEY::E))
