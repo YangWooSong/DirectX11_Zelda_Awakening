@@ -40,6 +40,7 @@ HRESULT CLevel_MarinHouse::Initialize()
 	m_pMainUI = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_MARINHOUSE, TEXT("Layer_MainUI"), 0));
 	m_pMainUI->Active_FadeIn();
 
+	m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(5.f, 40.f,-20.f,1.f));
 	return S_OK;
 }
 

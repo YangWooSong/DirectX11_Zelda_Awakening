@@ -40,6 +40,8 @@ HRESULT CLevel_Store::Initialize()
 	m_pMainUI->Active_LevelText();
 	m_pMainUI->Active_FadeIn();
 
+	m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(5.f, 40.f, -15.f, 1.f));
+
 	return S_OK;
 }
 

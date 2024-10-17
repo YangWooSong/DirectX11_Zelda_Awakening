@@ -30,6 +30,11 @@ HRESULT CStore_Item::Initialize(void* pArg)
         return E_FAIL;
 
     //Read한 정보 세팅
+    if (m_iItemType == SOLD_OUT)
+        pDesc->vPosition.y = 0.8f;
+    else
+        pDesc->vPosition.y = 1.1f;
+
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
     m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
     m_pTransformCom->RotationThreeAxis(_float3(0.f, 0.f, 0.f));
@@ -41,6 +46,7 @@ HRESULT CStore_Item::Initialize(void* pArg)
     m_pPlayer = static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_STORE));
     m_pSocketMatrix = m_pPlayer->Get_Model()->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
 
+    
     return S_OK;
 }
 
@@ -80,6 +86,7 @@ void CStore_Item::Late_Update(_float fTimeDelta)
     {
         __super::Late_Update(fTimeDelta);
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
 
         if(m_pColliderCom != nullptr && m_bPicked == false)
             m_pGameInstance->Add_ColliderList(m_pColliderCom);
@@ -111,12 +118,48 @@ HRESULT CStore_Item::Render()
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
                 return E_FAIL;
 
-            if (FAILED(m_pShaderCom->Begin(0)))
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
+                return E_FAIL;
+
+            if (FAILED(m_pShaderCom->Begin(5)))
                 return E_FAIL;
 
             if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
         }
+    }
+
+    return S_OK;
+}
+
+HRESULT CStore_Item::Render_LightDepth()
+{
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix_Ptr())))
+        return E_FAIL;
+
+    _float4x4		ViewMatrix;
+    XMStoreFloat4x4(&ViewMatrix, XMMatrixLookAtLH(m_pGameInstance->Get_ShadowLightPos_Vector(), m_pGameInstance->Get_LightLook_Vector(), XMVectorSet(0.f, 1.f, 0.f, 0.f)));
+
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_ViewMatrix", &ViewMatrix)))
+        return E_FAIL;
+    if (FAILED(m_pShaderCom->Bind_Matrix("g_ProjMatrix", &m_pGameInstance->Get_Transform_Float4x4(CPipeLine::D3DTS_PROJ))))
+        return E_FAIL;
+
+    _uint		iNumMeshes = m_pModelCom->Get_NumMeshes();
+
+    for (size_t i = 0; i < iNumMeshes; i++)
+    {
+        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
+            return E_FAIL;
+
+        if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
+            return E_FAIL;
+
+        if (FAILED(m_pShaderCom->Begin(13)))
+            return E_FAIL;
+
+        if (FAILED(m_pModelCom->Render((_uint)i)))
+            return E_FAIL;
     }
 
     return S_OK;

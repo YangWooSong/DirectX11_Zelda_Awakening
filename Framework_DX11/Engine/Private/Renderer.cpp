@@ -266,6 +266,7 @@ HRESULT CRenderer::Render_Deferred()
 	_float4x4		ViewMatrix;
 	//조명 위치, 조명이 바라보는 곳, 조명의 위쪽
 	XMStoreFloat4x4(&ViewMatrix, XMMatrixLookAtLH(m_pGameInstance->Get_ShadowLightPos_Vector(), m_pGameInstance->Get_LightLook_Vector(), XMVectorSet(0.f, 1.f, 0.f, 0.f)));
+	//XMStoreFloat4x4(&ViewMatrix, XMMatrixLookAtLH(XMVectorSet(5.f, 30.f, -15.f, 0.f), m_pGameInstance->Get_LightLook_Vector(), XMVectorSet(0.f, 1.f, 0.f, 0.f)));
 
 	if (FAILED(m_pShader->Bind_Matrix("g_LightViewMatrix", &ViewMatrix)))
 		return E_FAIL;

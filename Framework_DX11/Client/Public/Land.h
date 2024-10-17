@@ -22,6 +22,7 @@ public:
 	virtual void Update(_float fTimeDelta) override;
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
+	virtual HRESULT Render_LightDepth() override;
 
 public:
 	class CShader* m_pShaderCom = { nullptr };
@@ -52,6 +53,8 @@ private:
 		TEXT("16D"), TEXT("16E"), TEXT("16F"),TEXT("16G")
 	};
 
+	_bool m_bSetLight = { false };
+	_float4x4		ViewMatrix = {};
 public:
 	static CLand* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

@@ -83,7 +83,8 @@ public:
 
 #pragma region PIPELINE
 	void Set_Transform(CPipeLine::D3DTRANSFORMSTATE eState, _fmatrix TransformMatrix);
-	void  Set_ShadowLight(CPipeLine::D3DTRANSFORMSTATE eState, _fvector vPlayerPos);
+	void  Set_ShadowLightLook(CPipeLine::D3DTRANSFORMSTATE eState, _fvector vPlayerPos);
+	void  Set_ShadowLightPos(CPipeLine::D3DTRANSFORMSTATE eState, _fvector vLightPos);
 	_float4x4 Get_Transform_Float4x4(CPipeLine::D3DTRANSFORMSTATE eState) const;
 	_matrix Get_Transform_Matrix(CPipeLine::D3DTRANSFORMSTATE eState) const;
 	_float4x4 Get_Transform_Inverse_Float4x4(CPipeLine::D3DTRANSFORMSTATE eState) const;

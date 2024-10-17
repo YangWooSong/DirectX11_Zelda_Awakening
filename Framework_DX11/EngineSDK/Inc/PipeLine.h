@@ -22,10 +22,11 @@ public:
 	void Set_Transform(D3DTRANSFORMSTATE eState, _fmatrix TransformMatrix) {
 		XMStoreFloat4x4(&m_TransformMatrices[eState], TransformMatrix);
 	}
-	void Set_ShadowLight(D3DTRANSFORMSTATE eState, _fvector vPlayerPos) {
-		_vector vOffset = { 5.f, 20.f,-15.f,0.f };
-		XMStoreFloat4(&m_vShadowLightPos, vPlayerPos + vOffset);
+	void Set_ShadowLightLook(D3DTRANSFORMSTATE eState, _fvector vPlayerPos) {
 		XMStoreFloat4(&m_vLightLookPos, vPlayerPos);
+	}
+	void Set_ShadowLightPos(D3DTRANSFORMSTATE eState, _fvector vLightPos) {
+		XMStoreFloat4(&m_vShadowLightPos, vLightPos);
 	}
 	_matrix Get_Transform_Matrix(D3DTRANSFORMSTATE eState) const {
 		return XMLoadFloat4x4(&m_TransformMatrices[eState]);

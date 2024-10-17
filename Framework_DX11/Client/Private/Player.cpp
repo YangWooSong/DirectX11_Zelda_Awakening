@@ -46,7 +46,10 @@ HRESULT CPlayer::Initialize(void* pArg)
 
 void CPlayer::Priority_Update(_float fTimeDelta)
 {
-	m_pGameInstance->Set_ShadowLight(CPipeLine::D3DTS_SHADOW_LIGHT,m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+	if(m_iLevelIndex == LEVEL_STORE)
+		m_pGameInstance->Set_ShadowLightLook(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(0.f,0.f,0.f,1.f));
+	else
+		m_pGameInstance->Set_ShadowLightLook(CPipeLine::D3DTS_SHADOW_LIGHT,m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 }
 
 void CPlayer::Update(_float fTimeDelta)

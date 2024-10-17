@@ -71,6 +71,8 @@ HRESULT CLevel_Dungeon::Initialize()
 		   static_cast<CGameObject*>(*iter)->SetActive(false);
    }
 
+   m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(m_CameraRoomPos[0].x + 15.f, m_CameraRoomPos[0].y + 40.f, m_CameraRoomPos[0].z + -25.f, 1.f));
+
    pMainUI->Active_LevelText();
    pMainUI->Active_FadeIn();
 
@@ -506,19 +508,23 @@ void CLevel_Dungeon::Change_Room()
 		Set_MiniMap(m_iCurRoomNum);
 	}
 
-	//기믹 세팅
+	//카메라 세팅
 	CLayer* pLayer = { nullptr };
 
 	_float3 vNewCamPos = { m_CameraRoomPos[m_iCurRoomNum - 1].x, m_CameraRoomPos[m_iCurRoomNum - 1].y, m_CameraRoomPos[m_iCurRoomNum - 1].z };
 
 	if (m_iCurRoomNum == 7 || m_iCurRoomNum == 14 || m_iCurRoomNum == 16)
 	{
+		_float x = (m_CameraRoomPos[m_iCurRoomNum - 1].x + m_CameraRoomPos[m_iCurRoomNum - 1].y) * 0.5f;
+		_float z = (m_CameraRoomPos[m_iCurRoomNum - 1].z + m_CameraRoomPos[m_iCurRoomNum - 1].w) * 0.5f;
+		m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(x + 15.f, 60.f, z - 25.f, 1.f));
 		m_pPlayerCam->Set_FollowPlayer(true);
 	}
 	else
 	{
 		m_pPlayerCam->Set_FollowPlayer(false);
 		m_pPlayerCam->Set_TargetToOtherPos(XMLoadFloat3(&vNewCamPos));
+		m_pGameInstance->Set_ShadowLightPos(CPipeLine::D3DTS_SHADOW_LIGHT, XMVectorSet(m_CameraRoomPos[m_iCurRoomNum - 1].x + 15.f, m_CameraRoomPos[m_iCurRoomNum - 1].y + 40.f, m_CameraRoomPos[m_iCurRoomNum - 1].z - 25.f, 1.f));
 	}
 
 #pragma region Land

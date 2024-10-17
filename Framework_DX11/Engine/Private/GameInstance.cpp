@@ -347,9 +347,14 @@ void CGameInstance::Set_Transform(CPipeLine::D3DTRANSFORMSTATE eState, _fmatrix 
 	return m_pPipeLine->Set_Transform(eState, TransformMatrix);
 }
 
-void CGameInstance::Set_ShadowLight(CPipeLine :: D3DTRANSFORMSTATE eState, _fvector vPlayerPos)
+void CGameInstance::Set_ShadowLightLook(CPipeLine :: D3DTRANSFORMSTATE eState, _fvector vPlayerPos)
 {
-	return m_pPipeLine->Set_ShadowLight(eState, vPlayerPos);
+	return m_pPipeLine->Set_ShadowLightLook(eState, vPlayerPos);
+}
+
+void CGameInstance::Set_ShadowLightPos(CPipeLine::D3DTRANSFORMSTATE eState, _fvector vLightPos)
+{
+	return m_pPipeLine->Set_ShadowLightPos(eState, vLightPos);
 }
 
 _float4x4 CGameInstance::Get_Transform_Float4x4(CPipeLine::D3DTRANSFORMSTATE eState) const
