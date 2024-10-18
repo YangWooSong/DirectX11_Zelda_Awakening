@@ -34,7 +34,7 @@ HRESULT CTarin::Initialize(void* pArg)
 
     m_iAnimIndex =  m_pModelCom->Get_AnimationIndex("eat");
     m_pModelCom->SetUp_NextAnimation(m_iAnimIndex, 0.1f, true);
-    m_pModelCom->Set_AnimationSpeed(m_iAnimIndex, 40.f);
+    m_pModelCom->Set_AnimationSpeed(m_iAnimIndex, 35.f);
     return S_OK;
 }
 

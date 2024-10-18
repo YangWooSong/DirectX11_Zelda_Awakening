@@ -99,7 +99,7 @@ protected:
 	_uint				m_iDir = { BACK };	
 	_uint				m_iLevelIndex = { LEVEL_END };
 	_int				m_iHp = { 0 };
-
+	_bool m_bShaderNormalize = { true };
 public:
 	static CMonster* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);

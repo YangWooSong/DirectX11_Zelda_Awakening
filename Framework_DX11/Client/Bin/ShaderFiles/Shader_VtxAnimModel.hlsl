@@ -17,6 +17,7 @@ vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
 vector g_vCamPosition;
 bool g_bLowAlpha = false;
 bool g_bActiveDissolve = false;
+bool g_bNormalize = false;
 
 /* 뼈행렬들(내 모델 전체의 뼈행렬들(x), 현재 그리는 메시에게 영향을 주는 뼈행렬들(o) */
 matrix g_BoneMatrices[512];
@@ -324,8 +325,12 @@ PS_OUT PS_MAIN_NORMAL(PS_IN_NORMAL In)
     float3x3 WorldMatrix = float3x3(In.vTangent.xyz, In.vBinormal.xyz, In.vNormal.xyz);
     float3 vNormal;
   
-    //z값을 계산해준다
-    vNormal.xy = vNormalDesc.xy * 2.f - 1.f;
+  //z값을 계산해준다
+    if (g_bNormalize == false)
+        vNormal.xy = vNormalDesc.xy;
+    else
+        vNormal.xy = vNormalDesc.xy * 2.f - 1.f;
+    
     vNormal.z = sqrt(1 - saturate(dot(vNormal.xy, vNormal.xy)));
     vNormal.xyz = mul(vNormal, WorldMatrix);
     if (0.3f >= vDiffuse.a)

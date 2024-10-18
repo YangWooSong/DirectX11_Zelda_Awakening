@@ -92,13 +92,13 @@ HRESULT CLand::Render()
 
             if(m_eObjType == NONANIM_LEVEL && (m_iListIndex == 2 || m_iListIndex == 3 ))
             {
-                m_bShaderNormalize = false;
+                m_bShaderNormalize = true;
                 if (FAILED(m_pShaderCom->Begin(5)))
                     return E_FAIL;
             }
             else
             {
-                m_bShaderNormalize = true; 
+                m_bShaderNormalize = false; 
               
             }
 
@@ -111,8 +111,8 @@ HRESULT CLand::Render()
             if (FAILED(m_pModelCom->Render((_uint)i)))
                 return E_FAIL;
 
-            _bool bFalse = { false };
-            if (FAILED(m_pShaderCom->Bind_RawValue("g_bNormalize", &bFalse, sizeof(_bool))))
+            _bool bTrue = { true };
+            if (FAILED(m_pShaderCom->Bind_RawValue("g_bNormalize", &bTrue, sizeof(_bool))))
                 return E_FAIL;
         }
     }

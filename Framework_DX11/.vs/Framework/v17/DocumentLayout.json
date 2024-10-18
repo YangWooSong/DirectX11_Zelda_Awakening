@@ -54,8 +54,7 @@
               "RelativeToolTip": "Client\\Public\\Land.h",
               "ViewState": "AgIAACEAAAAAAAAAAAAAADgAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-18T16:15:25.217Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T16:15:25.217Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "Client\\Bin\\ShaderFiles\\Shader_VtxModel.hlsl",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
-              "WhenOpened": "2024-10-18T15:57:14.993Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T15:57:14.993Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "Client\\Private\\Grass.cpp",
               "ViewState": "AgIAAMYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-18T15:31:40.189Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T15:31:40.189Z"
             },
             {
               "$type": "Document",
@@ -93,8 +90,7 @@
               "RelativeToolTip": "Client\\Private\\State_Link_Walk.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-18T14:57:05.24Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T14:57:05.24Z"
             },
             {
               "$type": "Document",
@@ -106,8 +102,7 @@
               "RelativeToolTip": "Client\\Private\\Level_Field.cpp",
               "ViewState": "AgIAAHoBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-18T14:17:44.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T14:17:44.128Z"
             },
             {
               "$type": "Document",
@@ -119,8 +114,7 @@
               "RelativeToolTip": "Client\\Private\\Loader.cpp",
               "ViewState": "AgIAAOgCAAAAAAAAAAAqwAYDAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-18T13:13:32.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T13:13:32.019Z"
             },
             {
               "$type": "Document",
@@ -132,8 +126,7 @@
               "RelativeToolTip": "Client\\Private\\Level_Store.cpp",
               "ViewState": "AgIAAE4BAAAAAAAAAAAawGQBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-18T13:05:50.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T13:05:50.375Z"
             },
             {
               "$type": "Document",
@@ -143,7 +136,7 @@
               "RelativeDocumentMoniker": "Client\\Private\\Land.cpp",
               "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Land.cpp",
               "RelativeToolTip": "Client\\Private\\Land.cpp",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFYAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-18T13:02:18.746Z",
               "EditorCaption": ""

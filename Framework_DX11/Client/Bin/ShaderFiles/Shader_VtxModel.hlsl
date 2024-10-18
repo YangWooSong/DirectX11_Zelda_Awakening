@@ -353,7 +353,7 @@ PS_OUT PS_MAIN_NORMAL_WORLD(PS_IN_NORMAL In)
     float3 vNormal;
   
     //z값을 계산해준다
-    if (g_bNormalize)
+    if (g_bNormalize == false)
         vNormal.xy = vNormalDesc.xy ;
     else
         vNormal.xy = vNormalDesc.xy * 2.f - 1.f;

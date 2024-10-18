@@ -142,6 +142,8 @@ HRESULT COctorok::Render()
 			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 				return E_FAIL;
 
+			if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+				return E_FAIL;
 
 			if (FAILED(m_pShaderCom->Begin(1)))
 				return E_FAIL;
@@ -153,6 +155,7 @@ HRESULT COctorok::Render()
 		_bool bFalse = { false };
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bIsRed", &bFalse, sizeof(_bool))))
 			return E_FAIL;
+
 	}
 	
 	return S_OK;

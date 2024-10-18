@@ -84,7 +84,7 @@ void CTailLockStatue::Late_Update(_float fTimeDelta)
 {
 	m_pGameInstance->Add_ColliderList(m_pColliderCom);
 	m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-//	m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
+	//m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
 	m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
 	m_pGameInstance->Add_DebugObject(m_pColliderCom);
@@ -124,8 +124,10 @@ HRESULT CTailLockStatue::Render()
 		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, (_uint)i)))
 			return E_FAIL;
 
+		if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+			return E_FAIL;
 
-		if (FAILED(m_pShaderCom->Begin(5)))
+		if (FAILED(m_pShaderCom->Begin(7)))
 			return E_FAIL;
 
 		if (FAILED(m_pModelCom->Render((_uint)i)))
