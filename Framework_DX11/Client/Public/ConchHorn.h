@@ -36,6 +36,7 @@ public:
 	CModel* m_pModelCom = { nullptr };
 	CCollider* m_pColliderCom = { nullptr };
 
+	CGameObject* m_pEffect = { nullptr };
 private:
 	_bool m_bInteract = { false };
 

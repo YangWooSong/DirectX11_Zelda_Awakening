@@ -101,18 +101,21 @@ void COctorok::Update(_float fTimeDelta)
 
 void COctorok::Late_Update(_float fTimeDelta)
 {
-	__super::Late_Update(fTimeDelta);
-	if(m_bRender)
+	if (true == m_pGameInstance->isIn_Frustum_WorldSpace(m_pTransformCom->Get_State(CTransform::STATE_POSITION), 8.f))
 	{
-		m_pGameInstance->Add_ColliderList(m_pColliderCom);
-		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-		m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
-	}
-	m_pEffect->Late_Update(fTimeDelta);
-	m_p3D_Effect->Late_Update(fTimeDelta);
+		__super::Late_Update(fTimeDelta);
+		if (m_bRender)
+		{
+			m_pGameInstance->Add_ColliderList(m_pColliderCom);
+			m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+			m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
+		}
+		m_pEffect->Late_Update(fTimeDelta);
+		m_p3D_Effect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
-	m_pGameInstance->Add_DebugObject(m_pColliderCom);
+		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+	}
 }
 
 HRESULT COctorok::Render()

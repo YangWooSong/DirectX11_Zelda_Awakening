@@ -3,96 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\private\\Loader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\private\\Loader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Particle_Image.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\Particle_Image.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_Marin_Talk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\State_Marin_Talk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Level_Dungeon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\Level_Dungeon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Marin_State_Idle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\Marin_State_Idle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Particle_Image.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\Particle_Image.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_ToolShopkeeper_Talk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\State_ToolShopkeeper_Talk.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\ConchHorn.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\ConchHorn.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_Marin_Talk.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\State_Marin_Talk.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_ToolShopkeeper_Talk.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\State_ToolShopkeeper_Talk.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Marin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\Marin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_ToolShopkeeper_Idle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\State_ToolShopkeeper_Idle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Marin_State_Idle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\Marin_State_Idle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_ToolShopkeeper_Idle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\State_ToolShopkeeper_Idle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Marin.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\Marin.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\ToolShopkeeper.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\ToolShopkeeper.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\OctorokRock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\OctorokRock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\SeaUrchin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\SeaUrchin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Octorok.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\Octorok.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\OctorokRock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\OctorokRock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Grass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\Grass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Monster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\Monster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Link.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\Link.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Monster.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\Monster.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\SinkingSword.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Private\\SinkingSword.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\SinkingSword.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\SinkingSword.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\TailLockStatue.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\TailLockStatue.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\ConchHorn.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{02C9AE80-95A1-4337-B9D1-3346442914EB}|Client\\Default\\Client.vcxproj|solutionrelative:Client\\Public\\ConchHorn.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -102,296 +30,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 220,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "State_Marin_Talk.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_Marin_Talk.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\State_Marin_Talk.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_Marin_Talk.cpp",
-              "RelativeToolTip": "Client\\Private\\State_Marin_Talk.cpp",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAawIcAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:57:11.898Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "State_ToolShopkeeper_Talk.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_ToolShopkeeper_Talk.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\State_ToolShopkeeper_Talk.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_ToolShopkeeper_Talk.cpp",
-              "RelativeToolTip": "Client\\Private\\State_ToolShopkeeper_Talk.cpp",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAqwJ0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:57:08.915Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "State_ToolShopkeeper_Talk.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_ToolShopkeeper_Talk.h",
-              "RelativeDocumentMoniker": "Client\\Public\\State_ToolShopkeeper_Talk.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_ToolShopkeeper_Talk.h",
-              "RelativeToolTip": "Client\\Public\\State_ToolShopkeeper_Talk.h",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAqwC0AAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:56:48.192Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "State_ToolShopkeeper_Idle.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_ToolShopkeeper_Idle.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\State_ToolShopkeeper_Idle.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\State_ToolShopkeeper_Idle.cpp",
-              "RelativeToolTip": "Client\\Private\\State_ToolShopkeeper_Idle.cpp",
-              "ViewState": "AgIAABMAAAAAAAAAAAAqwBoAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:55:51.68Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "State_ToolShopkeeper_Idle.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_ToolShopkeeper_Idle.h",
-              "RelativeDocumentMoniker": "Client\\Public\\State_ToolShopkeeper_Idle.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_ToolShopkeeper_Idle.h",
-              "RelativeToolTip": "Client\\Public\\State_ToolShopkeeper_Idle.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:54:51.079Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "State_Marin_Talk.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_Marin_Talk.h",
-              "RelativeDocumentMoniker": "Client\\Public\\State_Marin_Talk.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\State_Marin_Talk.h",
-              "RelativeToolTip": "Client\\Public\\State_Marin_Talk.h",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACkAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:54:17.472Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Marin_State_Idle.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Marin_State_Idle.h",
-              "RelativeDocumentMoniker": "Client\\Public\\Marin_State_Idle.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Marin_State_Idle.h",
-              "RelativeToolTip": "Client\\Public\\Marin_State_Idle.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:53:18.174Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Loader.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Loader.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\Loader.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Loader.cpp",
-              "RelativeToolTip": "Client\\Private\\Loader.cpp",
-              "ViewState": "AgIAALcCAAAAAAAAAAAawNkCAAAAAAAAAAAAAA==",
+              "Title": "Particle_Image.cpp",
+              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Particle_Image.cpp",
+              "RelativeDocumentMoniker": "Client\\Private\\Particle_Image.cpp",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Particle_Image.cpp*",
+              "RelativeToolTip": "Client\\Private\\Particle_Image.cpp*",
+              "ViewState": "AgIAABYBAAAAAAAAAAAawCkBAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:44:45.028Z",
+              "WhenOpened": "2024-10-18T05:03:03.85Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Marin_State_Idle.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Marin_State_Idle.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\Marin_State_Idle.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Marin_State_Idle.cpp",
-              "RelativeToolTip": "Client\\Private\\Marin_State_Idle.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:57:31.2Z",
+              "Title": "Particle_Image.h",
+              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Particle_Image.h",
+              "RelativeDocumentMoniker": "Client\\Public\\Particle_Image.h",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Particle_Image.h",
+              "RelativeToolTip": "Client\\Public\\Particle_Image.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAACAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-18T05:02:24.034Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Marin.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Marin.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\Marin.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Marin.cpp",
-              "RelativeToolTip": "Client\\Private\\Marin.cpp",
-              "ViewState": "AgIAAJ8AAAAAAAAAAAAAALIAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "ConchHorn.cpp",
+              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\ConchHorn.cpp",
+              "RelativeDocumentMoniker": "Client\\Private\\ConchHorn.cpp",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\ConchHorn.cpp",
+              "RelativeToolTip": "Client\\Private\\ConchHorn.cpp",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAAAJcAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:49:49.541Z",
+              "WhenOpened": "2024-10-18T05:00:39.438Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ToolShopkeeper.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\ToolShopkeeper.cpp",
-              "RelativeDocumentMoniker": "Client\\Public\\ToolShopkeeper.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\ToolShopkeeper.cpp",
-              "RelativeToolTip": "Client\\Public\\ToolShopkeeper.cpp",
-              "ViewState": "AgIAALIAAAAAAAAAAAAqwNwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:49:42.644Z",
+              "DocumentIndex": 4,
+              "Title": "ConchHorn.h",
+              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\ConchHorn.h",
+              "RelativeDocumentMoniker": "Client\\Public\\ConchHorn.h",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\ConchHorn.h",
+              "RelativeToolTip": "Client\\Public\\ConchHorn.h",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-18T05:00:28.93Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Marin.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Marin.h",
-              "RelativeDocumentMoniker": "Client\\Public\\Marin.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Marin.h",
-              "RelativeToolTip": "Client\\Public\\Marin.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:47:52.179Z",
+              "DocumentIndex": 1,
+              "Title": "Level_Dungeon.cpp",
+              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Level_Dungeon.cpp",
+              "RelativeDocumentMoniker": "Client\\Private\\Level_Dungeon.cpp",
+              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Level_Dungeon.cpp",
+              "RelativeToolTip": "Client\\Private\\Level_Dungeon.cpp",
+              "ViewState": "AgIAALoAAAAAAAAAAAAAAMsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-18T04:55:15.083Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "OctorokRock.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\OctorokRock.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\OctorokRock.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\OctorokRock.cpp",
-              "RelativeToolTip": "Client\\Private\\OctorokRock.cpp",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAmwIgAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:11:07.991Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Grass.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Grass.h",
-              "RelativeDocumentMoniker": "Client\\Public\\Grass.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Grass.h",
-              "RelativeToolTip": "Client\\Public\\Grass.h",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:10:55.082Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "OctorokRock.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\OctorokRock.h",
-              "RelativeDocumentMoniker": "Client\\Public\\OctorokRock.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\OctorokRock.h",
-              "RelativeToolTip": "Client\\Public\\OctorokRock.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:10:53.128Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "SeaUrchin.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\SeaUrchin.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\SeaUrchin.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\SeaUrchin.cpp",
-              "RelativeToolTip": "Client\\Private\\SeaUrchin.cpp",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAF0AAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:10:37.218Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Octorok.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Octorok.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\Octorok.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Octorok.cpp",
-              "RelativeToolTip": "Client\\Private\\Octorok.cpp",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAG0AAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:10:19.57Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Link.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Link.h",
-              "RelativeDocumentMoniker": "Client\\Public\\Link.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Link.h",
-              "RelativeToolTip": "Client\\Public\\Link.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACAAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:09:16.225Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Monster.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Monster.h",
-              "RelativeDocumentMoniker": "Client\\Public\\Monster.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\Monster.h",
-              "RelativeToolTip": "Client\\Public\\Monster.h",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAACYAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:08:59.494Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Monster.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Monster.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\Monster.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\Monster.cpp",
-              "RelativeToolTip": "Client\\Private\\Monster.cpp",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAmwFEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:08:51.903Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "SinkingSword.cpp",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\SinkingSword.cpp",
-              "RelativeDocumentMoniker": "Client\\Private\\SinkingSword.cpp",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Private\\SinkingSword.cpp",
-              "RelativeToolTip": "Client\\Private\\SinkingSword.cpp",
-              "ViewState": "AgIAADcAAAAAAAAAAAAmwEEAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-17T12:07:18.234Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "SinkingSword.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\SinkingSword.h",
-              "RelativeDocumentMoniker": "Client\\Public\\SinkingSword.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\SinkingSword.h",
-              "RelativeToolTip": "Client\\Public\\SinkingSword.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T12:07:08.724Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "TailLockStatue.h",
-              "DocumentMoniker": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\TailLockStatue.h",
-              "RelativeDocumentMoniker": "Client\\Public\\TailLockStatue.h",
-              "ToolTip": "C:\\Users\\olivi\\GitHub\\DirectX11_Zelda_Awakening\\Framework_DX11\\Client\\Public\\TailLockStatue.h",
-              "RelativeToolTip": "Client\\Public\\TailLockStatue.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-17T11:41:11.324Z"
             }
           ]
         }

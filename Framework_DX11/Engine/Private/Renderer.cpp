@@ -117,7 +117,7 @@ HRESULT CRenderer::Initialize()
 
 	if (FAILED(m_pGameInstance->Ready_RT_Debug(TEXT("Target_Blur_Y"), ViewportDesc.Width - 150.f, 450.f, 200.f, 200.f)))
 		return E_FAIL;	
-	if (FAILED(m_pGameInstance->Ready_RT_Debug(TEXT("Target_Bloom"), ViewportDesc.Width - 150.f, 250.f, 200.f, 200.f)))
+	if (FAILED(m_pGameInstance->Ready_RT_Debug(TEXT("Target_LightDepth"), ViewportDesc.Width - 150.f, 250.f, 200.f, 200.f)))
 		return E_FAIL;
 
 #endif
@@ -571,8 +571,8 @@ HRESULT CRenderer::Render_Debug()
 
 	m_pGameInstance->Render_MRT_Debug(TEXT("MRT_GameObjects"), m_pShader, m_pVIBuffer);
 	m_pGameInstance->Render_MRT_Debug(TEXT("MRT_Lights"), m_pShader, m_pVIBuffer);
+	m_pGameInstance->Render_MRT_Debug(TEXT("MRT_ShadowObj"), m_pShader, m_pVIBuffer);
 	m_pGameInstance->Render_MRT_Debug(TEXT("MRT_Blur_Y"), m_pShader, m_pVIBuffer);
-	m_pGameInstance->Render_MRT_Debug(TEXT("MRT_Bloom"), m_pShader, m_pVIBuffer);
 
 	return S_OK;
 }

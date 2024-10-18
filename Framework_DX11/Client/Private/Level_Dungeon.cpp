@@ -102,7 +102,7 @@ HRESULT CLevel_Dungeon::Ready_Lights()
 	ZeroMemory(&LightDesc, sizeof LightDesc);
 	LightDesc.eType = LIGHT_DESC::TYPE_DIRECTIONAL;
 	LightDesc.vDirection = _float4(1.f, -1.f, 1.f, 0.f);
-	LightDesc.vDiffuse = _float4(0.8f, 0.8f, 0.8f, 1.f);
+	LightDesc.vDiffuse = _float4(0.9f, 0.9f, 0.9f, 1.f);
 	LightDesc.vAmbient = _float4(0.4f, 0.4f, 0.4f, 1.f);
 	LightDesc.vSpecular = _float4(1.f, 1.f, 1.f, 1.f);
 
@@ -200,7 +200,8 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	ObjectDesc.eType = CGameObject::NONANIM_OBJ;
 	ObjectDesc.iRoomNum = 13;
 	ObjectDesc.vPosition = _float3(45.f, 2.f, 62.f);
-	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
+	ObjectDesc.vScale = _float3(1.2f, 1.2f, 1.2f);
+	ObjectDesc.vRotation = _float3{0.f, 5.f,0.f};
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_ConchHorn"), TEXT("Prototype_GameObject_ConchHorn"), &ObjectDesc)))
 		return E_FAIL;
 
@@ -498,17 +499,27 @@ HRESULT CLevel_Dungeon::Read_NonAnimObj(_int _type, _uint _index, _float3 _fPos,
 		if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_Fire"), TEXT("Prototype_GameObject_Fire_Big_Effect"), &EffectDesc)))
 			return E_FAIL;
 
-		LIGHT_DESC			LightDesc{};
-		ZeroMemory(&LightDesc, sizeof LightDesc);
-		LightDesc.eType = LIGHT_DESC::TYPE_POINT;
-		LightDesc.vPosition = _float4(_fPos.x, _fPos.y + 0.3f, _fPos.z, 1.f);
-		LightDesc.fRange = 3.f * _fScaled.x;
-		LightDesc.vDiffuse = _float4(1.f, 0.2f, 0.0f, 1.f);
-		LightDesc.vAmbient = _float4(0.1f, 0.1f, 0.3f, 1.f);
-		LightDesc.vSpecular = _float4(1.f, 0.5f, 0.0f, 1.f);
+		if (_fScaled.x == 0.5f)
+			m_iMiniFireCount++;
+		
+		if(_fScaled.x != 0.5f || m_iMiniFireCount == 2)
+		{
+			LIGHT_DESC			LightDesc{};
+			ZeroMemory(&LightDesc, sizeof LightDesc);
+			LightDesc.eType = LIGHT_DESC::TYPE_POINT;
+			LightDesc.vPosition = _float4(_fPos.x, _fPos.y + 0.3f, _fPos.z, 1.f);
+			LightDesc.fRange = 3.f;
+			LightDesc.vDiffuse = _float4(1.f, 0.2f, 0.0f, 1.f);
+			LightDesc.vAmbient = _float4(0.1f, 0.1f, 0.3f, 1.f);
+			LightDesc.vSpecular = _float4(1.f, 0.3f, 0.0f, 1.f);
 
-		if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
-			return E_FAIL;
+			if (FAILED(m_pGameInstance->Add_Light(LightDesc)))
+				return E_FAIL;
+
+			if (m_iMiniFireCount == 2)
+				m_iMiniFireCount = 0;
+		}
+		
 	}
 	return S_OK;
 }

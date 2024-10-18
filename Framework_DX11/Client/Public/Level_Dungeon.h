@@ -46,6 +46,7 @@ private:
 
 	_uint m_iBgmIndex = { 0 };
 	_uint m_iCurRoomNum = { 1 };
+	_uint m_iMiniFireCount = { 0 };
 
 	_float  m_fTimer = { 0.f };
 	_float  m_fRolaDeadTimer = { 0.f };

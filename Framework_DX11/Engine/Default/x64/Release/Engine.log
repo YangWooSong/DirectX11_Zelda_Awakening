@@ -1,6 +1,6 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+﻿  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Shader_Cell.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
-  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Shader_Cell.cso
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Bin\Shader_Deferred.cso
@@ -25,6 +25,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   unity_P5B1Z8V10F31M0IE.cpp
   unity_T8Y71YJX6HUPEU68.cpp
   unity_7XXGIB5E5XAHCU9J.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Renderer.cpp(33,6): warning C4244: '인수': 'FLOAT'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 'x64/Release/unity_V63GVWJOPYHO95X0.cpp'을(를) 컴파일하는 중)
   
@@ -52,7 +53,6 @@ C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Re
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Renderer.cpp(51,6): warning C4244: '인수': 'FLOAT'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 'x64/Release/unity_V63GVWJOPYHO95X0.cpp'을(를) 컴파일하는 중)
   
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
 C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Engine\Private\Navigation.cpp(63,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   (소스 파일 'x64/Release/unity_3VT6OFK1X8PASWCN.cpp'을(를) 컴파일하는 중)
   

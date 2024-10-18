@@ -177,10 +177,18 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 {
 
 	CPlayer::PLAYER_DESC PlayerDesc{};
-	PlayerDesc.vPosition = _float3(0.f, 0.f, 0.f);
+	PlayerDesc.vPosition = _float3(-0.5f, 0.f, 0.f);
 	PlayerDesc.LevelIndex = LEVEL_MARINHOUSE;
 	PlayerDesc.iStartCellNum = 0;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Player"), TEXT("Prototype_GameObject_Player_Link"), &PlayerDesc)))
+		return E_FAIL;
+
+	CGameObject::GAMEOBJECT_DESC pDesc = { };
+	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(CGameObject::ANIM_NPC);
+	pDesc.vPosition = _float3(1.5f, 0.f, 0.5f);
+	pDesc.vScale = _float3(1.f, 1.f, 1.f);
+	pDesc.vRotation = _float3(0.f, 0.f, 0.f);
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NPC"), TEXT("Prototype_GameObject_Marin"), &pDesc)))
 		return E_FAIL;
 
 	CNavDataObj::NAVOBJ_DESC NavDes{};

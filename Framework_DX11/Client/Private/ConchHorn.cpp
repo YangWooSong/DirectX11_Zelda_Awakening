@@ -4,6 +4,7 @@
 #include "Link.h"
 #include "DialogueUI.h"
 #include "MainUI.h"
+#include "Particle_Image.h"
 CConchHorn::CConchHorn(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -49,6 +50,8 @@ void CConchHorn::Update(_float fTimeDelta)
     if (m_isActive)
     {
         m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
+        m_pEffect->SetActive(true);  
+        m_pEffect->Update(fTimeDelta);
     }
 }
 
@@ -58,7 +61,7 @@ void CConchHorn::Late_Update(_float fTimeDelta)
     {
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
-
+        m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -142,6 +145,14 @@ HRESULT CConchHorn::Ready_Components()
         return E_FAIL;
     m_pColliderCom->Set_Owner(this);
 
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+    if (pGameObj != nullptr)
+    {
+        CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+        pImageDesc.iParticleType = CParticle_Image::KEY_DROP;
+        pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+        m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+    }
     return S_OK;
 }
 
@@ -173,6 +184,7 @@ void CConchHorn::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

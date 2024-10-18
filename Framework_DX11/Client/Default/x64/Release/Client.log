@@ -1,7 +1,30 @@
-﻿  BladeTrap.cpp
+﻿  BombExplosion.cpp
+  ConchHorn.cpp
+  Fire_Big_Effect.cpp
+  Level_Dungeon.cpp
+  LockBlockEffect.cpp
+  MonsterDied_Effect.cpp
+  OnewayDoorReverse.cpp
+  Particle_Image.cpp
+  Player_Charge_Slash.cpp
+  Player_ItemGet_Effect.cpp
+  SmallKey.cpp
+  TailCaveShutter.cpp
+  TailDungeonOpen.cpp
+  TreasureBox.cpp
+  Loader.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(385,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
+  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(397,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
+  (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(265,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
+  
   코드를 생성하고 있습니다.
-  26 of 3932 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+  88 of 3994 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    55 functions had inline decision re-evaluated but remain unchanged
+    165 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

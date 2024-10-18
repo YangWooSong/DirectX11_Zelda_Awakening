@@ -154,6 +154,7 @@ void CSquareBlock::Move(_float fTimeDelta)
     {
         m_bMoveActor = true;
         m_pGameInstance->Destroy_PhysXActor(this);
+        m_pPlayer->Get_EffectSound()->Play_Sound(TEXT("4_Obj_Block_Push.wav"), 0.8f);
     }
 
     _float3 curPos = {};
