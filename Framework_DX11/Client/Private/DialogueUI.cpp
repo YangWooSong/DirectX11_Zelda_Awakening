@@ -283,6 +283,35 @@ HRESULT CDialogueUI::Render_Text()
             break;
         }
     }
+    else if (iOwnerType == MARIN)
+    {
+        m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("마린"), XMVectorSet(m_fX * 0.58f, m_fY * 0.86f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.6f);
+
+        switch (iLineIndex)
+        {
+        case 0:
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("앗! 정신이 들었구나!"), XMVectorSet(m_fX * 0.83f, m_fY * 0.92f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("다행이다!"), XMVectorSet(m_fX * 0.9f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            break;
+        case 1:
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("나는 "), XMVectorSet(m_fX * 0.85f, m_fY * 0.92f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("       마린 "), XMVectorSet(m_fX * 0.85f, m_fY * 0.92f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("             이라고 해"), XMVectorSet(m_fX * 0.85f, m_fY * 0.92f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("여긴"), XMVectorSet(m_fX * 0.84f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("       코호린트섬 "), XMVectorSet(m_fX * 0.84f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(0.5f, 0.6f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("                     이야"), XMVectorSet(m_fX * 0.84f, m_fY * 1.f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            break;
+        case 2:
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("전설의 악기를 찾으러 왔다고? "), XMVectorSet(m_fX * 0.76f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+            break;
+        case 3:
+            m_pGameInstance->Render_Text(TEXT("Font_Mallang24_Regular"), TEXT("이장 할머니께 한번 여쭤봐!"), XMVectorSet(m_fX * 0.76f, m_fY * 0.96f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, 1.f), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 0.8f);
+           break;
+        default:
+            break;
+        }
+
+    }
     return S_OK;
 }
 

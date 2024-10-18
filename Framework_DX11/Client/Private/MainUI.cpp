@@ -78,8 +78,8 @@ void CMainUI::Update(_float fTimeDelta)
 
   //  if (KEY_TAP(KEY::E))
   //{
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(8);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::MARIN);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(3);
   //   m_childUI_List[DIALOGUE]->SetActive(true);
   //}
 }

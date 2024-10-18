@@ -58,9 +58,7 @@ void CMarin::Update(_float fTimeDelta)
 
     m_pFsmCom->Update(fTimeDelta);
     m_pColliderCom->Update(m_pTransformCom->Get_WorldMatrix_Ptr());
-
-    if (m_bTalk && m_pFsmCom->Get_CurrentState() != TALK)
-        Change_State(TALK);
+  
 }
 
 void CMarin::Late_Update(_float fTimeDelta)
@@ -111,13 +109,25 @@ void CMarin::OnCollisionEnter(CGameObject* pOther)
 
 void CMarin::OnCollisionStay(CGameObject* pOther)
 {
+    if (m_pColliderCom->Get_IsColl())
+    {
+        if (KEY_TAP(KEY::E))
+        {
+            if (m_pFsmCom->Get_PrevState() != TALK)
+            {
+                Change_State(TALK);
+                m_bTalk = true;
+            }
+        }
+    }
 }
 
 void CMarin::OnCollisionExit(CGameObject* pOther)
 {
     if (pOther->Get_LayerTag() == TEXT("Layer_Player"))
     {
-        m_pFsmCom->Change_State(IDLE);
+        if(m_pFsmCom->Get_PrevState() != IDLE)
+            m_pFsmCom->Change_State(IDLE);
     }
 }
 

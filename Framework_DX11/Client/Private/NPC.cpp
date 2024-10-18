@@ -78,13 +78,6 @@ void CNPC::Late_Update(_float fTimeDelta)
 
 HRESULT CNPC::Render()
 {
-
-	for (auto& pPartObject : m_Parts)
-		pPartObject->Render();
-
-	for (auto& pNPCUI : m_NPCUI)
-		pNPCUI->Render();
-
     return S_OK;
 }
 

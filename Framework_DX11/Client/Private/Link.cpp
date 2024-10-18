@@ -508,7 +508,6 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 							m_bTalk = true;
 						}
 					}
-
 				}
 			}
 			else

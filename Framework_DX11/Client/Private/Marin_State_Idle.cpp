@@ -24,7 +24,7 @@ HRESULT CMarin_State_Idle::Initialize(_uint iStateNum)
 HRESULT CMarin_State_Idle::Start_State()
 {
 	m_pOwner->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
-	m_pOwner->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 50.f);
+	m_pOwner->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
 
 	return S_OK;
 }

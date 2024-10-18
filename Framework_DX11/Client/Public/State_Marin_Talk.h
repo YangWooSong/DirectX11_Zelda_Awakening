@@ -26,18 +26,13 @@ private:
     class CLink* m_pPlayer = { nullptr };
     class CDialogueUI* m_pDialogueUI = { nullptr };
 
-    CGameObject* m_pCarryObj = { nullptr };
-
     _uint               m_iCurrentAnimIndex = {};
+    _uint               m_iLineNum = {0};
     _float m_fTimer = { 0.f };
 
-    _int m_iSelectChoiceBtn = { 0 };
-
 private:
-    void Set_UI_LineNum();
     void Set_SelectedChoiceBtn();
-    void Buy_Item();
-
+    
 public:
     static CState_Marin_Talk* Create(class CFsm* pFsm, class CNPC* pOwner, _uint iStateNum);
     virtual void Free() override;
