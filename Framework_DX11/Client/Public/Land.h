@@ -54,6 +54,7 @@ private:
 	};
 
 	_bool m_bSetLight = { false };
+	_bool m_bShaderNormalize = { false };
 	_float4x4		ViewMatrix = {};
 public:
 	static CLand* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

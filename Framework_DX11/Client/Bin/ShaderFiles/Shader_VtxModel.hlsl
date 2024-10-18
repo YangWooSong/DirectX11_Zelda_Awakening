@@ -7,6 +7,7 @@ texture2D g_NormalTexture;
 texture2D g_AlphaTexture;
 
 bool g_bInteract = false;
+bool g_bNormalize = false;
 
 float g_fAlpha = 1.f;
 float g_fBright = 1.f;
@@ -352,7 +353,11 @@ PS_OUT PS_MAIN_NORMAL_WORLD(PS_IN_NORMAL In)
     float3 vNormal;
   
     //z값을 계산해준다
-    vNormal.xy = vNormalDesc.xy * 2.f - 1.f;
+    if (g_bNormalize)
+        vNormal.xy = vNormalDesc.xy ;
+    else
+        vNormal.xy = vNormalDesc.xy * 2.f - 1.f;
+    
     vNormal.z = sqrt(1 - saturate(dot(vNormal.xy, vNormal.xy)));
     vNormal.xyz = mul(vNormal, WorldMatrix);
     

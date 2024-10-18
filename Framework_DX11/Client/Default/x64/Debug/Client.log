@@ -1,5 +1,11 @@
-﻿  Level_Field.cpp
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(297,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxModel.hlsl(310,29-58): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModel.cso
+  Land.cpp
+  Level_Dungeon.cpp
+  Loader.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(265,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
   
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
