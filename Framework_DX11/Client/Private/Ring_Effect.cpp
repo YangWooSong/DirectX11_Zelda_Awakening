@@ -73,7 +73,7 @@ void CRing_Effect::Update(_float fTimeDelta)
     }
     else
     {
-        if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || BOX_APPEAR)
+        if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || m_iEffectType == BOX_APPEAR)
         {
             m_fTexMove = 0.7f;
         }
@@ -107,7 +107,7 @@ HRESULT CRing_Effect::Render()
 
         for (size_t i = 0; i < iNumMeshes; i++)
         {
-            if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || BOX_APPEAR)
+            if (m_iEffectType == PLAYER_CHARGE_SLASH_EFFECT || m_iEffectType == BOX_APPEAR)
             {
                 if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DiffuseTexture", TEXTURE_TYPE::DIFFUSE, 0, 0)))
                     return E_FAIL;

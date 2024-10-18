@@ -229,7 +229,8 @@ PS_OUT PS_MAIN_RING(PS_IN In)
 	
      // 텍스처 좌표 이동 (예: (0.1, 0.1)만큼 이동)
     float2 offset = float2(g_MoveTexCoord, g_MoveTexCoord);
-    float2 movedTexcoord = In.vTexcoord + offset;
+    float2 Texcoord = float2(In.vTexcoord.y, In.vTexcoord.x);
+    float2 movedTexcoord = Texcoord + offset;
     
     vector vDiffuse;
     vector vAlpha;
