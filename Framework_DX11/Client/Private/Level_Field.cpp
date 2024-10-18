@@ -208,6 +208,14 @@ HRESULT CLevel_Field::Ready_LandObjects()
 	
 	m_pPlayer = static_cast<CPlayer*>( m_pGameInstance->Find_Player(LEVEL_FIELD));
 
+	CGameObject::GAMEOBJECT_DESC pDesc = { };
+	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(CGameObject::ANIM_NPC);
+	pDesc.vPosition = _float3(30.864f, 10.407f, 55.f);
+	pDesc.vScale = _float3(1.f, 1.f, 1.f);
+	pDesc.vRotation = _float3(0.f, 0.f, 0.f);
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_NPC"), TEXT("Prototype_GameObject_GrandmaUlrira"), &pDesc)))
+		return E_FAIL;
+
 	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_FIELD;
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))

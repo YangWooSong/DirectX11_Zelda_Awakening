@@ -1,0 +1,41 @@
+#pragma once
+#include "Client_Defines.h"
+#include "NPC.h"
+
+BEGIN(Client)
+class CGrandmaUlrira :
+	public CNPC
+{
+public:
+	enum GRANDMA_STATE { IDLE, TALK, STATE_END };
+private:
+	CGrandmaUlrira(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+	CGrandmaUlrira(const CGrandmaUlrira& Prototype);
+	virtual ~CGrandmaUlrira() = default;
+
+public:
+	virtual HRESULT Initialize_Prototype() override;
+	virtual HRESULT Initialize(void* pArg) override;
+	virtual void Priority_Update(_float fTimeDelta) override;
+	virtual void Update(_float fTimeDelta) override;
+	virtual void Late_Update(_float fTimeDelta) override;
+	virtual HRESULT Render() override;
+
+public:
+	virtual void OnCollisionEnter(CGameObject* pOther);
+	virtual void OnCollisionStay(CGameObject* pOther);
+	virtual void OnCollisionExit(CGameObject* pOther);
+
+private:
+	HRESULT Ready_Components();
+	HRESULT Ready_PartObjects();
+	HRESULT Ready_UIObjects();
+	HRESULT Ready_State();
+
+public:
+	static CGrandmaUlrira* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+	virtual CGameObject* Clone(void* pArg);
+	virtual void Free() override;
+};
+
+END

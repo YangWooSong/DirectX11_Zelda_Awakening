@@ -7,7 +7,7 @@
 #include "DialogueUI.h"
 #include "Store_Item.h"
 #include "ChoiceBtn.h"
-
+#include "PlayerCamera.h"
 CState_Marin_Talk::CState_Marin_Talk(CFsm* pFsm, CNPC* pOwner)
 	:CState{ pFsm }
 	, m_pOwner{ pOwner }
@@ -37,14 +37,15 @@ HRESULT CState_Marin_Talk::Start_State()
 	m_pDialogueUI->Set_OwnerType(CDialogueUI::MARIN);
 	m_pDialogueUI->Set_LineNum(m_iLineNum);
 	m_pOwner->Get_Sound()->Play_Sound(TEXT("6_Npc_Marin_Happy.wav"), 1.f);
+
 	return S_OK;
 }
 
 void CState_Marin_Talk::Update(_float fTimeDelta)
 {
 	//플레이어가 NPC 쳐다보게 함
-	_vector newLook = XMVector3Normalize(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pPlayer->Get_Position());
-	m_pPlayer->Get_Transform()->Turn_Lerp(newLook, 1.0f, fTimeDelta);
+	//_vector newLook = XMVector3Normalize(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pPlayer->Get_Position());
+	//m_pPlayer->Get_Transform()->Turn_Lerp(newLook, 1.0f, fTimeDelta);
 
 	m_fTimer += fTimeDelta;
 	if (m_fTimer > 2.f)

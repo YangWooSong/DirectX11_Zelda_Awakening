@@ -197,6 +197,7 @@
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\Glow_Effect.h" />
     <ClInclude Include="..\Public\Grad.h" />
+    <ClInclude Include="..\Public\GrandmaUlrira.h" />
     <ClInclude Include="..\Public\Halo_Effect.h" />
     <ClInclude Include="..\Public\HeartUI.h" />
     <ClInclude Include="..\Public\HPUI.h" />
@@ -260,6 +261,8 @@
     <ClInclude Include="..\Public\State_DeguTail_Hurt.h" />
     <ClInclude Include="..\Public\State_DeguTail_Idle.h" />
     <ClInclude Include="..\Public\State_DeguTail_Walk.h" />
+    <ClInclude Include="..\Public\State_GrandmaUlrira_Idle.h" />
+    <ClInclude Include="..\Public\State_GrandmaUlrira_Talk.h" />
     <ClInclude Include="..\Public\State_Kuribo_Dead.h" />
     <ClInclude Include="..\Public\State_Kuribo_Idle.h" />
     <ClInclude Include="..\Public\State_Kuribo_Walk.h" />
@@ -342,6 +345,7 @@
     <ClInclude Include="..\Public\TailCaveShutter.h" />
     <ClInclude Include="..\Public\TailDungeonOpen.h" />
     <ClInclude Include="..\Public\TailLockStatue.h" />
+    <ClInclude Include="..\Public\Tarin.h" />
     <ClInclude Include="..\Public\Teleport.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Togezo.h" />
@@ -380,6 +384,7 @@
     <ClCompile Include="..\Private\Flash_Effect.cpp" />
     <ClCompile Include="..\Private\FootSwitch.cpp" />
     <ClCompile Include="..\Private\Glow_Effect.cpp" />
+    <ClCompile Include="..\Private\GrandmaUlrira.cpp" />
     <ClCompile Include="..\Private\Halo_Effect.cpp" />
     <ClCompile Include="..\Private\HeartUI.cpp" />
     <ClCompile Include="..\Private\HPUI.cpp" />
@@ -460,6 +465,8 @@
     <ClCompile Include="..\Private\State_DeguTail_Hurt.cpp" />
     <ClCompile Include="..\Private\State_DeguTail_Idle.cpp" />
     <ClCompile Include="..\Private\State_DeguTail_Walk.cpp" />
+    <ClCompile Include="..\Private\State_GrandmaUlrira_Idle.cpp" />
+    <ClCompile Include="..\Private\State_GrandmaUlrira_Talk.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Dead.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Idle.cpp" />
     <ClCompile Include="..\Private\State_Kuribo_Walk.cpp" />
@@ -524,6 +531,7 @@
     <ClCompile Include="..\Private\TailCaveShutter.cpp" />
     <ClCompile Include="..\Private\TailDungeonOpen.cpp" />
     <ClCompile Include="..\Private\TailLockStatue.cpp" />
+    <ClCompile Include="..\Private\Tarin.cpp" />
     <ClCompile Include="..\Private\Teleport.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Togezo.cpp" />

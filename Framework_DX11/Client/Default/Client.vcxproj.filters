@@ -631,6 +631,21 @@
     <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Grad">
       <UniqueIdentifier>{a92c695e-b51b-43c7-9598-a7a20f450330}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.NPC\Tarin">
+      <UniqueIdentifier>{542b6441-9d02-496c-a957-077805121519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.NPC\GrandmaUlrira">
+      <UniqueIdentifier>{396f607e-9e8b-45e5-8336-533b7c4cc431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\GrandmaUlrira">
+      <UniqueIdentifier>{6313525b-362e-4ba6-9d90-b460b35e1b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\GrandmaUlrira\Idle">
+      <UniqueIdentifier>{6b02d21c-e588-4dce-9b71-57d64659e353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.State\NPC\GrandmaUlrira\Talk">
+      <UniqueIdentifier>{ed7efccd-3eea-48dd-9c42-6d7eed8eaa2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1176,6 +1191,18 @@
     <ClInclude Include="..\Public\Grad.h">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Grad</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Tarin.h">
+      <Filter>02.GameObjects\08.NPC\Tarin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\GrandmaUlrira.h">
+      <Filter>02.GameObjects\08.NPC\GrandmaUlrira</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_GrandmaUlrira_Idle.h">
+      <Filter>05.State\NPC\GrandmaUlrira\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State_GrandmaUlrira_Talk.h">
+      <Filter>05.State\NPC\GrandmaUlrira\Talk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1711,6 +1738,18 @@
     </ClCompile>
     <ClCompile Include="..\Public\Grad.cpp">
       <Filter>02.GameObjects\08.Effects\2D_Defaults\Grad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Tarin.cpp">
+      <Filter>02.GameObjects\08.NPC\Tarin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\GrandmaUlrira.cpp">
+      <Filter>02.GameObjects\08.NPC\GrandmaUlrira</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_GrandmaUlrira_Idle.cpp">
+      <Filter>05.State\NPC\GrandmaUlrira\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_GrandmaUlrira_Talk.cpp">
+      <Filter>05.State\NPC\GrandmaUlrira\Talk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

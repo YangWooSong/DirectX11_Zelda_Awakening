@@ -27,6 +27,7 @@
 #include "Player_3D_Effects.h"
 #include "Bomb.h"
 #include "Marin.h"
+#include "Tarin.h"
 
 #include "Grass.h"
 #include "Tree.h"
@@ -39,6 +40,7 @@
 #include "Detector.h"
 #include "SinkingSword.h"
 #include "Lupee.h"
+#include "GrandmaUlrira.h"
 
 #include "Kuribo.h"
 
@@ -733,8 +735,13 @@ HRESULT CLoader::Ready_Models_For_MarinHouse()
 		return E_FAIL;
 
 	/* For. Prototype_Component_Model_NPC_Marin*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STORE, TEXT("Prototype_Component_Model_NPC_Marin"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_NPC_Marin"),
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/NPC/Marin/Marin.dat", PreTransformMatrix))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Model_NPC_Tarin*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_NPC_Tarin"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/NPC/Tarin/Tarin.dat"))))
 		return E_FAIL;
 
 	return S_OK;
@@ -745,6 +752,11 @@ HRESULT CLoader::Ready_Models_For_Field()
 	_matrix		PreTransformMatrix = XMMatrixIdentity();
 
 	PreTransformMatrix = XMMatrixRotationY(XMConvertToRadians(180.0f));
+
+	/* For. Prototype_Component_Model_NPC_GrandmaUlrira*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_FIELD, TEXT("Prototype_Component_Model_NPC_GrandmaUlrira"),
+		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_ANIM, "../Bin/ModelData/Anim/NPC/GrandmaUlrira/GrandmaUlrira.dat", PreTransformMatrix))))
+		return E_FAIL;
 
 #pragma region LAND
 	for (int i = 14; i < 84; i++)
@@ -1075,6 +1087,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 		CMarin::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
+	/* For. Prototype_GameObject_Tarin*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Tarin"),
+		CTarin::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 #pragma region Object
 	/* For. Prototype_GameObject_PLayer_Link */
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player_Link"),
@@ -1316,6 +1333,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 
 HRESULT CLoader::Ready_Prototype_For_Field()
 {
+	/* For. Prototype_GameObject_GrandmaUlrira*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_GrandmaUlrira"),
+		CGrandmaUlrira::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
 #pragma region OBJECT
 	/* For. Prototype_GameObject_Grass*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Grass"),

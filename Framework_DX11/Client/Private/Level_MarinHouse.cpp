@@ -138,7 +138,7 @@ HRESULT CLevel_MarinHouse::Ready_Layer_Camera()
 	Desc.fFar = 1000.f;
 	Desc.fSpeedPerSec = 30.f;
 	Desc.fRotationPerSec = XMConvertToRadians(90.0f);
-
+	Desc.fOffest = _float3(0.f, 15.f, -14.f);
 	Desc.fSpeed = 4.f;
 	Desc.pPlayer = dynamic_cast<CPlayer*>(m_pGameInstance->Find_Player(LEVEL_MARINHOUSE));
 	Desc.bFollowPlayer = false;
@@ -192,6 +192,12 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NPC"), TEXT("Prototype_GameObject_Marin"), &pDesc)))
 		return E_FAIL;
 
+	pDesc.vPosition = _float3(-4.5f, 0.f, -1.f);
+	pDesc.vScale = _float3(1.f, 1.f, 1.f);
+	pDesc.vRotation = _float3(0.f, 45.f, 0.f);
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NPC"), TEXT("Prototype_GameObject_Tarin"), &pDesc)))
+		return E_FAIL;
+
 	CNavDataObj::NAVOBJ_DESC NavDes{};
 	NavDes.iLevelNum = LEVEL_MARINHOUSE; 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_NavDataObj"), TEXT("Prototype_GameObject_NavDataObj"), &NavDes)))
@@ -221,22 +227,22 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 	effectDesc.fColor = { 1.1f,1.f,1.f,0.2f };
 	effectDesc.iLevelIndex = LEVEL_MARINHOUSE;
 	effectDesc.iEffectType = { WINDOW_LIGHT };
-	effectDesc.vPosition = { 1.42f, 5.25f, 0.f };
-	effectDesc.vScale = { 0.8f,0.8f,0.1f };
-	effectDesc.vRotation = { 0.f,-8.f,0.f };
+	effectDesc.vPosition = { 1.95f, 1.8f, 5.f };
+	effectDesc.vScale = { 0.8f,1.2f,0.1f };
+	effectDesc.vRotation = { 0.f,0.f,-4.f };
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
 		TEXT("Prototype_GameObject_Grad"), &effectDesc)))
 		return E_FAIL;
 
-	effectDesc.vPosition = { -1.42f, 5.34f, 0.f };
-	effectDesc.vScale = { 0.8f,0.63f,0.1f };
+	effectDesc.vPosition = { -1.95f, 1.85f, 5.f };
+	effectDesc.vScale = { 0.8f,0.9f,0.1f };
 	effectDesc.vRotation = { 8.f,0.f,0.f };
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
 		TEXT("Prototype_GameObject_Grad"), &effectDesc)))
 		return E_FAIL;
 
 	effectDesc.fColor = { 1.1f,1.f,1.f,0.25f };
-	effectDesc.vPosition = { -5.82f, 2.f, 0.f };
+	effectDesc.vPosition = { -5.84f, 2.f, 0.f };
 	effectDesc.vScale = { 0.7f,1.3f,0.1f };
 	effectDesc.vRotation = { 0.f,-89.f,0.f };
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
@@ -244,7 +250,7 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 		return E_FAIL;
 
 	effectDesc.fColor = { 1.1f,1.f,1.f,0.25f };
-	effectDesc.vPosition = { 5.82f, 2.f, 0.f };
+	effectDesc.vPosition = { 5.84f, 2.f, 0.f };
 	effectDesc.vScale = { 0.7f,1.3f,0.1f };
 	effectDesc.vRotation = { 0.f,89.f,0.f };
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),

@@ -29,9 +29,6 @@ private:
     _uint               m_iCurrentAnimIndex = {};
     _uint               m_iLineNum = {0};
     _float m_fTimer = { 0.f };
-
-private:
-    void Set_SelectedChoiceBtn();
     
 public:
     static CState_Marin_Talk* Create(class CFsm* pFsm, class CNPC* pOwner, _uint iStateNum);

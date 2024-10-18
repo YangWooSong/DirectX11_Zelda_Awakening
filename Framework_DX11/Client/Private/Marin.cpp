@@ -136,7 +136,7 @@ HRESULT CMarin::Ready_Components()
     __super::Ready_Components();
 
     /* FOR.Com_Model */
-    if (FAILED(__super::Add_Component(LEVEL_STORE, TEXT("Prototype_Component_Model_NPC_Marin"),
+    if (FAILED(__super::Add_Component(LEVEL_MARINHOUSE, TEXT("Prototype_Component_Model_NPC_Marin"),
         TEXT("Com_Model"), reinterpret_cast<CComponent**>(&m_pModelCom))))
         return E_FAIL;
 
