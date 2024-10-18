@@ -41,7 +41,7 @@ void CMarin_State_Idle::End_State()
 void CMarin_State_Idle::LookAtPlayer(_float fTimerDelta)
 {
 	_vector newLook = XMVector3Normalize(m_pPlayer->Get_Position() - m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION));
-	m_pOwner->Get_Transform()->Turn_Lerp(newLook, 0.6f, fTimerDelta);
+	m_pOwner->Get_Transform()->Turn_Lerp(newLook, 0.8f, fTimerDelta);
 }
 
 CMarin_State_Idle* CMarin_State_Idle::Create(CFsm* pFsm, CNPC* pOwner, _uint iStateNum)

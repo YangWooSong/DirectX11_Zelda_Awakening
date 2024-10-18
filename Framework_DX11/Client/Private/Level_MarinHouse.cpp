@@ -89,7 +89,7 @@ HRESULT CLevel_MarinHouse::Ready_Lights()
 	ZeroMemory(&LightDesc, sizeof LightDesc);
 	LightDesc.eType = LIGHT_DESC::TYPE_DIRECTIONAL;
 	LightDesc.vDirection = _float4(1.f, -1.f, 1.f, 0.f);
-	LightDesc.vDiffuse = _float4(0.7f, 0.7f, 0.7f, 1.f);
+	LightDesc.vDiffuse = _float4(0.6f, 0.6f, 0.6f, 1.f);
 	LightDesc.vAmbient = _float4(0.5f, 0.5f, 0.5f, 1.f);
 	LightDesc.vSpecular = _float4(1.f, 1.f, 1.f, 1.f);
 
@@ -215,6 +215,40 @@ HRESULT CLevel_MarinHouse::Ready_LandObjects()
 
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Teleport"),
 		TEXT("Prototype_GameObject_Teleport"), &TeleportDesc)))
+		return E_FAIL;
+
+	C2DEffects::EFFECT_DESC effectDesc = {};
+	effectDesc.fColor = { 1.1f,1.f,1.f,0.2f };
+	effectDesc.iLevelIndex = LEVEL_MARINHOUSE;
+	effectDesc.iEffectType = { WINDOW_LIGHT };
+	effectDesc.vPosition = { 1.42f, 5.25f, 0.f };
+	effectDesc.vScale = { 0.8f,0.8f,0.1f };
+	effectDesc.vRotation = { 0.f,-8.f,0.f };
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
+		TEXT("Prototype_GameObject_Grad"), &effectDesc)))
+		return E_FAIL;
+
+	effectDesc.vPosition = { -1.42f, 5.34f, 0.f };
+	effectDesc.vScale = { 0.8f,0.63f,0.1f };
+	effectDesc.vRotation = { 8.f,0.f,0.f };
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
+		TEXT("Prototype_GameObject_Grad"), &effectDesc)))
+		return E_FAIL;
+
+	effectDesc.fColor = { 1.1f,1.f,1.f,0.25f };
+	effectDesc.vPosition = { -5.82f, 2.f, 0.f };
+	effectDesc.vScale = { 0.7f,1.3f,0.1f };
+	effectDesc.vRotation = { 0.f,-89.f,0.f };
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
+		TEXT("Prototype_GameObject_Grad"), &effectDesc)))
+		return E_FAIL;
+
+	effectDesc.fColor = { 1.1f,1.f,1.f,0.25f };
+	effectDesc.vPosition = { 5.82f, 2.f, 0.f };
+	effectDesc.vScale = { 0.7f,1.3f,0.1f };
+	effectDesc.vRotation = { 0.f,89.f,0.f };
+	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_MARINHOUSE, TEXT("Layer_Effect"),
+		TEXT("Prototype_GameObject_Grad"), &effectDesc)))
 		return E_FAIL;
 
 	return S_OK;

@@ -495,8 +495,12 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 		{
 			if (static_cast<CNPC*>(pOther)->Get_Talk() == false)
 			{
-				m_PlayerUI[INTERACT_UI]->SetActive(true);
-				m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+				//UI°¡ ³Ê¹« »¡¸® ³ª¿Í¼­ µô·¹ÀÌ¸¦ ÁÜ
+				if(static_cast<CNPC*>(pOther)->Get_UIObject(CNPC::DIALOGUE_UI)->IsActive() == false && m_bTalk == false) 
+				{
+					m_PlayerUI[INTERACT_UI]->SetActive(true);
+					m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+				}
 
 				if (KEY_TAP(KEY::E))
 				{

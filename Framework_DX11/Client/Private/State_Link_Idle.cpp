@@ -27,7 +27,7 @@ HRESULT CState_Link_Idle::Start_State()
     else
 		m_pPlayer->Get_Model()->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
 	m_pPlayer->Get_PlayerSound()->Stop();
-
+	m_pPlayer->Get_Model()->Set_AnimationSpeed(m_iCurrentAnimIndex, 40.f);
 	return S_OK;
 }
 

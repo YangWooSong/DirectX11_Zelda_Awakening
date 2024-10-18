@@ -196,6 +196,7 @@
     <ClInclude Include="..\Public\Flash_Effect.h" />
     <ClInclude Include="..\Public\FootSwitch.h" />
     <ClInclude Include="..\Public\Glow_Effect.h" />
+    <ClInclude Include="..\Public\Grad.h" />
     <ClInclude Include="..\Public\Halo_Effect.h" />
     <ClInclude Include="..\Public\HeartUI.h" />
     <ClInclude Include="..\Public\HPUI.h" />
@@ -530,6 +531,7 @@
     <ClCompile Include="..\Private\Tree.cpp" />
     <ClCompile Include="..\Private\Vegas.cpp" />
     <ClCompile Include="..\Private\Weathercock.cpp" />
+    <ClCompile Include="..\Public\Grad.cpp" />
     <ClCompile Include="..\Public\ToolShopkeeper.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">

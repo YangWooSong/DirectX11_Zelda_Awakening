@@ -628,6 +628,9 @@
     <Filter Include="05.State\NPC\Marin\Talk">
       <UniqueIdentifier>{39ee7635-0516-48d3-a3e5-c2af9d4a6c1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Grad">
+      <UniqueIdentifier>{a92c695e-b51b-43c7-9598-a7a20f450330}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1170,6 +1173,9 @@
     <ClInclude Include="..\Public\State_Marin_Talk.h">
       <Filter>05.State\NPC\Marin\Talk</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Grad.h">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Grad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1702,6 +1708,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_Marin_Talk.cpp">
       <Filter>05.State\NPC\Marin\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Grad.cpp">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Grad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

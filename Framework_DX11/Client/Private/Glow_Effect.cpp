@@ -34,7 +34,7 @@ HRESULT CGlow_Effect::Initialize(void* pArg)
         m_iDepth = 1;
         m_fMaxSize = 1.5f;
     }
-    else if (m_iEffectType == TAIL_DUNGEON_OPEN || LOCKBLOCK_OPEN)
+    else if (m_iEffectType == TAIL_DUNGEON_OPEN || m_iEffectType == LOCKBLOCK_OPEN)
     {
         m_iDepth = 1;
         m_fMaxSize = 3.f;
@@ -93,7 +93,7 @@ void CGlow_Effect::Late_Update(_float fTimeDelta)
 {
     if (m_isActive )
     {
-        __super::Late_Update(fTimeDelta);
+            __super::Late_Update(fTimeDelta);
     }
 }
 

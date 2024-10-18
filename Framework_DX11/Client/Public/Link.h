@@ -81,6 +81,8 @@ private:
 
 	_float m_fBlinkTimer = { 0.f };
 	_int m_iBlinkCount = { 0};
+
+	_float m_fInteractUITimer = { 0.f };
 	
 	static _int m_iMaxHp ;
 	static _int m_iCurrentHP ;

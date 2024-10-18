@@ -36,6 +36,7 @@ HRESULT CState_Marin_Talk::Start_State()
 	m_pDialogueUI = static_cast<CDialogueUI*>(m_pOwner->Get_UIObject(CNPC::DIALOGUE_UI));
 	m_pDialogueUI->Set_OwnerType(CDialogueUI::MARIN);
 	m_pDialogueUI->Set_LineNum(m_iLineNum);
+	m_pOwner->Get_Sound()->Play_Sound(TEXT("6_Npc_Marin_Happy.wav"), 1.f);
 	return S_OK;
 }
 
@@ -56,7 +57,7 @@ void CState_Marin_Talk::Update(_float fTimeDelta)
 			return;
 		}
 		m_pDialogueUI->Set_LineNum(++m_iLineNum);
-
+		m_pOwner->Get_Sound()->Play_Sound(TEXT("5_UI_Sys_Talk_Next.wav"), 1.f);
 	}
 }
 
