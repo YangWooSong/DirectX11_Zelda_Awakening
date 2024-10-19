@@ -16,6 +16,7 @@ public:
 	{
 		CFsm* pPlayerFsm;
 		const _float4x4* pSocketBoneMatrix = { nullptr };
+		_float* pMonsterCount = { nullptr}; 
 	}SWORD_DESC;
 
 private:
@@ -31,11 +32,17 @@ public:
 	virtual void Late_Update(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+public:
+	virtual void OnCollisionEnter(CGameObject* pOther)override;
+	virtual void OnCollisionStay(CGameObject* pOther)override;
+	virtual void OnCollisionExit(CGameObject* pOther)override;
+
 private:
 	CCollider* m_pColliderCom = { nullptr };
 	CFsm* m_pPlayerFsm = { nullptr };
 private:
 	const _float4x4* m_pSocketMatrix = { nullptr };
+	_float* m_pMonsterCount;
 private:
 	HRESULT Ready_Components();
 

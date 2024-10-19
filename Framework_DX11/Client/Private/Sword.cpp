@@ -27,7 +27,7 @@ HRESULT CSword::Initialize(void* pArg)
 	m_pSocketMatrix = pDesc->pSocketBoneMatrix;
 	m_pPlayerFsm = pDesc->pPlayerFsm;
 	m_pPlayerFsm->AddRef();
-
+	m_pMonsterCount = pDesc->pMonsterCount;
 	/* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize(pDesc)))
 		return E_FAIL;
@@ -81,6 +81,25 @@ void CSword::Late_Update(_float fTimeDelta)
 HRESULT CSword::Render()
 {
 	return S_OK;
+}
+
+void CSword::OnCollisionEnter(CGameObject* pOther)
+{
+	if (m_pColliderCom->Get_IsColl())
+	{
+		if (pOther->Get_ObjType() == CGameObject::ANIM_MONSTER)
+		{
+			*m_pMonsterCount += 1;
+		}
+	}
+}
+
+void CSword::OnCollisionStay(CGameObject* pOther)
+{
+}
+
+void CSword::OnCollisionExit(CGameObject* pOther)
+{
 }
 
 HRESULT CSword::Ready_Components()

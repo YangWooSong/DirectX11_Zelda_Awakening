@@ -76,10 +76,10 @@ void CMainUI::Update(_float fTimeDelta)
         m_pGameInstance->Play_BGM(TEXT("0_Ending.wav"),1.f);
     }
 
-  //  if (KEY_TAP(KEY::E))
+  // if (KEY_TAP(KEY::E))
   //{
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::MARIN);
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(3);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(CDialogueUI::DUNGEON_KEY);
   //   m_childUI_List[DIALOGUE]->SetActive(true);
   //}
 }

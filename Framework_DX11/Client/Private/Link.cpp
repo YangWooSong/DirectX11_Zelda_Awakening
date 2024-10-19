@@ -252,9 +252,6 @@ HRESULT CLink::Render()
 			return E_FAIL;
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bLowAlpha", &bFalse, sizeof(_bool))))
 			return E_FAIL;
-
-		//for (auto& pPlayerUI : m_PlayerUI)
-		//	pPlayerUI->Render();
 	
 	}
 
@@ -498,8 +495,11 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 				//UI°¡ ³Ê¹« »¡¸® ³ª¿Í¼­ µô·¹ÀÌ¸¦ ÁÜ
 				if(static_cast<CNPC*>(pOther)->Get_UIObject(CNPC::DIALOGUE_UI)->IsActive() == false && m_bTalk == false) 
 				{
-					m_PlayerUI[INTERACT_UI]->SetActive(true);
-					m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+					if(m_pFsmCom->Get_CurrentState() != GET_ITEM)
+					{
+						m_PlayerUI[INTERACT_UI]->SetActive(true);
+						m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+					}
 				}
 
 				if (KEY_TAP(KEY::E))
@@ -645,6 +645,7 @@ HRESULT CLink::Ready_PartObjects()
 	SwordDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 	SwordDesc.pSocketBoneMatrix =m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
 	SwordDesc.pPlayerFsm = m_pFsmCom;
+	SwordDesc.pMonsterCount = &m_fMonsterCount;
 
 	if (FAILED(__super::Add_PartObject(CPlayer::PART_SWORD, TEXT("Prototype_GameObject_Sword"), &SwordDesc)))
 		return E_FAIL;

@@ -492,7 +492,7 @@ HRESULT CLoader::Ready_Textures_For_static()
 
 	/* For. Prototype_Component_Texture_ItemIcon */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_ItemIcon"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 9))))
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Icon/TreasureBoxIcon_%d.dds"), 10))))
 		return E_FAIL;
 
 	/* For. Prototype_Component_Texture_Particle */

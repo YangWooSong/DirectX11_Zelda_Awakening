@@ -210,9 +210,8 @@ HRESULT CLevel_Field::Ready_LandObjects()
 
 	CGameObject::GAMEOBJECT_DESC pDesc = { };
 	pDesc.eType = static_cast<CGameObject::OBJ_TYPE>(CGameObject::ANIM_NPC);
-	pDesc.vPosition = _float3(30.864f, 10.407f, 55.f);
+	pDesc.vPosition = _float3(19.f, 10.5f, 48.25f);
 	pDesc.vScale = _float3(1.f, 1.f, 1.f);
-	pDesc.vRotation = _float3(0.f, 0.f, 0.f);
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_FIELD, TEXT("Layer_NPC"), TEXT("Prototype_GameObject_GrandmaUlrira"), &pDesc)))
 		return E_FAIL;
 

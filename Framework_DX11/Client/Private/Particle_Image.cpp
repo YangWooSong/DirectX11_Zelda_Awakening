@@ -66,7 +66,7 @@ void CParticle_Image::Update(_float fTimeDelta)
 			m_pVIBufferCom->Spread(fTimeDelta);
 			break;	
 		case BOMB:
-			m_fColor = { 1.f,m_fColor.y - fTimeDelta * 0.5f ,0.f ,1.f };
+			m_fColor = { 1.f,m_fColor.y - fTimeDelta * 0.3f ,0.f ,1.f };
 			m_pVIBufferCom->Spread(fTimeDelta);
 			m_bSetAlpha = true;
 			break;

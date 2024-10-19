@@ -102,6 +102,8 @@ public:
 	CGameObject* Get_Effect(_uint iIndex);
 	CGameObject* Get_3DEffect();
 	void Set_3D_Effect_Type(_uint iIndex);
+
+	_float Get_MonsterCount() { return m_fMonsterCount; }
 protected:
 	CModel*		m_pModelCom = { nullptr };
 	CShader*		m_pShaderCom = { nullptr };
@@ -115,6 +117,7 @@ protected:
 protected:
 	_float				m_fMoveSpeed = { 4.f};
 	_float				m_vTargetPos = {};
+	_float				m_fMonsterCount = {};
 
 	_bool m_bFall = { false };
 	_bool m_bEnding = { false };

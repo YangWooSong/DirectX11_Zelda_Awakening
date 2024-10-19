@@ -119,7 +119,7 @@ HRESULT CRollingSpike::Render()
                 return E_FAIL;
             if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_DissolveTexture", TEXTURE_TYPE::DISSOLVE, (_uint)i)))
                 return E_FAIL;
-            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, i)))
+            if (FAILED(m_pModelCom->Bind_Material(m_pShaderCom, "g_NormalTexture", TEXTURE_TYPE::NORMALS, (_uint)i)))
                 return E_FAIL;
             _bool bflase = { true };
             if (FAILED(m_pShaderCom->Bind_RawValue("g_bNormalize", &bflase, sizeof(_bool))))
