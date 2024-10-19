@@ -211,6 +211,7 @@ HRESULT CLevel_Dungeon::Ready_LandObjects()
 	ObjectDesc.vPosition = _float3(-17.22f, 0.f, 48.72f);
 	ObjectDesc.vScale = _float3(1.f, 1.f, 1.f);
 	SquareDesc.bActiveCollider = true;
+	ObjectDesc.vRotation = _float3{ 0.f, 0.f,0.f };
 	if (FAILED(m_pGameInstance->Add_CloneObject_ToLayer(LEVEL_DUNGEON, TEXT("Layer_SquareBlock_Gimmick"), TEXT("Prototype_GameObject_SquareBlock"), &ObjectDesc)))
 		return E_FAIL;
 
