@@ -1,5 +1,2 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
-C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxModel.hlsl(311,29-58): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModel.cso
+﻿  DeguTail_04.cpp
   Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

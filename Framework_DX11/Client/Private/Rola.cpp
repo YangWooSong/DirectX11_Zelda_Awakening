@@ -143,6 +143,7 @@ void CRola::Late_Update(_float fTimeDelta)
 	{
 		__super::Late_Update(fTimeDelta);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+		m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
 #ifdef _DEBUG

@@ -150,29 +150,7 @@ PS_OUT PS_MAIN_NONRED(PS_IN In)
 }
 
 
-PS_OUT PS_MAIN_ROLLINGSPIKE(PS_IN In)
-{
-    PS_OUT Out = (PS_OUT) 0;
-	
-    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
-    vector vDissolve = g_DissolveTexture.Sample(LinearSampler, In.vTexcoord);
 
-    if (0.3f >= vDiffuse.a)
-        discard;
-    
-    if (g_bActiveDissolve)
-    {
-        if (vDissolve.r <= g_fAlpha)
-            discard;
-    }
-
-    Out.vDiffuse = vDiffuse;
-    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
-    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
-    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
-    
-    return Out;
-}
 
 PS_OUT PS_MAIN_CHANGE_RED(PS_IN In)
 {
@@ -252,23 +230,7 @@ PS_OUT PS_MAIN_BOMB(PS_IN In)
     return Out;
 }
 
-PS_OUT PS_MAIN_TREASUREBOX(PS_IN In)
-{
-    PS_OUT Out = (PS_OUT) 0;
 
-    vector vMtrlDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
-
-    if (0.3f > vMtrlDiffuse.a)
-        discard;
-
-    vMtrlDiffuse.rgb *= g_fBrightness;
-    
-    Out.vDiffuse = vMtrlDiffuse;
-    Out.vNormal = vector(In.vNormal.xyz * 0.5f + 0.5f, 0.f);
-    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f); //1000.f는 커메라 far
-    
-    return Out;
-}
 
 PS_OUT PS_MAIN_CHAGNEALPHA(PS_IN In)
 {
@@ -345,6 +307,66 @@ PS_OUT PS_MAIN_NORMAL(PS_IN_NORMAL In)
     return Out;
 }
 
+PS_OUT PS_MAIN_TREASUREBOX(PS_IN_NORMAL In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    vector vMtrlDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    vector vNormalDesc = g_NormalTexture.Sample(LinearSampler, In.vTexcoord);
+    
+    float3x3 WorldMatrix = float3x3(In.vTangent.xyz, In.vBinormal.xyz, In.vNormal.xyz);
+    float3 vNormal;
+  
+  //z값을 계산해준다
+    vNormal.xy = vNormalDesc.xy * 2.f - 1.f;
+    
+    vNormal.z = sqrt(1 - saturate(dot(vNormal.xy, vNormal.xy)));
+    vNormal.xyz = mul(vNormal, WorldMatrix);
+    
+    if (0.3f > vMtrlDiffuse.a)
+        discard;
+
+    vMtrlDiffuse.rgb *= g_fBrightness;
+    
+    Out.vDiffuse = vMtrlDiffuse;
+    Out.vNormal = vector(vNormal * 0.5f + 0.5f, 0.f);
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f); //1000.f는 커메라 far
+    return Out;
+}
+
+PS_OUT PS_MAIN_ROLLINGSPIKE(PS_IN_NORMAL In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+	
+    vector vDiffuse = g_DiffuseTexture.Sample(LinearSampler, In.vTexcoord);
+    vector vDissolve = g_DissolveTexture.Sample(LinearSampler, In.vTexcoord);
+    vector vNormalDesc = g_NormalTexture.Sample(LinearSampler, In.vTexcoord);
+    
+    float3x3 WorldMatrix = float3x3(In.vTangent.xyz, In.vBinormal.xyz, In.vNormal.xyz);
+    float3 vNormal;
+  
+  //z값을 계산해준다
+    vNormal.xy = vNormalDesc.xy;// * 2.f - 1.f;
+    
+    vNormal.z = sqrt(1 - saturate(dot(vNormal.xy, vNormal.xy)));
+    vNormal.xyz = mul(vNormal, WorldMatrix);
+    
+    if (0.3f >= vDiffuse.a)
+        discard;
+    
+    if (g_bActiveDissolve)
+    {
+        if (vDissolve.r <= g_fAlpha)
+            discard;
+    }
+
+    Out.vDiffuse = vDiffuse;
+    Out.vNormal = vector(vNormal * 0.5f + 0.5f, 0.f);
+    //(투영 Space의 Z값(W나누기를 한->2D로 변환), 정규화된 Z값, 쓰레기 값)
+    Out.vDepth = vector(In.vProjPos.z / In.vProjPos.w, In.vProjPos.w / 1000.f, 0.f, 0.f);
+    
+    return Out;
+}
 
 technique11 DefaultTechnique
 {
@@ -400,7 +422,7 @@ technique11 DefaultTechnique
         SetDepthStencilState(DSS_Default, 0);
         SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
-        VertexShader = compile vs_5_0 VS_MAIN();
+        VertexShader = compile vs_5_0 VS_MAIN_NORMAL();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_TREASUREBOX();
     } 
@@ -445,7 +467,7 @@ technique11 DefaultTechnique
         SetDepthStencilState(DSS_Default, 0);
         SetBlendState(BS_Default, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 
-        VertexShader = compile vs_5_0 VS_MAIN();
+        VertexShader = compile vs_5_0 VS_MAIN_NORMAL();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_ROLLINGSPIKE();
     }

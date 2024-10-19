@@ -134,6 +134,7 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 
 		m_pGameInstance->Add_ColliderList(m_pColliderCom);
 		m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+		m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
 		m_p3D_Effect->Late_Update(fTimeDelta);
 	}
 	m_pEffect->Late_Update(fTimeDelta);
