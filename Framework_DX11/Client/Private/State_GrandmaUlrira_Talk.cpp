@@ -6,6 +6,7 @@
 #include "Link.h"
 #include "DialogueUI.h"
 #include "MainUI.h"
+#include "QuestUI.h"
 
 CState_GrandmaUlrira_Talk::CState_GrandmaUlrira_Talk(CFsm* pFsm, CNPC* pOwner)
 	:CState{ pFsm }
@@ -35,7 +36,20 @@ HRESULT CState_GrandmaUlrira_Talk::Start_State()
 	m_pDialogueUI = static_cast<CDialogueUI*>(m_pOwner->Get_UIObject(CNPC::DIALOGUE_UI));
 	m_pDialogueUI->Set_OwnerType(CDialogueUI::GRANDMA);
 	m_pDialogueUI->Set_LineNum(m_iLineNum);
-	m_pOwner->Get_Sound()->Play_Sound(TEXT("6_Npc_Grandma_0.wav"), 1.f);
+
+	m_pQuestUi = static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_MainUI"), 0));
+
+	if (m_pPlayer->Get_MonsterCount() >= 3 && m_iLineNum != 4)
+	{
+		m_pOwner->Get_Sound()->Play_Sound(TEXT("6_Npc_Grandma_1.wav"), 1.f);
+		if (Set_Active_Quest)
+		{
+			static_cast<CQuestUI*>(m_pQuestUi->Get_ChildUI(CMainUI::QUEST_UI))->Start_Hide();
+			Set_Active_Quest = false;
+		}
+	}
+	else
+		m_pOwner->Get_Sound()->Play_Sound(TEXT("6_Npc_Grandma_0.wav"), 1.f);
 	return S_OK;
 }
 
@@ -51,12 +65,14 @@ void CState_GrandmaUlrira_Talk::Update(_float fTimeDelta)
 		m_pDialogueUI->Set_LineNum(m_iLineNum);
 	}
 
-	if (KEY_TAP(KEY::ENTER))
+	if (KEY_TAP(KEY::E))
 	{
 		m_pOwner->Get_Sound()->Play_Sound(TEXT("5_UI_Sys_Talk_Next.wav"), 1.f);
 
 		if (m_iLineNum == 3)
 		{
+			Set_Active_Quest = true;
+			m_pQuestUi->Get_ChildUI(CMainUI::QUEST_UI)->SetActive(true);
 			m_pOwner->Change_State(CGrandmaUlrira::IDLE);
 			return;
 		}
@@ -67,7 +83,9 @@ void CState_GrandmaUlrira_Talk::Update(_float fTimeDelta)
 			m_pPlayer->Set_UI_Active(CLink::INTERACT_UI, false);
 			m_pPlayer->Change_PlayerUI_TextureNum(CLink::ITEM_ICON_UI, 9);
 			static_cast<CDialogueUI*>(static_cast<CMainUI*>(m_pGameInstance->Find_Object(LEVEL_FIELD, TEXT("Layer_MainUI"), 0))->Get_ChildUI(CMainUI::DIALOGUE))->Set_LineNum(CDialogueUI::DUNGEON_KEY);
+			m_pPlayer->Set_ActiveDungeonKey(true);
 			m_pPlayer->Change_State(CLink::GET_ITEM);
+		
 		}
 		m_pDialogueUI->Set_LineNum(++m_iLineNum);
 	}

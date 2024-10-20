@@ -646,6 +646,9 @@
     <Filter Include="05.State\NPC\GrandmaUlrira\Talk">
       <UniqueIdentifier>{ed7efccd-3eea-48dd-9c42-6d7eed8eaa2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\MainUI\Quest">
+      <UniqueIdentifier>{46a8a380-f86f-4541-80fc-62b793fb3b5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1203,6 +1206,9 @@
     <ClInclude Include="..\Public\State_GrandmaUlrira_Talk.h">
       <Filter>05.State\NPC\GrandmaUlrira\Talk</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\QuestUI.h">
+      <Filter>02.GameObjects\07.UI\MainUI\Quest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1750,6 +1756,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\State_GrandmaUlrira_Talk.cpp">
       <Filter>05.State\NPC\GrandmaUlrira\Talk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\QuestUI.cpp">
+      <Filter>02.GameObjects\07.UI\MainUI\Quest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

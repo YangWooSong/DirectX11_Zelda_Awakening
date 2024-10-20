@@ -4,6 +4,7 @@
 #include "Link.h"
 #include "DialogueUI.h"
 #include "FadeInOUt.h"
+#include "QuestUI.h"
 CMainUI::CMainUI(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CUIObject(pDevice, pContext)
 {
@@ -76,11 +77,12 @@ void CMainUI::Update(_float fTimeDelta)
         m_pGameInstance->Play_BGM(TEXT("0_Ending.wav"),1.f);
     }
 
-  // if (KEY_TAP(KEY::E))
+  // if (KEY_TAP(KEY::ENTER))
   //{
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::LINK);
-  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(CDialogueUI::DUNGEON_KEY);
-  //   m_childUI_List[DIALOGUE]->SetActive(true);
+  //     static_cast<CQuestUI*> (m_childUI_List[QUEST_UI])->Start_Hide();
+  //   /* static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_OwnerType(CDialogueUI::  GRANDMA);
+  //    static_cast<CDialogueUI*>(m_childUI_List[DIALOGUE])->Set_LineNum(4);
+  //   m_childUI_List[DIALOGUE]->SetActive(true);*/
   //}
 }
 
@@ -140,6 +142,11 @@ _int CMainUI::Get_Player_CurHp()
 _int CMainUI::Get_Player_KeyCount()
 {
     return m_pPlayer->Get_SmallKeyCount();
+}
+
+_int CMainUI::Get_Player_KillMonsterCount()
+{
+    return m_pPlayer->Get_MonsterCount();
 }
 
 _bool CMainUI::Get_Player_Get_BossKey()
@@ -262,7 +269,6 @@ HRESULT CMainUI::Ready_Child_UI()
         UIDesc.fY = g_iWinSizeY * 0.75f;
       
         CUIObject* m_pDialogueUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&UIDesc));
-      //  m_pDialogueUI->Set_ParentObj(this);
         m_childUI_List.push_back(m_pDialogueUI);
     } 
     
@@ -277,7 +283,20 @@ HRESULT CMainUI::Ready_Child_UI()
         pDesc.pParent = this;
 
         CUIObject* m_pUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
-       // m_pUI->Set_ParentUI(this);
+        m_childUI_List.push_back(m_pUI);
+    } 
+    
+    pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_QuestUI"));
+    if (pGameObj != nullptr)
+    {
+        CUIObject::UI_DESC pDesc{};
+        pDesc.fSizeX = 200.f;
+        pDesc.fSizeY = 100.f;
+        pDesc.fX = g_iWinSizeX * 0.9f;
+        pDesc.fY = g_iWinSizeY * 0.32f;
+        pDesc.pParent = this;
+
+        CUIObject* m_pUI = dynamic_cast<CUIObject*>(pGameObj->Clone(&pDesc));
         m_childUI_List.push_back(m_pUI);
     }
 

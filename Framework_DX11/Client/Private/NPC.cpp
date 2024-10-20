@@ -34,7 +34,7 @@ HRESULT CNPC::Initialize(void* pArg)
 
 	//m_pTransformCom->Set_Scaled(pDesc->vScale.x, pDesc->vScale.y, pDesc->vScale.z);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&pDesc->vPosition));
-	
+
 
 	return S_OK;
 }

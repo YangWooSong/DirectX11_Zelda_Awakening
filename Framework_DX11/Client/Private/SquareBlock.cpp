@@ -78,14 +78,11 @@ void CSquareBlock::Late_Update(_float fTimeDelta)
         if(m_pColliderCom != nullptr && m_bPushed == false)
             m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
-       // if (m_bColliderActive)
-      //  {
-           // m_pGameInstance->Add_ColliderList(m_pColliderCom);
 #ifdef _DEBUG
         if (m_pColliderCom != nullptr)
             m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
-       // }
+       
     }
 
 }

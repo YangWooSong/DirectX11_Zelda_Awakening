@@ -117,6 +117,7 @@
 #include "Lightning_Effect.h"
 #include "LockBlockEffect.h"
 #include "Grad.h"
+#include "QuestUI.h"
 
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -603,6 +604,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 	/* For. Prototype_Component_Texture_Grad*/
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Grad"),
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/grad_02.dds"), 1))))
+		return E_FAIL;
+
+	/* For. Prototype_Component_Texture_QuestGrad*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_QuestGrad"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/grad_00.png"), 1))))
 		return E_FAIL;
 
 	return S_OK;
@@ -1326,6 +1332,11 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	/* For. Prototype_GameObject_Grad*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Grad"),
 		CGrad::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+	
+	/* For. Prototype_GameObject_QuestUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_QuestUI"),
+		CQuestUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;

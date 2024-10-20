@@ -42,8 +42,8 @@ HRESULT CGrandmaUlrira::Initialize(void* pArg)
         return E_FAIL;
 
     m_pFsmCom->Set_State(IDLE);
-    m_pTransformCom->RotationThreeAxis(_float3(0.f,90.f, 0.f));
-
+    m_pTransformCom->RotationThreeAxis(_float3(0.f,93.f, 0.f));
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("NPC"));
     return S_OK;
 }
 

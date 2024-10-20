@@ -48,6 +48,7 @@ public:
 	_bool Get_ActiveSword() { return m_bActiveSword; }
 	void Set_ActiveSword(_bool bActive) { m_bActiveSword = bActive; }
 	void Set_ActiveSheild(_bool bActive) { m_bActiveSheild = bActive; }
+	void Set_ActiveDungeonKey(_bool bActive) { m_bDungeonKey = bActive; }
 	void Get_Item(_uint iItemIndex);
 
 	_int Get_SmallKeyCount() { return m_iSmallKeyCount; }

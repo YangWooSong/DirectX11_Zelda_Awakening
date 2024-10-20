@@ -47,11 +47,8 @@ void CState_Marin_Talk::Update(_float fTimeDelta)
 	//_vector newLook = XMVector3Normalize(m_pOwner->Get_Transform()->Get_State(CTransform::STATE_POSITION) - m_pPlayer->Get_Position());
 	//m_pPlayer->Get_Transform()->Turn_Lerp(newLook, 1.0f, fTimeDelta);
 
-	m_fTimer += fTimeDelta;
-	if (m_fTimer > 2.f)
-	{
-		m_fTimer = 0.f;
-
+	if (KEY_TAP(KEY::E))
+	{	
 		if (m_iLineNum == 3)
 		{
 			m_pOwner->Change_State(CMarin::IDLE);
@@ -64,7 +61,6 @@ void CState_Marin_Talk::Update(_float fTimeDelta)
 
 void CState_Marin_Talk::End_State()
 {
-	m_fTimer = 0.f;
 	m_pOwner->Set_Talk(false);
 	m_pOwner->Get_UIObject(CNPC::DIALOGUE_UI)->SetActive(false);
 	static_cast<CLink*>(m_pPlayer)->Set_Talk(false);

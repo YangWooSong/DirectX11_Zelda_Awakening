@@ -7,7 +7,7 @@ class CMainUI :
 	public CUIObject
 {
 public:
-	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, MAP, DIALOGUE, FADE_IN_OUT, CHILD_END };
+	enum CHILD_INDEX { LUPEE,HP, KEY, CAMPUS, INVEN, MAP, DIALOGUE, FADE_IN_OUT, QUEST_UI,CHILD_END };
 
 	typedef struct : public CUIObject::UI_DESC
 	{
@@ -30,6 +30,7 @@ public:
 	_int Get_Player_MaxHP();
 	_int Get_Player_CurHp();
 	_int Get_Player_KeyCount();
+	_int Get_Player_KillMonsterCount();
 
 	_bool Get_Player_Get_BossKey();
 	_bool Get_Bomb();

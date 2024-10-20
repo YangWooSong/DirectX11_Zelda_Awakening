@@ -44,6 +44,8 @@ HRESULT CMarin::Initialize(void* pArg)
     m_pFsmCom->Set_State(IDLE);
     m_pTransformCom->RotationThreeAxis(_float3(0.f, -90.f, 0.f));
 
+    m_pGameInstance->AddScene_ColMesh(this, TEXT("NPC"));
+
     return S_OK;
 }
 

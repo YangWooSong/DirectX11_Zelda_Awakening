@@ -342,6 +342,25 @@ PS_OUT PS_MAIN_Lightning(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_QUEST(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+    float2 Texcoord = float2(In.vTexcoord.y, In.vTexcoord.x);
+    
+    Out.vColor = g_Texture.Sample(LinearSampler, In.vTexcoord);
+    vector vAlph = g_DissolveTexture.Sample(LinearSampler, Texcoord);
+    
+    Out.vColor.a = vAlph.a;
+    
+    if (g_bBlink == true)
+    {
+        Out.vColor.rg = g_fBrightness;
+        Out.vColor.b = 0.6f + g_fBrightness;
+    }
+
+    return Out;
+}
+
 
 technique11 DefaultTechnique
 {
@@ -483,6 +502,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_DIALOGUE();
+    }
+
+   pass Quest//14
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_None, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_QUEST();
     }
 
 	
