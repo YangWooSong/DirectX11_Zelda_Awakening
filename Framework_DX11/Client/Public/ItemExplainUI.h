@@ -49,11 +49,8 @@ private:
 	_uint m_iLevelIndex = { LEVEL_END };
 	_uint m_iItemIndex = { LEVEL_END };
 
-	_float m_fAlpha = { 0.5f };
-
-private:
-	void Show(_float fTimeDelta);
-	void Hide(_float fTimeDelta);
+	_float m_fAlpha = {1.f };
+	_float3 m_ParentPos = {};
 
 public:
 	static CItemExplainUI* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);

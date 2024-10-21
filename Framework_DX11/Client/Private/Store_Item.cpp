@@ -2,6 +2,7 @@
 #include "Store_Item.h"
 #include "GameInstance.h"
 #include "Link.h"
+#include "ItemExplainUI.h"
 CStore_Item::CStore_Item(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -46,7 +47,26 @@ HRESULT CStore_Item::Initialize(void* pArg)
     m_pPlayer = static_cast<CLink*>(m_pGameInstance->Find_Player(LEVEL_STORE));
     m_pSocketMatrix = m_pPlayer->Get_Model()->Get_BoneCombindTransformationMatrix_Ptr("itemA_L");
 
-    
+  
+
+    CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_ItemExplainUI"));
+    if (pGameObj != nullptr)
+    {
+        CItemExplainUI::ITEM_EXPLAIN_DESC UIDesc;
+
+        if (m_iItemType == BOMB)
+            UIDesc.iItemType = CItemExplainUI::BOMB;
+        else if (m_iItemType == HEART)
+            UIDesc.iItemType = CItemExplainUI::HEART;
+        _float3 vPos;
+        XMStoreFloat3(&vPos, m_pTransformCom->Get_State(CTransform::STATE_POSITION));
+
+        UIDesc.vPosition = vPos;
+        UIDesc.vPosition.y += 1.f;
+        m_pEffect = dynamic_cast<CUIObject*>(pGameObj->Clone(&UIDesc));
+        m_pEffect->Set_ParentObj(this);
+    }
+
     return S_OK;
 }
 
@@ -78,6 +98,12 @@ void CStore_Item::Update(_float fTimeDelta)
         }
         m_fTimer += fTimeDelta;
     }
+
+    if (m_bActiveEffect)
+        m_pEffect->SetActive(true);
+    else
+        m_pEffect->SetActive(false);
+    m_pEffect->Update(fTimeDelta);
 }
 
 void CStore_Item::Late_Update(_float fTimeDelta)
@@ -90,6 +116,8 @@ void CStore_Item::Late_Update(_float fTimeDelta)
 
         if(m_pColliderCom != nullptr && m_bPicked == false)
             m_pGameInstance->Add_ColliderList(m_pColliderCom);
+
+        m_pEffect->Late_Update(fTimeDelta);
 
 #ifdef _DEBUG
         if(m_pColliderCom != nullptr)
@@ -178,12 +206,17 @@ void CStore_Item::OnCollisionStay(CGameObject* pOther)
         {
             if(KEY_TAP(KEY::E))
                 m_bPicked = true;
+            if(m_bPicked == false)
+                m_bActiveEffect = true;
+            else
+                m_bActiveEffect = false;
         }
     }
 }
 
 void CStore_Item::OnCollisionExit(CGameObject* pOther)
 {
+    m_bActiveEffect = false;
 }
 
 void CStore_Item::Go_Back_OriginPos()

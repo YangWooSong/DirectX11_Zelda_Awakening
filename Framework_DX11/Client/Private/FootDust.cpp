@@ -32,6 +32,8 @@ HRESULT CFootDust::Initialize(void* pArg)
     m_iDepth = 1;
 
     m_fFrame = m_pGameInstance->Get_Random(0.f, 8.f);
+
+   
     return S_OK;
 }
 
@@ -79,8 +81,9 @@ void CFootDust::Update(_float fTimeDelta)
     }
     else
     {
-        if (static_cast<CPlayer*>(m_pParentObj)->Get_Player_PrePos(&m_vNewPos))
+        if (static_cast<CPlayer*>(m_pParentObj)->Get_Player_PrePos(&m_vNewPos) && static_cast<CPlayer*>(m_pParentObj)->Get_LevelIndex() != LEVEL_MARINHOUSE && static_cast<CPlayer*>(m_pParentObj)->Get_LevelIndex() != LEVEL_STORE)
         {
+            
             m_isActive = true;
             m_pTransformCom->Set_State(CTransform::STATE_POSITION, XMLoadFloat3(&m_vNewPos) + XMLoadFloat3(&m_vOffset));
             m_fColor.w = 1.f;

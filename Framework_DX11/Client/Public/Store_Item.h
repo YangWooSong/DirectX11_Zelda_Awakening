@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CShader;
 class CModel;
 class CCollider;
+class CUIObject;
 END
 
 
@@ -44,6 +45,7 @@ public:
 	CShader* m_pShaderCom = { nullptr };
 	CModel* m_pModelCom = {nullptr};
 	CCollider* m_pColliderCom = { nullptr };
+	CUIObject* m_pEffect = { nullptr };
 
 public:
 	_uint Get_ItemType() { return m_iItemType; }
@@ -53,6 +55,7 @@ public:
 	void Set_Picked(_bool bPick) { m_bPicked = bPick; }
 private:
 	_bool m_bPicked = { false };
+	_bool m_bActiveEffect = { false };
 	_float m_fTimer = { 0.f };
 	_uint m_iItemType = { ITEM_TYPE_END };
 	_float3 m_vOriginPos = {};

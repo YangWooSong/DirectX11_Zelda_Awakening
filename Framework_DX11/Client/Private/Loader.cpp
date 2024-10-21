@@ -1614,6 +1614,11 @@ HRESULT CLoader::Ready_Prototype_For_Store()
 	/* For. Prototype_GameObject_ToolShopkeeper*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ToolShopkeeper"),
 		CToolShopkeeper::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_ItemExplainUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_ItemExplainUI"),
+		CItemExplainUI::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	return S_OK;
