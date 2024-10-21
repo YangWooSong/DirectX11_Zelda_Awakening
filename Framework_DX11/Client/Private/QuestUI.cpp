@@ -183,7 +183,7 @@ void CQuestUI::Hide(_float fTimeDelta)
     else
     {
         m_bHideEnd = true;
-        m_isActive == false;
+        m_isActive = false;
     }
 }
 

@@ -118,6 +118,8 @@
 #include "LockBlockEffect.h"
 #include "Grad.h"
 #include "QuestUI.h"
+#include "ItemExplainUI.h"
+#include "FootDust.h"
 
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -422,10 +424,7 @@ HRESULT CLoader::Ready_Resources_For_Dungeon()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
 
-	/* For. Prototype_Component_Texture_LupeeUI*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_DUNGEON, TEXT("Prototype_Component_Texture_Lightning"),
-		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/T_EFF_Lightning_05_M.dds"), 1))))
-		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("모델을(를) 로딩중입니다."));
 
@@ -611,6 +610,11 @@ HRESULT CLoader::Ready_Textures_For_static()
 		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/grad_00.png"), 1))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_smoke_pattern_02*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_smoke_pattern_02"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/smoke_pattern_02.dds"), 1))))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -714,6 +718,10 @@ HRESULT CLoader::Ready_Models_For_Static()
 		CModel::Create(m_pDevice, m_pContext, CModel::TYPE_NONANIM, "../Bin/ModelData/NonAnim/Effect/rollcut_01/rollcut_01.dat", PreTransformMatrix))))
 		return E_FAIL;
 
+	/* For. Prototype_Component_Texture_LupeeUI*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Lightning"),
+		CTexture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Zelda/Effect/T_EFF_Lightning_05_M.dds"), 1))))
+		return E_FAIL;
 
 #pragma endregion
 	return S_OK;
@@ -1333,10 +1341,15 @@ HRESULT CLoader::Ready_Prototype_For_MarinHouse()
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Grad"),
 		CGrad::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
-	
+
 	/* For. Prototype_GameObject_QuestUI*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_QuestUI"),
 		CQuestUI::Create(m_pDevice, m_pContext))))
+		return E_FAIL;
+
+	/* For. Prototype_GameObject_FootDust*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_FootDust"),
+		CFootDust::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 #pragma endregion
 	return S_OK;

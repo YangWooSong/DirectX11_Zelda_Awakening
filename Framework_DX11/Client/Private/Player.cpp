@@ -54,7 +54,29 @@ void CPlayer::Priority_Update(_float fTimeDelta)
 
 void CPlayer::Update(_float fTimeDelta)
 {
-	m_pModelCom->Play_Animation(fTimeDelta);
+	m_fSave_Pos_Timer += fTimeDelta;
+
+	if (m_fSave_Pos_Timer > 0.3f && m_pFsmCom->Get_CurrentState() == CLink::WALK)	//위치 저장 -> 발걸음 먼지 이펙트에 사용
+	{
+
+		_vector vCurPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+
+		if(m_PlayerPos_List.size() == 0)
+		{
+			m_fSave_Pos_Timer = 0.f;
+			m_PlayerPos_List.push_front(vCurPos);
+		}
+		else
+		{
+			_float distance = fabs(XMVectorGetX(XMVector3Length(m_PlayerPos_List.front() - vCurPos)));
+
+			if (distance > 3.f )	//처음 저장하거나, 마지막으로 저장한 위치와 일정 거리 차이가 나야 추가로 저장
+			{
+				m_fSave_Pos_Timer = 0.f;
+				m_PlayerPos_List.push_front(vCurPos);
+			}
+		}
+	}
 }
 
 void CPlayer::Late_Update(_float fTimeDelta)
@@ -233,6 +255,22 @@ void CPlayer::Set_3D_Effect_Type(_uint iIndex)
 {
 	if(nullptr != dynamic_cast<CPlayer_3D_Effects*>(m_Parts[PART_3D_EFFECT]))
 		dynamic_cast<CPlayer_3D_Effects*>(m_Parts[PART_3D_EFFECT])->Set_Type(iIndex);
+}
+
+_bool CPlayer::Get_Player_PrePos(_float3* PlayerPos)
+{
+	if (m_PlayerPos_List.empty() == false)
+	{
+		XMStoreFloat3(PlayerPos, m_PlayerPos_List.back());
+		m_PlayerPos_List.pop_back();
+		return true;
+	}
+	else if (m_PlayerPos_List.size()  <= 1)
+	{
+		return false;
+	}
+
+	return false;
 }
 
 _uint CPlayer::Get_CurRoomNum()

@@ -104,6 +104,8 @@ public:
 	void Set_3D_Effect_Type(_uint iIndex);
 
 	_float Get_MonsterCount() { return m_fMonsterCount; }
+
+	_bool Get_Player_PrePos(_float3* PlayerPos);
 protected:
 	CModel*		m_pModelCom = { nullptr };
 	CShader*		m_pShaderCom = { nullptr };
@@ -118,6 +120,7 @@ protected:
 	_float				m_fMoveSpeed = { 5.f};
 	_float				m_vTargetPos = {};
 	_float				m_fMonsterCount = {};
+	_float				m_fSave_Pos_Timer = {0.f};
 
 	_bool m_bFall = { false };
 	_bool m_bEnding = { false };
@@ -133,6 +136,8 @@ protected:
 
 	vector<CUIObject*> m_PlayerUI;
 	vector <CGameObject*> m_pEffect ;
+	list<_vector> m_PlayerPos_List;
+
 protected:
 	HRESULT Ready_Components();
 

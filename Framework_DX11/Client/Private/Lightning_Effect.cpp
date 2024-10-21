@@ -31,8 +31,6 @@ HRESULT CLightning_Effect::Initialize(void* pArg)
 
     m_iDepth = 1;
 
-    m_vOriSize = m_pTransformCom->Get_Scaled();
-
     m_fFrame = m_pGameInstance->Get_Random(0.f, 8.f);
     return S_OK;
 }
@@ -83,7 +81,6 @@ void CLightning_Effect::Late_Update(_float fTimeDelta)
     if (m_isActive)
     {
         __super::Late_Update(fTimeDelta);
-        m_pGameInstance->Add_RenderObject(CRenderer::RG_UI, this);
     }
 }
 
@@ -126,7 +123,7 @@ HRESULT CLightning_Effect::Render()
 
 HRESULT CLightning_Effect::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(LEVEL_DUNGEON, TEXT("Prototype_Component_Texture_Lightning"),
+    if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Lightning"),
         TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
         return E_FAIL;
 

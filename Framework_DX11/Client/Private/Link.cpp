@@ -120,6 +120,8 @@ void CLink::Priority_Update(_float fTimeDelta)
 
 void CLink::Update(_float fTimeDelta)
 {
+	__super::Update(fTimeDelta);
+
 	//점프일때는 자동으로 땅 타지 않도록
 	if (m_pFsmCom->Get_CurrentState() != JUMP && m_pNavigationCom != nullptr && m_bFall == false)
 		m_pNavigationCom->SetUp_OnCell(m_pTransformCom, 0.f, fTimeDelta);
@@ -761,6 +763,20 @@ HRESULT CLink::Ready_Effect()
 		Desc.iLevelIndex = m_iLevelIndex;
 		Desc.pParent = this;
 		Desc.iEffectType = PLAYER_CHARGE_SLASH_EFFECT;
+		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
+		m_pEffect.push_back(pEffect);
+	}
+
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_FootDust"));
+	if (pGameObj != nullptr)
+	{
+		C2DEffects::EFFECT_DESC Desc{};
+		Desc.iLevelIndex = m_iLevelIndex;
+		Desc.pParent = this;
+		Desc.iEffectType = PLAYER_FOOT;
+		Desc.fColor = { 1.f, 1.f,0.9f,1.f };
+		Desc.vScale = { 0.6f,0.6f,0.1f };
+		Desc.vPosition = { 0.f,-1.f,0.f };
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect.push_back(pEffect);
 	}

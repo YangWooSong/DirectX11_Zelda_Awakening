@@ -649,6 +649,12 @@
     <Filter Include="02.GameObjects\07.UI\MainUI\Quest">
       <UniqueIdentifier>{46a8a380-f86f-4541-80fc-62b793fb3b5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\07.UI\ItemExplainUI">
+      <UniqueIdentifier>{8e7ddc19-0ff7-49a3-8eac-9448d11f4e0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\FootDust">
+      <UniqueIdentifier>{6dbd333b-fa86-47de-b89f-d12f79ec3c33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1209,6 +1215,12 @@
     <ClInclude Include="..\Public\QuestUI.h">
       <Filter>02.GameObjects\07.UI\MainUI\Quest</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\ItemExplainUI.h">
+      <Filter>02.GameObjects\07.UI\ItemExplainUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\FootDust.h">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\FootDust</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1759,6 +1771,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\QuestUI.cpp">
       <Filter>02.GameObjects\07.UI\MainUI\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ItemExplainUI.cpp">
+      <Filter>02.GameObjects\07.UI\ItemExplainUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\FootDust.cpp">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\FootDust</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

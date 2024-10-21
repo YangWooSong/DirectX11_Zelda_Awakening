@@ -342,6 +342,24 @@ PS_OUT PS_MAIN_Lightning(PS_IN In)
     return Out;
 }
 
+PS_OUT PS_MAIN_FOOTDUST(PS_IN In)
+{
+    PS_OUT Out = (PS_OUT) 0;
+
+    float2 vTexcoord;
+    vTexcoord.x = (g_iCol + In.vTexcoord.y) / 8;
+    vTexcoord.y = (g_iRow + In.vTexcoord.x) / 4;
+
+    vector vDiffuse = g_Texture.Sample(LinearClampSampler, vTexcoord);
+    
+    vDiffuse.rgb = g_fColor.rgb;
+    vDiffuse.a *= g_fColor.a * 2.f;
+    
+    Out.vColor = vDiffuse;
+
+    return Out;
+}
+
 PS_OUT PS_MAIN_QUEST(PS_IN In)
 {
     PS_OUT Out = (PS_OUT) 0;
@@ -512,6 +530,16 @@ technique11 DefaultTechnique
         VertexShader = compile vs_5_0 VS_MAIN();
         GeometryShader = NULL;
         PixelShader = compile ps_5_0 PS_MAIN_QUEST();
+    }
+
+    pass FootDust //15
+    {
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+        SetBlendState(BS_AlphaBlend, vector(0.f, 0.f, 0.f, 0.f), 0xffffffff);
+        VertexShader = compile vs_5_0 VS_MAIN();
+        GeometryShader = NULL;
+        PixelShader = compile ps_5_0 PS_MAIN_FOOTDUST();
     }
 
 	
