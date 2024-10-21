@@ -1,175 +1,72 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxAnimModel.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxModel.hlsl(311,29-58): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModel.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxModelInstance.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxNorTex.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPointInstance.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\ShaderFiles\Shader_VtxPosTex.hlsl(288,22-30): warning X3081: comma expression used where a vector constructor may have been intended
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxPosTex.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Shader_VtxRectInstance.cso
-  stdafx.cpp
-  2DEffects.cpp
-  3D_Effects.cpp
-  AnimModel.cpp
-  BackGround.cpp
-  Bed.cpp
-  BladeTrap.cpp
-  Bomb.cpp
-  BombExplosion.cpp
+﻿  2DEffects.cpp
   BossDoor.cpp
   CampusUI.cpp
-  ChoiceBtn.cpp
-  ClosedPotDoor.cpp
   ConchHorn.cpp
-  Cross_Effect.cpp
-  CubeHalfDome.cpp
-  DialogueUI.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\BladeTrap.cpp(163,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/BladeTrap.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\ClosedPotDoor.cpp(107,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/ClosedPotDoor.cpp'을(를) 컴파일하는 중)
-  
-  FadeInOut.cpp
-  Fire_Big_Effect.cpp
-  Fire_Plane_Effect.cpp
-  Fire_Small_Effect.cpp
-  Flash_Effect.cpp
-  FootSwitch.cpp
-  Glow_Effect.cpp
-  GrandmaUlrira.cpp
-  Halo_Effect.cpp
-  HeartUI.cpp
-  HPUI.cpp
-  InteractUI.cpp
-  CollapseTile.cpp
-  CrackedWall.cpp
-  DeguTail_00.cpp
-  DeguTail_01.cpp
-  DeguTail_04.cpp
-  Detector.cpp
-  FreeCamera.cpp
   Grass.cpp
+  HPUI.cpp
+  HeartUI.cpp
   HousePot.cpp
+  InteractUI.cpp
   InvenUI.cpp
   ItemIconUI.cpp
   ItemUI.cpp
   KeyUI.cpp
-  Kuribo.cpp
-  Land.cpp
   Level_Dungeon.cpp
   Level_Field.cpp
   Level_MarinHouse.cpp
-  Level_Loading.cpp
-  Level_Logo.cpp
   Level_Store.cpp
   Level_Test.cpp
-  Lightning_Effect.cpp
   Link.cpp
-  Loader.cpp
   LockBlock.cpp
-  LockBlockEffect.cpp
   LockDoor.cpp
-  Lupee.cpp
   LupeeUI.cpp
-  MainApp.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(1,1): warning C4603: '_CRT_NON_CONFORMING_SWPRINTFS': 매크로가 정의되지 않았거나 미리 컴파일된 헤더 사용 후와 정의가 다릅니다.
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(1,9): warning C4603: '_CRT_NON_CONFORMING_SWPRINTFS': 매크로가 정의되지 않았거나 미리 컴파일된 헤더 사용 후와 정의가 다릅니다.
   (소스 파일 '/Private/LupeeUI.cpp'을(를) 컴파일하는 중)
-  C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(1,1):
-  여기에서 정의하지 않고 미리 컴파일된 헤더에 매크로 추가
-  C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(3,1):
-  미리 컴파일된 헤더 사용
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(296,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(266,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_MarinHouse.cpp(295,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_MarinHouse.cpp'을(를) 컴파일하는 중)
+      C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(1,9):
+      여기에서 정의하지 않고 미리 컴파일된 헤더에 매크로 추가
+      C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\LupeeUI.cpp(3,1):
+      미리 컴파일된 헤더 사용
   
   MainUI.cpp
-  MapBackGround.cpp
-  MapUI.cpp
-  Marin.cpp
-  Marin_State_Idle.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Test.cpp(228,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/Level_Test.cpp'을(를) 컴파일하는 중)
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Dungeon.cpp(266,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Dungeon.cpp'을(를) 컴파일하는 중)
   
-  MiniMap.cpp
-  MonsterDied_Effect.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Store.cpp(272,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Store.cpp(272,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   (소스 파일 '/Private/Level_Store.cpp'을(를) 컴파일하는 중)
   
-  NPC.cpp
-  Particle_Image.cpp
-  Particle_Model.cpp
-  Monster.cpp
-  NavDataObj.cpp
-  NonAnimModel.cpp
-  Octorok.cpp
-  OctorokRock.cpp
+  Marin_State_Idle.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Test.cpp(228,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Test.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_MarinHouse.cpp(295,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_MarinHouse.cpp'을(를) 컴파일하는 중)
+  
   OnewayDoorReverse.cpp
   OwlStatue.cpp
-  Particle_Explosion.cpp
-  Particle_Snow.cpp
-  Pawn.cpp
   Player.cpp
   PlayerCamera.cpp
   Player_3D_Effects.cpp
-  Player_Charge_Slash.cpp
-  Player_ItemGet_Effect.cpp
-  PurpleQuartz.cpp
-  Ring_Effect.cpp
-  Ripple_Effect.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Octorok.cpp(145,8): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Octorok.cpp'을(를) 컴파일하는 중)
-  
-  Rola.cpp
+  QuestUI.cpp
   RollingSpike.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\QuestUI.cpp(1,9): warning C4603: '_CRT_NON_CONFORMING_SWPRINTFS': 매크로가 정의되지 않았거나 미리 컴파일된 헤더 사용 후와 정의가 다릅니다.
+  (소스 파일 '/Private/QuestUI.cpp'을(를) 컴파일하는 중)
+      C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\QuestUI.cpp(1,9):
+      여기에서 정의하지 않고 미리 컴파일된 헤더에 매크로 추가
+      C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\QuestUI.cpp(3,1):
+      미리 컴파일된 헤더 사용
+  
   SeaUrchin.cpp
   Shield.cpp
-  SinkingSword.cpp
-  SmallKey.cpp
-  Smoke_Effect.cpp
-  Spark.cpp
-  Spark_Effect.cpp
-  SpikeTile.cpp
   SquareBlock.cpp
-  State_DeguTail_Appear.cpp
-  State_DeguTail_Dead.cpp
-  State_DeguTail_Guard.cpp
-  State_DeguTail_Hurt.cpp
-  State_DeguTail_Idle.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\SinkingSword.cpp(94,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/SinkingSword.cpp'을(를) 컴파일하는 중)
-  
-  State_DeguTail_Walk.cpp
   State_GrandmaUlrira_Idle.cpp
   State_GrandmaUlrira_Talk.cpp
-  State_Kuribo_Dead.cpp
-  State_Kuribo_Idle.cpp
-  State_Kuribo_Walk.cpp
-  State_Kuribo_Walk_Shake.cpp
   State_Link_Bomb.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Level_Field.cpp(296,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  (소스 파일 '/Private/Level_Field.cpp'을(를) 컴파일하는 중)
+  
   State_Link_Carry.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\SpikeTile.cpp(95,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/SpikeTile.cpp'을(를) 컴파일하는 중)
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\MainUI.cpp(149,39): warning C4244: 'return': 'Engine::_float'에서 'Engine::_int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Private/MainUI.cpp'을(를) 컴파일하는 중)
   
   State_Link_Carry_Walk.cpp
   State_Link_Damage_Front.cpp
@@ -178,6 +75,9 @@ C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Sp
   State_Link_Idle.cpp
   State_Link_ItemA.cpp
   State_Link_ItemB.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\QuestUI.cpp(186,20): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+  (소스 파일 '/Private/QuestUI.cpp'을(를) 컴파일하는 중)
+  
   State_Link_Jump.cpp
   State_Link_Key.cpp
   State_Link_Push.cpp
@@ -190,82 +90,26 @@ C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Sp
   State_Link_Throw.cpp
   State_Link_Walk.cpp
   State_Marin_Talk.cpp
-  State_Octorok_Attack.cpp
-  State_Octorok_Dead.cpp
-  State_Octorok_Idle.cpp
-  State_Octorok_Walk.cpp
-  State_Pawn_Damage.cpp
-  State_Pawn_DeadFall.cpp
-  State_Pawn_Idle.cpp
-  State_Pawn_Jump.cpp
   State_Pawn_Walk.cpp
-  State_Rola_Dead.cpp
   State_Rola_Demage.cpp
-  State_Rola_Idle.cpp
-  State_Rola_Jump.cpp
-  State_Rola_Push.cpp
-  State_SeaUrchin_Dead.cpp
-  State_SeaUrchin_Idle.cpp
   State_SeaUrchin_Pushed.cpp
   State_Spark_Idle.cpp
-  State_Togezo_Damage.cpp
-  State_Togezo_Discover.cpp
-  State_Togezo_Idle.cpp
-  State_Togezo_Rebound.cpp
-  State_Togezo_Run.cpp
-  State_ToolShopkeeper_Attack.cpp
-  State_ToolShopkeeper_Talk.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Rola_Jump.cpp(132,19): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/State_Rola_Jump.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\State_Rola_Jump.cpp(137,19): warning C4018: '>': signed 또는 unsigned가 일치하지 않습니다.
-  (소스 파일 '/Private/State_Rola_Jump.cpp'을(를) 컴파일하는 중)
-  
   State_ToolShopkeeper_Idle.cpp
-  State_Vegas_Damage.cpp
-  State_Vegas_Dead.cpp
-  State_Vegas_Idle.cpp
-  State_Vegas_Walk_b.cpp
-  State_Vegas_Walk_f.cpp
-  State_Vegas_Walk_l.cpp
-  State_Vegas_Walk_r.cpp
-  StoneHinoxRock.cpp
+  State_ToolShopkeeper_Talk.cpp
   Store_Item.cpp
   Sword.cpp
-  TailCaveShutter.cpp
-  TailDungeonOpen.cpp
   TailLockStatue.cpp
-  Tarin.cpp
-  Teleport.cpp
-  Terrain.cpp
-  Togezo.cpp
   TreasureBox.cpp
-  Tree.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\StoneHinoxRock.cpp(74,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/StoneHinoxRock.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\StoneHinoxRock.cpp(83,17): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/StoneHinoxRock.cpp'을(를) 컴파일하는 중)
-  
-  Vegas.cpp
-  Weathercock.cpp
-  Grad.cpp
-  ToolShopkeeper.cpp
-  Client.cpp
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TailCaveShutter.cpp(115,7): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/TailCaveShutter.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\Tree.cpp(77,7): warning C4267: '인수': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Private/Tree.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(421,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
+  Loader.cpp
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(421,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
   (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
   
-C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(433,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
+C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Private\TreasureBox.cpp(433,33): warning C4002: 함수 같은 매크로 호출 'TEXT'에 대해 인수가 너무 많습니다.
   (소스 파일 '/Private/TreasureBox.cpp'을(를) 컴파일하는 중)
   
   코드를 생성하고 있습니다.
-  Previous IPDB was built with incompatible compiler, fall back to full compilation.
-  All 4095 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  29 of 4118 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    124 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
-  Client.vcxproj -> C:\Users\olivi\Github\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe
+  Client.vcxproj -> C:\Users\olivi\GitHub\DirectX11_Zelda_Awakening\Framework_DX11\Client\Bin\Client.exe

@@ -14,7 +14,7 @@ HRESULT CState_Link_Carry_Walk::Initialize(_uint iStateNum)
 {
     m_iCurrentAnimIndex = m_pPlayer->Get_Model()->Get_AnimationIndex("walk_carry");
     m_iStateNum = iStateNum;
-    m_fPlayerSpeed = m_pPlayer->Get_MoveSpeed() - 2.f;
+    m_fPlayerSpeed = m_pPlayer->Get_MoveSpeed() * 0.3f;
     m_pPlayer_Navigation = m_pPlayer->Get_Navigation();
     return S_OK;
 }

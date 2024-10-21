@@ -44,7 +44,10 @@ void CState_Link_Throw::Update(_float fTimeDelta)
 void CState_Link_Throw::End_State()
 {
 	static_cast<CLink*>(m_pPlayer)->Set_ActiveSheild(true);
-	static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(true);
+
+	if(static_cast<CLink*>(m_pPlayer)->Get_ActiveSword())
+		static_cast<CLink*>(m_pPlayer)->Set_ActiveSword(true);
+
 	static_cast<CLink*>(m_pPlayer)->Set_CarryItem(nullptr);
 	m_fTimer = 0.f;
 }

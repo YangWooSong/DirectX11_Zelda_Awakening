@@ -44,7 +44,7 @@
 #include "DialogueUI.h"
 
 _bool CLink::m_bActiveSheild = { true };
-_bool CLink::m_bActiveSword = { true };
+_bool CLink::m_bActiveSword = { false };
 _bool  CLink::m_bDungeonKey = { false };
  _int CLink::m_iLupee = { 5 };
   _int  CLink::m_iMaxHp = { 8 };
@@ -98,7 +98,7 @@ HRESULT CLink::Initialize(void* pArg)
 
 	m_ePlayer_Dir = FRONT;
 
-	m_pGameInstance->SetUp_Player(this);
+	//m_pGameInstance->SetUp_Player(this);
 
 	return S_OK;
 }
@@ -492,7 +492,6 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 		{
 			if (static_cast<CNPC*>(pOther)->Get_Talk() == false)
 			{
-				//UI°¡ ³Ê¹« »¡¸® ³ª¿Í¼­ µô·¹ÀÌ¸¦ ÁÜ
 				if(static_cast<CNPC*>(pOther)->Get_UIObject(CNPC::DIALOGUE_UI)->IsActive() == false && m_bTalk == false) 
 				{
 					if(m_pFsmCom->Get_CurrentState() != GET_ITEM)
@@ -530,8 +529,10 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 
 	if (pOther->Get_LayerTag() == TEXT("Layer_TreasureBox") || 
 		pOther->Get_LayerTag() == TEXT("Layer_LockDoor") ||
-		pOther->Get_LayerTag() == TEXT("Layer_LockBlock") || 
+		pOther->Get_LayerTag() == TEXT("Layer_LockDoor") || 
 		pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue") || 
+		pOther->Get_LayerTag() == TEXT("Layer_TailLockStatue")  || 
+		pOther->Get_LayerTag() == TEXT("Layer_NPC") || 
 		pOther->Get_LayerTag() == TEXT("Layer_BossDoor")
 		)
 	{
@@ -553,10 +554,11 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 		m_PlayerUI[INTERACT_UI]->SetActive(false);
 	}
 
-	if (pOther->Get_LayerTag() == TEXT("Layer_NPC"))
+	if (pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
 	{
 		m_PlayerUI[INTERACT_UI]->SetActive(false);
 	}
+
 }
 
 void CLink::Get_Item(_uint iItemIndex)

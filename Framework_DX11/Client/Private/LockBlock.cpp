@@ -73,10 +73,10 @@ void CLockBlock::Late_Update(_float fTimeDelta)
     if (m_isActive)
     {
         m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
+        m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
         if (m_bOpened == false)
         {
-            m_pGameInstance->Add_ColliderList(m_pColliderCom);
             m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
         }
 

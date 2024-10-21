@@ -115,7 +115,7 @@ protected:
 	CSound* m_pEffectSoundCom = { nullptr };
 
 protected:
-	_float				m_fMoveSpeed = { 4.f};
+	_float				m_fMoveSpeed = { 5.f};
 	_float				m_vTargetPos = {};
 	_float				m_fMonsterCount = {};
 
