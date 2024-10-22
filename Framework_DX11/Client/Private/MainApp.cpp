@@ -114,8 +114,14 @@ HRESULT CMainApp::Ready_Font()
 		return E_FAIL;
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Mallang24_Bold"), TEXT("../Bin/Resources/Fonts/Mallang24_Bold.spritefont"))))
 		return E_FAIL;
+	
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Mallang18_Bold"), TEXT("../Bin/Resources/Fonts/Mallang18_Bold.spritefont"))))
+		return E_FAIL;
 
 	if (FAILED(m_pGameInstance->Add_Font(TEXT("Font_Number24"), TEXT("../Bin/Resources/Fonts/Number24.spritefont"))))
+		return E_FAIL;
+	
+	if (FAILED(m_pGameInstance->Add_Font(TEXT("Number18_Bold"), TEXT("../Bin/Resources/Fonts/Number18_Bold.spritefont"))))
 		return E_FAIL;
 
 	return S_OK;
