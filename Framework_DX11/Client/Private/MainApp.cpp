@@ -44,6 +44,8 @@ void CMainApp::Update(_float fTimeDelta)
 {
 	m_pGameInstance->Update_Engine(fTimeDelta);
 
+
+#ifdef _DEBUG
 	m_fFpsTimer += fTimeDelta;
 	m_fFrameCount++;
 
@@ -54,7 +56,7 @@ void CMainApp::Update(_float fTimeDelta)
 		m_fFpsTimer = 0.0f;
 	}
 
-#ifdef _DEBUG
+
 	if (KEY_TAP(ONE))
 		m_pGameInstance->Active_Debug_Renderer();
 
@@ -76,9 +78,13 @@ HRESULT CMainApp::Render()
 	// 
 	
 	// FPS를 화면에 출력하거나 로그에 기록
-	 _tchar szText[64]; 
+
+#ifdef _DEBUG
+	_tchar szText[64];
 	swprintf_s(szText, TEXT("%d"), (_int)m_fFps);
 	m_pGameInstance->Render_Text(TEXT("Font_Gulim24"), szText, XMVectorSet(0.f, 0.f, 0.f, 1.f));
+
+#endif // DEBUG
 
 	m_pGameInstance->Render_End();
 

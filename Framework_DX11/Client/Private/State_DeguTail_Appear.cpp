@@ -7,6 +7,7 @@
 #include"PlayerCamera.h"
 #include "DialogueUI.h"
 #include "MainUI.h"
+#include "PartObject.h"
 CState_DeguTail_Appear::CState_DeguTail_Appear(CFsm* pFsm, CMonster* pOwner)
     :CState{ pFsm }
     , m_pOwner{ pOwner }
@@ -48,6 +49,7 @@ void CState_DeguTail_Appear::Update(_float fTimeDelta)
             m_pCamera->Zoom_In(1.4f, 60.f);
             m_pDialogueUI->Set_OwnerType(CDialogueUI::DEGUTAIL);
             m_pDialogueUI->SetActive(true);
+            static_cast<CDeguTail_00*>(m_pOwner)->Set_Active_AppearEffect();
         }
     }
 

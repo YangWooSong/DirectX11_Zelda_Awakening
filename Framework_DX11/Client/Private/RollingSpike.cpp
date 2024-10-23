@@ -2,7 +2,7 @@
 #include "RollingSpike.h"
 #include "GameInstance.h"
 #include "Link.h"
-
+#include "Particle_Image.h"
 CRollingSpike::CRollingSpike(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     :CGameObject(pDevice, pContext)
 {
@@ -50,6 +50,8 @@ HRESULT CRollingSpike::Initialize(void* pArg)
 
 void CRollingSpike::Priority_Update(_float fTimeDelta)
 {
+    if (m_pEffect != nullptr)
+        m_pEffect->Priority_Update(fTimeDelta);
 }
 
 void CRollingSpike::Update(_float fTimeDelta)
@@ -73,7 +75,13 @@ void CRollingSpike::Update(_float fTimeDelta)
 
            m_fAlpha = min(1.f, m_fAlpha + fTimeDelta * 0.5f);
        }
+       else
+       {
+           if (m_pEffect != nullptr)
+               m_pEffect->Update(fTimeDelta);
+       }
     }
+
 }
 
 void CRollingSpike::Late_Update(_float fTimeDelta)
@@ -85,6 +93,8 @@ void CRollingSpike::Late_Update(_float fTimeDelta)
       //  m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
         m_pGameInstance->Add_ColliderList(m_pColliderCom);
 
+        if (m_pEffect != nullptr)
+            m_pEffect->Late_Update(fTimeDelta);
 #ifdef _DEBUG
         m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
@@ -200,6 +210,12 @@ void CRollingSpike::Move_Right(_float fTimeDelta)
     //¿À¸¥ÂÊ ±¼·¯°¡±â
     if (m_fMoveTimer < 1.8f)
     {
+        if(m_bCreateEffect)
+        {
+            m_bCreateEffect = false;
+            Safe_AddRef(m_pEffect);
+        }
+
         m_pTransformCom->Turn(vTurn, fTimeDelta);
         m_pTransformCom->Go_World_Right(fTimeDelta, 5.f);
     }
@@ -210,6 +226,21 @@ void CRollingSpike::Move_Right(_float fTimeDelta)
         m_pTransformCom->Set_RotationSpeed(m_fRotateSpeed);
         m_pTransformCom->Turn(-vTurn, fTimeDelta);
         m_pTransformCom->Go_World_Left(fTimeDelta, max(3.f, m_fMoveSpeed -= 6.f * fTimeDelta));
+
+        if (m_bCreateEffect == false)
+        {
+            CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+            if (pGameObj != nullptr)
+            {
+                CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+                pImageDesc.iParticleType = CParticle_Image::ROLLING_DUST;
+                pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+                m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+
+            }
+            m_pEffect->SetActive(true);
+            m_bCreateEffect = true;
+        }
     }
     else
     {
@@ -234,6 +265,12 @@ void CRollingSpike::Move_Left(_float fTimeDelta)
     //¿ÞÂÊ ±¼·¯°¡±â
     if (m_fMoveTimer < 1.8f)
     {
+        if (m_bCreateEffect)
+        {
+            m_bCreateEffect = false;
+            Safe_AddRef(m_pEffect);
+        }
+
         m_pTransformCom->Turn(vTurn, fTimeDelta);
         m_pTransformCom->Go_World_Left(fTimeDelta, 5.f);
     }
@@ -244,6 +281,21 @@ void CRollingSpike::Move_Left(_float fTimeDelta)
         m_pTransformCom->Set_RotationSpeed(m_fRotateSpeed);
         m_pTransformCom->Turn(-vTurn, fTimeDelta);
        m_pTransformCom->Go_World_Right(fTimeDelta, max(3.f, m_fMoveSpeed -= 6.f * fTimeDelta));
+
+       if (m_bCreateEffect == false)
+       {
+           CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+           if (pGameObj != nullptr)
+           {
+               CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+               pImageDesc.iParticleType = CParticle_Image::ROLLING_DUST;
+               pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+               m_pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+
+           }
+           m_pEffect->SetActive(true);
+           m_bCreateEffect = true;
+       }
     }
     else
     {
@@ -317,6 +369,7 @@ void CRollingSpike::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pSoundCom);
     Safe_Release(m_pModelCom);

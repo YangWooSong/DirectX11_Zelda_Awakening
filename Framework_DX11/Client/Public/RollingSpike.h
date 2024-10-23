@@ -48,11 +48,14 @@ private:
 	_bool m_bMoveRight = { false };
 	_bool m_bMoveLeft = { false };
 	_bool m_bActiveDissolve = { false };
+	_bool m_bCreateEffect = { false };
 
 	_float m_fMoveTimer = { 0.f };
 	_float m_fRotateSpeed = { 0.f };
 	_float m_fMoveSpeed = { 0.f };
 	_float m_fAlpha = { 0.f };		//µðÁ¹ºê °ª
+
+	CGameObject* m_pEffect = { nullptr };
 private:
 	HRESULT Ready_Components();
 

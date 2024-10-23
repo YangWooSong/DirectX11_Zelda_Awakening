@@ -15,6 +15,7 @@
 #include "3D_Effects.h"
 #include "DialogueUI.h"
 #include "MainUI.h"
+#include "Particle_Image.h"
 CDeguTail_00::CDeguTail_00(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
 {
@@ -68,9 +69,12 @@ void CDeguTail_00::Priority_Update(_float fTimeDelta)
 	if (m_isActive == true)
 	{
 		__super::Priority_Update(fTimeDelta);
+		if (m_bActiveAppearEffect)
+			m_pAppearEffect->Priority_Update(fTimeDelta);
 		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
 	m_pEffect->Priority_Update(fTimeDelta);
+	
 //	m_UI->Priority_Update(fTimeDelta);
 }
 
@@ -104,6 +108,8 @@ void CDeguTail_00::Update(_float fTimeDelta)
 			m_isActive = false;
 		}
 		m_p3D_Effect->Update(fTimeDelta);
+		if (m_bActiveAppearEffect)
+			m_pAppearEffect->Update(fTimeDelta);
 	}
 
 	if (m_bActiveEffect)
@@ -138,6 +144,8 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 		m_p3D_Effect->Late_Update(fTimeDelta);
 	}
 	m_pEffect->Late_Update(fTimeDelta);
+	if(m_bActiveAppearEffect)
+		m_pAppearEffect->Late_Update(fTimeDelta);
 //	m_UI->Late_Update(fTimeDelta);
 }
 HRESULT CDeguTail_00::Render()
@@ -346,6 +354,16 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 	if (FAILED(__super::Add_PartObject(PART_TAIL, TEXT("Prototype_GameObject_DeguTail_04"), &TailDesc)))
 		return E_FAIL;
 
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+	if (pGameObj != nullptr)
+	{
+		CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+		pImageDesc.iParticleType = CParticle_Image::DEGU_APPEAR;
+		pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+
+		m_pAppearEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+	}
+
     return S_OK;
 }
 
@@ -393,6 +411,11 @@ void CDeguTail_00::Kill_Parts(_float fTimeDelta)
 
 }
 
+void CDeguTail_00::Set_Active_AppearEffect()
+{
+	m_bActiveAppearEffect = true;
+}
+
 CDeguTail_00* CDeguTail_00::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
 	CDeguTail_00* pInstance = new CDeguTail_00(pDevice, pContext);
@@ -427,6 +450,7 @@ void CDeguTail_00::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 
+	Safe_Release(m_pAppearEffect);
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);
 
