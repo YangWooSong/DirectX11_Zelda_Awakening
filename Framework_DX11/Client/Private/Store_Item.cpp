@@ -303,6 +303,7 @@ void CStore_Item::Free()
 {
     __super::Free();
 
+    Safe_Release(m_pEffect);
     Safe_Release(m_pShaderCom);
     Safe_Release(m_pModelCom);
     Safe_Release(m_pColliderCom);

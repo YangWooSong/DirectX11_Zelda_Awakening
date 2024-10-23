@@ -249,6 +249,7 @@
     <ClInclude Include="..\Public\Ring_Effect.h" />
     <ClInclude Include="..\Public\Ripple_Effect.h" />
     <ClInclude Include="..\Public\Rola.h" />
+    <ClInclude Include="..\Public\Rola_Hand_Effect.h" />
     <ClInclude Include="..\Public\RollingSpike.h" />
     <ClInclude Include="..\Public\Shield.h" />
     <ClInclude Include="..\Public\SinkingSword.h" />
@@ -455,6 +456,7 @@
     <ClCompile Include="..\Private\Ring_Effect.cpp" />
     <ClCompile Include="..\Private\Ripple_Effect.cpp" />
     <ClCompile Include="..\Private\Rola.cpp" />
+    <ClCompile Include="..\Private\Rola_Hand_Effect.cpp" />
     <ClCompile Include="..\Private\RollingSpike.cpp" />
     <ClCompile Include="..\Private\SeaUrchin.cpp" />
     <ClCompile Include="..\Private\Shield.cpp" />

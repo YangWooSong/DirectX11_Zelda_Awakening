@@ -3,7 +3,7 @@
 #include "GameInstance.h"
 #include "Model.h"
 #include "Rola.h"
-
+#include "PartObject.h"
 CState_Rola_Jump::CState_Rola_Jump(CFsm* pFsm, CMonster* pOwner)
     :CState{ pFsm }
     , m_pOwner{ pOwner }
@@ -57,7 +57,7 @@ void CState_Rola_Jump::Update(_float fTimeDelta)
         m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.05f);
         m_pOwner->Set_AnimationSpeed(m_iCurrentAnimIndex, 60.f);
         *static_cast<CRola*>(m_pOwner)->Get_Arrived() = true;
-
+        static_cast<CRola*>(m_pOwner)->Get_PartObject(0)->SetActive(true);
         if(m_bJumpSound == false)
         {
             m_bJumpSound = true;
@@ -103,6 +103,7 @@ void CState_Rola_Jump::End_State()
         }*/
     }
     m_bJumpSound = false;
+    static_cast<CRola*>(m_pOwner)->Get_PartObject(0)->SetActive(false);
 
 }
 

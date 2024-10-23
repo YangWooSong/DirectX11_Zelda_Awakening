@@ -14,6 +14,7 @@ class CRola :
     public CMonster
 {
 public:
+	enum PARTID { DUST, PART_END };
 	enum ROLA_STATE { IDLE, JUMP, PUSH, DEMAGE, DEAD, STATE_END };
 private:
 	CRola(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
@@ -43,6 +44,7 @@ public:
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
+	HRESULT Ready_Part_Effect();
 
 private:
 	_uint		m_iRedCount = { 0 };

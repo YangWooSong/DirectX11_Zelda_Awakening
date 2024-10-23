@@ -76,8 +76,8 @@ HRESULT CItemExplainUI::Render()
         if(m_iItemIndex == BOMB)
         {
             m_pGameInstance->Render_Center(TEXT("Mallang18_Bold"), TEXT("벽을 부수는 폭탄"), XMVectorSet(g_iWinSizeX * 0.4f, g_iWinSizeY * 0.25f, 0.f, 1.f), XMVectorSet(1.f, 1.f, 1.f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
-          m_pGameInstance->Render_Text(TEXT("Number18_Bold"), TEXT("5 "), XMVectorSet(g_iWinSizeX * 0.37f, g_iWinSizeY * 0.27f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
-         m_pGameInstance->Render_Text(TEXT("Mallang18_Bold"), TEXT("   루피"), XMVectorSet(g_iWinSizeX * 0.37f, g_iWinSizeY * 0.27f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
+            m_pGameInstance->Render_Text(TEXT("Number18_Bold"), TEXT("5 "), XMVectorSet(g_iWinSizeX * 0.37f, g_iWinSizeY * 0.27f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
+            m_pGameInstance->Render_Text(TEXT("Mallang18_Bold"), TEXT("   루피"), XMVectorSet(g_iWinSizeX * 0.37f, g_iWinSizeY * 0.27f, 0.f, 1.f), XMVectorSet(1.f, 0.5f, 0.5f, m_fAlpha), 0.f, XMVectorSet(0.f, 0.f, 0.f, 1.f), 1.f, true);
         }
         else
         {

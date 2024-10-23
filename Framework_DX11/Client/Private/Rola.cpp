@@ -10,7 +10,7 @@
 #include "State_Rola_Dead.h"
 #include "2DEffects.h"
 #include "3D_Effects.h"
-
+#include "Rola_Hand_Effect.h"
 CRola::CRola(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
 {
@@ -38,6 +38,9 @@ HRESULT CRola::Initialize(void* pArg)
 	if (FAILED(Ready_State()))
 		return E_FAIL;
 
+	if (FAILED(Ready_Part_Effect()))
+		return E_FAIL;
+
 	MONSTER_DESC* pDesc = static_cast<MONSTER_DESC*>(pArg);
 	_float3 vRot = { 0.f, -90.f, 0.f };
 	m_pTransformCom->RotationThreeAxis(vRot);
@@ -59,6 +62,10 @@ void CRola::Priority_Update(_float fTimeDelta)
 	{
 		__super::Priority_Update(fTimeDelta);
 		m_p3D_Effect->Priority_Update(fTimeDelta);
+
+		for (auto& pPartObject : m_Parts)
+			pPartObject->Priority_Update(fTimeDelta);
+
 	}
 	m_pEffect->Priority_Update(fTimeDelta);
 
@@ -115,6 +122,8 @@ void CRola::Update(_float fTimeDelta)
 		else
 			m_pColliderCom->Set_IsActive(true);
 		__super::Update(fTimeDelta);
+
+
 	
 	}
 
@@ -135,6 +144,9 @@ void CRola::Update(_float fTimeDelta)
 	}
 	m_p3D_Effect->Update(fTimeDelta);
 	m_pEffect->Update(fTimeDelta);
+
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Update(fTimeDelta);
 }
 
 void CRola::Late_Update(_float fTimeDelta)
@@ -149,9 +161,14 @@ void CRola::Late_Update(_float fTimeDelta)
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
+
+	
 	}
 	m_pEffect->Late_Update(fTimeDelta);
 	m_p3D_Effect->Late_Update(fTimeDelta);
+
+	for (auto& pPartObject : m_Parts)
+		pPartObject->Late_Update(fTimeDelta);
 }
 
 HRESULT CRola::Render()
@@ -291,6 +308,20 @@ HRESULT CRola::Ready_State()
 	m_pFsmCom->Add_State(CState_Rola_Push::Create(m_pFsmCom, this, PUSH));
 	m_pFsmCom->Add_State(CState_Rola_Demage::Create(m_pFsmCom, this, DEMAGE));
 	m_pFsmCom->Add_State(CState_Rola_Dead::Create(m_pFsmCom, this, DEAD));
+	return S_OK;
+}
+
+HRESULT CRola::Ready_Part_Effect()
+{
+	m_Parts.resize(PART_END);
+
+	CRola_Hand_Effect::ROLA_HAND_DESC		Desc{};
+	Desc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+	Desc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("attach_L");
+	Desc.m_pParent = this;
+	if (FAILED(__super::Add_PartObject(DUST, TEXT("Prototype_GameObject_Rola_Hand_Effect"), &Desc)))
+		return E_FAIL;
+ 
 	return S_OK;
 }
 

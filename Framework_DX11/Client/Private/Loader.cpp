@@ -120,6 +120,7 @@
 #include "QuestUI.h"
 #include "ItemExplainUI.h"
 #include "FootDust.h"
+#include "Rola_Hand_Effect.h"
 
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -444,6 +445,8 @@ HRESULT CLoader::Ready_Resources_For_Dungeon()
 	lstrcpy(m_szLoadingText, TEXT("객체원형을(를) 로딩중입니다."));
 
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
+
+
 
 	m_isFinished = true;
 
@@ -1597,6 +1600,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_LockBlockEffect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_LockBlockEffect"),
 		CLockBlockEffect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+
+	/* For. Prototype_GameObject_Rola_Hand_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola_Hand_Effect"),
+		CRola_Hand_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	

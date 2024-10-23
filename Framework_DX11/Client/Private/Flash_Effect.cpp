@@ -34,7 +34,7 @@ HRESULT CFlash_Effect::Initialize(void* pArg)
     {
         m_fOffset = { 0.f, 0.8f,0.f };
     }
-    if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
+    else if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
     {
         m_iDepth = 2;
         m_fOffset = { 0.f, 1.3f, 0.f };
@@ -42,7 +42,7 @@ HRESULT CFlash_Effect::Initialize(void* pArg)
         m_fSpeed = 0.5f;
 
     }
-    if (m_iEffectType == TAIL_DUNGEON_OPEN)
+    else if (m_iEffectType == TAIL_DUNGEON_OPEN)
     {
         m_iDepth = 2;
         m_bAlphaDown = true;
@@ -54,6 +54,7 @@ HRESULT CFlash_Effect::Initialize(void* pArg)
         m_iDepth = 2;
         m_bAlphaDown = true;
         m_fSpeed = 3.f;
+        m_iTextureNum = 0;
     }
     m_fOriColor = m_fColor;
     m_isActive = false;
@@ -77,22 +78,27 @@ void CFlash_Effect::Update(_float fTimeDelta)
             if (m_fAngle == 360.f)
                 m_fAngle = 0.f;
         }
-        if (m_iEffectType == BOMB_EXPLOSION_EFFECT)
+        else if (m_iEffectType == BOMB_EXPLOSION_EFFECT)
             AlphaDown(fTimeDelta);
-        if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
+        else if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
         {
             m_fAngle = min(360.f, m_fAngle + fTimeDelta * 100.f);
 
             if (m_fAngle == 360.f)
                 m_fAngle = 0.f;
         }
-        if (m_iEffectType == TAIL_DUNGEON_OPEN)
+        else if (m_iEffectType == TAIL_DUNGEON_OPEN)
         {
             Lerp_SizeUp(fTimeDelta);
             AlphaDown(fTimeDelta);
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
         }
 
-        m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
+       else if (m_iEffectType == ROLA_HAND)
+        {
+
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
+        }
     }
     else
     {
