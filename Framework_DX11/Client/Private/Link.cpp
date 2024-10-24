@@ -45,7 +45,7 @@
 
 
 _bool CLink::m_bActiveSheild = { true };
-_bool CLink::m_bActiveSword = { true };
+_bool CLink::m_bActiveSword = { false };
 _bool  CLink::m_bDungeonKey = { false };
  _int CLink::m_iLupee = { 5 };
   _int  CLink::m_iMaxHp = { 8 };
@@ -99,7 +99,7 @@ HRESULT CLink::Initialize(void* pArg)
 
 	m_ePlayer_Dir = FRONT;
 
-//	m_pGameInstance->SetUp_Player(this);
+	m_pGameInstance->SetUp_Player(this);
 
 	return S_OK;
 }

@@ -101,7 +101,8 @@ void CFlash_Effect::Update(_float fTimeDelta)
             return;
         }
 
-         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
+        m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
+        return;
         
     }
     else
