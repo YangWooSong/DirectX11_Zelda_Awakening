@@ -28,6 +28,7 @@ HRESULT CParticle_Image::Initialize(void* pArg)
 	IMAGE_PARTICLE_DESC* pDesc = static_cast<IMAGE_PARTICLE_DESC*>(pArg);
 	m_iParticleType = pDesc->iParticleType;
 	m_pParentMatrix = pDesc->pParentMatrix;
+
 	/* 직교퉁여을 위한 데이터들을 모두 셋하낟. */
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -46,8 +47,7 @@ void CParticle_Image::Priority_Update(_float fTimeDelta)
 
 void CParticle_Image::Update(_float fTimeDelta)
 {
-	m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
-
+	
 	if(m_isActive)
 	{
 		switch (m_iParticleType)
@@ -96,9 +96,11 @@ void CParticle_Image::Update(_float fTimeDelta)
 			break;
 		case JUMP_DUST:
 		case DEGU_APPEAR:
+		case DEGU_ANGRY:
 			m_fColor = { 1.f,0.7f,0.5f,1.f };
 			m_bSetAlpha = true;
 			static_cast<CVIBuffer_Point_Instance*>(m_pVIBufferCom)->Spread(fTimeDelta);
+			m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
 			break;
 		case ROLLING_DUST:
 			m_fColor = { 0.8f,0.7f,0.5f,0.8f };
@@ -111,6 +113,7 @@ void CParticle_Image::Update(_float fTimeDelta)
 		}
 	}
 
+		m_pTransformCom->Set_WorldMatrix(XMLoadFloat4x4(m_pParentMatrix));
 }
 
 void CParticle_Image::Late_Update(_float fTimeDelta)
@@ -138,7 +141,7 @@ HRESULT CParticle_Image::Render()
 	if (FAILED(m_pShaderCom->Bind_RawValue("g_bSetAlpha", &m_bSetAlpha, sizeof(_bool))))
 		return E_FAIL;
 
-	if(m_iParticleType != JUMP_DUST && m_iParticleType != ROLLING_DUST&& m_iParticleType != DEGU_APPEAR)
+	if(m_iParticleType != JUMP_DUST && m_iParticleType != ROLLING_DUST&& m_iParticleType != DEGU_APPEAR&& m_iParticleType != DEGU_ANGRY)
 	{
 		if (FAILED(m_pShaderCom->Begin(0)))
 			return E_FAIL;
@@ -377,12 +380,27 @@ HRESULT CParticle_Image::Ready_Components()
 
 		Desc.iNumInstance =100;
 		Desc.vCenter = _float3(0.f, -0.2f, 0.f);
-		Desc.vRange = _float3(2.f, 0.2f, 2.f);
+		Desc.vRange = _float3(1.5f, 0.2f, 1.5f);
 		Desc.vSize = _float2(1.f, 2.f);
 		Desc.vPivot = _float3(0.f, 0.f, 0.f);
 		Desc.vSpeed = _float2(0.6f, 1.f);
 		Desc.vLifeTime = _float2(0.6f, 1.f);
 		Desc.isLoop = false;
+	}else if(m_iParticleType == DEGU_ANGRY)
+	{
+		/* FOR.Com_Texture */
+		if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Texture_Effect_Smoke"),
+			TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+			return E_FAIL;
+
+		Desc.iNumInstance =200;
+		Desc.vCenter = _float3(0.f, -0.2f, 0.f);
+		Desc.vRange = _float3(1.f, 0.2f, 1.f);
+		Desc.vSize = _float2(1.5f, 1.5f);
+		Desc.vPivot = _float3(0.f, 0.f, 0.f);
+		Desc.vSpeed = _float2(2.f, 2.f);
+		Desc.vLifeTime = _float2(0.6f, 0.6f);
+		Desc.isLoop = true;
 	}
 	/* FOR.Com_VIBuffer */
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_PointInstance"),

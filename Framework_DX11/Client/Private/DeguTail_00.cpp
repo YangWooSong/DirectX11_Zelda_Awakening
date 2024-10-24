@@ -74,8 +74,8 @@ void CDeguTail_00::Priority_Update(_float fTimeDelta)
 		m_p3D_Effect->Priority_Update(fTimeDelta);
 	}
 	m_pEffect->Priority_Update(fTimeDelta);
-	
-//	m_UI->Priority_Update(fTimeDelta);
+	m_pAngryEffect->Priority_Update(fTimeDelta);
+
 }
 
 
@@ -129,7 +129,8 @@ void CDeguTail_00::Update(_float fTimeDelta)
 	}
 
 	m_pEffect->Update(fTimeDelta);
-//	m_UI->Update(fTimeDelta);
+	m_pAngryEffect->Update(fTimeDelta);
+
 }
 
 void CDeguTail_00::Late_Update(_float fTimeDelta)
@@ -146,7 +147,9 @@ void CDeguTail_00::Late_Update(_float fTimeDelta)
 	m_pEffect->Late_Update(fTimeDelta);
 	if(m_bActiveAppearEffect)
 		m_pAppearEffect->Late_Update(fTimeDelta);
-//	m_UI->Late_Update(fTimeDelta);
+
+	if(m_bActiveAngryEffect)
+		m_pAngryEffect->Late_Update(fTimeDelta);
 }
 HRESULT CDeguTail_00::Render()
 {
@@ -207,14 +210,6 @@ HRESULT CDeguTail_00::Render()
 		if (FAILED(m_pShaderCom->Bind_RawValue("g_bRedBlink", &bFalse, sizeof(_bool))))
 			return E_FAIL;
 
-		
-
-#ifdef _DEBUG
-		m_pColliderCom->Render();
-#endif	
-
-		/*if (m_bRenderText)
-			m_pGameInstance->Render_Text(TEXT("Font_BossName36"), TEXT("°Å´ë ²¿¸®¸®"), XMVectorSet(g_iWinSizeX / 2 - 20.f, g_iWinSizeY / 2 - 10, 0.f, 1.f));*/
 	}
 	return S_OK;
 }
@@ -362,6 +357,17 @@ HRESULT CDeguTail_00::Ready_PartObjects()
 		pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
 
 		m_pAppearEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+	}	
+	
+	pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Particle_Image"));
+	if (pGameObj != nullptr)
+	{
+		CParticle_Image::IMAGE_PARTICLE_DESC pImageDesc = {};
+		pImageDesc.iParticleType = CParticle_Image::DEGU_ANGRY;
+		pImageDesc.pParentMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+
+		m_pAngryEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&pImageDesc));
+		m_pAngryEffect->SetActive(false);
 	}
 
     return S_OK;
@@ -416,6 +422,13 @@ void CDeguTail_00::Set_Active_AppearEffect()
 	m_bActiveAppearEffect = true;
 }
 
+void CDeguTail_00::Set_Active_AngryEffect(_bool bActive)
+{
+	m_bActiveAngryEffect = bActive;
+	if (m_pAngryEffect != nullptr)
+		m_pAngryEffect->SetActive(bActive);
+}
+
 CDeguTail_00* CDeguTail_00::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
 	CDeguTail_00* pInstance = new CDeguTail_00(pDevice, pContext);
@@ -450,6 +463,7 @@ void CDeguTail_00::Free()
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
 
+	Safe_Release(m_pAngryEffect);
 	Safe_Release(m_pAppearEffect);
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);

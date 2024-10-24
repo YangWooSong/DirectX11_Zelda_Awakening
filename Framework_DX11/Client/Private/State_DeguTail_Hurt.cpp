@@ -47,6 +47,7 @@ void CState_DeguTail_Hurt::Update(_float fTimeDelta)
     }
     if (m_iCurrentAnimIndex == m_iHitAnimIndex && m_pOwner->Get_IsEnd_CurrentAnimation())
     {
+        static_cast<CDeguTail_00*>(m_pOwner)->Set_Active_AngryEffect(true);
         m_pOwner->Get_Sound()->Play_Sound(TEXT("2_DeguTail_Angry.wav"), 1.f);
         m_iCurrentAnimIndex = m_iSpinAnimIndex;
         m_pOwner->SetUp_NextAnimation(m_iCurrentAnimIndex, 0.1f, true);
@@ -74,7 +75,7 @@ void CState_DeguTail_Hurt::End_State()
 
     if(m_pDeguOwner->Get_Hp() == 2)
          m_pDeguOwner->Set_bOutBodyRed(true);
-
+    static_cast<CDeguTail_00*>(m_pOwner)->Set_Active_AngryEffect(false);
     m_fTimer = 0.f;
 }
 

@@ -55,6 +55,7 @@ public:
 	void Set_bRenderText(_bool bText) { m_bRenderText = bText; }
 	_bool Get_bBlink() { return m_bBlink; }
 	void Set_Active_AppearEffect();
+	void Set_Active_AngryEffect(_bool bActive);
 private:
 	vector<_matrix> m_MParentWorldMarix;
 
@@ -66,12 +67,14 @@ private:
 	_bool			m_bRenderText = { false };
 	_bool			m_bActiveEffect = { false };
 	_bool			m_bActiveAppearEffect = { false };
+	_bool			m_bActiveAngryEffect = { false };
 
 	_float fTimer = { 0.f };
 	_float m_fEffectTimer = { 0.f };
 
 	_int m_iPartIndex = { PART_END };
 	CGameObject* m_pAppearEffect = { nullptr };
+	CGameObject* m_pAngryEffect = { nullptr };
 public:
 	static CDeguTail_00* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);
