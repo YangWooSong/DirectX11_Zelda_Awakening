@@ -52,6 +52,12 @@ void CState_Rola_Push::Update(_float fTimeDelta)
             m_pRollingSpike->Start_Move_Right();
         else
             m_pRollingSpike->Start_Move_Left();
+        static_cast<CRola*>(m_pOwner)->Set_Active_HandEffect(true);
+    }
+
+    if (m_pOwner->Get_Model()->Get_CurrentTrackPosition() > 45.f)
+    {
+        static_cast<CRola*>(m_pOwner)->Set_Active_HandEffect(false);
     }
     if(strcmp(m_pOwner->Get_Model()->Get_CurrentAnimationName(), "push") == 0 && m_pOwner->Get_IsEnd_CurrentAnimation())
     { 

@@ -77,6 +77,7 @@ private:
 	class CItem* m_pItemB = { nullptr };
 	CGameObject* m_pCarryitem = { nullptr };
 
+
 	static _bool m_bActiveSheild ;
 	static _bool m_bActiveSword ;
 

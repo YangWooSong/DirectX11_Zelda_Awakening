@@ -11,6 +11,7 @@
 #include "2DEffects.h"
 #include "3D_Effects.h"
 #include "Rola_Hand_Effect.h"
+#include "Hand_Effect.h"
 CRola::CRola(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     : CMonster{ pDevice, pContext }
 {
@@ -66,6 +67,9 @@ void CRola::Priority_Update(_float fTimeDelta)
 		for (auto& pPartObject : m_Parts)
 			pPartObject->Priority_Update(fTimeDelta);
 
+
+		for (auto& iter : m_pHand_Effect)
+			iter->Priority_Update(fTimeDelta);
 	}
 	m_pEffect->Priority_Update(fTimeDelta);
 
@@ -147,6 +151,9 @@ void CRola::Update(_float fTimeDelta)
 
 	for (auto& pPartObject : m_Parts)
 		pPartObject->Update(fTimeDelta);
+
+	for (auto& iter : m_pHand_Effect)
+		iter->Update(fTimeDelta);
 }
 
 void CRola::Late_Update(_float fTimeDelta)
@@ -161,7 +168,8 @@ void CRola::Late_Update(_float fTimeDelta)
 #ifdef _DEBUG
 		m_pGameInstance->Add_DebugObject(m_pColliderCom);
 #endif
-
+		for (auto& iter : m_pHand_Effect)
+			iter->Late_Update(fTimeDelta);
 	
 	}
 	m_pEffect->Late_Update(fTimeDelta);
@@ -234,6 +242,12 @@ void CRola::OnCollisionExit(CGameObject* pOther)
 {
 }
 
+
+void CRola::Set_Active_HandEffect(_bool bActive)
+{
+	for (auto& iter : m_pHand_Effect)
+		iter->SetActive(bActive);
+}
 
 HRESULT CRola::Ready_Components()
 {
@@ -322,6 +336,25 @@ HRESULT CRola::Ready_Part_Effect()
 	if (FAILED(__super::Add_PartObject(DUST, TEXT("Prototype_GameObject_Rola_Hand_Effect"), &Desc)))
 		return E_FAIL;
  
+
+	CGameObject* pGameObj = m_pGameInstance->Find_Prototype(TEXT("Prototype_GameObject_Hand_Effect"));
+	if (pGameObj != nullptr)
+	{
+		CHand_Effect::HAND_EFFECT_DESC  CDesc{};
+		CDesc.iLevelIndex = m_iLevelIndex;
+		CDesc.pParent = this;
+		CDesc.iEffectType = ROLA_HAND;
+		CDesc.fColor = { 1.f, 1.f,0.3f,1.f };
+		CDesc.vScale = { 2.f,2.f,2.f };
+		CDesc.vPosition = { 0.f,0.f,0.f };
+		CDesc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("attach_R");
+		CDesc.pParentWorldMatrix = m_pTransformCom->Get_WorldMatrix_Ptr();
+		m_pHand_Effect[0] = dynamic_cast<CGameObject*>(pGameObj->Clone(&CDesc));
+
+		CDesc.pSocketBoneMatrix = m_pModelCom->Get_BoneCombindTransformationMatrix_Ptr("attach_L");
+		m_pHand_Effect[1] = dynamic_cast<CGameObject*>(pGameObj->Clone(&CDesc));
+
+	}
 	return S_OK;
 }
 
@@ -356,6 +389,9 @@ void CRola::Free()
 
 	if (nullptr != m_pFsmCom)
 		m_pFsmCom->Release_States();
+
+	for (auto& iter : m_pHand_Effect)
+		Safe_Release(iter);
 
 	Safe_Release(m_pFsmCom);
 	Safe_Release(m_pMonsterSoundCom);

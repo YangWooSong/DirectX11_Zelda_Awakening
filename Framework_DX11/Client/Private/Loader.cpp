@@ -121,6 +121,7 @@
 #include "ItemExplainUI.h"
 #include "FootDust.h"
 #include "Rola_Hand_Effect.h"
+#include "Hand_Effect.h"
 
 
 CLoader::CLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
@@ -1605,6 +1606,11 @@ HRESULT CLoader::Ready_Prototype_For_Dungeon()
 	/* For. Prototype_GameObject_Rola_Hand_Effect*/
 	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Rola_Hand_Effect"),
 		CRola_Hand_Effect::Create(m_pDevice, m_pContext))))
+		return E_FAIL;	
+	
+	/* For. Prototype_GameObject_Hand_Effect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Hand_Effect"),
+		CHand_Effect::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
 	

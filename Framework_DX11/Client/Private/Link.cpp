@@ -43,6 +43,7 @@
 #include "MainUI.h"
 #include "DialogueUI.h"
 
+
 _bool CLink::m_bActiveSheild = { true };
 _bool CLink::m_bActiveSword = { false };
 _bool  CLink::m_bDungeonKey = { false };
@@ -173,7 +174,6 @@ void CLink::Update(_float fTimeDelta)
 			m_pColliderCom->Set_IsActive(true);
 		}
 	}
-
 }
 
 void CLink::Late_Update(_float fTimeDelta)
@@ -791,6 +791,8 @@ HRESULT CLink::Ready_Effect()
 		CGameObject* pEffect = dynamic_cast<CGameObject*>(pGameObj->Clone(&Desc));
 		m_pEffect.push_back(pEffect);
 	}
+
+
 	return S_OK;
 }
 

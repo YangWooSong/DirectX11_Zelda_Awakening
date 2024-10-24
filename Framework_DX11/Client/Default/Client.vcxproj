@@ -200,6 +200,7 @@
     <ClInclude Include="..\Public\Grad.h" />
     <ClInclude Include="..\Public\GrandmaUlrira.h" />
     <ClInclude Include="..\Public\Halo_Effect.h" />
+    <ClInclude Include="..\Public\Hand_Effect.h" />
     <ClInclude Include="..\Public\HeartUI.h" />
     <ClInclude Include="..\Public\HPUI.h" />
     <ClInclude Include="..\Public\InteractUI.h" />
@@ -391,6 +392,7 @@
     <ClCompile Include="..\Private\Glow_Effect.cpp" />
     <ClCompile Include="..\Private\GrandmaUlrira.cpp" />
     <ClCompile Include="..\Private\Halo_Effect.cpp" />
+    <ClCompile Include="..\Private\Hand_Effect.cpp" />
     <ClCompile Include="..\Private\HeartUI.cpp" />
     <ClCompile Include="..\Private\HPUI.cpp" />
     <ClCompile Include="..\Private\InteractUI.cpp" />

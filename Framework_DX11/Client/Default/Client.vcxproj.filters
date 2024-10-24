@@ -658,6 +658,9 @@
     <Filter Include="02.GameObjects\05.Monster\12.Rola\Rola_Hand_Effect">
       <UniqueIdentifier>{4a26552e-f88e-43bb-b733-cc6ac841a4dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\08.Effects\2D_Defaults\Rola_Hand">
+      <UniqueIdentifier>{f4e93f2b-db0d-4bdd-b8df-64a3fbc3c6dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -1227,6 +1230,9 @@
     <ClInclude Include="..\Public\Rola_Hand_Effect.h">
       <Filter>02.GameObjects\05.Monster\12.Rola\Rola_Hand_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Hand_Effect.h">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Rola_Hand</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1786,6 +1792,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rola_Hand_Effect.cpp">
       <Filter>02.GameObjects\05.Monster\12.Rola\Rola_Hand_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Hand_Effect.cpp">
+      <Filter>02.GameObjects\08.Effects\2D_Defaults\Rola_Hand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

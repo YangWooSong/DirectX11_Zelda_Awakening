@@ -40,7 +40,7 @@ public:
 	_int* Get_AddDir() { return &m_iAddDir; }
 	_bool* Get_Arrived() { return &m_bArrived; }
 	_uint* Get_TargetPosIndex() { return &m_iTargetPosIndex; }
-
+	void Set_Active_HandEffect(_bool bActive);
 private:
 	HRESULT Ready_Components();
 	HRESULT Ready_State();
@@ -58,6 +58,8 @@ private:
 	_bool		m_bBlink = { false };
 	_bool		m_bArrived = { true };
 	_bool		m_bActiveEffect = { false };
+
+	CGameObject* m_pHand_Effect[2] = {nullptr};
 public:
 	static CRola* Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	virtual CGameObject* Clone(void* pArg);
