@@ -87,7 +87,7 @@ void CDialogueUI::Update(_float fTimeDelta)
     {
         if (m_fAlpha != 0.f)
         {
-            m_fAlpha = max(0.f, m_fAlpha - fTimeDelta * 2.f);
+            m_fAlpha = max(0.f, m_fAlpha - fTimeDelta * 10.f);
         }
         for (auto& m_pChild : m_childUI_List)
             m_pChild->SetActive(false);

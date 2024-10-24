@@ -44,7 +44,7 @@
 #include "DialogueUI.h"
 
 _bool CLink::m_bActiveSheild = { true };
-_bool CLink::m_bActiveSword = { true };
+_bool CLink::m_bActiveSword = { false };
 _bool  CLink::m_bDungeonKey = { false };
  _int CLink::m_iLupee = { 5 };
   _int  CLink::m_iMaxHp = { 8 };
@@ -98,7 +98,7 @@ HRESULT CLink::Initialize(void* pArg)
 
 	m_ePlayer_Dir = FRONT;
 
-	//m_pGameInstance->SetUp_Player(this);
+//	m_pGameInstance->SetUp_Player(this);
 
 	return S_OK;
 }
@@ -496,10 +496,15 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 			{
 				if(static_cast<CNPC*>(pOther)->Get_UIObject(CNPC::DIALOGUE_UI)->IsActive() == false && m_bTalk == false) 
 				{
-					if(m_pFsmCom->Get_CurrentState() != GET_ITEM)
+
+
+					if(m_pFsmCom->Get_CurrentState() != GET_ITEM && static_cast<CNPC*>(pOther)->Get_UIObject(CNPC::DIALOGUE_UI)->IsActive() == false)
 					{
-						m_PlayerUI[INTERACT_UI]->SetActive(true);
-						m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+		
+							m_fInteractUITimer = 0.f;
+							m_PlayerUI[INTERACT_UI]->SetActive(true);
+							m_PlayerUI[INTERACT_UI]->Set_TextureNum(1);
+						
 					}
 				}
 
@@ -516,7 +521,9 @@ void CLink::OnCollisionStay(CGameObject* pOther)
 				}
 			}
 			else
+			{
 				m_PlayerUI[INTERACT_UI]->SetActive(false);
+			}
 		}
 
 		if (pOther->Get_LayerTag() == TEXT("Layer_Lupee"))
@@ -559,6 +566,10 @@ void CLink::OnCollisionExit(CGameObject* pOther)
 	if (pOther->Get_LayerTag() == TEXT("Layer_LockBlock"))
 	{
 		m_PlayerUI[INTERACT_UI]->SetActive(false);
+	}
+	if (pOther->Get_LayerTag() == TEXT("Layer_NPC"))
+	{
+		m_fInteractUITimer = 0.f;
 	}
 
 }

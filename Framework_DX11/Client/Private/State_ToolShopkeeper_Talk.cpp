@@ -64,6 +64,7 @@ void CState_ToolShopkeeper_Talk::Update(_float fTimeDelta)
 	//선택지 선택, 대화 종료
 	if (KEY_TAP(KEY::E))
 	{
+		m_pOwner->Get_UIObject(CNPC::DIALOGUE_UI)->SetActive(false);
 		Buy_Item();
 		m_pOwner->Change_State(CToolShopkeeper::IDLE);
 	}
@@ -128,6 +129,7 @@ void CState_ToolShopkeeper_Talk::Buy_Item()
 	{
 		static_cast<CStore_Item*>(m_pCarryObj)->Go_Back_OriginPos();
 	}
+
 }
 
 void CState_ToolShopkeeper_Talk::Set_UI_LineNum()

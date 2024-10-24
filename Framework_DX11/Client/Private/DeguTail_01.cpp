@@ -158,7 +158,7 @@ void CDeguTail_01::Late_Update(_float fTimeDelta)
 
     m_pGameInstance->Add_ColliderList(m_pColliderCom);
     m_pGameInstance->Add_RenderObject(CRenderer::RG_NONBLEND, this);
-    if(m_pHeadFsm->Get_CurrentState() != HURT && m_bRender)
+    if(m_pHeadFsm->Get_CurrentState() == HURT && m_bRender && m_pHeadFsm->Get_CurrentState() != STATE_END)
         m_pGameInstance->Add_RenderObject(CRenderer::RG_SHADOWOBJ, this);
     m_pEffect->Late_Update(fTimeDelta);
     m_p3DEffect->Late_Update(fTimeDelta);

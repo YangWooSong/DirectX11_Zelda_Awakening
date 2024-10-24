@@ -77,9 +77,15 @@ void CFlash_Effect::Update(_float fTimeDelta)
 
             if (m_fAngle == 360.f)
                 m_fAngle = 0.f;
+
+            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
+            return;
         }
         else if (m_iEffectType == BOMB_EXPLOSION_EFFECT)
+        {
             AlphaDown(fTimeDelta);
+
+        }
         else if (m_iEffectType == PLAYER_ITEM_GET_EFFECT)
         {
             m_fAngle = min(360.f, m_fAngle + fTimeDelta * 100.f);
@@ -92,13 +98,11 @@ void CFlash_Effect::Update(_float fTimeDelta)
             Lerp_SizeUp(fTimeDelta);
             AlphaDown(fTimeDelta);
             m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION) + XMLoadFloat3(&m_fOffset));
+            return;
         }
 
-       else if (m_iEffectType == ROLA_HAND)
-        {
-
-            m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
-        }
+         m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_pParentObj->Get_Transform()->Get_State(CTransform::STATE_POSITION));
+        
     }
     else
     {
